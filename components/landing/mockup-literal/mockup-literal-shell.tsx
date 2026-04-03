@@ -441,6 +441,39 @@ export function MockupLiteralShell({ html }: { html: string }) {
     reviewAudio?.addEventListener('loadedmetadata', onReviewLoadedMeta)
     updateReviewUi()
 
+    const citySwitcherRoot = document.querySelector('[data-city-switcher]')
+    const citySwitcherBtn = citySwitcherRoot?.querySelector<HTMLButtonElement>('[data-city-switcher-trigger]')
+    const citySwitcherPanel = citySwitcherRoot?.querySelector<HTMLElement>('[data-city-switcher-panel]')
+
+    const setCitySwitcherOpen = (open: boolean) => {
+      if (!citySwitcherRoot || !citySwitcherBtn || !citySwitcherPanel) return
+      citySwitcherRoot.classList.toggle('is-open', open)
+      citySwitcherBtn.setAttribute('aria-expanded', String(open))
+      citySwitcherPanel.hidden = !open
+    }
+
+    const onCitySwitcherBtnClick = (e: MouseEvent) => {
+      e.stopPropagation()
+      const next = !citySwitcherRoot?.classList.contains('is-open')
+      setCitySwitcherOpen(next)
+    }
+
+    const onCitySwitcherDocMouseDown = (e: MouseEvent) => {
+      if (!citySwitcherRoot?.contains(e.target as Node)) setCitySwitcherOpen(false)
+    }
+
+    const onCitySwitcherKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (!citySwitcherRoot?.classList.contains('is-open')) return
+      e.preventDefault()
+      setCitySwitcherOpen(false)
+      citySwitcherBtn?.focus()
+    }
+
+    citySwitcherBtn?.addEventListener('click', onCitySwitcherBtnClick)
+    document.addEventListener('mousedown', onCitySwitcherDocMouseDown)
+    document.addEventListener('keydown', onCitySwitcherKeyDown)
+
     return () => {
       window.removeEventListener('scroll', onScroll)
       observer.disconnect()
@@ -467,6 +500,9 @@ export function MockupLiteralShell({ html }: { html: string }) {
       reviewAudio?.removeEventListener('ended', onReviewEnded)
       reviewAudio?.removeEventListener('loadedmetadata', onReviewLoadedMeta)
       reviewAudio?.pause()
+      citySwitcherBtn?.removeEventListener('click', onCitySwitcherBtnClick)
+      document.removeEventListener('mousedown', onCitySwitcherDocMouseDown)
+      document.removeEventListener('keydown', onCitySwitcherKeyDown)
       delete (window as unknown as { openModal?: () => void }).openModal
       delete (window as unknown as { closeModal?: () => void }).closeModal
       delete (window as unknown as { submitLead?: typeof submitLead }).submitLead

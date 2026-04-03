@@ -143,6 +143,44 @@ function rehabProgramNoteHtml(city: City): string {
   return `<p class="rehab-program-note">В групповой части используем формат <strong>«${city.rehabProgram}»</strong> наряду с индивидуальной поддержкой.</p>`
 }
 
+function escSwitcherText(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+/** Премиальный переключатель города в шапке: список из getActiveCities(). */
+function citySwitcherHtml(current: City): string {
+  const list = getActiveCities()
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+  const items = list
+    .map(c => {
+      const name = escSwitcherText(c.name)
+      const isCurrent = c.slug === current.slug
+      const check = isCurrent
+        ? `<span class="city-switcher__check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>`
+        : `<span class="city-switcher__check city-switcher__check--spacer" aria-hidden="true"></span>`
+      if (isCurrent) {
+        return `<span class="city-switcher__item city-switcher__item--current" role="option" aria-selected="true" aria-current="true">${check}<span class="city-switcher__item-label">${name}</span></span>`
+      }
+      return `<a class="city-switcher__item" role="option" href="/${escSwitcherText(c.slug)}/" aria-selected="false">${check}<span class="city-switcher__item-label">${name}</span></a>`
+    })
+    .join('')
+
+  const curName = escSwitcherText(current.name)
+
+  return `<div class="city-switcher" data-city-switcher>
+  <button type="button" class="city-chip city-chip--trigger" data-city-switcher-trigger aria-expanded="false" aria-haspopup="listbox" aria-controls="city-switcher-panel" id="city-switcher-btn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span class="city-chip__label">${curName}</span>
+    <svg class="city-chip__chevron" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+  <div class="city-switcher__panel" id="city-switcher-panel" data-city-switcher-panel role="listbox" aria-labelledby="city-switcher-btn" hidden>
+    <div class="city-switcher__title">Выберите город</div>
+    <div class="city-switcher__list">${items}</div>
+  </div>
+</div>`
+}
+
 /** HTML тела страницы — буквальный мокап + подстановки города (без изменения визуала макета). */
 export function getMockupHtml(city: City): string {
   const t = loadTemplate()
@@ -150,6 +188,7 @@ export function getMockupHtml(city: City): string {
     .replaceAll('__PHONE__', city.phone.replace(/\s/g, ''))
     .replaceAll('__PHONE_DISPLAY__', city.phoneDisplay)
     .replaceAll('__CITY_NAME__', city.name)
+    .replaceAll('__CITY_SWITCHER__', citySwitcherHtml(city))
     .replaceAll('__TOPBAR_BRIGADE_WORDS__', brigadePluralPhrase(city.teamsAvailable))
     .replaceAll('__TOPBAR_TRUST_LINE__', topbarTrustLine(city))
     .replaceAll('__TOPBAR_DISCLAIMER__', TOPBAR_DISCLAIMER_SHORT)
