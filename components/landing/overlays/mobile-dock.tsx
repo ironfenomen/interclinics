@@ -22,7 +22,7 @@ export function LandingMobileDock({ city }: { city: City }) {
             Позвонить сейчас
           </a>
           <a
-            className="fab flex items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.08)]"
+            className="fab flex min-h-[48px] min-w-[48px] items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.08)]"
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
@@ -46,7 +46,7 @@ export function LandingMobileDock({ city }: { city: City }) {
       </div>
 
       <a
-        className="landing-float-wa fixed bottom-[94px] right-[18px] z-[65] hidden h-[58px] w-[58px] items-center justify-center rounded-full bg-[#25D366] shadow-[0_18px_38px_rgba(37,211,102,0.36)] max-md:flex"
+        className="landing-float-wa fixed z-[65] hidden h-[58px] min-h-[48px] w-[58px] min-w-[48px] items-center justify-center rounded-full bg-[#25D366] shadow-[0_18px_38px_rgba(37,211,102,0.36)] max-md:flex max-md:bottom-[calc(94px+env(safe-area-inset-bottom,0px))] max-md:right-[max(18px,env(safe-area-inset-right,0px))]"
         href={wa}
         target="_blank"
         rel="noopener noreferrer"

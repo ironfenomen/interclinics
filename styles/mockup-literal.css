@@ -45,7 +45,12 @@ html{scroll-behavior:smooth}
 .ic-mockup-root a{text-decoration:none;color:inherit}
 .ic-mockup-root button,.ic-mockup-root input{font-family:var(--font);border:none;outline:none}
 .ic-mockup-root img{display:block;max-width:100%}
-.c{width:min(1240px,calc(100% - 40px));margin:0 auto}
+.c{
+  width:min(1240px,calc(100% - 40px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));
+  margin:0 auto;
+  box-sizing:border-box;
+  min-width:0
+}
 .section-title{text-align:center;max-width:760px;margin:0 auto 46px}
 .section-title span{
   display:inline-flex;align-items:center;gap:8px;
@@ -57,7 +62,11 @@ html{scroll-behavior:smooth}
   content:"";width:8px;height:8px;border-radius:50%;
   background:linear-gradient(135deg,var(--gold),var(--emerald));
 }
-.section-title h2{margin-top:16px;font-size:42px;line-height:1.1;letter-spacing:-.04em}
+.section-title h2{
+  margin-top:16px;font-size:42px;line-height:1.1;letter-spacing:-.04em;
+  text-wrap:balance;
+  overflow-wrap:break-word
+}
 .section-title p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.75}
 .badge{
   display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
@@ -271,6 +280,7 @@ html{scroll-behavior:smooth}
 /* header — medical-tech: одна линия, общие высоты интерактивов, Safari-safe */
 .header{
   position:sticky;top:0;z-index:70;
+  padding-top:env(safe-area-inset-top,0px);
   background:rgba(255,255,255,.88);
   -webkit-backdrop-filter:saturate(180%) blur(16px);
   backdrop-filter:saturate(180%) blur(16px);
@@ -285,7 +295,7 @@ html{scroll-behavior:smooth}
 /* Как у topbar: не давать .header-inner перебивать ширину контейнера (.c или .mockup-container) */
 .c.header-inner,
 .mockup-container.header-inner{
-  width:min(1240px,calc(100% - 40px));
+  width:min(1240px,calc(100% - 40px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));
   margin-left:auto;
   margin-right:auto;
   max-width:100%;
@@ -3542,31 +3552,57 @@ html{scroll-behavior:smooth}
 
 /* floating */
 .mobile-bar{
-  display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:80;
+  display:none;
+  position:fixed;
+  left:max(12px,env(safe-area-inset-left,0px));
+  right:max(12px,env(safe-area-inset-right,0px));
+  bottom:max(12px,env(safe-area-inset-bottom,0px));
+  z-index:80;
   padding:10px;border-radius:24px;background:rgba(7,20,35,.92);backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow-lg)
+  border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow-lg);
+  box-sizing:border-box;
+  max-width:100%
 }
-.mobile-bar-inner{display:grid;grid-template-columns:1fr 54px 54px;gap:8px}
+.mobile-bar-inner{display:grid;grid-template-columns:1fr 54px 54px;gap:8px;align-items:stretch}
 .mobile-action,.fab{
-  display:flex;align-items:center;justify-content:center;border-radius:16px;font-weight:800
+  display:flex;align-items:center;justify-content:center;border-radius:16px;font-weight:800;
+  box-sizing:border-box
 }
+.mobile-bar-inner .mobile-action{min-height:48px}
+.mobile-bar-inner .fab{min-width:48px;min-height:48px}
+.mobile-action{padding-left:12px;padding-right:12px}
 .mobile-action{background:linear-gradient(180deg,var(--emerald),var(--emerald-2));color:#fff;font-size:15px}
 .fab{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
 .fab svg{width:22px;height:22px}
 .float-wa{
-  position:fixed;right:18px;bottom:94px;z-index:65;width:58px;height:58px;border-radius:50%;
-  display:none;align-items:center;justify-content:center;background:#25D366;box-shadow:0 18px 38px rgba(37,211,102,.36)
+  position:fixed;
+  right:max(18px,env(safe-area-inset-right,0px));
+  bottom:calc(94px + env(safe-area-inset-bottom,0px));
+  z-index:65;width:58px;height:58px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;background:#25D366;box-shadow:0 18px 38px rgba(37,211,102,.36);
+  box-sizing:border-box
 }
 .float-wa svg{width:28px;height:28px;fill:#fff}
 
 /* modal + cookie */
 .overlay{
   position:fixed;inset:0;background:rgba(6,17,32,.64);backdrop-filter:blur(7px);display:none;
-  align-items:center;justify-content:center;padding:18px;z-index:120
+  align-items:center;justify-content:center;
+  padding:max(18px,env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) max(18px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+  z-index:120;
+  box-sizing:border-box;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch
 }
 .overlay.open{display:flex}
 .modal{
-  width:min(100%,480px);padding:28px;border-radius:30px;background:#fff;box-shadow:var(--shadow-lg);position:relative
+  width:min(100%,480px);
+  max-height:min(88dvh,calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 36px));
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:28px;border-radius:30px;background:#fff;box-shadow:var(--shadow-lg);position:relative;
+  box-sizing:border-box
 }
 .close{
   position:absolute;right:16px;top:16px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -3585,9 +3621,13 @@ html{scroll-behavior:smooth}
   background:var(--emerald-soft);color:var(--emerald);font-size:30px;font-weight:800
 }
 .cookie{
-  position:fixed;left:18px;bottom:18px;z-index:90;width:min(460px,calc(100% - 36px));
+  position:fixed;
+  left:max(18px,env(safe-area-inset-left,0px));
+  bottom:max(18px,env(safe-area-inset-bottom,0px));
+  z-index:90;width:min(460px,calc(100% - 36px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));
   padding:18px 18px 16px;border-radius:22px;background:rgba(7,20,35,.92);color:rgba(255,255,255,.76);
-  border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow-lg);display:none
+  border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow-lg);display:none;
+  box-sizing:border-box
 }
 .cookie.show{display:block}
 .cookie p{font-size:13px;line-height:1.7}
@@ -3597,15 +3637,26 @@ html{scroll-behavior:smooth}
 
 /* exit — спокойный премиальный тон, не промо-баннер */
 .exit-pop{
-  position:fixed;inset:0;background:rgba(6,17,32,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px;z-index:130
+  position:fixed;inset:0;background:rgba(6,17,32,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;
+  padding:max(18px,env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) max(18px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+  z-index:130;
+  box-sizing:border-box;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch
 }
 .exit-pop.open{display:flex}
 .exit-card{
-  width:min(100%,560px);padding:32px 34px 30px;border-radius:32px;background:#fff;box-shadow:var(--shadow-lg);position:relative;
+  width:min(100%,560px);
+  max-height:min(90dvh,calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 32px));
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:32px 34px 30px;border-radius:32px;background:#fff;box-shadow:var(--shadow-lg);position:relative;
   background:
     radial-gradient(circle at top right, rgba(215,180,105,.14), transparent 20%),
     linear-gradient(180deg,#ffffff,#F8FBFF);
-  border:1px solid rgba(226,232,241,.95)
+  border:1px solid rgba(226,232,241,.95);
+  box-sizing:border-box
 }
 .exit-card h3{font-size:clamp(26px,4.2vw,34px);line-height:1.08;letter-spacing:-.045em;color:var(--deep)}
 .exit-card .exit-lead{
@@ -3685,7 +3736,7 @@ html{scroll-behavior:smooth}
   .final-form .final-form__consent{grid-column:1/-1;grid-row:3}
 }
 @media (max-width:768px){
-  .c{width:min(1240px,calc(100% - 28px))}
+  .c{width:min(1240px,calc(100% - 28px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)))}
   .topbar{display:none}
   .header-inner{
     grid-template-columns:auto auto;justify-content:space-between;
@@ -3701,7 +3752,7 @@ html{scroll-behavior:smooth}
   .hero{padding:38px 0 20px}
   .hero-grid{gap:22px}
   .hero-content{padding:12px 0}
-  .hero-title{font-size:34px}
+  .hero-title{font-size:clamp(26px,8.2vw,34px);letter-spacing:-.048em}
   .hero-sub{font-size:16px}
   .hero-proof,.price-grid,.team-grid,.review-grid,.footer-grid,.proof-list,.final-form,.form-grid,.form-inline-proof,.route-side-grid,.faq-wrap,.exit-benefits,.exit-form{grid-template-columns:1fr}
   .exit-form .exit-form__phone{grid-column:1/-1;grid-row:1}
@@ -3727,5 +3778,13 @@ html{scroll-behavior:smooth}
   .trust-strip{margin-top:0;padding-top:14px}
   .route,.proof,.pricing,.team,.reviews,.faq{padding-bottom:76px}
   .mobile-bar,.float-wa{display:flex}
-  .ic-mockup-root{padding-bottom:92px}
+  .ic-mockup-root{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+}
+
+/* Очень узкие экраны: заголовок hero и бренд в шапке без налезания */
+@media (max-width:360px){
+  .hero-title{font-size:clamp(24px,8vw,30px);letter-spacing:-.045em}
+  .hero-title-geo{font-size:clamp(22px,7.5vw,28px)}
+  .brand-name{font-size:18px}
+  .brand-name .brand-tagline{font-size:8px;letter-spacing:.12em}
 }

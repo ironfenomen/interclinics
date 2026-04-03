@@ -25,7 +25,7 @@ export function LandingHero({ city }: { city: City }) {
               ))}
             </div>
 
-            <h1 className="max-w-[760px] text-[34px] font-extrabold leading-[1.01] tracking-[-0.055em] text-white min-[769px]:text-[44px] min-[1025px]:text-[50px] min-[1181px]:text-[60px]">
+            <h1 className="max-w-[760px] text-balance break-words text-[34px] font-extrabold leading-[1.01] tracking-[-0.055em] text-white min-[769px]:text-[44px] min-[1025px]:text-[50px] min-[1181px]:text-[60px] max-[380px]:text-[28px]">
               <span className="text-gold">Экстренная наркологическая помощь</span>, кодирование и реабилитация{' '}
               <em className="not-italic text-[#dffcef]">в {city.namePrep}</em> — premium performance prototype
             </h1>

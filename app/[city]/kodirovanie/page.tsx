@@ -68,13 +68,17 @@ export default function KodirovaniePage({ params }: { params: { city: string } }
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 24 }}>Методы кодирования</h2>
             <div style={{ display: 'grid', gap: 14 }}>
               {methods.map((m, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 20, padding: '20px 24px', background: 'var(--bg)', borderRadius: 16, border: '1px solid var(--b2)', alignItems: 'center' }}>
+                <div
+                  key={i}
+                  className="ic-split-label-price"
+                  style={{ padding: '20px 24px', background: 'var(--bg)', borderRadius: 16, border: '1px solid var(--b2)' }}
+                >
                   <div>
                     <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--deep)', marginBottom: 4 }}>{m.name}</div>
                     <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>{m.desc}</div>
                     <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 6 }}>Срок: {m.dur}</div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
+                  <div style={{ textAlign: 'right' }} className="max-[640px]:text-left max-[640px]:justify-self-start">
                     <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--deep)', whiteSpace: 'nowrap' }}>{m.price}</div>
                   </div>
                 </div>

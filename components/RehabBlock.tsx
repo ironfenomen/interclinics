@@ -67,14 +67,7 @@ export default function RehabBlock({ city }: { city: City }) {
           </p>
         )}
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: 18,
-            marginBottom: 32,
-          }}
-        >
+        <div className="ic-grid-autofit-sm" style={{ gap: 18, marginBottom: 32 }}>
           {cards.map(c => (
             <div
               key={c.title}

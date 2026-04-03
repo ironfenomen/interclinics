@@ -109,7 +109,7 @@ export function HeroFormPanel({ city }: { city: City }) {
                 setActive(i)
                 setCopyPrimed(false)
               }}
-              className={`rounded-2xl border px-[14px] py-3 text-left shadow-xs transition-[transform,box-shadow] duration-[220ms] ease-out hover:-translate-y-0.5 hover:shadow-landing ${
+              className={`min-h-[48px] rounded-2xl border px-[14px] py-3 text-left shadow-xs transition-[transform,box-shadow] duration-[220ms] ease-out hover:-translate-y-0.5 hover:shadow-landing md:min-h-0 ${
                 i === active
                   ? 'border-[rgba(16,185,129,0.35)] bg-gradient-to-b from-[rgba(16,185,129,0.10)] to-[rgba(255,255,255,0.95)] shadow-[0_16px_28px_rgba(16,185,129,0.12)]'
                   : 'border-line bg-gradient-to-b from-white to-[#F8FBFE]'

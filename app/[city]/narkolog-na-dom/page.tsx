@@ -58,7 +58,7 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
         <section style={{ padding: '60px 0' }}>
           <div className="ctr" style={{ maxWidth: 800 }}>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 24 }}>Что входит в вызов</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+            <div className="ic-feature-grid">
               {service.includes.map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 18px', background: 'var(--bg)', borderRadius: 12, fontSize: 14, color: 'var(--t2)' }}>
                   <span style={{ color: 'var(--em)', fontWeight: 700, fontSize: 16 }}>✓</span>{item}

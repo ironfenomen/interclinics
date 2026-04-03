@@ -6,7 +6,7 @@ export default function Reviews() {
     <section style={{ padding: '72px 0' }}>
       <div className="ctr">
         <div className="shdr"><div className="shdr__label">Отзывы</div><h2 className="shdr__title">Что говорят пациенты</h2></div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+        <div className="ic-grid-3">
           {/* Аудио-отзыв */}
           <div style={{ background: 'var(--deep)', borderRadius: 16, padding: 24, border: '1px solid var(--deep)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
@@ -42,7 +42,6 @@ export default function Reviews() {
           ))}
         </div>
       </div>
-      <style jsx>{`@media(max-width:1024px){div[style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:768px){div[style*="grid-template-columns: repeat(3"]{grid-template-columns:1fr!important}}`}</style>
     </section>
   )
 }

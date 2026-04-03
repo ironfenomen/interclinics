@@ -31,7 +31,19 @@ export default function Header({ city }: { city: City }) {
 
       {/* HEADER */}
       <header className={`${styles.hdr} ${scrolled ? styles.stuck : ''}`}>
-        <div className="ctr" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '64px' }}>
+        <div
+          className="ctr"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '10px 16px',
+            minHeight: 64,
+            paddingTop: 6,
+            paddingBottom: 6,
+          }}
+        >
           <a href={`/${city.slug}/`} className={styles.logo}>
             <div className={styles.mark}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" width="22" height="22">

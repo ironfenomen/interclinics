@@ -39,12 +39,13 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
       <main>
         {/* HERO для услуги */}
         <section style={{
-          background: 'var(--deep)', padding: '56px 0 64px',
+          background: 'var(--deep)', padding: 'clamp(36px, 8vw, 56px) 0 clamp(44px, 9vw, 64px)',
           position: 'relative', overflow: 'hidden'
         }}>
           <div style={{
             position: 'absolute', top: '-40%', right: '-15%',
             width: 650, height: 650,
+            maxWidth: 'min(100vw, 650px)',
             background: 'radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 65%)',
             borderRadius: '50%'
           }} />
@@ -60,8 +61,9 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             </div>
 
             <h1 style={{
-              fontSize: 42, fontWeight: 800, color: '#fff',
-              lineHeight: 1.15, marginBottom: 18, letterSpacing: '-.03em'
+              fontSize: 'clamp(26px, 6vw, 42px)', fontWeight: 800, color: '#fff',
+              lineHeight: 1.15, marginBottom: 18, letterSpacing: '-.03em',
+              textWrap: 'balance' as const, overflowWrap: 'break-word' as const,
             }}>
               Вывод из запоя на дому<br />
               <em style={{ fontStyle: 'normal', color: 'var(--em)' }}>
@@ -78,9 +80,12 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             </p>
 
             <a href={`tel:${city.phone}`} style={{
-              display: 'inline-block', padding: '16px 40px',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              padding: '14px clamp(18px, 4vw, 40px)',
+              minHeight: 48,
               background: 'var(--em)', color: '#fff', borderRadius: 12,
-              fontWeight: 700, fontSize: 17, transition: 'all .25s'
+              fontWeight: 700, fontSize: 'clamp(15px, 3.5vw, 17px)', transition: 'all .25s',
+              textAlign: 'center' as const, maxWidth: '100%', boxSizing: 'border-box' as const,
             }}>
               Позвонить: {city.phoneDisplay}
             </a>
@@ -95,9 +100,7 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             }}>
               Что входит в процедуру
             </h2>
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12
-            }}>
+            <div className="ic-feature-grid">
               {service.includes.map((item, i) => (
                 <div key={i} style={{
                   display: 'flex', alignItems: 'center', gap: 10,

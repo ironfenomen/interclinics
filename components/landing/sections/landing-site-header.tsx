@@ -15,7 +15,7 @@ export function LandingSiteHeader({ city }: { city: City }) {
 
   return (
     <header
-      className={`sticky top-0 z-[70] border-b border-[rgba(220,230,241,0.85)] bg-[rgba(255,255,255,0.82)] backdrop-blur-[18px] transition-shadow ${
+      className={`sticky top-0 z-[70] border-b border-[rgba(220,230,241,0.85)] bg-[rgba(255,255,255,0.82)] pt-[env(safe-area-inset-top,0px)] backdrop-blur-[18px] transition-shadow ${
         scrolled ? 'shadow-[0_10px_28px_rgba(10,25,45,0.08)]' : ''
       }`}
     >

@@ -22,7 +22,6 @@ export default function SocialProof() {
           ))}
         </div>
       </div>
-      <style jsx>{`@media(max-width:768px){div[style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr)!important}}`}</style>
     </section>
   )
 }

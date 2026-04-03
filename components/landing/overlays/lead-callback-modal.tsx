@@ -76,10 +76,10 @@ export function LeadCallbackModal() {
         if (e.target === overlayRef.current) handleClose()
       }}
     >
-      <div className="relative w-full max-w-[480px] rounded-[30px] bg-white p-7 shadow-landingLg">
+      <div className="relative my-auto max-h-[88dvh] w-full max-w-[480px] overflow-y-auto overscroll-contain rounded-[30px] bg-white p-7 shadow-landingLg">
         <button
           type="button"
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-surface-bg text-lg font-extrabold text-ink-muted-2"
+          className="absolute right-3 top-3 flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-surface-bg text-lg font-extrabold text-ink-muted-2 sm:right-4 sm:top-4"
           onClick={handleClose}
           aria-label="Закрыть"
         >

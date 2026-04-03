@@ -13,7 +13,7 @@ export default function DoctorCards({ doctors }: { doctors: Doctor[] }) {
           <h2 className="shdr__title">Наши врачи</h2>
           <p className="shdr__desc">Дипломированные специалисты с подтверждённой квалификацией</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
+        <div className="ic-grid-4-tight">
           {doctors.map((doc, i) => (
             <div key={i} style={{ background: '#fff', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--b2)' }}>
               <div style={{ height: 200, background: `linear-gradient(135deg, var(--deep), var(--deep2))`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -36,7 +36,6 @@ export default function DoctorCards({ doctors }: { doctors: Doctor[] }) {
           ))}
         </div>
       </div>
-      <style jsx>{`@media(max-width:1024px){div[style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:480px){div[style*="grid-template-columns: repeat(4"]{grid-template-columns:1fr!important}}`}</style>
     </section>
   )
 }

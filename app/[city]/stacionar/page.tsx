@@ -151,7 +151,7 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 24, textAlign: 'center' }}>
               Программы стационара
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+            <div className="ic-grid-autofit-md" style={{ gap: 16 }}>
               {programs.map(p => (
                 <div
                   key={p.name}

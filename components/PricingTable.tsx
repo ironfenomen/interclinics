@@ -30,7 +30,7 @@ export default function PricingTable({ city }: { city: City }) {
           <h2 className="shdr__title">Вывод из запоя — цены</h2>
           <p className="shdr__desc">Прозрачные цены без скрытых доплат. Окончательная стоимость — после осмотра врача.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+        <div className="ic-pricing-grid">
           {packages.map((pkg, i) => (
             <div key={i} style={{
               background: '#fff', borderRadius: 16, padding: '32px 24px',
@@ -75,7 +75,6 @@ export default function PricingTable({ city }: { city: City }) {
           ))}
         </div>
       </div>
-      <style jsx>{`@media(max-width:1024px){div[style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:768px){div[style*="grid-template-columns: repeat(3"]{grid-template-columns:1fr!important}}`}</style>
     </section>
   )
 }

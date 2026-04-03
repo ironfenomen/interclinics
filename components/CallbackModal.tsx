@@ -41,11 +41,20 @@ export default function CallbackModal({ city }: { city: City }) {
       style={{
         display: 'none', position: 'fixed', inset: 0,
         background: 'rgba(11,29,53,.7)', backdropFilter: 'blur(4px)',
-        zIndex: 200, alignItems: 'center', justifyContent: 'center', padding: 20
+        zIndex: 200, alignItems: 'center', justifyContent: 'center',
+        padding: 'max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left))',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        boxSizing: 'border-box',
       }}
       className="callback-overlay"
     >
-      <div style={{ background: '#fff', borderRadius: 24, padding: '36px 32px', maxWidth: 420, width: '100%', position: 'relative', animation: 'fadeUp .3s ease' }}>
+      <div style={{
+        background: '#fff', borderRadius: 24, padding: '36px 32px', maxWidth: 420, width: '100%', position: 'relative', animation: 'fadeUp .3s ease',
+        maxHeight: 'min(88dvh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px))',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+      }}>
         <div onClick={close} style={{ position: 'absolute', top: 16, right: 16, width: 32, height: 32, borderRadius: '50%', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
           ✕
         </div>

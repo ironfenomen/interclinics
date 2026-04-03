@@ -11,7 +11,7 @@ export default function ServiceCards({ city, services }: { city: City; services:
           <h2 className="shdr__title">Наркологическая помощь в&nbsp;{city.namePrep}</h2>
           <p className="shdr__desc">Полный спектр услуг на дому и в стационаре. Все врачи лицензированы.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 18 }}>
+        <div className="ic-service-grid">
           {services.map(svc => {
             const price = (city as any)[svc.priceKey] || city.priceBase
             return (

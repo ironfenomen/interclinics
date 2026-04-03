@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 /* Мокап-стили в root layout: всегда в одном графе с globals — не зависят от code-split страницы / не «теряются» при сбое чанков dev */
 import '@/styles/mockup-literal.css'
 import type { ReactNode } from 'react'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -19,11 +19,18 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.ico' },
 }
 
+/** viewport-fit=cover — env(safe-area-inset-*) на iPhone / edge-to-edge Android */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru" className={plusJakarta.variable}>
       <body
-        className={`${plusJakarta.className} text-[#162334] antialiased`}
+        className={`${plusJakarta.className} min-h-[100dvh] overflow-x-clip text-[#162334] antialiased [text-size-adjust:100%]`}
       >
         {children}
 

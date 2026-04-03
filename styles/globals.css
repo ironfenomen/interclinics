@@ -10,15 +10,23 @@
   --t3: #94a3b8;
 }
 
-/* Контейнер .c мокапа: только width + margin, без лишнего px (иначе сужение ×2) */
+/* Контейнер .c мокапа: только width + margin; вычитаем safe-area (нотч / edge) */
 .mockup-container {
-  width: min(1240px, calc(100% - 40px));
+  width: min(
+    1240px,
+    calc(100% - 40px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))
+  );
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
+  min-width: 0;
 }
 @media (max-width: 768px) {
   .mockup-container {
-    width: min(1240px, calc(100% - 28px));
+    width: min(
+      1240px,
+      calc(100% - 28px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))
+    );
   }
 }
 
@@ -110,11 +118,147 @@
 @layer base {
   html {
     @apply scroll-smooth;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
   *,
   *::before,
   *::after {
     @apply box-border;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Единый контейнер легаси-страниц услуг (раньше класс .ctr не был определён)
+   -------------------------------------------------------------------------- */
+.ctr {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  min-width: 0;
+}
+@media (max-width: 768px) {
+  .ctr {
+    padding-left: max(14px, env(safe-area-inset-left, 0px));
+    padding-right: max(14px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Адаптивные сетки услуг: minmax(0,1fr) против переполнения flex/grid в Safari */
+.ic-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 1024px) {
+  .ic-pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .ic-pricing-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ic-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .ic-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ic-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (max-width: 1024px) {
+  .ic-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .ic-grid-4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ic-grid-4-tight {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 1024px) {
+  .ic-grid-4-tight {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .ic-grid-4-tight {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ic-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .ic-grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ic-service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+}
+
+.ic-grid-autofit-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+}
+
+.ic-grid-autofit-md {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+}
+
+.ic-grid-autofit-lg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 18px;
+}
+
+.ic-split-label-price {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .ic-split-label-price {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Контент не прячется под фиксированной нижней панелью (MobileBar) */
+@media (max-width: 768px) {
+  body:has(.mobile-bar) {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -249,6 +393,8 @@
   .landing-section-head h2,
   .landing-section-head .landing-section-h2 {
     @apply mt-4 text-[42px] font-extrabold leading-[1.1] tracking-[-0.04em] text-ink max-md:text-[32px];
+    text-wrap: balance;
+    overflow-wrap: break-word;
   }
   .landing-section-head p,
   .landing-section-head .landing-section-desc {

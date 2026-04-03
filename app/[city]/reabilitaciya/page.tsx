@@ -113,7 +113,7 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 28, textAlign: 'center' }}>
               Программы по срокам
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18 }}>
+            <div className="ic-grid-autofit-lg">
               {programs.map(p => (
                 <div
                   key={p.title}
@@ -139,7 +139,7 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
         <section style={{ padding: '0 0 60px', background: 'var(--bg)' }}>
           <div className="ctr" style={{ maxWidth: 800, paddingTop: 56, paddingBottom: 56 }}>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 20 }}>Что включено</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+            <div className="ic-grid-autofit-sm" style={{ gap: 12 }}>
               {service.includes.map((item, i) => (
                 <div
                   key={i}

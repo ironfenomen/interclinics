@@ -308,13 +308,16 @@ export default function CitySelector({ cities, services }: Props) {
 // ============================================================
 const S: Record<string, CSSProperties> = {
   page: {
-    minHeight: '100vh',
+    minHeight: '100dvh',
     background: 'linear-gradient(180deg,#071224 0%,#0B1D35 50%,#10294a 100%)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '40px 20px',
+    padding:
+      'max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left))',
     fontFamily: "'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif",
+    boxSizing: 'border-box',
+    overflowX: 'hidden',
   },
   wrap: { maxWidth: 920, width: '100%' },
 
@@ -357,7 +360,7 @@ const S: Record<string, CSSProperties> = {
   // Grid
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
     gap: 14,
   },
   card: {

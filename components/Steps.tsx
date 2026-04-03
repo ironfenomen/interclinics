@@ -13,7 +13,7 @@ export default function Steps({ city }: { city: City }) {
     <section style={{ padding: '72px 0' }}>
       <div className="ctr">
         <div className="shdr"><div className="shdr__label">Как мы работаем</div><h2 className="shdr__title">4 шага к помощи</h2></div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+        <div className="ic-grid-4">
           {steps.map(s => (
             <div key={s.n} style={{ textAlign: 'center' }}>
               <div style={{ width:56, height:56, borderRadius:'50%', background:'var(--em)', color:'#fff', fontSize:22, fontWeight:800, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 16px' }}>{s.n}</div>
@@ -23,7 +23,6 @@ export default function Steps({ city }: { city: City }) {
           ))}
         </div>
       </div>
-      <style jsx>{`@media(max-width:1024px){div[style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:768px){div[style*="grid-template-columns: repeat(4"]{grid-template-columns:1fr!important}}`}</style>
     </section>
   )
 }

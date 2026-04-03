@@ -99,14 +99,7 @@ export default function StacionarBlock({ city }: { city: City }) {
           </p>
         )}
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: 18,
-            marginBottom: 32,
-          }}
-        >
+        <div className="ic-grid-autofit-md" style={{ gap: 18, marginBottom: 32 }}>
           {programs.map(p => (
             <div
               key={p.title}
