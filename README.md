@@ -1,0 +1,15 @@
+# InterClinics — Мультигородская наркологическая платформа
+
+## Быстрый старт
+
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Откройте http://localhost:3000/stavropol/
+
+## Добавить город = добавить объект в data/cities.ts. Всё.
+
+Подробная документация — в комментариях внутри каждого файла.

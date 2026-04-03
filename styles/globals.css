@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Legacy tokens — ключевые цвета как в мокапе interclinics-mockup-100-final (:root) */
+:root {
+  --f: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
+  --deep: #071423;
+  --em: #10b981;
+  --t3: #94a3b8;
+}
+
+/* Контейнер .c мокапа: только width + margin, без лишнего px (иначе сужение ×2) */
+.mockup-container {
+  width: min(1240px, calc(100% - 40px));
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 768px) {
+  .mockup-container {
+    width: min(1240px, calc(100% - 28px));
+  }
+}
+
+.mockup-topbar-bg {
+  background: linear-gradient(90deg, #06111f, #0b1d35 50%, #143252);
+}
+
+/* Topbar: тот же .mockup-container + w-full max-w-full, что и header-inner */
+.landing-topbar-inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+/* Desktop: крайние колонки по содержимому, центр — остаток; overflow не даёт налезать */
+.landing-topbar-row {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
+  align-items: center;
+  column-gap: 12px;
+  min-height: 34px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.topbar-slot-left {
+  justify-self: start;
+  align-self: center;
+  white-space: nowrap;
+}
+.topbar-slot-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.topbar-trust {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.72);
+}
+.topbar-slot-right {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.topbar-slot-right .topbar-disclaimer {
+  max-width: 220px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-slot-right .topbar-mini-link {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* .brand-mark мокапа */
+.mockup-brand-mark {
+  background: linear-gradient(135deg, #0b1d35, #143252 62%, #10b981);
+  box-shadow: 0 16px 30px rgba(11, 29, 53, 0.18);
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+}
+
+/* Тело лендинга — как в мокапе */
+@layer components {
+  .body-landing {
+    background:
+      radial-gradient(circle at top left, rgba(215, 180, 105, 0.09), transparent 22%),
+      radial-gradient(circle at 90% 5%, rgba(16, 185, 129, 0.09), transparent 18%),
+      linear-gradient(180deg, #ffffff 0%, #f7fafd 20%, #ffffff 56%, #f6fafd 100%);
+  }
+
+  /* Hero: сетка точек + маска (как в HTML-мокапе) */
+  .landing-hero-dots::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
+    pointer-events: none;
+  }
+
+  /* Карточка формы: градиентная обводка через mask */
+  .landing-form-card {
+    position: relative;
+  }
+  .landing-form-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 29px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(215, 180, 105, 0.65),
+      rgba(255, 255, 255, 0) 30%,
+      rgba(16, 185, 129, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+}
+
+/* Утилита для «волны» аудио — псевдоэлемент через arbitrary сложнее в TW */
+.landing-audio-wave::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  background: linear-gradient(90deg, #d7b469, #f7d79b);
+}
+
+/* Кнопки и поля — 1:1 мокап interclinics-mockup-100-final (.btn / .input) */
+@layer components {
+  .input-mock {
+    @apply w-full rounded-2xl border-[1.5px] border-line bg-white px-[18px] py-4 text-[15px] font-semibold text-ink transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-ink-muted-2 placeholder:font-medium;
+    @apply focus:border-emerald focus:shadow-[0_0_0_4px_rgba(16,185,129,0.13)] focus:outline-none;
+  }
+  .input-mock-error {
+    @apply border-danger shadow-[0_0_0_4px_rgba(233,94,94,0.1)];
+  }
+
+  .btn-primary-mock {
+    @apply inline-flex cursor-pointer items-center justify-center gap-[10px] rounded-2xl px-6 py-4 text-[15px] font-extrabold text-white;
+    background: linear-gradient(180deg, #10b981, #0fa06f);
+    box-shadow: 0 16px 34px rgba(16, 185, 129, 0.25);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .btn-primary-mock:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 46px rgba(16, 185, 129, 0.3);
+  }
+
+  /* Синхрон с mockup-literal: легче CTA в правом action-cluster шапки */
+  .header-actions--cluster .btn-primary-mock {
+    @apply rounded-xl px-4 py-2 text-[13px] font-bold;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.2);
+  }
+  .header-actions--cluster .btn-primary-mock:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.24);
+  }
+
+  .btn-secondary-mock {
+    @apply inline-flex cursor-pointer items-center justify-center gap-[10px] rounded-2xl border border-line bg-white px-6 py-4 text-[15px] font-extrabold text-deep-2 shadow-landing;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .btn-secondary-mock:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(10, 25, 45, 0.08);
+  }
+
+  .btn-dark-mock {
+    @apply inline-flex cursor-pointer items-center justify-center gap-[10px] rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.08)] px-6 py-4 text-[15px] font-extrabold text-white;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .btn-dark-mock:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Центрированный блок заголовка секции — .section-title мокапа */
+  .landing-section-head {
+    @apply mx-auto mb-[46px] max-w-[760px] text-center;
+  }
+  .landing-section-head .landing-section-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-[rgba(16,185,129,0.12)] px-3.5 py-[7px] text-[12px] font-extrabold uppercase tracking-[0.14em] text-emerald-2;
+  }
+  .landing-section-head .landing-section-eyebrow-dot {
+    @apply h-2 w-2 rounded-full bg-gradient-to-br from-gold to-emerald;
+  }
+  .landing-section-head h2,
+  .landing-section-head .landing-section-h2 {
+    @apply mt-4 text-[42px] font-extrabold leading-[1.1] tracking-[-0.04em] text-ink max-md:text-[32px];
+  }
+  .landing-section-head p,
+  .landing-section-head .landing-section-desc {
+    @apply mt-[14px] text-[17px] leading-[1.75] text-ink-muted;
+  }
+
+  /* Пункты меню шапки — синхрон с mockup-literal .header-nav a (спокойнее, легче) */
+  .landing-header-nav-link {
+    @apply rounded-full px-3 py-2 text-[13px] font-semibold text-ink-muted transition-[background,color,box-shadow] duration-200 ease-out;
+    @apply hover:bg-white hover:text-deep-2 hover:shadow-xs;
+  }
+}
+
+/* Inline-SVG в HTML-мокапе: без стилей дефолт 300×150 — ограничиваем, пока не применился mockup-literal.css */
+.ic-mockup-root svg {
+  max-width: min(100%, 3rem);
+  max-height: 3rem;
+  vertical-align: middle;
+}

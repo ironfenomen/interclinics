@@ -1,0 +1,1157 @@
+<div class="topbar">
+  <div class="c topbar-inner">
+    <div class="topbar-slot topbar-slot--left">
+      <div class="status-pill"><span class="status-dot"></span>Сейчас на линии: <b id="operatorsLive">__TEAMS__</b> <span id="operatorsLiveLabel">__TOPBAR_BRIGADE_WORDS__</span></div>
+    </div>
+    <div class="topbar-slot topbar-slot--center">
+      <div class="topbar-trust" id="topbarTrustLine">__TOPBAR_TRUST_LINE__</div>
+    </div>
+    <div class="topbar-slot topbar-slot--right">
+      <span class="topbar-disclaimer">__TOPBAR_DISCLAIMER__</span>
+      <a class="mini-link" href="__TOPBAR_LINK_HREF__">__TOPBAR_LINK_LABEL__</a>
+    </div>
+  </div>
+</div>
+
+<header class="header" id="header">
+  <div class="c header-inner">
+    <a class="brand" href="__HOME_HREF__">
+      <div class="brand-mark">
+        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5 12 12l8-4.5L12 3Z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5 12 21l8-4.5"/></svg>
+      </div>
+      <div class="brand-name">InterClinics<span class="brand-tagline">Сеть наркологических клиник</span></div>
+    </a>
+
+    <nav class="header-nav">
+      <a href="#services">Услуги</a>
+      <a href="#how">Как это работает</a>
+      <a href="#pricing">Цены</a>
+      <a href="#coverage">География</a>
+      <a href="#doctors">Врачи</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions header-actions--cluster">
+      <div class="header-actions__row header-actions__row--main">
+        <a class="header-phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+        <button type="button" class="btn btn-primary" onclick="openModal()">Обратный звонок</button>
+      </div>
+      <div class="header-actions__row header-actions__row--meta">
+        <div class="city-chip">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          __CITY_NAME__
+        </div>
+        <span class="header-phone-note">Бесплатно по РФ, круглосуточно</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <span id="ic-mockup-city" data-slug="__CITY_SLUG__" hidden></span>
+  <div class="c hero-grid">
+    <div class="hero-content reveal">
+      <div class="hero-badges">
+        <div class="hero-badge hero-badge--stacionar"><span class="dot"></span>Стационар 24/7</div>
+        <div class="hero-badge"><span class="dot"></span>Выезд врача — до __ARRIVAL__ минут</div>
+        <div class="hero-badge"><span class="dot"></span>Конфиденциально</div>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="gold">Экстренная наркологическая помощь</span>
+        <span class="hero-title-geo"><em>в __CITY_PREP__</em></span>
+      </h1>
+
+      <p class="hero-sub">
+        Круглосуточная линия: выезд нарколога на дом (ориентир — __ARRIVAL__ мин), при необходимости — очный приём. При показаниях — круглосуточный стационар с наблюдением. Кодирование и реабилитация — следующие этапы маршрута по решению врача.
+      </p>
+
+      <div class="hero-service-pills hero-service-pills--v3">
+        <a href="/__CITY_SLUG__/vyvod-iz-zapoya/">Вывод из запоя</a>
+        <a href="/__CITY_SLUG__/narkolog-na-dom/">Нарколог на дом</a>
+        <a href="/__CITY_SLUG__/stacionar/">Стационар 24/7</a>
+        <a href="/__CITY_SLUG__/kodirovanie/">Кодирование</a>
+        <a href="__HOME_HREF__#rehabilitaciya">Реабилитация</a>
+      </div>
+
+      <div class="hero-cta-stack hero-cta-panel">
+        <a class="btn btn-primary hero-cta-primary" href="tel:__PHONE__">Позвонить сейчас</a>
+        <div class="hero-cta-mid" role="group" aria-label="Стационар">
+          <a class="btn btn-dark hero-cta-stacionar" href="/__CITY_SLUG__/stacionar/">Стационар 24/7</a>
+          <span class="hero-cta-note"><span class="hero-cta-note-value">от __PRICE_STACIONAR_DAY__ ₽</span><span class="hero-cta-note-unit">/ сутки</span></span>
+        </div>
+        <button type="button" class="btn btn-secondary hero-cta-tertiary" onclick="openModal()">Обратный звонок</button>
+      </div>
+
+      <p class="hero-trust-strip">
+        Лицензия · Конфиденциально · Выезд до __ARRIVAL__ мин
+      </p>
+    </div>
+
+    <div class="hero-form-wrap reveal">
+      <div class="hero-form-glow"></div>
+      <div class="form-card">
+        <div class="form-topline">
+          <div class="form-team">Круглосуточно · бригад в __CITY_PREP__: <b id="teamsLive">__TEAMS__</b></div>
+        </div>
+        <div class="form-title" id="scenarioTitle">Запросите звонок нарколога</div>
+        <div class="form-sub" id="scenarioSub">
+          Круглосуточно подберём формат: выезд на дом, приём в клинике или стационар при показаниях. Восстановление — следующий этап программы.
+        </div>
+        <div class="scenario-switch" id="scenarioSwitch">
+          <button class="scenario-btn active" type="button" data-sub="Круглосуточно подберём формат: выезд на дом, приём в клинике или стационар при показаниях. Восстановление — следующий этап программы." data-cta="Перезвоните мне" data-leadtype="vyzov">
+            <b>Срочный вызов</b>
+            <span>Запой, ломка, резкое ухудшение</span>
+          </button>
+          <button class="scenario-btn" type="button" data-sub="Нарколог приедет конфиденциально, оценит состояние и подберёт тактику на месте." data-cta="Перезвоните мне" data-leadtype="vyzov">
+            <b>Нарколог на дом</b>
+            <span>Осмотр на дому, без лишней суеты</span>
+          </button>
+          <button class="scenario-btn" type="button" data-sub="Круглосуточный стационар: палата, наблюдение и терапия — если врач видит показания к госпитализации." data-cta="Обсудить стационар" data-leadtype="stacionar">
+            <b>Стационар 24/7</b>
+            <span>Наблюдение, палата, питание</span>
+          </button>
+          <button class="scenario-btn" type="button" data-sub="Восстановление и сопровождение после острой фазы или стационара — программа в спокойном темпе, без обещаний «за N дней»." data-cta="Узнать о программе" data-leadtype="rehab">
+            <b class="scenario-btn__title-nowrap">Реабилитация</b>
+            <span>После стационара или острой фазы</span>
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <input id="heroName" class="input" placeholder="Имя — по желанию">
+          <input id="heroPhone" class="input" type="tel" placeholder="Телефон *">
+        </div>
+
+        <label class="form-consent-check" for="heroConsentPd">
+          <input type="checkbox" id="heroConsentPd" name="heroConsentPd" autocomplete="off">
+          <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
+        </label>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" onclick="submitLead('heroPhone','heroName', false, false, 'heroConsentPd')"><span id="scenarioCta">Перезвоните мне</span></button>
+          <a class="form-actions__pricing-link" href="#pricing">Посмотреть стоимость услуг</a>
+        </div>
+
+        <div class="form-inline-proof form-inline-proof--compact">
+          <div class="mini form-hero-assurance">Свяжемся быстро, уточним детали и подскажем варианты — без давления и навязанных решений.</div>
+        </div>
+
+        <div class="form-contact-row">
+          <a class="messenger" href="__WA_HREF__" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            WhatsApp
+          </a>
+          <a class="messenger" href="__TG_HREF__" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 0C5.374 0 0 5.374 0 12s5.374 12 12 12 12-5.374 12-12S18.626 0 12 0zm5.568 8.16c-.18 1.896-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.064-1.225-.46-1.9-.903-1.056-.692-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.14a.506.506 0 0 1 .169.337c.016.11.036.317.02.49z"/></svg>
+            Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intent intent--services" id="services">
+  <div class="c">
+    <div class="section-title section-title--services reveal">
+      <span>Услуги</span>
+      <h2>Наркологическая помощь в __CITY_PREP__</h2>
+      <p>Выезд на дом, очный приём и стационар круглосуточно — при показаниях. Восстановление — следующий этап; подскажем шаг по телефону или выберите направление.</p>
+    </div>
+
+    <div class="intent-grid intent-grid--services">
+      <a class="card intent-card intent-card--link reveal" href="/__CITY_SLUG__/vyvod-iz-zapoya/">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3v18M5 12h14"/><path d="m8 8 4-4 4 4"/></svg>
+        </div>
+        <h3>Вывод из запоя</h3>
+        <p>Капельница и медикаментозная поддержка на дому. Врач оценивает состояние, помогает снять острые симптомы.</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_VYVOD_FROM__</b> ₽</div>
+          <span class="intent-cta">Подробнее</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link reveal" href="/__CITY_SLUG__/narkolog-na-dom/">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 14a8 8 0 0116 0v4H4v-4z"/><path d="M9 10V8a3 3 0 016 0v2"/></svg>
+        </div>
+        <h3>Нарколог на дом</h3>
+        <p>Вызов врача конфиденциально. Осмотр, диагностика, помощь на месте — когда важно не терять время.</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_NARK__</b> ₽ <span class="price-hint">/ выезд</span></div>
+          <span class="intent-cta">Подробнее</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link intent-card--stacionar reveal" href="/__CITY_SLUG__/stacionar/">
+        <span class="intent-badge" aria-hidden="true">Наблюдение 24/7</span>
+        <div class="icon intent-icon--accent" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 21h18"/><path d="M6 21V7l6-3 6 3v14"/><path d="M9 10v4M15 10v4M9 17h6"/></svg>
+        </div>
+        <h3>Стационар 24/7</h3>
+        <p>Круглосуточное наблюдение врача, палата и питание, детоксикация и терапия по клиническим показаниям — после очной оценки и решения нарколога.</p>
+        <div class="bottom">
+          <div class="price">от <b>__PRICE_STACIONAR_DAY__</b> ₽ <span class="price-hint">/ сутки</span></div>
+          <span class="intent-cta intent-cta--accent">Подробнее о стационаре</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link reveal" href="/__CITY_SLUG__/kodirovanie/">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Кодирование</h3>
+        <p>Метод подбирает нарколог после осмотра и периода устойчивой трезвости. Без давления и обещаний «наверняка».</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_CODE__</b> ₽</div>
+          <span class="intent-cta">Подробнее</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link reveal" href="/__CITY_SLUG__/vyvod-iz-zapoya/">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path d="M12 7v6l3 2"/></svg>
+        </div>
+        <h3>Лечение алкоголизма</h3>
+        <p>Программа по этапам: снятие запоя или стационар, поддержка, при необходимости — кодирование. План согласуем с вами.</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_VYVOD_FROM__</b> ₽</div>
+          <span class="intent-cta">Подробнее</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link reveal" href="/__CITY_SLUG__/stacionar/">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V6l-8-3-8 3v6c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Лечение наркомании</h3>
+        <p>Ломка и детоксикация: сначала срочная помощь на дому или очно. Стационар — отдельный этап, если врач видит к нему показания.</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_NARK__</b> ₽</div>
+          <span class="intent-cta">Подробнее</span>
+        </div>
+      </a>
+
+      <a class="card intent-card intent-card--link intent-card--rehab reveal" href="__HOME_HREF__#rehabilitaciya">
+        <div class="icon intent-icon--soft" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3v18"/><path d="M3 12h18"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
+        </div>
+        <h3>Реабилитация</h3>
+        <p class="intent-card__lead">Когда острая фаза позади: программа восстановления и сопровождение — обычно после стационара или стабилизации, в спокойном темпе.</p>
+        <div class="bottom">
+          <div class="price">от <b>__P_REHAB_DAY__</b> ₽ <span class="price-hint">/ сутки</span></div>
+          <span class="intent-cta intent-cta--soft">Подробнее о программе</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="route route--steps" id="how">
+  <div class="c">
+    <div class="section-title section-title--route-steps reveal">
+      <span>Как мы работаем</span>
+      <h2>От звонка до стационара — понятный порядок шагов</h2>
+      <p>Разбираться во всём самостоятельно не нужно: уточним ситуацию, подскажем оптимальный формат — выезд на дом, приём в клинике, при показаниях <strong>стационар 24/7</strong>, затем при необходимости кодирование и программа восстановления.</p>
+    </div>
+
+    <div class="route-steps route-steps--four reveal">
+      <div class="route-step">
+        <b class="num" aria-hidden="true">01</b>
+        <div>
+          <h4>Первый контакт</h4>
+          <p>Позвоните круглосуточно или оставьте номер в форме — коротко опишите, что происходит.</p>
+        </div>
+      </div>
+      <div class="route-step">
+        <b class="num" aria-hidden="true">02</b>
+        <div>
+          <h4>Быстрый ответ</h4>
+          <p>Свяжемся сразу или перезвоним в согласованное время, зададим вопросы по симптомам и срочности.</p>
+        </div>
+      </div>
+      <div class="route-step route-step--key">
+        <b class="num" aria-hidden="true">03</b>
+        <div>
+          <h4>Формат помощи</h4>
+          <p>Нарколог предлагает шаг: выезд на дом, очный приём или <strong>стационар 24/7</strong> — с наблюдением и терапией при показаниях.</p>
+        </div>
+      </div>
+      <div class="route-step">
+        <b class="num" aria-hidden="true">04</b>
+        <div>
+          <h4>Дальнейший план</h4>
+          <p>Начинаем помощь в выбранном формате. После стабилизации — по решению врача: кодирование и программа восстановления.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="route-cta route-cta--steps reveal">
+      <div>
+        <strong>Свяжитесь, когда будете готовы</strong>
+        <p>Расскажем спокойно, с чего начать в вашей ситуации — без навязанных решений.</p>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="openModal()">Заказать звонок</button>
+    </div>
+  </div>
+</section>
+
+<section class="pricing pricing--outpatient" id="pricing">
+  <div class="c">
+    <div class="section-title section-title--pricing reveal">
+      <span>Выезд на дом</span>
+      <h2>Капельница и нарколог у вас в __CITY_PREP__: три варианта выезда</h2>
+      <p>Цены ниже — только за помощь на дому. Пакет подбирают по симптомам и тяжести; точный состав согласуем после короткой беседы с врачом. Ориентиры на странице — реальные диапазоны: итог и перечень работ проговариваем до выезда, без сюрпризов в цене после приезда. Если на месте недостаточно, возможен переход на <strong>стационар 24/7</strong> — с отдельными условиями, они описаны ниже по странице.</p>
+    </div>
+
+    <div class="price-grid price-grid--v3">
+      <div class="card price-card price-card--tier reveal">
+        <div class="label">Базовый</div>
+        <h3>Стандартная капельница</h3>
+        <div class="desc">Умеренные симптомы или короткий эпизод: стабилизация и базовая инфузионная поддержка на дому.</div>
+        <div class="amount">__P_BASE__ ₽ <small>/ выезд</small></div>
+        <ul>
+          <li>Осмотр нарколога на дому</li>
+          <li>Инфузионная терапия по показаниям</li>
+          <li>Наблюдение во время процедуры</li>
+        </ul>
+        <div class="cta">
+          <button type="button" class="btn btn-secondary" onclick="openModal()">Заказать выезд</button>
+        </div>
+      </div>
+
+      <div class="card price-card price-card--tier price-card--featured reveal">
+        <div class="label label--pick">Обычно достаточно</div>
+        <h3>Усиленная капельница</h3>
+        <div class="desc">Выраженная интоксикация или повторяющиеся эпизоды: расширенный состав препаратов и усиленная симптоматическая поддержка.</div>
+        <div class="amount">__P_ENH__ ₽ <small>/ выезд</small></div>
+        <ul>
+          <li>Всё из базового пакета</li>
+          <li>Расширенный детокс-состав по схеме врача</li>
+          <li>Дополнительная медикаментозная помощь по показаниям</li>
+          <li>Рекомендации на ближайшие дни</li>
+        </ul>
+        <div class="cta">
+          <button type="button" class="btn btn-primary" onclick="openModal()">Выбрать этот вариант</button>
+        </div>
+      </div>
+
+      <div class="card price-card price-card--tier reveal">
+        <div class="label">Максимальный выезд</div>
+        <h3>Расширенный клинический выезд</h3>
+        <div class="desc">Тяжёлая симптоматика, длительный запой или повышенные риски: полный выездной комплекс в рамках помощи на дому.</div>
+        <div class="amount">__P_MAX__ ₽ <small>/ выезд</small></div>
+        <ul>
+          <li>Расширенный осмотр и оценка рисков</li>
+          <li>Максимально полный комплекс инфузий и терапии</li>
+          <li>Плотный контроль до стабилизации</li>
+          <li>При показаниях — обсуждение <strong>стационара</strong>, без давления</li>
+        </ul>
+        <div class="cta">
+          <button type="button" class="btn btn-secondary" onclick="openModal()">Уточнить расширенный выезд</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="pricing-bridge reveal">
+      Нужно круглосуточное наблюдение в стационаре — не входит в эти пакеты: смотрите <a href="/__CITY_SLUG__/stacionar/">стационар 24/7</a> и суточную ставку отдельно. Реабилитация и программа восстановления — тоже отдельное направление после стабилизации.
+    </p>
+
+    <div class="interrupt-cta interrupt-cta--pricing reveal">
+      <div>
+        <h3>Не уверены, какой вариант ближе?</h3>
+        <p>Позвоните или оставьте номер — коротко объясним разницу между пакетами и подскажем первый шаг без навязывания.</p>
+      </div>
+      <div class="right">
+        <a class="phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+        <button type="button" class="btn btn-primary" onclick="openModal()">Заказать звонок</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stacionar-section" id="stacionar">
+  <div class="stacionar-section__glow" aria-hidden="true"></div>
+  <div class="c">
+    <header class="stacionar-head reveal">
+      <span class="stacionar-eyebrow">Стационар 24/7</span>
+      <h2 class="stacionar-title">Круглосуточный наркологический стационар в __CITY_PREP__</h2>
+      <p class="stacionar-lead">Наблюдение врача без выходных, палаты и питание, программа под ваше состояние. Подходит при тяжёлой интоксикации, риске осложнений или когда помощи на дому недостаточно. Родственникам видно, что человек под контролем и действует понятный план.</p>
+      __STACIONAR_META_HTML__
+    </header>
+
+    <div class="stacionar-programs">
+      <article class="stacionar-pro reveal">
+        <div class="stacionar-pro__head">
+          <h3 class="stacionar-pro__name">Детоксикация</h3>
+          <p class="stacionar-pro__term">3–5 дней</p>
+        </div>
+        <p class="stacionar-pro__pitch">Короткий курс стабилизации и выведения токсинов с постоянным наблюдением.</p>
+        <div class="stacionar-pro__price">от <strong>__P_STAC_DETOX__</strong> ₽ <span>за программу</span></div>
+        <ul class="stacionar-pro__list">
+          <li>Инфузионная и медикаментозная поддержка по схеме врача</li>
+          <li>Контроль давления, пульса, самочувствия</li>
+          <li>Подготовка к следующему этапу терапии при необходимости</li>
+        </ul>
+        <p class="stacionar-pro__daynote">Сутки размещения — ориентир от __PRICE_STACIONAR_DAY__ ₽</p>
+      </article>
+
+      <article class="stacionar-pro stacionar-pro--featured reveal">
+        <span class="stacionar-pro__badge">Чаще выбирают</span>
+        <div class="stacionar-pro__head">
+          <h3 class="stacionar-pro__name">Стандартный курс</h3>
+          <p class="stacionar-pro__term">7–14 дней</p>
+        </div>
+        <p class="stacionar-pro__pitch">Сбалансированная программа наблюдения и терапии при умеренно тяжёлом течении.</p>
+        <div class="stacionar-pro__price">от <strong>__P_STAC_STANDARD__</strong> ₽ <span>за программу</span></div>
+        <ul class="stacionar-pro__list">
+          <li>Всё необходимое из детокс-этапа в рамках срока</li>
+          <li>Медикаментозная терапия и коррекция по динамике</li>
+          <li>Психотерапевтическая поддержка по показаниям</li>
+          <li>Режим, питание, участие родственников по согласованию</li>
+        </ul>
+        <p class="stacionar-pro__daynote">Сутки размещения — ориентир от __PRICE_STACIONAR_DAY__ ₽</p>
+      </article>
+
+      <article class="stacionar-pro reveal">
+        <div class="stacionar-pro__head">
+          <h3 class="stacionar-pro__name">Полный курс</h3>
+          <p class="stacionar-pro__term">14–21 день</p>
+        </div>
+        <p class="stacionar-pro__pitch">Углублённое наблюдение и сопровождение при длительном запое или высоких рисках.</p>
+        <div class="stacionar-pro__price">от <strong>__P_STAC_FULL__</strong> ₽ <span>за программу</span></div>
+        <ul class="stacionar-pro__list">
+          <li>Расширенная программа терапии и наблюдения</li>
+          <li>Плотный контроль до устойчивой стабилизации</li>
+          <li>Подготовка к выписке: рекомендации пациенту и семье</li>
+          <li>При показаниях — подготовка к кодированию или следующему шагу</li>
+        </ul>
+        <p class="stacionar-pro__daynote">Сутки размещения — ориентир от __PRICE_STACIONAR_DAY__ ₽</p>
+      </article>
+    </div>
+
+    <div class="stacionar-gallery reveal">
+      <header class="stacionar-gallery__head">
+        <h3 class="stacionar-gallery__title">Палаты и условия пребывания</h3>
+        <p class="stacionar-gallery__lead">Показываем реальные условия стационара: палаты, размещение и обстановку без постановочных рендеров.</p>
+      </header>
+      <div class="stacionar-gallery__top">
+        <figure class="stacionar-gallery__figure stacionar-gallery__figure--hero">
+          <img
+            src="/images/stacionar/room-single.png"
+            alt="Одноместная палата стационара: кровать, стол, телевизор"
+            width="1200"
+            height="900"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+        <div class="stacionar-gallery__stack">
+          <figure class="stacionar-gallery__figure stacionar-gallery__figure--stack">
+            <img
+              src="/images/stacionar/room-double.png"
+              alt="Двухместное размещение в палате"
+              width="800"
+              height="600"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <figure class="stacionar-gallery__figure stacionar-gallery__figure--stack">
+            <img
+              src="/images/stacionar/room-detail.png"
+              alt="Палата: рабочая зона и бытовые детали"
+              width="800"
+              height="600"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </div>
+      <figure class="stacionar-gallery__figure stacionar-gallery__figure--facade">
+        <img
+          src="/images/stacionar/facade.png"
+          alt="Клиника «Амадея Детокс»: здание и вывеска"
+          width="1600"
+          height="700"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+
+    <div class="stacionar-conditions reveal">
+      <h3 class="stacionar-conditions__title">Условия пребывания</h3>
+      <ul class="stacionar-conditions__list">
+        <li>Одно- и двухместные палаты, санитарный узел</li>
+        <li>Питание по назначению врача, три раза в сутки</li>
+        <li>Нарколог и средний медперсонал — круглосуточно</li>
+        <li>Коррекция терапии по клинической динамике</li>
+        <li>Конфиденциальность и понятные правила общения с родственниками</li>
+      </ul>
+    </div>
+
+    <p class="stacionar-bridge reveal">После выписки при показаниях врач обсудит возможное <strong>кодирование</strong>. <strong>Восстановление и реабилитация</strong> — отдельный этап с другой программой и ритмом; на главном экране это отдельный маршрут — <a class="stacionar-bridge__link" href="__HOME_HREF__#rehabilitaciya">блок реабилитации ниже</a>.</p>
+
+    <div class="stacionar-bar reveal">
+      <div class="stacionar-bar__copy">
+        <strong>Госпитализация по показаниям</strong>
+        <span>Оставьте заявку — перезвоним, уточним ситуацию и подскажем, какая программа ближе. Решение о поступлении принимает врач.</span>
+      </div>
+      <div class="stacionar-bar__actions">
+        <button type="button" class="btn btn-primary stacionar-bar__btn-primary" onclick="openModal()">Записаться на госпитализацию</button>
+        <a class="btn btn-secondary stacionar-bar__btn-sec" href="/__CITY_SLUG__/stacionar/">Все условия стационара</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rehab-section" id="rehabilitaciya">
+  <div class="rehab-section__wash" aria-hidden="true"></div>
+  <div class="c">
+    <header class="rehab-head reveal">
+      <span class="rehab-eyebrow">Следующий этап · восстановление</span>
+      <h2 class="rehab-title">Реабилитация в __CITY_PREP__</h2>
+      <p class="rehab-lead">Программа восстановления и сопровождения — после острой фазы или стационара. Другой темп: не срочный вызов, а устойчивость, адаптация и поддержка. Близким проще опереться на ясный срок и структуру, а не на обещания «за несколько дней».</p>
+      __REHAB_PROGRAM_NOTE_HTML__
+    </header>
+
+    <div class="rehab-contrast reveal" role="note">
+      <div class="rehab-contrast__pair">
+        <span class="rehab-contrast__label">Стационар</span>
+        <p class="rehab-contrast__text">Стабилизация и круглосуточное наблюдение — когда нужна среда постоянного контроля.</p>
+      </div>
+      <div class="rehab-contrast__divider" aria-hidden="true"></div>
+      <div class="rehab-contrast__pair rehab-contrast__pair--accent">
+        <span class="rehab-contrast__label">Реабилитация</span>
+        <p class="rehab-contrast__text">Восстановление в программе: психотерапия, группы, режим и сопровождение — спокойный, предсказуемый ритм.</p>
+      </div>
+    </div>
+
+    <div class="rehab-durations">
+      <article class="rehab-dur rehab-dur--featured reveal">
+        <span class="rehab-dur__badge">Точка входа</span>
+        <h3 class="rehab-dur__term">28 дней</h3>
+        <p class="rehab-dur__desc">Знакомство с программой, режим и первые устойчивые шаги — понятная база, с которой чаще всего начинают.</p>
+        <div class="rehab-dur__price">от <strong>__P_REHAB_28__</strong> ₽ <span>за программу</span></div>
+      </article>
+      <article class="rehab-dur reveal">
+        <h3 class="rehab-dur__term">90 дней</h3>
+        <p class="rehab-dur__desc">Больше времени на привычки и поддержку в защищённой среде — углублённая работа над устойчивостью.</p>
+        <div class="rehab-dur__price">от <strong>__P_REHAB_90__</strong> ₽ <span>за программу</span></div>
+      </article>
+      <article class="rehab-dur reveal">
+        <h3 class="rehab-dur__term">6 месяцев</h3>
+        <p class="rehab-dur__desc">Длинное сопровождение и мягкая ресоциализация: возвращение в привычную жизнь без резких разрывов.</p>
+        <div class="rehab-dur__price">от <strong>__P_REHAB_6MO__</strong> ₽ <span>за программу</span></div>
+      </article>
+    </div>
+
+    <p class="rehab-dayhint reveal">Ориентир суток в программе — <strong>__P_REHAB_DAY__</strong> ₽. Итог по сроку фиксируем до старта; в описании формата — без скрытых доплат.</p>
+
+    <div class="rehab-includes reveal">
+      <h3 class="rehab-includes__title">В программе</h3>
+      <ul class="rehab-includes__list">
+        <li>Проживание и питание по режиму</li>
+        <li>Индивидуальная и групповая психотерапия</li>
+        <li>Группы поддержки и структурированные занятия</li>
+        <li>Движение, режим дня и забота о ресурсе</li>
+        <li>Сопровождение кураторов и подготовка к жизни после программы</li>
+      </ul>
+    </div>
+
+    <p class="rehab-family reveal">Для семьи — прозрачные этапы и правила связи: не «отправили и замолчали», а понятный контур сопровождения.</p>
+
+    <div class="rehab-bar reveal">
+      <div class="rehab-bar__copy">
+        <strong class="rehab-bar__title">Поговорить о программе — спокойно</strong>
+        <span class="rehab-bar__sub">Для вас и для близких: как устроен заезд, какие сроки реалистичны и с чего логично начать. Без давления и обязательств с первого звонка.</span>
+      </div>
+      <div class="rehab-bar__actions">
+        <button type="button" class="btn btn-primary rehab-bar__btn-primary" onclick="openModal()">Запросить консультацию</button>
+        <a class="btn btn-secondary rehab-bar__btn-sec" href="/__CITY_SLUG__/reabilitaciya/">Полное описание программы</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mid-cta" id="consult" aria-label="Бесплатная консультация">
+  <div class="c">
+    <div class="mid-cta__shell reveal">
+      <div class="mid-cta__copy">
+        <h2 class="mid-cta__title">Позвоните — бесплатная консультация</h2>
+        <p class="mid-cta__lead">Срочный выезд, стационар и программа восстановления уже на странице. Если не хочется разбираться дальше в одиночку — позвоните или оставьте номер: коротко проясним контекст и подскажем разумный следующий шаг. Без давления и поспешных выводов — только маршрут и формат. Позвонить можете за себя или за близкого — оба сценария для нас обычны.</p>
+      </div>
+      <div class="mid-cta__actions">
+        <a class="mid-cta__phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+        <button type="button" class="btn btn-primary mid-cta__btn" onclick="openModal()">Перезвоним по номеру</button>
+      </div>
+      <p class="mid-cta__note">Круглосуточная линия · первичный разговор без оплаты · решение всегда за вами</p>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" id="trust-metrics" aria-label="Опыт и масштаб работы">
+  <div class="c">
+    <header class="trust-strip__head reveal">
+      <p class="trust-strip__eyebrow">Опыт и масштаб</p>
+    </header>
+    <div class="trust-strip__grid">
+      <div class="trust-metric reveal">
+        <div class="trust-metric__value">__TRUST_ACTIVE_CITIES__</div>
+        <div class="trust-metric__unit">__TRUST_CITIES_UNIT__</div>
+        <p class="trust-metric__label">Отдельные страницы и контакты под каждый пункт присутствия</p>
+      </div>
+      <div class="trust-metric reveal">
+        <div class="trust-metric__value trust-metric__value--compact">24/7</div>
+        <div class="trust-metric__unit">режим линии</div>
+        <p class="trust-metric__label">Приём обращений и координация выезда — без выходных</p>
+      </div>
+      <div class="trust-metric reveal">
+        <div class="trust-metric__value">__TEAMS__</div>
+        <div class="trust-metric__unit">__TOPBAR_BRIGADE_WORDS__</div>
+        <p class="trust-metric__label">Ориентир по линии в __CITY_PREP__ для планирования выезда</p>
+      </div>
+      <div class="trust-metric reveal">
+        <div class="trust-metric__value">3</div>
+        <div class="trust-metric__unit">формата помощи</div>
+        <p class="trust-metric__label">Срочный выезд, стационар и программа восстановления в одном маршруте</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof coverage" id="coverage" aria-labelledby="coverage-heading">
+  <div class="c proof-grid coverage-grid">
+    <div class="card proof-card coverage-card coverage-card--main reveal">
+      <div class="proof-top coverage-intro">
+        <div>
+          <span class="badge coverage-eyebrow">Клиника и выезд</span>
+          <h3 id="coverage-heading">Где принимаем и как организуем выезд</h3>
+          <p class="coverage-lead">В __CITY_PREP__ доступны очный приём, стационар и выезд бригады на дом. Адрес и ориентир по времени можно уточнить до выезда. Ниже — как связаны приём, стационар и выездная помощь, и по каким районам обычно работает бригада.</p>
+        </div>
+      </div>
+
+      __COVERAGE_ADDRESS_HTML__
+      __COVERAGE_LOCAL_HTML__
+
+      <div class="coverage-points">
+        <div class="coverage-point">
+          <div class="coverage-point__title">Очной приём и стационар</div>
+          <p>По записи или при обращении согласуют адрес и порядок приёма. Это те же специалисты и тот же маршрут помощи, что и при выезде.</p>
+        </div>
+        <div class="coverage-point">
+          <div class="coverage-point__title">Выезд на дом</div>
+          <p>По заявке в __CITY_PREP__ уточняют адрес, ориентир по времени и что желательно подготовить до приезда бригады.</p>
+        </div>
+        <div class="coverage-point">
+          <div class="coverage-point__title">Один маршрут помощи</div>
+          <p>Выезд, при необходимости госпитализация и дальнейшие шаги ведёт один врачебный контур — от острой фазы до плана после стабилизации, без лишних посредников.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card map-card coverage-card coverage-card--map reveal">
+      <div class="content">
+        <span class="badge coverage-map-eyebrow">Районы и ориентир по времени</span>
+        <h3>Зоны выезда в __CITY_PREP__</h3>
+        <p class="coverage-map-lead">Районы и направления, куда чаще всего ездим. Время прибытия называют при звонке — с учётом адреса и дороги.</p>
+
+        <div class="districts">
+          __DISTRICTS__
+        </div>
+
+        <p class="coverage-map-note">Это ориентир по логистике выезда, а не точная карта покрытия.</p>
+
+        <div class="map-visual map-visual--coverage" role="presentation" aria-hidden="true">
+          <div class="pin p1">Клиника / база выезда</div>
+          <div class="pin p2">По городу — ~__ARRIVAL__ мин</div>
+          <div class="pin p3">Дальние участки — до __ARRIVAL_MAX__ мин</div>
+        </div>
+
+        <div class="map-footer map-footer--coverage">
+          Точный ориентир согласуют при звонке: время зависит от района, загрузки бригад и времени суток.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="doctors">
+  <div class="c">
+    <div class="section-title team-intro reveal">
+      <span>Врачебная команда</span>
+      <h2>За помощью — люди с именами, а не анонимная линия</h2>
+      <p>Те же подходы, что в клинике: смотрят на состояние, объясняют спокойно и держат в голове весь маршрут — от срочного выезда до восстановления, если к нему придёте.</p>
+    </div>
+
+    <div class="team-grid">
+      <article class="card team-card reveal">
+        <div class="team-cover">
+          <div class="team-top">
+            <div class="team-photo">
+              <img src="/images/doctors/mutaeva.jpg" alt="Мутаева Ольга Юрьевна" width="160" height="160" loading="lazy" decoding="async">
+            </div>
+            <div class="team-exp">Стаж 21 год</div>
+          </div>
+          <div class="team-bottom">
+            <h3>Мутаева Ольга Юрьевна</h3>
+            <p class="team-role">Психиатр-нарколог · главный врач</p>
+          </div>
+        </div>
+        <div class="team-body">
+          <p class="team-focus">Главный врач и сложные решения</p>
+          <p class="team-text">Держит клинический стандарт и подключается там, где нужен взвешенный взгляд: стационар, смена тактики или понятный план после острой фазы.</p>
+        </div>
+      </article>
+
+      <article class="card team-card reveal">
+        <div class="team-cover">
+          <div class="team-top">
+            <div class="team-photo">
+              <img src="/images/doctors/kamolikova.jpg" alt="Камоликова Жанна Анатольевна" width="160" height="160" loading="lazy" decoding="async">
+            </div>
+            <div class="team-exp">Стаж 21 год</div>
+          </div>
+          <div class="team-bottom">
+            <h3>Камоликова Жанна Анатольевна</h3>
+            <p class="team-role">Психиатр-нарколог</p>
+          </div>
+        </div>
+        <div class="team-body">
+          <p class="team-focus">Наблюдение и приём в клинике</p>
+          <p class="team-text">Ведёт терапию при зависимостях, подстраивает схему по динамике и коротко объясняет близким, что происходит — без лишней суеты.</p>
+        </div>
+      </article>
+
+      <article class="card team-card reveal">
+        <div class="team-cover">
+          <div class="team-top">
+            <div class="team-photo">
+              <img src="/images/doctors/borisova.jpg" alt="Борисова Елена Алексеевна" width="160" height="160" loading="lazy" decoding="async">
+            </div>
+            <div class="team-exp">Стаж 15 лет</div>
+          </div>
+          <div class="team-bottom">
+            <h3>Борисова Елена Алексеевна</h3>
+            <p class="team-role">Клинический психолог</p>
+          </div>
+        </div>
+        <div class="team-body">
+          <p class="team-focus">Разговор с вами и с семьёй</p>
+          <p class="team-text">Психологическая поддержка на этапе восстановления: мотивация, напряжение дома, опоры — без давления и ультиматумов.</p>
+        </div>
+      </article>
+
+      <article class="card team-card reveal">
+        <div class="team-cover">
+          <div class="team-top">
+            <div class="team-photo">
+              <img src="/images/doctors/mozharuk.jpg" alt="Можарук Дарья Сергеевна" width="160" height="160" loading="lazy" decoding="async">
+            </div>
+            <div class="team-exp">Стаж 6 лет</div>
+          </div>
+          <div class="team-bottom">
+            <h3>Можарук Дарья Сергеевна</h3>
+            <p class="team-role">Терапевт</p>
+          </div>
+        </div>
+        <div class="team-body">
+          <p class="team-focus">Здоровье целиком, не только запой</p>
+          <p class="team-text">Смотрит на сопутствующие риски и общее состояние, чтобы после острого эпизода не остаться один на один с организмом — маршрут остаётся связным.</p>
+        </div>
+      </article>
+    </div>
+
+    <p class="team-foot reveal">Кто ведёт приём и в какие смены — скажем при записи. Фото врачей — с сайта клиники-исполнителя, <a class="team-foot__link" href="https://www.amadeyadetox26.ru" target="_blank" rel="noopener noreferrer">amadeyadetox26.ru</a>.</p>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="c">
+    <div class="section-title reviews-intro reveal">
+      <span>Отзывы</span>
+      <h2>Слова тех, кто уже звонил — сам или за близкого</h2>
+      <p>Разные поводы: срочный выезд, тревога в семье и домашний этап, решение о стационаре и спокойный переход к программе восстановления.</p>
+    </div>
+
+    <div class="review-grid">
+      <div class="card review-card dark reveal">
+        <div class="review-head">
+          <div class="review-avatar">АР</div>
+          <div>
+            <div class="review-name">Артур Р.</div>
+            <div class="review-date">Ночной вызов · острый запой</div>
+          </div>
+        </div>
+        <div class="review-text">
+          Позвонил ночью, сам путался в словах. На линии не давили — назвали ориентир по времени и по деньгам, без лишней воды. Врач приехал, всё по делу. Боялся, что кто-то узнает — пообещали конфиденциально, так и вышло.
+        </div>
+        <div class="review-audio-caption">
+          <span class="review-audio-label">Голосовой отзыв</span>
+        </div>
+        <audio id="reviewVoiceArtur" class="review-audio-el" preload="metadata">
+          <source src="/audio/review-artur-voice.m4a" type="audio/mp4" />
+        </audio>
+        <div class="audio" data-review-audio-wrap="" role="group" aria-label="Голосовой отзыв">
+          <button type="button" class="play" data-review-play aria-controls="reviewVoiceArtur" aria-label="Воспроизвести голосовой отзыв">
+            <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+          </button>
+          <div class="review-scrub-wrap">
+            <div
+              class="review-scrub"
+              data-review-scrub
+              role="slider"
+              tabindex="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              aria-valuetext="0:00 из 0:00"
+              aria-label="Перемотка голосового отзыва"
+            >
+              <div class="wave wave--track" data-review-wave>
+                <span class="wave__fill" data-review-wave-fill></span>
+              </div>
+            </div>
+          </div>
+          <span class="review-audio-time" id="reviewVoiceArturTime">0:00 / 0:00</span>
+        </div>
+        <div class="review-tags">
+          <span>Ночной вызов</span>
+          <span>Конфиденциально</span>
+          <span>Без лишних обещаний</span>
+        </div>
+      </div>
+
+      <div class="card review-card reveal">
+        <div class="review-head">
+          <div class="review-avatar review-avatar--slate">ОН</div>
+          <div>
+            <div class="review-name">Ольга Н.</div>
+            <div class="review-date">Жена · муж не соглашался на стационар</div>
+          </div>
+        </div>
+        <div class="stars" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <div class="review-text">
+          Муж от всего «больничного» отказывался наотрез. Для нас выезд домой был единственным вариантом, иначе бы он вообще не пустил. Объяснили по шагам, что будет, без навязчивого «решайте сейчас». Когда стало чуть спокойнее, уже сами доехали до клиники — без давления с нашей стороны.
+        </div>
+        <div class="review-tags">
+          <span>Семья рядом</span>
+          <span>Приём на дому</span>
+          <span>Спокойное объяснение</span>
+        </div>
+      </div>
+
+      <div class="card review-card reveal">
+        <div class="review-head">
+          <div class="review-avatar review-avatar--emerald-soft">ИК</div>
+          <div>
+            <div class="review-name">Ирина К.</div>
+            <div class="review-date">Мама · долго сомневались в стационаре</div>
+          </div>
+        </div>
+        <div class="stars" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <div class="review-text">
+          Сначала не понимали, зачем именно стационар: казалось, что «достаточно подлечиться дома». По телефону и уже в отделении спокойно разложили, что за наблюдение, как устроен день и что можно узнать о состоянии. Стало меньше догадок — и нам, родственникам, легче дышать, когда картина ясная, без давления с чьей-либо стороны.
+        </div>
+        <div class="review-tags">
+          <span>Стационар</span>
+          <span>Понятные условия</span>
+          <span>Спокойное решение</span>
+        </div>
+      </div>
+
+      <div class="card review-card reveal">
+        <div class="review-head">
+          <div class="review-avatar review-avatar--gold">АЛ</div>
+          <div>
+            <div class="review-name">Андрей Л.</div>
+            <div class="review-date">После выписки · программа восстановления</div>
+          </div>
+        </div>
+        <div class="stars" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <div class="review-text">
+          Не рассчитывал на «магию за две недели» — и не обещали. Важнее оказались режим, регулярные занятия и то, что можно задать вопрос без стыда. Постепенно прояснилось, как жить дальше после острой фазы: не пустой лозунг, а понятный следующий шаг и опора на программу.
+        </div>
+        <div class="review-tags">
+          <span>Восстановление</span>
+          <span>Следующий этап</span>
+          <span>Спокойный темп</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="post-reviews-cta reveal" id="after-reviews-cta" aria-label="Связаться после отзывов">
+  <div class="c">
+    <div class="post-reviews-cta__inner">
+      <h2 class="post-reviews-cta__title">Если картина уже понятна — можно просто позвонить</h2>
+      <p class="post-reviews-cta__lead">Своими словами расскажите, что происходит — подскажем следующий шаг без спешки. Можно за себя и за взрослого близкого.</p>
+      <div class="post-reviews-cta__row">
+        <a class="post-reviews-cta__phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+        <button type="button" class="btn btn-secondary post-reviews-cta__btn" onclick="openModal()">Перезвоните мне</button>
+      </div>
+      <div class="post-reviews-cta__trust" role="list">
+        <span role="listitem">Конфиденциально</span>
+        <span role="listitem">Круглосуточно</span>
+        <span role="listitem">Можно за близкого</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="c">
+    <div class="section-title faq-intro reveal">
+      <span>Частые вопросы</span>
+      <h2>Типичные вопросы до первого обращения</h2>
+      <p>Коротко о конфиденциальности, сроках выезда, стационаре, стоимости и роли близких — чтобы перейти к разговору без лишней тревоги.</p>
+    </div>
+
+    <div class="faq-wrap">
+      <div class="card accordion faq-accordion reveal">
+        <div class="faq-item open">
+          <button type="button" class="faq-q">
+            <span><small>Конфиденциальность</small>Анонимно ли обращение? Узнают ли на работе или у соседей?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Разговор по телефону можно начать без фамилии и адреса — столько данных, сколько нужно, чтобы помочь сориентироваться. Запись и медицинская документация ведутся по правилам о персональных данных; детали обсуждаем без лишнего «шума» и не для посторонних ушей. Если важно — на звонке проговорим, как именно у вас устроена конфиденциальность.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Сроки и режим</small>Как быстро может приехать врач?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Ориентир по времени зависит от загрузки бригад, района и ситуации. При звонке скажут честно: когда можно ждать врача и что делать до приезда. В часы пик или при большом расстоянии срок может сдвинуться — это лучше озвучить сразу, чем обещать нереальное. Заявки обычно принимают круглосуточно или в режиме, указанном для вашего города в контактах; выезд ночью возможен, если это предусмотрено службой.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Стационар</small>Что делать, если человек не хочет ехать в стационар?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Отказ от госпитализации — частая ситуация. Без давления: сначала оценка состояния и безопасность. Иногда достаточно выезда на дом или амбулаторного формата, иногда без стационара не обойтись — врач объяснит причины спокойно, без запугивания и без обещаний «вылечим дома любой ценой». Имеются противопоказания и ограничения — их учитывают в решении.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Формат помощи</small>Можно ли начать с выезда на дом, а про стационар решить позже?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Часто да: сначала снятие острого состояния и наблюдение, потом — обсуждение дальнейшего плана. Не всегда стационар нужен с первого дня; иногда он становится актуален позже. Решение принимается по состоянию человека, а не по шаблону.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Кто приезжает</small>Кто едет на вызов и что происходит после первого звонка?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">На выезд приезжает бригада по стандарту клиники: обычно врач и персонал, необходимый для безопасной помощи на месте. После звонка кратко уточняют ситуацию, адрес и контакт, договариваются о времени и при необходимости — что делать до приезда. Конкретный состав и шаги зависят от клиники и города; их проговаривают при записи.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Стоимость</small>Что входит в стоимость выезда и бывают ли скрытые доплаты?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Ориентир по цене — в блоке с услугой: базовый выезд и первичный приём врача; что входит в сумму, расписано рядом с тарифом. Дополнительные процедуры, препараты или продлённое наблюдение могут оплачиваться отдельно — об этом говорят заранее, до согласия, а не «по факту с сюрпризом». Нюансы по городу лучше уточнить при звонке.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q">
+            <span><small>Родственники</small>Можно ли обратиться за взрослого близкого человека?</span>
+            <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a__inner">Да, так бывает часто: звонит супруг, взрослый ребёнок, близкий родственник. Поможем сформулировать ситуацию и организовать выезд, если человек согласен на помощь. Если взрослый отказывается — речь только о допустимых вариантах, без обещаний «увезём силой»; в ряде случаев нужны иные правовые основания.</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card faq-side reveal">
+        <p class="faq-side__kicker">Перед разговором</p>
+        <h3 class="faq-side__title">Готовить заранее ничего не нужно</h3>
+        <p class="faq-side__lead">Достаточно своими словами описать, что происходит. Дальше подскажут по ситуации и предложат шаги без навязанного «решайте сейчас».</p>
+        <ul class="faq-side__list">
+          <li><strong>Район и ориентир</strong> — чтобы спланировать выезд.</li>
+          <li><strong>Что человек принимает</strong> — если известно; если нет, врач оценит на месте.</li>
+          <li><strong>Если звоните за близкого</strong> — как с вами связаться и готов ли он говорить с врачом.</li>
+        </ul>
+        <p class="faq-side__foot">Когда будете готовы продолжить — внизу страницы можно оставить контакт или позвонить сами.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="c final-inner reveal">
+    <h2>Свяжитесь, когда будете готовы</h2>
+    <p class="final-lead">Позвоните или оставьте номер — можно и за себя, и за взрослого близкого. На линии выслушают, коротко объяснят возможные шаги и не будут торопить с решением.</p>
+    <a class="final-phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+
+    <div class="final-form">
+      <input id="finalName" class="input final-form__name" placeholder="Имя или как к вам обращаться">
+      <input id="finalPhone" class="input final-form__phone" type="tel" placeholder="Телефон для связи *">
+      <label class="form-consent-check final-form__consent" for="finalConsentPd">
+        <input type="checkbox" id="finalConsentPd" name="finalConsentPd" autocomplete="off">
+        <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
+      </label>
+      <button type="button" class="btn btn-primary final-form__submit" onclick="submitLead('finalPhone','finalName', false, false, 'finalConsentPd')">Перезвоните мне</button>
+    </div>
+
+    <div class="final-proof">
+      <span>Конфиденциально</span>
+      <span>Круглосуточная линия</span>
+      <span>Можно обратиться за близкого</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="c">
+    <div class="footer-grid">
+      <div class="footer-col footer-col--brand">
+        <div class="footer-brand">InterClinics<small>Сеть наркологической помощи</small></div>
+        <div class="footer-text" id="footer-requisites">
+          __FOOTER_LEGAL__
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Разделы страницы</h4>
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#pricing">Стоимость</a></li>
+          <li><a href="#coverage">Охват и адрес</a></li>
+          <li><a href="#doctors">Врачи</a></li>
+          <li><a href="#faq">Частые вопросы</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Документы</h4>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/consent">Согласие на обработку персональных данных</a></li>
+          <li><a href="/cookies">Политика cookie и метрических сервисов</a></li>
+          <li><a href="/privacy">Пользовательское соглашение</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-medical-strip" role="note" aria-label="Медицинское предупреждение">
+      <span class="footer-medical-strip__mark" aria-hidden="true"></span>
+      <p class="footer-medical-strip__text">Имеются противопоказания. Необходима консультация специалиста.</p>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">Материалы сайта носят информационный характер и не являются публичной офертой. Диагноз и план лечения определяет врач при очной консультации.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <div class="mobile-bar-inner">
+    <a class="mobile-action" href="tel:__PHONE__">Позвонить сейчас</a>
+    <a class="fab" href="__WA_HREF__" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    </a>
+    <button class="fab" onclick="openModal()" aria-label="Callback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
+    </button>
+  </div>
+</div>
+
+<a class="float-wa" href="__WA_HREF__" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+</a>
+
+<div class="overlay" id="leadModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalForm">
+      <h3>Обратный звонок за 30 секунд</h3>
+      <p>Этот модальный сценарий нужен для тех, кто не дозрел до действия в основном потоке страницы, но готов оставить контакт в отдельном спокойном окне.</p>
+      <div class="modal-grid">
+        <input id="modalName" class="input" placeholder="Как к вам обращаться">
+        <input id="modalPhone" class="input" type="tel" placeholder="Ваш телефон *">
+        <label class="form-consent-check" for="modalConsentPd">
+          <input type="checkbox" id="modalConsentPd" name="modalConsentPd" autocomplete="off">
+          <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
+        </label>
+        <button class="btn btn-primary" onclick="submitLead('modalPhone','modalName', true, false, 'modalConsentPd')">Жду звонка</button>
+      </div>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="check">✓</div>
+      <h3>Заявка отправлена</h3>
+      <p>В боевой версии здесь должен быть реальный webhook, CRM или Telegram-бот. На уровне прототипа отрабатывается UX состояния успеха.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cookie" id="cookie">
+  <p>Мы используем файлы cookie и при необходимости метрические сервисы, чтобы сайт работал стабильно и чтобы понимать, как посетители пользуются страницами (в обезличенном виде). Подробности — в <a href="/cookies">политике cookie и метрических сервисов</a> и в <a href="/privacy">политике в отношении персональных данных</a>. Продолжая пользоваться сайтом после показа этого уведомления или нажав «Принять», вы соглашаетесь с указанными документами в части cookie и аналитики.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-primary" onclick="acceptCookie()">Принять</button>
+    <button class="btn btn-dark" onclick="declineCookie()">Отклонить</button>
+  </div>
+</div>
+
+<div class="exit-pop" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
+  <div class="exit-card">
+    <button type="button" class="close" onclick="closeExit()" aria-label="Закрыть">×</button>
+    <h3 id="exitPopupTitle">Не уходите без бесплатной консультации</h3>
+    <p class="exit-lead">Если решение пока неясно, оставьте номер. Коротко перезвоним, спокойно уточним ситуацию и подскажем следующий шаг — без давления и лишних разговоров.</p>
+    <div class="exit-benefits">
+      <div>Короткий разговор по делу</div>
+      <div>Без длинных анкет</div>
+      <div>Можно обратиться за близкого человека</div>
+      <div>Без спешки с решением</div>
+    </div>
+    <div class="exit-form">
+      <input id="exitPhone" class="input exit-input exit-form__phone" type="tel" placeholder="Ваш телефон *" autocomplete="tel">
+      <label class="form-consent-check exit-form__consent" for="exitConsentPd">
+        <input type="checkbox" id="exitConsentPd" name="exitConsentPd" autocomplete="off">
+        <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
+      </label>
+      <button type="button" class="btn btn-primary exit-submit exit-form__submit" onclick="submitLead('exitPhone', null, false, true, 'exitConsentPd')">Перезвоните мне</button>
+    </div>
+    <p class="exit-footnote">Обычно хватает короткого разговора, чтобы понять следующий шаг.</p>
+  </div>
+</div>

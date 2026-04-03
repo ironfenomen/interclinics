@@ -1,0 +1,46 @@
+{
+  "name": "interclinics",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "clean": "rm -rf .next node_modules/.cache && next dev",
+    "dev:quick": "sh -c 'ulimit -n 65536 2>/dev/null || ulimit -n 10240 2>/dev/null || true; exec ./node_modules/.bin/next dev -p ${PORT:-3000}'",
+    "dev:clean": "NEXT_DEV_CLEAN=1 sh scripts/dev.sh",
+    "dev:turbo": "NEXT_DEV_TURBO=1 sh scripts/dev.sh",
+    "dev:reset": "NEXT_DEV_CLEAN=1 sh scripts/dev.sh",
+    "dev:stop": "sh scripts/dev-stop.sh",
+    "dev:safe": "npm run check && npm run dev",
+    "check:types": "tsc --noEmit",
+    "check:lint": "next lint",
+    "check:build": "next build",
+    "check": "npm run check:types && npm run check:lint",
+    "verify": "npm run check:types && npm run check:lint && npm run check:build",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "dependencies": {
+    "next": "^14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "overrides": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.35",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.4.0"
+  }
+}
