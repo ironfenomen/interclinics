@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "clean": "rm -rf .next node_modules/.cache && next dev",
+    "dev": "sh scripts/dev.sh",
+    "clean": "NEXT_DEV_CLEAN=1 sh scripts/dev.sh",
     "dev:quick": "sh -c 'ulimit -n 65536 2>/dev/null || ulimit -n 10240 2>/dev/null || true; exec ./node_modules/.bin/next dev -p ${PORT:-3000}'",
     "dev:clean": "NEXT_DEV_CLEAN=1 sh scripts/dev.sh",
     "dev:turbo": "NEXT_DEV_TURBO=1 sh scripts/dev.sh",
@@ -25,12 +25,12 @@
   },
   "dependencies": {
     "next": "^14.2.35",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "overrides": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

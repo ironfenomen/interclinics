@@ -1,5 +1,6 @@
-// components/SocialProof.tsx
 'use client'
+
+// components/SocialProof.tsx
 
 export default function SocialProof() {
   const items = [

@@ -1,5 +1,6 @@
-// components/FAQ.tsx
 'use client'
+
+// components/FAQ.tsx
 import { useState } from 'react'
 import { City } from '@/data/cities'
 

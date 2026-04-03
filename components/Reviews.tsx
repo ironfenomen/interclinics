@@ -1,5 +1,6 @@
-// components/Reviews.tsx
 'use client'
+
+// components/Reviews.tsx
 
 export default function Reviews() {
   return (

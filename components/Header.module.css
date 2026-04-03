@@ -14,8 +14,23 @@
 .tel { text-align: right; min-width: 0; }
 .telNum { font-size: clamp(16px, 3.8vw, 21px); font-weight: 800; color: var(--deep); letter-spacing: -.02em; display: block; white-space: nowrap; }
 .telSub { font-size: 11px; color: var(--t3); font-weight: 500; }
-.cta { background: var(--em); color: #fff; padding: 11px 26px; border-radius: 100px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all .25s; white-space: nowrap; min-height: 44px; box-sizing: border-box; }
-.cta:hover { background: var(--em-h); box-shadow: var(--sh-g); transform: translateY(-1px); }
+.cta {
+  background: linear-gradient(180deg, var(--em), var(--em-d));
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: var(--r-s);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s, transform .2s;
+  white-space: nowrap;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: var(--sh-g);
+}
+.cta:hover { background: var(--em-h); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.26); transform: translateY(-1px); }
+.cta:focus-visible { outline: 2px solid rgba(16, 185, 129, 0.55); outline-offset: 3px; }
 
 @media (max-width: 1024px) { .city { display: none; } }
 @media (max-width: 768px) {

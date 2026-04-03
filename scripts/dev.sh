@@ -49,8 +49,9 @@ free_port() {
 free_port "$PORT"
 
 if [ "${NEXT_DEV_CLEAN:-}" = "1" ]; then
-  echo "dev: NEXT_DEV_CLEAN=1 — удаляю .next"
+  echo "dev: NEXT_DEV_CLEAN=1 — удаляю .next и node_modules/.cache"
   rm -rf .next
+  rm -rf node_modules/.cache
 fi
 
 TURBO_FLAG=""

@@ -33,11 +33,12 @@
 
     <div class="header-actions header-actions--cluster">
       <div class="header-actions__row header-actions__row--main">
-        <a class="header-phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
-        <button type="button" class="btn btn-primary" onclick="openModal()">Обратный звонок</button>
+        <a class="header-phone header-phone--desktop-only" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
+        <button type="button" class="btn btn-primary header-callback-btn" onclick="openModal()">Обратный звонок</button>
       </div>
       <div class="header-actions__row header-actions__row--meta">
         __CITY_SWITCHER__
+        <a class="header-phone header-phone--mobile-inline" href="tel:__PHONE__" aria-label="Позвонить">__PHONE_DISPLAY__</a>
         <span class="header-phone-note">Бесплатно по РФ, круглосуточно</span>
       </div>
     </div>
@@ -65,11 +66,11 @@
 
       <div class="hero-service-pills hero-service-pills--v3">
         <a href="/__CITY_SLUG__/vyvod-iz-zapoya/">Вывод из запоя</a>
+        <a class="hero-pill--stacionar" href="/__CITY_SLUG__/stacionar/">Стационар 24/7</a>
         <a href="/__CITY_SLUG__/narkolog-na-dom/">Нарколог на дом</a>
-        <a href="/__CITY_SLUG__/stacionar/">Стационар 24/7</a>
         <a href="/__CITY_SLUG__/kodirovanie/">Кодирование</a>
-        <a href="__HOME_HREF__#rehabilitaciya">Реабилитация</a>
       </div>
+      <p class="hero-rehab-link"><a href="__HOME_HREF__#rehabilitaciya">Реабилитация и восстановление — программа</a></p>
 
       <div class="hero-cta-stack hero-cta-panel">
         <a class="btn btn-primary hero-cta-primary" href="tel:__PHONE__">Позвонить сейчас</a>
@@ -246,59 +247,14 @@
 </section>
 
 <section class="route route--steps" id="how">
-  <div class="c">
-    <div class="section-title section-title--route-steps reveal">
-      <span>Как мы работаем</span>
-      <h2>От звонка до стационара — понятный порядок шагов</h2>
-      <p>Разбираться во всём самостоятельно не нужно: уточним ситуацию, подскажем оптимальный формат — выезд на дом, приём в клинике, при показаниях <strong>стационар 24/7</strong>, затем при необходимости кодирование и программа восстановления.</p>
-    </div>
-
-    <div class="route-steps route-steps--four reveal">
-      <div class="route-step">
-        <b class="num" aria-hidden="true">01</b>
-        <div>
-          <h4>Первый контакт</h4>
-          <p>Позвоните круглосуточно или оставьте номер в форме — коротко опишите, что происходит.</p>
-        </div>
-      </div>
-      <div class="route-step">
-        <b class="num" aria-hidden="true">02</b>
-        <div>
-          <h4>Быстрый ответ</h4>
-          <p>Свяжемся сразу или перезвоним в согласованное время, зададим вопросы по симптомам и срочности.</p>
-        </div>
-      </div>
-      <div class="route-step route-step--key">
-        <b class="num" aria-hidden="true">03</b>
-        <div>
-          <h4>Формат помощи</h4>
-          <p>Нарколог предлагает шаг: выезд на дом, очный приём или <strong>стационар 24/7</strong> — с наблюдением и терапией при показаниях.</p>
-        </div>
-      </div>
-      <div class="route-step">
-        <b class="num" aria-hidden="true">04</b>
-        <div>
-          <h4>Дальнейший план</h4>
-          <p>Начинаем помощь в выбранном формате. После стабилизации — по решению врача: кодирование и программа восстановления.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="route-cta route-cta--steps reveal">
-      <div>
-        <strong>Свяжитесь, когда будете готовы</strong>
-        <p>Расскажем спокойно, с чего начать в вашей ситуации — без навязанных решений.</p>
-      </div>
-      <button type="button" class="btn btn-primary" onclick="openModal()">Заказать звонок</button>
-    </div>
-  </div>
+__HOW_WE_WORK_SECTION__
 </section>
 
 <section class="pricing pricing--outpatient" id="pricing">
   <div class="c">
     <div class="section-title section-title--pricing reveal">
       <span>Выезд на дом</span>
-      <h2>Капельница и нарколог у вас в __CITY_PREP__: три варианта выезда</h2>
+      <h2>Капельница и нарколог в __CITY_PREP__: три варианта выезда</h2>
       <p>Цены ниже — только за помощь на дому. Пакет подбирают по симптомам и тяжести; точный состав согласуем после короткой беседы с врачом. Ориентиры на странице — реальные диапазоны: итог и перечень работ проговариваем до выезда, без сюрпризов в цене после приезда. Если на месте недостаточно, возможен переход на <strong>стационар 24/7</strong> — с отдельными условиями, они описаны ниже по странице.</p>
     </div>
 
@@ -319,7 +275,7 @@
       </div>
 
       <div class="card price-card price-card--tier price-card--featured reveal">
-        <div class="label label--pick">Обычно достаточно</div>
+        <div class="label label--pick">Оптимальный вариант</div>
         <h3>Усиленная капельница</h3>
         <div class="desc">Выраженная интоксикация или повторяющиеся эпизоды: расширенный состав препаратов и усиленная симптоматическая поддержка.</div>
         <div class="amount">__P_ENH__ ₽ <small>/ выезд</small></div>
@@ -330,7 +286,7 @@
           <li>Рекомендации на ближайшие дни</li>
         </ul>
         <div class="cta">
-          <button type="button" class="btn btn-primary" onclick="openModal()">Выбрать этот вариант</button>
+          <button type="button" class="btn btn-primary price-card__cta--featured" onclick="openModal()">Оформить выезд</button>
         </div>
       </div>
 
@@ -343,7 +299,7 @@
           <li>Расширенный осмотр и оценка рисков</li>
           <li>Максимально полный комплекс инфузий и терапии</li>
           <li>Плотный контроль до стабилизации</li>
-          <li>При показаниях — обсуждение <strong>стационара</strong>, без давления</li>
+          <li>При показаниях — обсуждаем <strong>стационар 24/7</strong> без давления</li>
         </ul>
         <div class="cta">
           <button type="button" class="btn btn-secondary" onclick="openModal()">Уточнить расширенный выезд</button>
@@ -352,7 +308,7 @@
     </div>
 
     <p class="pricing-bridge reveal">
-      Нужно круглосуточное наблюдение в стационаре — не входит в эти пакеты: смотрите <a href="/__CITY_SLUG__/stacionar/">стационар 24/7</a> и суточную ставку отдельно. Реабилитация и программа восстановления — тоже отдельное направление после стабилизации.
+      Круглосуточный стационар в эти пакеты не входит — условия и суточная ставка: <a href="/__CITY_SLUG__/stacionar/">стационар 24/7</a>. Реабилитация — отдельный этап после стабилизации.
     </p>
 
     <div class="interrupt-cta interrupt-cta--pricing reveal">
@@ -395,7 +351,7 @@
       </article>
 
       <article class="stacionar-pro stacionar-pro--featured reveal">
-        <span class="stacionar-pro__badge">Чаще выбирают</span>
+        <span class="stacionar-pro__badge">Оптимальный формат</span>
         <div class="stacionar-pro__head">
           <h3 class="stacionar-pro__name">Стандартный курс</h3>
           <p class="stacionar-pro__term">7–14 дней</p>
@@ -422,7 +378,7 @@
           <li>Расширенная программа терапии и наблюдения</li>
           <li>Плотный контроль до устойчивой стабилизации</li>
           <li>Подготовка к выписке: рекомендации пациенту и семье</li>
-          <li>При показаниях — подготовка к кодированию или следующему шагу</li>
+          <li>По показаниям — подготовка к кодированию или следующему этапу</li>
         </ul>
         <p class="stacionar-pro__daynote">Сутки размещения — ориентир от __PRICE_STACIONAR_DAY__ ₽</p>
       </article>
@@ -490,7 +446,7 @@
       </ul>
     </div>
 
-    <p class="stacionar-bridge reveal">После выписки при показаниях врач обсудит возможное <strong>кодирование</strong>. <strong>Восстановление и реабилитация</strong> — отдельный этап с другой программой и ритмом; на главном экране это отдельный маршрут — <a class="stacionar-bridge__link" href="__HOME_HREF__#rehabilitaciya">блок реабилитации ниже</a>.</p>
+    <p class="stacionar-bridge reveal">После выписки при показаниях врач обсудит возможное <strong>кодирование</strong>. <strong>Восстановление и реабилитация</strong> — отдельный этап с иной программой и ритмом; продолжение пути — в <a class="stacionar-bridge__link" href="__HOME_HREF__#rehabilitaciya">блоке реабилитации ниже</a>.</p>
 
     <div class="stacionar-bar reveal">
       <div class="stacionar-bar__copy">
@@ -529,7 +485,7 @@
 
     <div class="rehab-durations">
       <article class="rehab-dur rehab-dur--featured reveal">
-        <span class="rehab-dur__badge">Точка входа</span>
+        <span class="rehab-dur__badge">Первый шаг</span>
         <h3 class="rehab-dur__term">28 дней</h3>
         <p class="rehab-dur__desc">Знакомство с программой, режим и первые устойчивые шаги — понятная база, с которой чаще всего начинают.</p>
         <div class="rehab-dur__price">от <strong>__P_REHAB_28__</strong> ₽ <span>за программу</span></div>
@@ -559,7 +515,7 @@
       </ul>
     </div>
 
-    <p class="rehab-family reveal">Для семьи — прозрачные этапы и правила связи: не «отправили и замолчали», а понятный контур сопровождения.</p>
+    <p class="rehab-family reveal">Для семьи — прозрачные этапы и правила связи: понятный контур сопровождения, без «пропажи» человека из контакта после заезда.</p>
 
     <div class="rehab-bar reveal">
       <div class="rehab-bar__copy">
@@ -1085,7 +1041,7 @@
 <div class="mobile-bar">
   <div class="mobile-bar-inner">
     <a class="mobile-action" href="tel:__PHONE__">Позвонить сейчас</a>
-    <a class="fab" href="__WA_HREF__" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <a class="fab fab--wa" href="__WA_HREF__" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
     </a>
     <button class="fab" onclick="openModal()" aria-label="Callback">

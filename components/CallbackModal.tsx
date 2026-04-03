@@ -1,5 +1,6 @@
-// components/CallbackModal.tsx
 'use client'
+
+// components/CallbackModal.tsx
 import { useState, useRef } from 'react'
 import { City } from '@/data/cities'
 
@@ -50,21 +51,23 @@ export default function CallbackModal({ city }: { city: City }) {
       className="callback-overlay"
     >
       <div style={{
-        background: '#fff', borderRadius: 24, padding: '36px 32px', maxWidth: 420, width: '100%', position: 'relative', animation: 'fadeUp .3s ease',
+        background: '#fff', borderRadius: 22, padding: '34px 30px', maxWidth: 420, width: '100%', position: 'relative', animation: 'fadeUp .3s ease',
+        border: '1px solid rgba(220,230,241,.95)',
+        boxShadow: '0 20px 56px rgba(7,20,35,.12)',
         maxHeight: 'min(88dvh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px))',
         overflowY: 'auto',
         boxSizing: 'border-box',
       }}>
-        <div onClick={close} style={{ position: 'absolute', top: 16, right: 16, width: 32, height: 32, borderRadius: '50%', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+        <button type="button" aria-label="Закрыть" onClick={close} style={{ position: 'absolute', top: 14, right: 14, width: 36, height: 36, borderRadius: '50%', background: 'var(--bg)', border: '1px solid var(--b1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 16, lineHeight: 1, color: 'var(--t2)' }}>
           ✕
-        </div>
+        </button>
 
         {!sent ? (
           <>
             <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--deep)', marginBottom: 6 }}>Обратный звонок</div>
             <div style={{ fontSize: 14, color: 'var(--t3)', marginBottom: 20 }}>Перезвоним через 30 секунд. Бесплатно.</div>
             <input ref={inputRef} className={`fi ${error ? 'fi--err' : ''}`} type="tel" placeholder="Ваш телефон *" value={phone} onChange={e => handlePhone(e.target.value)} style={{ marginBottom: 12 }} />
-            <button className="fbtn" onClick={submit}>Жду звонка</button>
+            <button type="button" className="fbtn" onClick={submit}>Жду звонка</button>
             <p style={{ marginTop: 10, fontSize: 11, color: 'var(--t3)', textAlign: 'center' as const, lineHeight: 1.5 }}>
               Нажимая кнопку, вы соглашаетесь с <a href="/privacy/" style={{ color: 'var(--em-d)', textDecoration: 'underline' }}>политикой конфиденциальности</a>
             </p>
@@ -77,7 +80,6 @@ export default function CallbackModal({ city }: { city: City }) {
           </div>
         )}
       </div>
-      <style jsx>{`.callback-overlay.open{display:flex!important}`}</style>
     </div>
   )
 }

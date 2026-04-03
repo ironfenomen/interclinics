@@ -8,6 +8,93 @@
   --deep: #071423;
   --em: #10b981;
   --t3: #94a3b8;
+  /* Страницы услуг / Header.module / инлайн-компоненты (раньше ссылались на несуществующие переменные) */
+  --white: #ffffff;
+  --bg: #f5f8fc;
+  --b1: #dce6f1;
+  --b2: #e8eef5;
+  --t2: #5e7288;
+  --em-d: #0fa06f;
+  --em-h: #059669;
+  --em-glow: rgba(16, 185, 129, 0.12);
+  --sh-m: 0 8px 24px rgba(10, 25, 45, 0.08);
+  --sh-g: 0 10px 24px rgba(16, 185, 129, 0.22);
+  --r-s: 12px;
+  --red: #e95e5e;
+  --red-bg: rgba(233, 94, 94, 0.08);
+}
+
+/* Формы на страницах услуг и в модалке (class .fi / .fbtn) — синхрон с мокапом .input / primary CTA */
+.fi {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 14px 17px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1.5px solid var(--b1);
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  color: #162334;
+  font-family: var(--f);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.fi::placeholder {
+  color: #8ea0b3;
+  font-weight: 500;
+}
+.fi:focus {
+  outline: none;
+  border-color: var(--em);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.13);
+}
+.fi:focus-visible {
+  outline: none;
+  border-color: var(--em);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.13);
+}
+.fi--err {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 4px rgba(233, 94, 94, 0.1) !important;
+}
+
+.fbtn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--em), var(--em-d));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--f);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(16, 185, 129, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.fbtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 38px rgba(16, 185, 129, 0.27);
+}
+.fbtn:focus-visible {
+  outline: 2px solid rgba(16, 185, 129, 0.55);
+  outline-offset: 3px;
+}
+
+.callback-overlay.open {
+  display: flex !important;
 }
 
 /* Контейнер .c мокапа: только width + margin; вычитаем safe-area (нотч / edge) */
@@ -258,7 +345,7 @@
 /* Контент не прячется под фиксированной нижней панелью (MobileBar) */
 @media (max-width: 768px) {
   body:has(.mobile-bar) {
-    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(68px + max(14px, env(safe-area-inset-bottom, 0px)));
   }
 }
 
@@ -344,6 +431,12 @@
     transform: translateY(-2px);
     box-shadow: 0 22px 46px rgba(16, 185, 129, 0.3);
   }
+  .btn-primary-mock:focus-visible {
+    @apply outline-none;
+    box-shadow:
+      0 16px 34px rgba(16, 185, 129, 0.25),
+      0 0 0 3px rgba(16, 185, 129, 0.35);
+  }
 
   /* Синхрон с mockup-literal: легче CTA в правом action-cluster шапки */
   .header-actions--cluster .btn-primary-mock {
@@ -382,7 +475,7 @@
 
   /* Центрированный блок заголовка секции — .section-title мокапа */
   .landing-section-head {
-    @apply mx-auto mb-[46px] max-w-[760px] text-center;
+    @apply mx-auto mb-11 max-w-[760px] text-center;
   }
   .landing-section-head .landing-section-eyebrow {
     @apply inline-flex items-center gap-2 rounded-full bg-[rgba(16,185,129,0.12)] px-3.5 py-[7px] text-[12px] font-extrabold uppercase tracking-[0.14em] text-emerald-2;
@@ -392,7 +485,7 @@
   }
   .landing-section-head h2,
   .landing-section-head .landing-section-h2 {
-    @apply mt-4 text-[42px] font-extrabold leading-[1.1] tracking-[-0.04em] text-ink max-md:text-[32px];
+    @apply mt-4 text-[42px] font-extrabold leading-[1.12] tracking-[-0.04em] text-ink max-md:text-[32px];
     text-wrap: balance;
     overflow-wrap: break-word;
   }

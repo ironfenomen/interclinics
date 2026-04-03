@@ -1,5 +1,6 @@
-// components/CookieConsent.tsx
 'use client'
+
+// components/CookieConsent.tsx
 import { useState, useEffect } from 'react'
 
 export default function CookieConsent() {

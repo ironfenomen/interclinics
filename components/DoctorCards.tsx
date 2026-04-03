@@ -1,5 +1,6 @@
-// components/DoctorCards.tsx
 'use client'
+
+// components/DoctorCards.tsx
 
 import { Doctor } from '@/data/doctors'
 

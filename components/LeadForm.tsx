@@ -1,5 +1,6 @@
-// components/LeadForm.tsx
 'use client'
+
+// components/LeadForm.tsx
 import { useState, useRef } from 'react'
 import type { City } from '@/data/cities'
 
@@ -91,13 +92,13 @@ export default function LeadForm({ city, variant }: Props) {
 
     return (
       <div style={{
-        background: '#fff', borderRadius: 24, padding: '26px 22px 28px',
-        boxShadow: '0 24px 64px rgba(0,0,0,.25)', position: 'relative'
+        background: '#fff', borderRadius: 22, padding: '26px 24px 28px',
+        boxShadow: '0 20px 56px rgba(7,20,35,.14)', position: 'relative', border: '1px solid rgba(220,230,241,.9)'
       }}>
         <div style={{
           position: 'absolute', inset: -1,
           background: 'linear-gradient(135deg, var(--em), transparent 50%, var(--em))',
-          borderRadius: 25, zIndex: -1, opacity: .25
+          borderRadius: 23, zIndex: -1, opacity: .22
         }} />
 
         <div style={{ textAlign: 'center', marginBottom: 14 }}>
@@ -127,7 +128,7 @@ export default function LeadForm({ city, variant }: Props) {
                       onClick={() => setHeroScenario(row.id)}
                       style={{
                         display: 'block', width: '100%', textAlign: 'left', cursor: 'pointer',
-                        padding: '8px 10px', borderRadius: 10, border: '1px solid',
+                        padding: '10px 12px', borderRadius: 12, border: '1px solid',
                         borderColor: active ? 'var(--em)' : 'var(--b2)',
                         background: active ? 'rgba(16,185,129,.07)' : '#fff',
                         transition: 'border-color .2s, background .2s',
@@ -170,7 +171,7 @@ export default function LeadForm({ city, variant }: Props) {
               style={{ marginBottom: 10 }}
             />
 
-            <button className="fbtn" onClick={handleSubmit} style={{ animation: 'pulse 2s ease-in-out infinite' }}>
+            <button type="button" className="fbtn" onClick={handleSubmit}>
               {heroButtonLabel(heroScenario)}
             </button>
 
@@ -187,12 +188,12 @@ export default function LeadForm({ city, variant }: Props) {
                 Или напишите:
               </span>
               <a href={`https://wa.me/${city.whatsapp}`} target="_blank" rel="noopener"
-                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, padding: 8, borderRadius: 8, fontSize: 11, fontWeight: 600, border: '1px solid var(--b1)', color: '#25D366' }}>
+                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '10px 10px', minHeight: 40, borderRadius: 12, fontSize: 12, fontWeight: 700, border: '1px solid var(--b1)', color: '#25D366', background: '#fff' }}>
                 WhatsApp
               </a>
               {city.telegram && (
                 <a href={`https://t.me/${city.telegram}`} target="_blank" rel="noopener"
-                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, padding: 8, borderRadius: 8, fontSize: 11, fontWeight: 600, border: '1px solid var(--b1)', color: '#2AABEE' }}>
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '10px 10px', minHeight: 40, borderRadius: 12, fontSize: 12, fontWeight: 700, border: '1px solid var(--b1)', color: '#2AABEE', background: '#fff' }}>
                   Telegram
                 </a>
               )}
@@ -217,7 +218,7 @@ export default function LeadForm({ city, variant }: Props) {
           ...(variant === 'cta' ? { background: 'rgba(255,255,255,.07)', borderColor: 'rgba(255,255,255,.1)', color: '#fff' } : {})
         }}
       />
-      <button className="fbtn" onClick={handleSubmit} style={{ width: 'auto', padding: '14px 32px', whiteSpace: 'nowrap', animation: 'none' }}>
+      <button type="button" className="fbtn" onClick={handleSubmit} style={{ width: 'auto', padding: '14px 28px', whiteSpace: 'nowrap' }}>
         Перезвоните мне
       </button>
     </div>

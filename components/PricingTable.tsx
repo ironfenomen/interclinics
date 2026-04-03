@@ -1,5 +1,6 @@
-// components/PricingTable.tsx
 'use client'
+
+// components/PricingTable.tsx
 
 import { City } from '@/data/cities'
 

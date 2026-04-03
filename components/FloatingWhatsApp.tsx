@@ -1,5 +1,6 @@
-// components/FloatingWhatsApp.tsx
 'use client'
+
+// components/FloatingWhatsApp.tsx
 import { City } from '@/data/cities'
 
 export default function FloatingWhatsApp({ city }: { city: City }) {

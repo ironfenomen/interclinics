@@ -1,3 +1,5 @@
+'use client'
+
 // components/CitySelector.tsx
 // ============================================================
 // ВЫБОР ГОРОДА — ГЕО + COOKIE + SEO-ПЕРЕЛИНКОВКА
@@ -12,7 +14,6 @@
 // SEO: страница содержит ссылки на ВСЕ города × услуги × районы
 // Яндекс проиндексирует их как внутренние ссылки
 // ============================================================
-'use client'
 
 import { useEffect, useState, useCallback } from 'react'
 import type { CSSProperties } from 'react'
@@ -340,7 +341,7 @@ const S: Record<string, CSSProperties> = {
 
   // Heading
   h1: { fontSize: 26, fontWeight: 800, color: '#fff', textAlign: 'center', marginBottom: 8 },
-  h1sub: { fontSize: 14, color: 'rgba(255,255,255,.4)', textAlign: 'center', marginBottom: 32, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' },
+  h1sub: { fontSize: 14, lineHeight: 1.65, color: 'rgba(255,255,255,.42)', textAlign: 'center', marginBottom: 36, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' },
 
   // Confirm
   confirmCard: {
@@ -361,13 +362,13 @@ const S: Record<string, CSSProperties> = {
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
-    gap: 14,
+    gap: 16,
   },
   card: {
     background: 'rgba(255,255,255,.04)',
     border: '1px solid rgba(255,255,255,.07)',
     borderRadius: 16,
-    padding: '22px 20px',
+    padding: '24px 22px',
     textDecoration: 'none',
     color: 'inherit',
     position: 'relative',
@@ -399,7 +400,7 @@ const S: Record<string, CSSProperties> = {
 
   // SEO block
   seo: {
-    marginTop: 48, paddingTop: 32,
+    marginTop: 52, paddingTop: 36,
     borderTop: '1px solid rgba(255,255,255,.06)',
   },
   seoH2: { fontSize: 18, fontWeight: 700, color: 'rgba(255,255,255,.5)', marginBottom: 24 },

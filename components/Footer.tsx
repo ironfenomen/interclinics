@@ -1,15 +1,16 @@
-// components/Footer.tsx
 'use client'
+
+// components/Footer.tsx
 
 import { City } from '@/data/cities'
 import { MedicalContraindicationsNote } from '@/components/MedicalContraindicationsNote'
 
 export default function Footer({ city }: { city: City }) {
   return (
-    <footer style={{ background: '#060D18', color: 'rgba(255,255,255,.35)', padding: '44px 0 28px', fontSize: 13 }}>
-      <div className="ctr" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 36 }}>
+    <footer style={{ background: 'linear-gradient(180deg,#030910,#08111D 55%,#0a1520)', color: 'rgba(255,255,255,.62)', padding: '56px 0 36px', fontSize: 13 }}>
+      <div className="ctr" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '36px 32px' }}>
         <div>
-          <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 10 }}>InterClinics</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-.03em' }}>InterClinics</div>
           <div style={{ lineHeight: 1.8 }}>
             <strong style={{ color: 'rgba(255,255,255,.55)' }}>{city.partnerName}</strong><br />
             ИНН {city.partnerInn} / ОГРН {city.partnerOgrn}<br />
@@ -19,7 +20,7 @@ export default function Footer({ city }: { city: City }) {
           </div>
         </div>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,.6)', marginBottom: 14, textTransform: 'uppercase' as const, letterSpacing: '.08em' }}>Услуги</div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,.68)', marginBottom: 16, textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>Услуги</div>
           <ul style={{ listStyle: 'none' }}>
             {[
               ['Вывод из запоя', `/${city.slug}/vyvod-iz-zapoya/`],
@@ -30,17 +31,17 @@ export default function Footer({ city }: { city: City }) {
               ['Реабилитация', `/${city.slug}/reabilitaciya/`],
               ['Нарколог на дом', `/${city.slug}/narkolog-na-dom/`],
             ].map(([label, href]) => (
-              <li key={label} style={{ marginBottom: 8 }}>
-                <a href={href} style={{ color: 'rgba(255,255,255,.35)', transition: 'color .2s' }}>{label}</a>
+              <li key={label} style={{ marginBottom: 10 }}>
+                <a className="ic-footer-link" href={href} style={{ color: 'rgba(255,255,255,.62)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'color .2s, border-color .2s' }}>{label}</a>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,.6)', marginBottom: 14, textTransform: 'uppercase' as const, letterSpacing: '.08em' }}>Информация</div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,.68)', marginBottom: 16, textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>Информация</div>
           <ul style={{ listStyle: 'none' }}>
             {[['О компании', '#'], ['Врачи', '#'], ['Цены', '#'], ['Лицензии', '#'], ['Политика конфиденциальности', '/privacy/'], ['Политика cookie', '/cookies'], ['Пользовательское соглашение', '/agreement/']].map(([t, h]) => (
-              <li key={t} style={{ marginBottom: 8 }}><a href={h} style={{ color: 'rgba(255,255,255,.35)', transition: 'color .2s' }}>{t}</a></li>
+              <li key={t} style={{ marginBottom: 10 }}><a className="ic-footer-link" href={h} style={{ color: 'rgba(255,255,255,.62)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'color .2s, border-color .2s' }}>{t}</a></li>
             ))}
           </ul>
         </div>
@@ -55,6 +56,10 @@ export default function Footer({ city }: { city: City }) {
         </div>
       </div>
       <style jsx>{`
+        .ic-footer-link:hover {
+          color: #fff !important;
+          border-bottom-color: rgba(16, 185, 129, 0.45) !important;
+        }
         .ic-footer-legal {
           display: flex;
           flex-direction: column;

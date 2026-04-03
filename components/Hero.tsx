@@ -1,5 +1,6 @@
-// components/Hero.tsx
 'use client'
+
+// components/Hero.tsx
 import { City } from '@/data/cities'
 import LeadForm from './LeadForm'
 

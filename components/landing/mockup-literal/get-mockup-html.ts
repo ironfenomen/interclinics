@@ -9,6 +9,7 @@ import {
   TOPBAR_MICRO_LINK,
   topbarTrustLine,
 } from '@/lib/topbar'
+import { MOCKUP_HOW_WE_WORK_SECTION_INNER } from '@/lib/mockup-how-we-work-section'
 
 let cachedTemplate: string | null = null
 
@@ -185,6 +186,7 @@ function citySwitcherHtml(current: City): string {
 export function getMockupHtml(city: City): string {
   const t = loadTemplate()
   return t
+    .replaceAll('__HOW_WE_WORK_SECTION__', MOCKUP_HOW_WE_WORK_SECTION_INNER)
     .replaceAll('__PHONE__', city.phone.replace(/\s/g, ''))
     .replaceAll('__PHONE_DISPLAY__', city.phoneDisplay)
     .replaceAll('__CITY_NAME__', city.name)
@@ -195,7 +197,6 @@ export function getMockupHtml(city: City): string {
     .replaceAll('__TOPBAR_LINK_HREF__', TOPBAR_MICRO_LINK.href)
     .replaceAll('__TOPBAR_LINK_LABEL__', TOPBAR_MICRO_LINK.label)
     .replaceAll('__CITY_PREP__', city.namePrep)
-    .replaceAll('__CITY_TAGLINE__', 'premium performance prototype')
     .replaceAll('__ARRIVAL__', String(city.arrivalTime))
     .replaceAll('__TEAMS__', String(city.teamsAvailable))
     .replaceAll('__P_BASE__', fmt(city.priceBase))

@@ -1,5 +1,6 @@
-// components/Advantages.tsx
 'use client'
+
+// components/Advantages.tsx
 
 export default function Advantages() {
   const advs = [

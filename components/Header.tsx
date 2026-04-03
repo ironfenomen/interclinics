@@ -1,5 +1,6 @@
-// components/Header.tsx
 'use client'
+
+// components/Header.tsx
 import { useState, useEffect } from 'react'
 import { City } from '@/data/cities'
 import styles from './Header.module.css'

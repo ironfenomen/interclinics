@@ -1,5 +1,6 @@
-// components/MobileBar.tsx
 'use client'
+
+// components/MobileBar.tsx
 import { City } from '@/data/cities'
 
 export default function MobileBar({ city }: { city: City }) {

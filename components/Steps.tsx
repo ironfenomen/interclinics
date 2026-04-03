@@ -1,5 +1,6 @@
-// components/Steps.tsx
 'use client'
+
+// components/Steps.tsx
 
 import { City } from '@/data/cities'
 export default function Steps({ city }: { city: City }) {
