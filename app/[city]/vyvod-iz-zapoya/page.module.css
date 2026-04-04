@@ -1,0 +1,599 @@
+/* Каркас страницы услуги: единый шаблон для всех городов (тот же ритм, те же quality patterns) */
+.pageRoot {
+  --vyvod-section-y: clamp(56px, 9vw, 88px);
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(215, 180, 105, 0.09), transparent 22%),
+    radial-gradient(circle at 90% 5%, rgba(16, 185, 129, 0.09), transparent 18%),
+    linear-gradient(180deg, #ffffff 0%, #f7fafd 20%, #ffffff 56%, #f6fafd 100%);
+}
+
+@media (max-width: 768px) {
+  .pageRoot {
+    --vyvod-section-y: clamp(44px, 9vw, 80px);
+  }
+}
+
+/* --- Hero: первый экран услуги — в одной системе с городским .hero мокапа --- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -20%, rgba(16, 185, 129, 0.09), transparent 55%),
+    linear-gradient(180deg, #050b14 0%, var(--deep) 42%, #071a2e 100%);
+  padding: clamp(36px, 7vw, 56px) 0 clamp(44px, 9vw, 80px);
+}
+
+.heroGlow {
+  position: absolute;
+  top: -42%;
+  right: -18%;
+  width: min(680px, 120vw);
+  height: min(680px, 120vw);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, transparent 62%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.heroMesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  max-width: min(720px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.heroBadges {
+  list-style: none;
+  margin: 0 auto 18px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(7px, 1.1vw, 10px);
+  max-width: min(100%, 680px);
+}
+
+.heroBadge {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.065);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+.heroBadgeDot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d7b469 0%, #b8860b 100%);
+  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.28);
+}
+
+.title {
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.22em;
+  width: 100%;
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.titleKicker {
+  font-size: clamp(26px, 5.1vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.042em;
+  line-height: 1.07;
+  color: #fff;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.titleMain {
+  font-size: clamp(18px, 3.5vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: rgba(230, 253, 244, 0.96);
+  max-width: min(100%, 26rem);
+  overflow-wrap: break-word;
+}
+
+.lead {
+  font-size: clamp(15px, 2.35vw, 17px);
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0 auto 22px;
+  line-height: 1.65;
+  max-width: 36em;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+
+/* CTA: классы .btn .btn-primary / .btn-dark из mockup-literal — единая система с главной */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto 0;
+  padding-top: 2px;
+}
+
+.ctaRow :global(.btn) {
+  flex: 1 1 min(200px, calc(50% - 6px));
+  min-height: 52px;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  border-radius: 16px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.ctaRow :global(.btn-primary) {
+  box-shadow: 0 16px 34px rgba(16, 185, 129, 0.26);
+}
+
+.ctaRow :global(.btn-primary:hover) {
+  box-shadow: 0 22px 46px rgba(16, 185, 129, 0.32);
+}
+
+.ctaRow :global(.btn-dark) {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.ctaRow :global(.btn-dark:hover) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 520px) {
+  .ctaRow {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .ctaRow :global(.btn) {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaRow :global(.btn:hover) {
+    transform: none;
+  }
+}
+
+.heroMicroTrust {
+  margin: 18px auto 0;
+  padding-top: 16px;
+  max-width: 36em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11.5px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 28px 0 40px;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .heroBadges {
+    margin-bottom: 14px;
+  }
+
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .lead {
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroBadge {
+    font-size: 11px;
+    padding: 7px 11px;
+    min-height: 32px;
+  }
+  .heroBadgeDot {
+    width: 6px;
+    height: 6px;
+  }
+  .titleMain {
+    max-width: none;
+  }
+}
+
+/* --- Секция «что входит» + география + районы (премиальный ритм, как на городском лендинге) --- */
+.includesSection {
+  padding: var(--vyvod-section-y) 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16, 185, 129, 0.045), transparent 55%),
+    linear-gradient(180deg, #f4f8fc 0%, #fbfcfe 42%, #ffffff 100%);
+  border-top: 1px solid rgba(220, 230, 241, 0.65);
+  border-bottom: 1px solid rgba(220, 230, 241, 0.45);
+}
+
+.includesInner {
+  max-width: min(880px, 100%);
+  margin: 0 auto;
+}
+
+.includesHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: min(640px, 100%);
+  margin: 0 auto clamp(28px, 5vw, 42px);
+}
+
+.includesKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--em-d);
+}
+
+.includesKicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #d7b469, var(--em));
+  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.35);
+}
+
+.includesTitle {
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 800;
+  color: var(--deep);
+  margin: 0 0 16px;
+  letter-spacing: -0.038em;
+  line-height: 1.12;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.includesLead {
+  margin: 0;
+  font-size: clamp(15px, 2.2vw, 17px);
+  line-height: 1.7;
+  font-weight: 500;
+  overflow-wrap: break-word;
+  color: var(--t2);
+  max-width: 52em;
+}
+
+.includesList {
+  list-style: none;
+  margin: 0 0 clamp(24px, 4vw, 32px);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .includesList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.featureCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 0;
+  min-width: 0;
+  padding: 18px 18px 18px 17px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcfe 100%);
+  border: 1px solid rgba(220, 230, 241, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 12px 36px rgba(10, 25, 45, 0.06);
+  box-sizing: border-box;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.featureCard:hover {
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 16px 44px rgba(10, 25, 45, 0.09);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featureCard:hover {
+    transform: none;
+  }
+}
+
+.featureIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.14), rgba(16, 185, 129, 0.06));
+  color: var(--em-d);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.featureIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.featureText {
+  font-size: 15px;
+  line-height: 1.58;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #1e293b;
+  padding-top: 2px;
+  overflow-wrap: break-word;
+}
+
+.geoCard {
+  position: relative;
+  margin-bottom: clamp(22px, 4vw, 28px);
+  padding: 24px 24px 24px 26px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.07) 0%, rgba(255, 255, 255, 0.97) 45%, #ffffff 100%);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 14px 44px rgba(7, 20, 35, 0.07);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.geoCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--em), rgba(16, 185, 129, 0.35));
+}
+
+.geoTitle {
+  margin: 0 0 14px;
+  font-size: clamp(17px, 2.4vw, 20px);
+  font-weight: 800;
+  letter-spacing: -0.026em;
+  line-height: 1.22;
+  color: var(--deep);
+  overflow-wrap: break-word;
+}
+
+.geoLead {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.68;
+  font-weight: 500;
+  color: var(--t2);
+  overflow-wrap: break-word;
+}
+
+.geoCard .geoLead:last-of-type {
+  margin-bottom: 0;
+}
+
+.geoCard:has(.geoLocal) .geoLead:last-of-type {
+  margin-bottom: 14px;
+}
+
+.geoLocal {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.68;
+  font-weight: 500;
+  color: #475569;
+  padding-top: 16px;
+  border-top: 1px solid rgba(220, 230, 241, 0.88);
+  overflow-wrap: break-word;
+}
+
+.districtsBlock {
+  margin-top: 0;
+  padding: clamp(20px, 3.5vw, 26px) clamp(18px, 3vw, 24px);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 230, 241, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 10px 32px rgba(10, 25, 45, 0.05);
+  box-sizing: border-box;
+}
+
+.districtsTitle {
+  font-size: clamp(17px, 2.4vw, 20px);
+  font-weight: 800;
+  letter-spacing: -0.026em;
+  line-height: 1.22;
+  color: var(--deep);
+  margin: 0 0 8px;
+  overflow-wrap: break-word;
+}
+
+.districtsSubtitle {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: #64748b;
+  overflow-wrap: break-word;
+}
+
+.districtsNote {
+  margin: 0 0 clamp(14px, 2.5vw, 18px);
+  font-size: 13px;
+  line-height: 1.58;
+  font-weight: 500;
+  color: #94a3b8;
+  max-width: 42em;
+}
+
+.districtsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.districtChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-size: 12.75px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(220, 230, 241, 0.95);
+  box-shadow: 0 1px 2px rgba(9, 20, 35, 0.05);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.districtChip:hover {
+  border-color: rgba(16, 185, 129, 0.28);
+  box-shadow: 0 4px 14px rgba(10, 25, 45, 0.07);
+  background: #fff;
+}
+
+@media (max-width: 768px) {
+  .includesHeader {
+    margin-bottom: 24px;
+  }
+
+  .includesList {
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .featureCard {
+    padding: 16px 16px 16px 15px;
+  }
+
+  .geoCard {
+    padding: 20px 18px 20px 22px;
+  }
+
+  .geoCard::before {
+    top: 14px;
+    bottom: 14px;
+  }
+
+  .districtsBlock {
+    padding: 18px 16px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .includesList {
+    gap: 10px;
+  }
+
+  .featureIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .featureText {
+    font-size: 14.5px;
+  }
+
+  .geoCard {
+    padding: 18px 14px 18px 20px;
+  }
+
+  .districtsList {
+    gap: 7px 8px;
+  }
+
+  .districtChip {
+    font-size: 12.5px;
+    padding: 8px 13px;
+  }
+}

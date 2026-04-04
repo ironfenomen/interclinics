@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import styles from '../privacy/privacy-doc.module.css'
 
 export const metadata: Metadata = {
-  title: 'Пользовательское соглашение | InterClinics',
+  title: `Пользовательское соглашение | ${BRAND_DISPLAY_NAME}`,
   description:
     'Условия использования сайта interclinics.ru: информационный характер материалов, ограничение ответственности, ссылки на политику ПДн.',
 }

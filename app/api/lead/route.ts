@@ -1,5 +1,6 @@
 // app/api/lead/route.ts
 import { NextRequest, NextResponse } from 'next/server'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
     //     'Content-Type': 'application/json',
     //   },
     //   body: JSON.stringify([{
-    //     name: `Заявка InterClinics — ${city}`,
+    //     name: `Заявка ${BRAND_DISPLAY_NAME} — ${city}`,
     //     custom_fields_values: [
     //       { field_id: Number(process.env.AMO_PHONE_FIELD), values: [{ value: digits }] },
     //       { field_id: Number(process.env.AMO_CITY_FIELD), values: [{ value: city }] },
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
     
     if (process.env.TG_BOT_TOKEN && process.env.TG_CHAT_ID) {
       const tgText = [
-        '🔔 <b>Новая заявка InterClinics</b>',
+        `🔔 <b>Новая заявка ${BRAND_DISPLAY_NAME}</b>`,
         `📞 Телефон: <code>${digits}</code>`,
         `🏙 Город: ${city}`,
         `📌 Тип: ${typeLabels[leadTypeKey] || typeLabels.general}`,

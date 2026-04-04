@@ -458,7 +458,7 @@ export function MockupLiteralShell({ html }: { html: string }) {
       setCitySwitcherOpen(next)
     }
 
-    const onCitySwitcherDocMouseDown = (e: MouseEvent) => {
+    const onCitySwitcherDocPointerDown = (e: PointerEvent) => {
       if (!citySwitcherRoot?.contains(e.target as Node)) setCitySwitcherOpen(false)
     }
 
@@ -471,7 +471,7 @@ export function MockupLiteralShell({ html }: { html: string }) {
     }
 
     citySwitcherBtn?.addEventListener('click', onCitySwitcherBtnClick)
-    document.addEventListener('mousedown', onCitySwitcherDocMouseDown)
+    document.addEventListener('pointerdown', onCitySwitcherDocPointerDown)
     document.addEventListener('keydown', onCitySwitcherKeyDown)
 
     return () => {
@@ -501,7 +501,7 @@ export function MockupLiteralShell({ html }: { html: string }) {
       reviewAudio?.removeEventListener('loadedmetadata', onReviewLoadedMeta)
       reviewAudio?.pause()
       citySwitcherBtn?.removeEventListener('click', onCitySwitcherBtnClick)
-      document.removeEventListener('mousedown', onCitySwitcherDocMouseDown)
+      document.removeEventListener('pointerdown', onCitySwitcherDocPointerDown)
       document.removeEventListener('keydown', onCitySwitcherKeyDown)
       delete (window as unknown as { openModal?: () => void }).openModal
       delete (window as unknown as { closeModal?: () => void }).closeModal
@@ -513,5 +513,5 @@ export function MockupLiteralShell({ html }: { html: string }) {
     }
   }, [html])
 
-  return <div className="ic-mockup-root min-h-screen" dangerouslySetInnerHTML={{ __html: html }} />
+  return <div className="ic-mockup-root min-h-[100dvh]" dangerouslySetInnerHTML={{ __html: html }} />
 }

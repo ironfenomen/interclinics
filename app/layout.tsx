@@ -4,6 +4,7 @@ import '@/styles/mockup-literal.css'
 import type { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin', 'latin-ext', 'cyrillic-ext'],
@@ -13,7 +14,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'InterClinics — сеть наркологических клиник',
+  title: `${BRAND_DISPLAY_NAME} — сеть наркологических клиник`,
   description:
     'Вывод из запоя, кодирование, лечение алкоголизма и наркомании. Анонимно, круглосуточно, с лицензией.',
   icons: { icon: '/favicon.ico' },

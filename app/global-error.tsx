@@ -1,5 +1,7 @@
 'use client'
 
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+
 /**
  * Последняя линия защиты: ошибки в root layout.
  * Обязательны собственные теги html и body (без root layout).
@@ -23,7 +25,7 @@ export default function GlobalError({
         <main className="flex min-h-[100dvh] flex-col items-center justify-center gap-6 px-6 py-16 text-center">
           <div className="max-w-md space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#94A3B8]">
-              InterClinics
+              {BRAND_DISPLAY_NAME}
             </p>
             <h1 className="text-2xl font-bold tracking-tight text-[#0B1D35]">
               Критическая ошибка

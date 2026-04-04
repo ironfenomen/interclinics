@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 /**
  * Граница ошибок сегмента (дети root layout).
@@ -22,7 +23,7 @@ export default function Error({
     <main className="flex min-h-[100dvh] flex-col items-center justify-center gap-6 bg-[#F8FAFC] px-6 py-16 text-center">
       <div className="max-w-md space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#94A3B8]">
-          InterClinics
+          {BRAND_DISPLAY_NAME}
         </p>
         <h1 className="text-2xl font-bold tracking-tight text-[#0B1D35] md:text-3xl">
           Не удалось загрузить страницу

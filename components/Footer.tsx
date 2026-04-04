@@ -1,90 +1,114 @@
 'use client'
 
-// components/Footer.tsx
-
+// components/Footer.tsx — сетка и юрблок как у городского HTML-мокапа (mockup-literal + lib/footer-legal-mockup)
 import { City } from '@/data/cities'
-import { MedicalContraindicationsNote } from '@/components/MedicalContraindicationsNote'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { MEDICAL_CONTRAINDICATIONS_TEXT } from '@/components/MedicalContraindicationsNote'
+import {
+  DEFAULT_FOOTER_MEDICAL_EXECUTOR,
+  DEFAULT_FOOTER_SITE_OWNER,
+  FOOTER_LEGAL_NOTE_MEDICAL,
+  FOOTER_LEGAL_NOTE_PSYCH,
+} from '@/lib/footer-legal-mockup'
 
-export default function Footer({ city }: { city: City }) {
+/** Сравнение путей с учётом завершающего слэша (для aria-current на посадочных). */
+function pathsMatch(activeHref: string | undefined, href: string): boolean {
+  if (!activeHref) return false
+  const norm = (s: string) => s.replace(/\/+$/, '') || '/'
+  return norm(activeHref.split('#')[0] ?? '') === norm(href.split('#')[0] ?? '')
+}
+
+export default function Footer({ city, activeHref }: { city: City; activeHref?: string }) {
+  const owner = city.footerSiteOwner ?? DEFAULT_FOOTER_SITE_OWNER
+  const med = city.footerMedicalExecutor ?? DEFAULT_FOOTER_MEDICAL_EXECUTOR
+
+  const localLine = city.isOwn
+    ? `Юридический адрес исполнителя: ${city.partnerAddress}`
+    : `Приём и координация в ${city.namePrep}. Адрес исполнителя услуги уточняется при обращении.`
+
+  const cityHome = `/${city.slug}/`
+
+  const serviceLinks: [string, string][] = [
+    ['Главная города', cityHome],
+    ['Вывод из запоя', `/${city.slug}/vyvod-iz-zapoya/`],
+    ['Нарколог на дом', `/${city.slug}/narkolog-na-dom/`],
+    ['Стационар 24/7', `/${city.slug}/stacionar/`],
+    ['Кодирование', `/${city.slug}/kodirovanie/`],
+    ['Реабилитация', `/${city.slug}/reabilitaciya/`],
+    ['Услуги и направления', `${cityHome}#services`],
+  ]
+
+  const docLinks: [string, string][] = [
+    ['Политика конфиденциальности', '/privacy/'],
+    ['Согласие на обработку персональных данных', '/consent/'],
+    ['Политика cookie и метрических сервисов', '/cookies/'],
+    ['Пользовательское соглашение', '/agreement/'],
+  ]
+
   return (
-    <footer style={{ background: 'linear-gradient(180deg,#030910,#08111D 55%,#0a1520)', color: 'rgba(255,255,255,.62)', padding: '56px 0 36px', fontSize: 13 }}>
-      <div className="ctr" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '36px 32px' }}>
-        <div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-.03em' }}>InterClinics</div>
-          <div style={{ lineHeight: 1.8 }}>
-            <strong style={{ color: 'rgba(255,255,255,.55)' }}>{city.partnerName}</strong><br />
-            ИНН {city.partnerInn} / ОГРН {city.partnerOgrn}<br />
-            Лицензия {city.partnerLicense}<br />
-            от {city.partnerLicenseDate} г.<br /><br />
-            {city.slug === 'stavropol'
-              ? city.partnerAddress
-              : `Приём и координация в ${city.namePrep}. Адрес и детали уточняются при звонке.`}
+    <footer className="footer">
+      <div className="c">
+        <div className="footer-grid">
+          <div className="footer-col footer-col--brand">
+            <a href={cityHome} className="footer-brand-home">
+              <div className="footer-brand">
+                {BRAND_DISPLAY_NAME}
+                <small>Сеть наркологической помощи в регионах</small>
+              </div>
+            </a>
+            <div className="footer-text" id="footer-requisites">
+              <p className="footer-legal-lead">
+                Сайт interclinics.ru принадлежит и администрируется <strong>{owner.name}</strong> (ИНН {owner.inn}, ОГРН{' '}
+                {owner.ogrn}).
+              </p>
+              <p className="footer-legal-provider">
+                Основной исполнитель медицинских услуг в базовом маршруте — <strong>{med.clinicBrand}</strong> (
+                <strong>{med.legalName}</strong>, ИНН {med.inn}, ОГРН {med.ogrn}). Медицинская лицензия {med.license}{' '}
+                от {med.licenseDate}.
+              </p>
+              <p className="footer-legal-note">{FOOTER_LEGAL_NOTE_MEDICAL}</p>
+              <p className="footer-legal-note">{FOOTER_LEGAL_NOTE_PSYCH}</p>
+              <p>{localLine}</p>
+            </div>
+          </div>
+
+          <div className="footer-col">
+            <h4>Услуги и разделы</h4>
+            <ul>
+              {serviceLinks.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href} {...(pathsMatch(activeHref, href) ? { 'aria-current': 'page' as const } : {})}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer-col">
+            <h4>Документы</h4>
+            <ul>
+              {docLinks.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,.68)', marginBottom: 16, textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>Услуги</div>
-          <ul style={{ listStyle: 'none' }}>
-            {[
-              ['Вывод из запоя', `/${city.slug}/vyvod-iz-zapoya/`],
-              ['Кодирование', `/${city.slug}/kodirovanie/`],
-              ['Лечение алкоголизма', '#'],
-              ['Лечение наркомании', '#'],
-              ['Стационар 24/7', `/${city.slug}/stacionar/`],
-              ['Реабилитация', `/${city.slug}/reabilitaciya/`],
-              ['Нарколог на дом', `/${city.slug}/narkolog-na-dom/`],
-            ].map(([label, href]) => (
-              <li key={label} style={{ marginBottom: 10 }}>
-                <a className="ic-footer-link" href={href} style={{ color: 'rgba(255,255,255,.62)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'color .2s, border-color .2s' }}>{label}</a>
-              </li>
-            ))}
-          </ul>
+
+        <div className="footer-medical-strip" role="note" aria-label="Медицинское предупреждение">
+          <span className="footer-medical-strip__mark" aria-hidden="true" />
+          <p className="footer-medical-strip__text">{MEDICAL_CONTRAINDICATIONS_TEXT}</p>
         </div>
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,.68)', marginBottom: 16, textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>Информация</div>
-          <ul style={{ listStyle: 'none' }}>
-            {[['О компании', '#'], ['Врачи', '#'], ['Цены', '#'], ['Лицензии', '#'], ['Политика конфиденциальности', '/privacy/'], ['Политика cookie', '/cookies'], ['Пользовательское соглашение', '/agreement/']].map(([t, h]) => (
-              <li key={t} style={{ marginBottom: 10 }}><a className="ic-footer-link" href={h} style={{ color: 'rgba(255,255,255,.62)', fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'color .2s, border-color .2s' }}>{t}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div
-          className="ic-footer-legal"
-          style={{ gridColumn: '1 / -1', marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,.05)' }}
-        >
-          <div style={{ maxWidth: 660, lineHeight: 1.7, fontSize: 11, color: 'rgba(255,255,255,.2)' }}>
-            Сайт носит исключительно информационный характер и не является публичной офертой. Определение диагноза и методов лечения — прерогатива лечащего врача. © 2024–2026 InterClinics.
-          </div>
-          <MedicalContraindicationsNote className="mx-auto w-full max-w-full shrink-0 max-sm:justify-center max-sm:[&_p]:text-center sm:mx-0 sm:w-auto sm:max-w-[min(100%,380px)]" />
+
+        <div className="footer-bottom">
+          <p className="footer-disclaimer">
+            Материалы сайта носят информационный характер и не являются публичной офертой. Диагноз и план лечения
+            определяет врач при очной консультации. © 2024–2026 {BRAND_DISPLAY_NAME}.
+          </p>
         </div>
       </div>
-      <style jsx>{`
-        .ic-footer-link:hover {
-          color: #fff !important;
-          border-bottom-color: rgba(16, 185, 129, 0.45) !important;
-        }
-        .ic-footer-legal {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          align-items: stretch;
-        }
-        @media (min-width: 769px) {
-          .ic-footer-legal {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-          }
-        }
-        @media (max-width: 768px) {
-          footer .ctr {
-            grid-template-columns: 1fr !important;
-          }
-          .ic-footer-legal {
-            text-align: center;
-            align-items: center;
-          }
-        }
-      `}</style>
     </footer>
   )
 }

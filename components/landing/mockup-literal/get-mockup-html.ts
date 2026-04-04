@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { getActiveCities, getCityBySlug, type City } from '@/data/cities'
+import { getActiveCities, getCitiesInSwitcherOrder, getCityBySlug, type City } from '@/data/cities'
 import { buildMockupFooterLegalHtml } from '@/lib/footer-legal-mockup'
 import {
   brigadePluralPhrase,
@@ -166,17 +166,15 @@ function escSwitcherText(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-/** Премиальный переключатель города в шапке: список из getActiveCities(). */
+/** Премиальный переключатель города в шапке: список в фиксированном порядке (см. getCitiesInSwitcherOrder). */
 function citySwitcherHtml(current: City): string {
-  const list = getActiveCities()
-    .slice()
-    .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+  const list = getCitiesInSwitcherOrder()
   const items = list
     .map(c => {
       const name = escSwitcherText(c.name)
       const isCurrent = c.slug === current.slug
       const check = isCurrent
-        ? `<span class="city-switcher__check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>`
+        ? `<span class="city-switcher__check city-switcher__check--mark" aria-hidden="true"><svg class="city-switcher__check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>`
         : `<span class="city-switcher__check city-switcher__check--spacer" aria-hidden="true"></span>`
       if (isCurrent) {
         return `<span class="city-switcher__item city-switcher__item--current" role="option" aria-selected="true" aria-current="true">${check}<span class="city-switcher__item-label">${name}</span></span>`
@@ -230,6 +228,7 @@ export function getMockupHtml(city: City): string {
     .replaceAll('__ARRIVAL_MAX__', String(arrivalMaxMinutes(city)))
     .replaceAll('__FOOTER_LEGAL__', buildMockupFooterLegalHtml(city))
     .replaceAll('__HOME_HREF__', `/${city.slug}/`)
+    .replaceAll('__REHAB_PAGE_HREF__', `/${city.slug}/reabilitaciya/`)
     .replaceAll('__TRUST_ACTIVE_CITIES__', String(getActiveCities().length))
     .replaceAll('__TRUST_CITIES_UNIT__', trustCitiesUnit(getActiveCities().length))
     .replaceAll('__CITY_SLUG__', city.slug)

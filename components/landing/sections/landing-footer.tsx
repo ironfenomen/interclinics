@@ -1,5 +1,6 @@
 import type { City } from '@/data/cities'
 import { MedicalContraindicationsNote } from '@/components/MedicalContraindicationsNote'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 export function LandingFooter({ city }: { city: City }) {
   return (
@@ -8,7 +9,7 @@ export function LandingFooter({ city }: { city: City }) {
         <div className="grid grid-cols-[1.3fr_0.9fr_0.9fr] gap-[26px] max-md:grid-cols-1">
           <div>
             <div className="text-2xl font-extrabold tracking-tight text-white">
-              InterClinics
+              {BRAND_DISPLAY_NAME}
               <small className="mt-1.5 block text-[11px] font-extrabold uppercase tracking-[0.18em] text-[rgba(255,255,255,0.34)]">
                 Сеть наркологических клиник / лидогенерационная платформа
               </small>

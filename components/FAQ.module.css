@@ -1,0 +1,232 @@
+/* FAQ — variant="vyvod" и др. (единый аккордеон для посадочных) */
+
+.section {
+  position: relative;
+  padding: var(--vyvod-section-y, clamp(52px, 9vw, 88px)) 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16, 185, 129, 0.035), transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, #f4f8fc 42%, #f8fafc 100%);
+  border-top: 1px solid rgba(220, 230, 241, 0.55);
+}
+
+.inner {
+  max-width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(26px, 4vw, 38px);
+}
+
+@media (max-width: 560px) {
+  .header {
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 22px;
+  }
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--em-d);
+}
+
+.kicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #d7b469, var(--em));
+  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.35);
+}
+
+.title {
+  margin: 0 0 14px;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.12;
+  color: var(--deep);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: clamp(15px, 2.2vw, 17px);
+  line-height: 1.68;
+  font-weight: 500;
+  color: var(--t2);
+  max-width: 40em;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .subtitle {
+    max-width: none;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcfe 100%);
+  border: 1px solid rgba(220, 230, 241, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 6px 22px rgba(7, 20, 35, 0.04);
+  overflow: hidden;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.itemOpen {
+  border-color: rgba(16, 185, 129, 0.26);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 12px 40px rgba(7, 20, 35, 0.08);
+}
+
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 18px 17px 20px;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--f);
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+
+.trigger:hover {
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid rgba(16, 185, 129, 0.45);
+  outline-offset: -2px;
+  border-radius: 16px;
+}
+
+.question {
+  font-size: clamp(15px, 2.1vw, 16.5px);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--deep);
+  padding-top: 1px;
+  overflow-wrap: break-word;
+}
+
+.iconWrap {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.98);
+  border: 1px solid rgba(220, 230, 241, 0.95);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.iconWrapOpen {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.32);
+  transform: rotate(45deg);
+}
+
+.icon {
+  color: var(--t3);
+}
+
+.iconOpen {
+  color: var(--em-d);
+}
+
+.answerGrid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.answerGridOpen {
+  grid-template-rows: 1fr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answerGrid {
+    transition: none;
+  }
+
+  .iconWrap {
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .iconWrapOpen {
+    transform: none;
+  }
+}
+
+.answerInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 20px 18px 20px;
+  font-size: 14.5px;
+  line-height: 1.68;
+  font-weight: 500;
+  color: #475569;
+  border-top: 1px solid rgba(241, 245, 249, 0.9);
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .trigger {
+    padding: 15px 14px 15px 16px;
+  }
+
+  .answer {
+    padding: 0 16px 16px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .question {
+    font-size: 15px;
+    line-height: 1.42;
+  }
+}

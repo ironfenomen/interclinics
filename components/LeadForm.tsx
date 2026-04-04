@@ -7,14 +7,18 @@ import type { City } from '@/data/cities'
 interface Props {
   city: City
   variant: 'hero' | 'modal' | 'cta' | 'inline'
+  /** Усиленная финальная форма (только с variant="cta") */
+  ctaVariant?: 'default' | 'vyvod' | 'stacionar' | 'narkolog' | 'kodirovanie' | 'reabilitaciya'
 }
 
 type HeroScenario = 'urgent' | 'home' | 'stacionar' | 'rehab'
 
-export default function LeadForm({ city, variant }: Props) {
+export default function LeadForm({ city, variant, ctaVariant = 'default' }: Props) {
   const [phone, setPhone] = useState('')
   const [error, setError] = useState(false)
   const [sent, setSent] = useState(false)
+  const [consent, setConsent] = useState(false)
+  const [consentError, setConsentError] = useState(false)
   const [heroScenario, setHeroScenario] = useState<HeroScenario>('urgent')
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -59,11 +63,45 @@ export default function LeadForm({ city, variant }: Props) {
       return
     }
 
-    const leadType = variant === 'hero' ? heroLeadType(heroScenario) : 'general'
-    const source = variant === 'hero' ? `hero:${heroScenario}` : variant
+    if (
+      variant === 'cta' &&
+      (ctaVariant === 'vyvod' ||
+        ctaVariant === 'stacionar' ||
+        ctaVariant === 'narkolog' ||
+        ctaVariant === 'kodirovanie' ||
+        ctaVariant === 'reabilitaciya') &&
+      !consent
+    ) {
+      setConsentError(true)
+      return
+    }
+    setConsentError(false)
+
+    const leadType =
+      variant === 'hero'
+        ? heroLeadType(heroScenario)
+        : variant === 'cta' && ctaVariant === 'stacionar'
+          ? 'stacionar'
+          : variant === 'cta' && ctaVariant === 'reabilitaciya'
+            ? 'rehab'
+            : 'general'
+    const source =
+      variant === 'hero'
+        ? `hero:${heroScenario}`
+        : variant === 'cta' && ctaVariant === 'vyvod'
+          ? 'cta:vyvod-final'
+          : variant === 'cta' && ctaVariant === 'stacionar'
+            ? 'cta:stacionar-final'
+            : variant === 'cta' && ctaVariant === 'narkolog'
+              ? 'cta:narkolog-final'
+              : variant === 'cta' && ctaVariant === 'kodirovanie'
+                ? 'cta:kodirovanie-final'
+                : variant === 'cta' && ctaVariant === 'reabilitaciya'
+                  ? 'cta:reabilitaciya-final'
+                  : variant
 
     try {
-      await fetch('/api/lead', {
+      const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -73,6 +111,9 @@ export default function LeadForm({ city, variant }: Props) {
           leadType,
         }),
       })
+      if (!res.ok) {
+        console.warn('LEAD: API error', res.status, { phone: digits, city: city.slug, source, leadType })
+      }
     } catch {
       console.warn('LEAD (offline/fallback):', { phone: digits, city: city.slug, source, leadType })
     }
@@ -204,6 +245,307 @@ export default function LeadForm({ city, variant }: Props) {
     )
   }
 
+  if (variant === 'cta' && ctaVariant === 'vyvod') {
+    if (sent) {
+      return (
+        <p
+          style={{
+            margin: 0,
+            fontSize: 15,
+            lineHeight: 1.65,
+            fontWeight: 600,
+            color: 'rgba(241, 245, 249, 0.92)',
+            textAlign: 'center',
+          }}
+        >
+          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут.
+        </p>
+      )
+    }
+    return (
+      <>
+        <input
+          ref={inputRef}
+          className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
+          type="tel"
+          autoComplete="tel"
+          placeholder="Телефон для связи *"
+          value={phone}
+          onChange={e => {
+            handlePhone(e.target.value)
+            setConsentError(false)
+          }}
+          aria-invalid={error}
+        />
+        <label
+          className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
+          htmlFor="vyvod-final-pd"
+        >
+          <input
+            id="vyvod-final-pd"
+            type="checkbox"
+            checked={consent}
+            onChange={e => {
+              setConsent(e.target.checked)
+              setConsentError(false)
+            }}
+          />
+          <span>
+            Я согласен(на) на{' '}
+            <a href="/privacy/">обработку персональных данных</a>
+          </span>
+        </label>
+        <button type="button" className="fbtn" onClick={handleSubmit}>
+          Оставить номер — перезвоним
+        </button>
+      </>
+    )
+  }
+
+  if (variant === 'cta' && ctaVariant === 'narkolog') {
+    if (sent) {
+      return (
+        <p
+          style={{
+            margin: 0,
+            fontSize: 15,
+            lineHeight: 1.65,
+            fontWeight: 600,
+            color: 'rgba(241, 245, 249, 0.92)',
+            textAlign: 'center',
+          }}
+        >
+          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут, чтобы спокойно согласовать детали выезда.
+        </p>
+      )
+    }
+    return (
+      <>
+        <input
+          ref={inputRef}
+          className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
+          type="tel"
+          autoComplete="tel"
+          placeholder="Телефон для обратного звонка *"
+          value={phone}
+          onChange={e => {
+            handlePhone(e.target.value)
+            setConsentError(false)
+          }}
+          aria-invalid={error}
+          aria-describedby="narkolog-final-hint"
+        />
+        <p id="narkolog-final-hint" className="ic-narkolog-form-hint">
+          Перезвоним, чтобы уточнить адрес, время и ориентир по выезду — без обязательств до согласования с врачом.
+        </p>
+        <label
+          className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
+          htmlFor="narkolog-final-pd"
+        >
+          <input
+            id="narkolog-final-pd"
+            type="checkbox"
+            checked={consent}
+            onChange={e => {
+              setConsent(e.target.checked)
+              setConsentError(false)
+            }}
+          />
+          <span>
+            Я согласен(на) на{' '}
+            <a href="/privacy/">обработку персональных данных</a>
+          </span>
+        </label>
+        <button type="button" className="fbtn" onClick={handleSubmit}>
+          Запросить обратный звонок
+        </button>
+      </>
+    )
+  }
+
+  if (variant === 'cta' && ctaVariant === 'kodirovanie') {
+    if (sent) {
+      return (
+        <p
+          style={{
+            margin: 0,
+            fontSize: 15,
+            lineHeight: 1.65,
+            fontWeight: 600,
+            color: 'rgba(241, 245, 249, 0.92)',
+            textAlign: 'center',
+          }}
+        >
+          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут, чтобы согласовать консультацию и вопросы по кодированию.
+        </p>
+      )
+    }
+    return (
+      <>
+        <input
+          ref={inputRef}
+          className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
+          type="tel"
+          autoComplete="tel"
+          placeholder="Телефон для связи *"
+          value={phone}
+          onChange={e => {
+            handlePhone(e.target.value)
+            setConsentError(false)
+          }}
+          aria-invalid={error}
+          aria-describedby="kodirovanie-final-hint"
+        />
+        <p id="kodirovanie-final-hint" className="ic-kodirovanie-form-hint">
+          Перезвоним, чтобы согласовать консультацию и обсудить, какие варианты кодирования уместны в вашей ситуации — без обязательств до приёма врача.
+        </p>
+        <label
+          className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
+          htmlFor="kodirovanie-final-pd"
+        >
+          <input
+            id="kodirovanie-final-pd"
+            type="checkbox"
+            checked={consent}
+            onChange={e => {
+              setConsent(e.target.checked)
+              setConsentError(false)
+            }}
+          />
+          <span>
+            Я согласен(на) на{' '}
+            <a href="/privacy/">обработку персональных данных</a>
+          </span>
+        </label>
+        <button type="button" className="fbtn" onClick={handleSubmit}>
+          Записаться на консультацию
+        </button>
+      </>
+    )
+  }
+
+  if (variant === 'cta' && ctaVariant === 'reabilitaciya') {
+    if (sent) {
+      return (
+        <p
+          style={{
+            margin: 0,
+            fontSize: 15,
+            lineHeight: 1.65,
+            fontWeight: 600,
+            color: 'rgba(241, 245, 249, 0.92)',
+            textAlign: 'center',
+          }}
+        >
+          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут, чтобы согласовать консультацию по программе восстановления.
+        </p>
+      )
+    }
+    return (
+      <>
+        <input
+          ref={inputRef}
+          className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
+          type="tel"
+          autoComplete="tel"
+          placeholder="Телефон для связи *"
+          value={phone}
+          onChange={e => {
+            handlePhone(e.target.value)
+            setConsentError(false)
+          }}
+          aria-invalid={error}
+          aria-describedby="reabilitaciya-final-hint"
+        />
+        <p id="reabilitaciya-final-hint" className="ic-reabilitaciya-form-hint">
+          Перезвоним, чтобы спокойно сориентировать по сроку, глубине программы и следующему шагу — без обязательств до записи.
+        </p>
+        <label
+          className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
+          htmlFor="reabilitaciya-final-pd"
+        >
+          <input
+            id="reabilitaciya-final-pd"
+            type="checkbox"
+            checked={consent}
+            onChange={e => {
+              setConsent(e.target.checked)
+              setConsentError(false)
+            }}
+          />
+          <span>
+            Я согласен(на) на{' '}
+            <a href="/privacy/">обработку персональных данных</a>
+          </span>
+        </label>
+        <button type="button" className="fbtn" onClick={handleSubmit}>
+          Получить консультацию по программе
+        </button>
+      </>
+    )
+  }
+
+  if (variant === 'cta' && ctaVariant === 'stacionar') {
+    if (sent) {
+      return (
+        <p
+          style={{
+            margin: 0,
+            fontSize: 15,
+            lineHeight: 1.65,
+            fontWeight: 600,
+            color: 'rgba(241, 245, 249, 0.92)',
+            textAlign: 'center',
+          }}
+        >
+          Спасибо. Перезвоним и спокойно обсудим формат поступления — обычно в течение нескольких минут.
+        </p>
+      )
+    }
+    return (
+      <>
+        <input
+          ref={inputRef}
+          className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
+          type="tel"
+          autoComplete="tel"
+          placeholder="Телефон для связи *"
+          value={phone}
+          onChange={e => {
+            handlePhone(e.target.value)
+            setConsentError(false)
+          }}
+          aria-invalid={error}
+          aria-describedby="stacionar-final-hint"
+        />
+        <p id="stacionar-final-hint" className="ic-stacionar-form-hint">
+          Перезвоним, чтобы уточнить ситуацию и доступность мест — без обязательств до согласования с врачом.
+        </p>
+        <label
+          className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
+          htmlFor="stacionar-final-pd"
+        >
+          <input
+            id="stacionar-final-pd"
+            type="checkbox"
+            checked={consent}
+            onChange={e => {
+              setConsent(e.target.checked)
+              setConsentError(false)
+            }}
+          />
+          <span>
+            Я согласен(на) на{' '}
+            <a href="/privacy/">обработку персональных данных</a>
+          </span>
+        </label>
+        <button type="button" className="fbtn" onClick={handleSubmit}>
+          Обсудить госпитализацию
+        </button>
+      </>
+    )
+  }
+
   return (
     <div style={{ display: 'flex', gap: 10, maxWidth: 480, margin: '0 auto', flexWrap: 'wrap' }}>
       <input
@@ -214,8 +556,10 @@ export default function LeadForm({ city, variant }: Props) {
         value={phone}
         onChange={e => handlePhone(e.target.value)}
         style={{
-          flex: 1, marginBottom: 0, minWidth: 200,
-          ...(variant === 'cta' ? { background: 'rgba(255,255,255,.07)', borderColor: 'rgba(255,255,255,.1)', color: '#fff' } : {})
+          flex: 1,
+          marginBottom: 0,
+          minWidth: 200,
+          ...(variant === 'cta' ? { background: 'rgba(255,255,255,.07)', borderColor: 'rgba(255,255,255,.1)', color: '#fff' } : {}),
         }}
       />
       <button type="button" className="fbtn" onClick={handleSubmit} style={{ width: 'auto', padding: '14px 28px', whiteSpace: 'nowrap' }}>

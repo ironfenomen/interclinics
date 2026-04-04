@@ -1,6 +1,6 @@
 'use client'
 
-import { City } from '@/data/cities'
+import { City, getCityBySlug } from '@/data/cities'
 
 function openCallbackModal() {
   const m = document.getElementById('callbackModal')
@@ -11,6 +11,9 @@ function openCallbackModal() {
 }
 
 export default function RehabBlock({ city }: { city: City }) {
+  const routeCenter =
+    city.nearestStacionarSlug && !city.hasRehab ? getCityBySlug(city.nearestStacionarSlug) : undefined
+
   const cards = [
     {
       title: '28 дней',
@@ -51,7 +54,7 @@ export default function RehabBlock({ city }: { city: City }) {
           </p>
         )}
 
-        {!city.hasRehab && (
+        {!city.hasRehab && routeCenter && (
           <p
             style={{
               fontSize: 15,
@@ -62,8 +65,23 @@ export default function RehabBlock({ city }: { city: City }) {
               textAlign: 'center' as const,
             }}
           >
-            Программы реабилитации для жителей {city.nameGen} проходят в нашем центре в Ставрополе. Уточните сроки и
-            формат — подберём вариант под вашу ситуацию.
+            Программы для жителей {city.nameGen} проходят в центре сети в {routeCenter.namePrep}. Уточните сроки и формат
+            — подберём вариант под вашу ситуацию.
+          </p>
+        )}
+
+        {!city.hasRehab && !routeCenter && (
+          <p
+            style={{
+              fontSize: 15,
+              color: 'var(--t2)',
+              lineHeight: 1.7,
+              maxWidth: 560,
+              margin: '0 auto 28px',
+              textAlign: 'center' as const,
+            }}
+          >
+            Сроки и формат программы уточняем на линии — подберём вариант под вашу ситуацию.
           </p>
         )}
 
@@ -110,6 +128,14 @@ export default function RehabBlock({ city }: { city: City }) {
           >
             Получить консультацию по реабилитации
           </button>
+          <p style={{ marginTop: 18, fontSize: 14, fontWeight: 600 }}>
+            <a
+              href={`/${city.slug}/reabilitaciya/`}
+              style={{ color: 'var(--em)', textDecoration: 'underline', textUnderlineOffset: 3 }}
+            >
+              Полная страница программы
+            </a>
+          </p>
         </div>
       </div>
     </section>

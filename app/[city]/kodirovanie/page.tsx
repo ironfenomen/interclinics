@@ -1,8 +1,8 @@
 // app/[city]/kodirovanie/page.tsx
 import { Metadata } from 'next'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import { notFound } from 'next/navigation'
 import { getCityBySlug, getCitySlugs } from '@/data/cities'
-import { getServiceBySlug } from '@/data/services'
 import Header from '@/components/Header'
 import FAQ from '@/components/FAQ'
 import CTASection from '@/components/CTASection'
@@ -11,6 +11,8 @@ import MobileBar from '@/components/MobileBar'
 import CallbackModal from '@/components/CallbackModal'
 import CookieConsent from '@/components/CookieConsent'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
+import OpenCallbackButton from '@/components/OpenCallbackButton'
+import styles from './page.module.css'
 
 export async function generateStaticParams() {
   return getCitySlugs().map(slug => ({ city: slug }))
@@ -19,82 +21,174 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const city = getCityBySlug(params.city)
   if (!city) return {}
+  const pageUrl = `https://interclinics.ru/${city.slug}/kodirovanie/`
+  const title = `Кодирование от алкоголизма в ${city.namePrep} — от ${city.priceCoding.toLocaleString('ru')}₽ | ${BRAND_DISPLAY_NAME}`
+  const description = `Кодирование от алкоголизма в ${city.namePrep}. Эспераль, Торпедо, Вивитрол, Довженко. От ${city.priceCoding.toLocaleString('ru')}₽. ☎ ${city.phoneDisplay}`
   return {
-    title: `Кодирование от алкоголизма в ${city.namePrep} — от ${city.priceCoding.toLocaleString('ru')}₽ | InterClinics`,
-    description: `Кодирование от алкоголизма в ${city.namePrep}. Эспераль, Торпедо, Вивитрол, Довженко. От ${city.priceCoding.toLocaleString('ru')}₽. ☎ ${city.phoneDisplay}`,
-    alternates: { canonical: `https://interclinics.ru/${city.slug}/kodirovanie/` },
+    title,
+    description,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      locale: 'ru_RU',
+      type: 'website',
+      siteName: BRAND_DISPLAY_NAME,
+    },
   }
 }
 
 export default function KodirovaniePage({ params }: { params: { city: string } }) {
   const city = getCityBySlug(params.city)
   if (!city) notFound()
-  const service = getServiceBySlug('kodirovanie')!
 
-  const methods = [
-    { name: 'Эспераль (имплантация)', price: 'от 12 600 ₽', dur: 'на 1–3 года', desc: 'Французский препарат. Блокирует фермент переработки спирта. Имплантируется подкожно.' },
-    { name: 'Торпедо (инъекция)', price: 'от 6 200 ₽', dur: 'на 6–12 мес', desc: 'Внутривенная инъекция. Несовместимость с алкоголем при приёме вызывает резкое ухудшение.' },
-    { name: 'Вивитрол', price: 'от 31 500 ₽', dur: 'на 1 мес (курс)', desc: 'Блокирует опиатные рецепторы. Устраняет эйфорию от алкоголя, делая приём бессмысленным.' },
-    { name: 'По Довженко', price: 'от 8 000 ₽', dur: 'индивидуально', desc: 'Психотерапевтический метод. Внушение отвращения к алкоголю в состоянии лёгкого транса.' },
-    { name: 'Двойной блок', price: 'от 14 000 ₽', dur: 'на 1–2 года', desc: 'Комбинация медикаментозного и психотерапевтического методов. Максимальная эффективность.' },
+  const methods: {
+    name: string
+    price: string
+    term: string
+    desc: string
+  }[] = [
+    {
+      name: 'Эспераль (имплантация)',
+      price: 'от 20 500 ₽',
+      term: '1–3 года',
+      desc: 'Препарат на основе дисульфирама: блокирует фермент переработки этанола. Имплантат вводится под кожу.',
+    },
+    {
+      name: 'Дисульфирам (имплантация)',
+      price: 'от 20 500 ₽',
+      term: '1–3 года',
+      desc: 'Имплантация дисульфирама: тот же принцип блокирования переработки спирта; подкожное введение по протоколу.',
+    },
+    {
+      name: 'Дисульфирам (инъекция)',
+      price: 'от 9 900 ₽',
+      term: '6–12 мес',
+      desc: 'Внутривенное введение. Сочетание с алкоголем на фоне терапии может давать выраженные нежелательные реакции — врач заранее объясняет режим и риски.',
+    },
+    {
+      name: 'Налтрексон',
+      price: 'от 31 500 ₽',
+      term: '1 мес (курс)',
+      desc: 'Блокирует опиатные рецепторы, снижает «усиление награды» от алкоголя; курс подбирается под наблюдением. При отдельных показаниях используется и в наркологических схемах — по решению врача.',
+    },
+    {
+      name: 'По Довженко',
+      price: 'от 15 000 ₽',
+      term: 'индивидуально',
+      desc: 'Психотерапевтический метод: работа с установками в изменённом состоянии внимания. Срок и число сеансов зависят от клинической ситуации.',
+    },
+    {
+      name: 'Двойной блок',
+      price: 'от 14 500 ₽',
+      term: 'от 1 года',
+      desc: 'Сочетание внутримышечного и внутривенного введения компонентов по назначению врача; обсуждается при отдельных показаниях. Срок уточняется при планировании.',
+    },
   ]
 
   return (
-    <>
+    <div className={styles.pageRoot}>
       <Header city={city} />
       <main>
-        <section style={{ background: 'var(--deep)', padding: '56px 0 64px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-40%', right: '-15%', width: 650, height: 650, background: 'radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 65%)', borderRadius: '50%' }} />
-          <div className="ctr" style={{ position: 'relative', zIndex: 2, maxWidth: 800, textAlign: 'center' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(16,185,129,.1)', color: 'var(--em)', padding: '5px 16px', borderRadius: 100, fontSize: 13, fontWeight: 600, marginBottom: 22, border: '1px solid rgba(16,185,129,.15)' }}>
-              от {city.priceCoding.toLocaleString('ru')} ₽ · 5 методов кодирования
-            </div>
-            <h1 style={{ fontSize: 42, fontWeight: 800, color: '#fff', lineHeight: 1.15, marginBottom: 18 }}>
-              Кодирование от алкоголизма<br />
-              <em style={{ fontStyle: 'normal', color: 'var(--em)' }}>в&nbsp;{city.namePrep}</em>
+        <section className={styles.hero} aria-labelledby="kodirovanie-hero-heading">
+          <div className={styles.heroGlow} aria-hidden />
+          <div className={styles.heroMesh} aria-hidden />
+          <div className={`c ${styles.heroInner}`}>
+            <p className={styles.eyebrow}>Медицинское кодирование · врач‑нарколог · {city.namePrep}</p>
+
+            <ul className={styles.heroBadges} aria-label="Ключевые условия">
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                От {city.priceCoding.toLocaleString('ru')} ₽ — ориентир по методам
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                5 форматов кодирования
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                После детоксикации и периода трезвости
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                Метод подбирает врач индивидуально
+              </li>
+            </ul>
+
+            <h1 id="kodirovanie-hero-heading" className={styles.title}>
+              <span className={styles.titleKicker}>Кодирование от алкоголизма</span>
+              <span className={styles.titleMain}>
+                В {city.namePrep} — после детоксикации, периода трезвости и осмотра врача
+              </span>
             </h1>
-            <p style={{ fontSize: 17, color: 'rgba(255,255,255,.55)', marginBottom: 30, lineHeight: 1.65, maxWidth: 600, margin: '0 auto 30px' }}>
-              {service.fullDescription}
+
+            <p className={styles.lead}>
+              Кодирование проводится только после перенесённой детоксикации и устойчивого периода трезвости: ориентир — не менее 3–5 дней, если врач по
+              показаниям и противопоказаниям не определит иначе. Нарколог оценивает состояние и подбирает формат — медикаментозное, психотерапевтическое или
+              комбинированное кодирование. Следующий шаг — консультация и согласование плана: спокойно, без давления и без обещаний «универсального» результата.
             </p>
-            <a href={`tel:${city.phone}`} style={{ display: 'inline-block', padding: '16px 40px', background: 'var(--em)', color: '#fff', borderRadius: 12, fontWeight: 700, fontSize: 17 }}>
-              Записаться: {city.phoneDisplay}
-            </a>
+
+            <div className={styles.heroCtaBlock}>
+              <OpenCallbackButton className={styles.heroCta}>Обсудить кодирование с врачом</OpenCallbackButton>
+              <p className={styles.heroCtaHint}>
+                Или позвоните на линию:{' '}
+                <a className={styles.heroTelLink} href={`tel:${city.phone}`}>
+                  {city.phoneDisplay}
+                </a>
+              </p>
+            </div>
+
+            <p className={styles.heroMicroTrust}>
+              Лицензия {city.partnerLicense} · консультация до процедуры · без гарантий излечения · круглосуточная линия
+            </p>
           </div>
         </section>
 
-        {/* Методы кодирования */}
-        <section style={{ padding: '60px 0' }}>
-          <div className="ctr" style={{ maxWidth: 900 }}>
-            <h2 style={{ fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 24 }}>Методы кодирования</h2>
-            <div style={{ display: 'grid', gap: 14 }}>
+        <section className={styles.methodsSection} aria-labelledby="kodirovanie-methods-heading">
+          <div className={`c ${styles.methodsInner}`}>
+            <header className={styles.methodsHeader}>
+              <p className={styles.methodsKicker}>Форматы кодирования</p>
+              <h2 id="kodirovanie-methods-heading" className={styles.methodsTitle}>
+                Методы и ориентиры по стоимости
+              </h2>
+              <p className={styles.methodsLead}>
+                Ниже — варианты, с которыми работает врач. Итоговый формат выбирается после консультации, оценки периода трезвости, противопоказаний и задачи
+                лечения — не «с сайта по одному клику».
+              </p>
+            </header>
+            <div className={styles.methodsGrid}>
               {methods.map((m, i) => (
-                <div
-                  key={i}
-                  className="ic-split-label-price"
-                  style={{ padding: '20px 24px', background: 'var(--bg)', borderRadius: 16, border: '1px solid var(--b2)' }}
-                >
-                  <div>
-                    <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--deep)', marginBottom: 4 }}>{m.name}</div>
-                    <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>{m.desc}</div>
-                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 6 }}>Срок: {m.dur}</div>
+                <article key={i} className={styles.methodCard}>
+                  <div className={styles.methodCardHead}>
+                    <h3 className={styles.methodName}>{m.name}</h3>
+                    <div className={styles.methodMeta}>
+                      <span className={styles.methodPrice}>{m.price}</span>
+                      <span className={styles.methodTerm} title="Срок действия / курса по протоколу">
+                        {m.term}
+                      </span>
+                    </div>
                   </div>
-                  <div style={{ textAlign: 'right' }} className="max-[640px]:text-left max-[640px]:justify-self-start">
-                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--deep)', whiteSpace: 'nowrap' }}>{m.price}</div>
-                  </div>
-                </div>
+                  <p className={styles.methodDesc}>{m.desc}</p>
+                </article>
               ))}
             </div>
+            <p className={styles.methodsFootnote}>
+              Ориентиры по цене и сроку не заменяют очный осмотр: кодирование проводится после периода трезвости по показаниям; итоговый вариант и момент процедуры
+              согласуются с врачом.
+            </p>
           </div>
         </section>
 
-        <FAQ city={city} />
-        <CTASection city={city} />
+        <FAQ city={city} variant="kodirovanie" />
+        <CTASection city={city} variant="kodirovanie" />
       </main>
-      <Footer city={city} />
-      <MobileBar city={city} />
+      <Footer city={city} activeHref={`/${city.slug}/kodirovanie/`} />
+      <div className="ic-mockup-scroll-pad" aria-hidden="true" />
+      <MobileBar city={city} variant="kodirovanie" />
       <CallbackModal city={city} />
       <CookieConsent />
       <FloatingWhatsApp city={city} />
-    </>
+    </div>
   )
 }

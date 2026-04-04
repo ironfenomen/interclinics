@@ -19,7 +19,7 @@
       <div class="brand-mark">
         <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5 12 12l8-4.5L12 3Z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5 12 21l8-4.5"/></svg>
       </div>
-      <div class="brand-name">InterClinics<span class="brand-tagline">Сеть наркологических клиник</span></div>
+      <div class="brand-name">Интерклиника<span class="brand-tagline">Сеть наркологических клиник</span></div>
     </a>
 
     <nav class="header-nav">
@@ -70,7 +70,7 @@
         <a href="/__CITY_SLUG__/narkolog-na-dom/">Нарколог на дом</a>
         <a href="/__CITY_SLUG__/kodirovanie/">Кодирование</a>
       </div>
-      <p class="hero-rehab-link"><a href="__HOME_HREF__#rehabilitaciya">Реабилитация и восстановление — программа</a></p>
+      <p class="hero-rehab-link"><a href="__REHAB_PAGE_HREF__">Реабилитация и восстановление — программа</a></p>
 
       <div class="hero-cta-stack hero-cta-panel">
         <a class="btn btn-primary hero-cta-primary" href="tel:__PHONE__">Позвонить сейчас</a>
@@ -231,7 +231,7 @@
         </div>
       </a>
 
-      <a class="card intent-card intent-card--link intent-card--rehab reveal" href="__HOME_HREF__#rehabilitaciya">
+      <a class="card intent-card intent-card--link intent-card--rehab reveal" href="__REHAB_PAGE_HREF__">
         <div class="icon intent-icon--soft" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3v18"/><path d="M3 12h18"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
         </div>
@@ -446,7 +446,7 @@ __HOW_WE_WORK_SECTION__
       </ul>
     </div>
 
-    <p class="stacionar-bridge reveal">После выписки при показаниях врач обсудит возможное <strong>кодирование</strong>. <strong>Восстановление и реабилитация</strong> — отдельный этап с иной программой и ритмом; продолжение пути — в <a class="stacionar-bridge__link" href="__HOME_HREF__#rehabilitaciya">блоке реабилитации ниже</a>.</p>
+    <p class="stacionar-bridge reveal">После выписки при показаниях врач обсудит возможное <strong>кодирование</strong>. <strong>Восстановление и реабилитация</strong> — отдельный этап с иной программой и ритмом; продолжение пути — на <a class="stacionar-bridge__link" href="__REHAB_PAGE_HREF__">странице программы реабилитации</a>.</p>
 
     <div class="stacionar-bar reveal">
       <div class="stacionar-bar__copy">
@@ -999,7 +999,7 @@ __HOW_WE_WORK_SECTION__
   <div class="c">
     <div class="footer-grid">
       <div class="footer-col footer-col--brand">
-        <div class="footer-brand">InterClinics<small>Сеть наркологической помощи</small></div>
+        <div class="footer-brand">Интерклиника<small>Сеть наркологической помощи</small></div>
         <div class="footer-text" id="footer-requisites">
           __FOOTER_LEGAL__
         </div>
@@ -1038,6 +1038,8 @@ __HOW_WE_WORK_SECTION__
   </div>
 </footer>
 
+<div class="ic-mockup-scroll-pad" aria-hidden="true"></div>
+
 <div class="mobile-bar">
   <div class="mobile-bar-inner">
     <a class="mobile-action" href="tel:__PHONE__">Позвонить сейчас</a>
@@ -1058,22 +1060,22 @@ __HOW_WE_WORK_SECTION__
   <div class="modal">
     <button class="close" onclick="closeModal()">×</button>
     <div id="modalForm">
-      <h3>Обратный звонок за 30 секунд</h3>
-      <p>Этот модальный сценарий нужен для тех, кто не дозрел до действия в основном потоке страницы, но готов оставить контакт в отдельном спокойном окне.</p>
+      <h3 id="modalTitle">Оставьте номер — перезвоним спокойно</h3>
+      <p class="modal-lead">Коротко уточним ситуацию, подскажем следующий шаг и ответим без давления. Можно обратиться за себя или за близкого человека.</p>
       <div class="modal-grid">
-        <input id="modalName" class="input" placeholder="Как к вам обращаться">
-        <input id="modalPhone" class="input" type="tel" placeholder="Ваш телефон *">
-        <label class="form-consent-check" for="modalConsentPd">
+        <input id="modalName" class="input" placeholder="Как к вам обращаться" autocomplete="name" aria-label="Имя, необязательно">
+        <input id="modalPhone" class="input" type="tel" placeholder="Ваш телефон *" autocomplete="tel" inputmode="tel" aria-required="true" aria-label="Телефон для обратного звонка">
+        <label class="form-consent-check form-consent-check--modal" for="modalConsentPd">
           <input type="checkbox" id="modalConsentPd" name="modalConsentPd" autocomplete="off">
           <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
         </label>
-        <button class="btn btn-primary" onclick="submitLead('modalPhone','modalName', true, false, 'modalConsentPd')">Жду звонка</button>
+        <button type="button" class="btn btn-primary modal-submit" onclick="submitLead('modalPhone','modalName', true, false, 'modalConsentPd')">Перезвоните мне</button>
       </div>
     </div>
     <div class="modal-success" id="modalSuccess">
       <div class="check">✓</div>
       <h3>Заявка отправлена</h3>
-      <p>В боевой версии здесь должен быть реальный webhook, CRM или Telegram-бот. На уровне прототипа отрабатывается UX состояния успеха.</p>
+      <p class="modal-success-text">Специалист перезвонит в ближайшее время, чтобы спокойно уточнить ситуацию. Если номер указан с ошибкой — вы всегда можете позвонить нам сами.</p>
     </div>
   </div>
 </div>

@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import styles from './privacy-doc.module.css'
 
 export const metadata: Metadata = {
-  title: 'Политика в отношении обработки персональных данных | InterClinics',
+  title: `Политика в отношении обработки персональных данных | ${BRAND_DISPLAY_NAME}`,
   description:
     'Порядок обработки и защиты персональных данных на сайте interclinics.ru. Оператор, цели, правовые основания, права субъектов.',
 }

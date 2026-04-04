@@ -1,0 +1,240 @@
+/* Блок «Как проходит помощь» — variant="vyvod" | "narkolog" (единый шаблон для всех городов) */
+
+.section {
+  position: relative;
+  padding: var(--vyvod-section-y, clamp(56px, 9vw, 88px)) 0;
+  background:
+    radial-gradient(ellipse 75% 40% at 50% 0%, rgba(16, 185, 129, 0.04), transparent 52%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 38%, #fbfcfe 100%);
+  border-top: 1px solid rgba(220, 230, 241, 0.55);
+}
+
+.inner {
+  max-width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: min(640px, 100%);
+  margin: 0 auto clamp(28px, 5vw, 42px);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--em-d);
+}
+
+.kicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #d7b469, var(--em));
+  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.35);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.12;
+  color: var(--deep);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(15px, 2.2vw, 17px);
+  line-height: 1.7;
+  font-weight: 500;
+  color: var(--t2);
+  max-width: 52em;
+  overflow-wrap: break-word;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .title,
+  .lead {
+    text-align: left;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: 22px 20px 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcfe 100%);
+  border: 1px solid rgba(220, 230, 241, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 12px 38px rgba(7, 20, 35, 0.06);
+  box-sizing: border-box;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.card:hover {
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 16px 46px rgba(10, 25, 45, 0.09);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
+}
+
+.grid .card:last-child .stepLine {
+  display: none;
+}
+
+.stepMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stepIndex {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  background: linear-gradient(145deg, #0b1d35 0%, #143252 55%, var(--em));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 22px rgba(11, 29, 53, 0.16);
+}
+
+.stepLine {
+  flex: 1;
+  height: 1px;
+  min-width: 0;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.4), rgba(220, 230, 241, 0.45));
+}
+
+@media (max-width: 560px) {
+  .stepLine {
+    display: none;
+  }
+
+  .card {
+    padding: 18px 16px 18px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0 14px;
+  }
+
+  .stepMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .stepIndex {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .cardBody {
+    flex: 1;
+    min-width: min(0, 100%);
+  }
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepTitle {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.024em;
+  line-height: 1.28;
+  color: var(--deep);
+  overflow-wrap: break-word;
+}
+
+.stepText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.62;
+  font-weight: 500;
+  color: #5e7288;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .stepTitle {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .stepText {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}

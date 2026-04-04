@@ -2,6 +2,8 @@
 
 // components/Advantages.tsx
 
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+
 export default function Advantages() {
   const advs = [
     { icon: 'M3 11h18M7 11V7a5 5 0 0110 0v4', title: 'Полная анонимность', text: 'Не ставим на учёт. Машины без маркировки. Лечение под псевдонимом.' },
@@ -14,7 +16,7 @@ export default function Advantages() {
       <div style={{ position:'absolute', inset:0, backgroundImage:"radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px)", backgroundSize:'24px 24px' }} />
       <div className="ctr" style={{ position:'relative', zIndex:2 }}>
         <div className="shdr" style={{ marginBottom:44 }}>
-          <div className="shdr__label" style={{ color:'var(--em)' }}>Почему InterClinics</div>
+          <div className="shdr__label" style={{ color:'var(--em)' }}>Почему {BRAND_DISPLAY_NAME}</div>
           <h2 className="shdr__title" style={{ color:'#fff' }}>Профессиональная помощь без рисков</h2>
         </div>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:20 }}>

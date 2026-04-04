@@ -13,6 +13,9 @@ import MobileBar from '@/components/MobileBar'
 import CallbackModal from '@/components/CallbackModal'
 import CookieConsent from '@/components/CookieConsent'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import VyvodHeroActions from './VyvodHeroActions'
+import styles from './page.module.css'
 
 export async function generateStaticParams() {
   return getCitySlugs().map(slug => ({ city: slug }))
@@ -21,144 +24,148 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const city = getCityBySlug(params.city)
   if (!city) return {}
+  const canonical = `https://interclinics.ru/${city.slug}/vyvod-iz-zapoya/`
+  const description = `Вывод из запоя на дому в ${city.namePrep}: осмотр врача‑нарколога, инфузионная терапия. От ${city.priceVyvodFrom.toLocaleString('ru')} ₽ после осмотра. Ориентир ${city.arrivalTime} мин. Конфиденциально, круглосуточно. ☎ ${city.phoneDisplay}`
+  const title = `Вывод из запоя на дому в ${city.namePrep} — врач‑нарколог и капельница | ${BRAND_DISPLAY_NAME}`
   return {
-    title: `Вывод из запоя в ${city.namePrep} на дому — от ${city.priceVyvodFrom.toLocaleString('ru')}₽ | InterClinics`,
-    description: `Вывод из запоя на дому в ${city.namePrep}. Капельница от ${city.priceVyvodFrom.toLocaleString('ru')}₽. Выезд ${city.arrivalTime} мин. Анонимно, круглосуточно. ☎ ${city.phoneDisplay}`,
-    alternates: { canonical: `https://interclinics.ru/${city.slug}/vyvod-iz-zapoya/` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: BRAND_DISPLAY_NAME,
+      locale: 'ru_RU',
+      type: 'website',
+    },
   }
 }
 
 export default function VyvodIzZapoyaPage({ params }: { params: { city: string } }) {
   const city = getCityBySlug(params.city)
   if (!city) notFound()
-  const service = getServiceBySlug('vyvod-iz-zapoya')!
+  const service = getServiceBySlug('vyvod-iz-zapoya')
+  if (!service) notFound()
 
   return (
-    <>
+    <div className={styles.pageRoot}>
       <Header city={city} />
       <main>
-        {/* HERO для услуги */}
-        <section style={{
-          background: 'var(--deep)', padding: 'clamp(36px, 8vw, 56px) 0 clamp(44px, 9vw, 64px)',
-          position: 'relative', overflow: 'hidden'
-        }}>
-          <div style={{
-            position: 'absolute', top: '-40%', right: '-15%',
-            width: 650, height: 650,
-            maxWidth: 'min(100vw, 650px)',
-            background: 'radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 65%)',
-            borderRadius: '50%'
-          }} />
-          <div className="ctr" style={{ position: 'relative', zIndex: 2, maxWidth: 800, textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 7,
-              background: 'rgba(16,185,129,.1)', color: 'var(--em)',
-              padding: '5px 16px', borderRadius: 100, fontSize: 13,
-              fontWeight: 600, marginBottom: 22,
-              border: '1px solid rgba(16,185,129,.15)'
-            }}>
-              от {city.priceVyvodFrom.toLocaleString('ru')} ₽ · Выезд за {city.arrivalTime} мин
-            </div>
+        <section className={styles.hero} aria-labelledby="vyvod-hero-heading">
+          <div className={styles.heroGlow} aria-hidden />
+          <div className={styles.heroMesh} aria-hidden />
+          <div className={`c ${styles.heroInner}`}>
+            <p className={styles.eyebrow}>Услуга · вывод из запоя на дому</p>
 
-            <h1 style={{
-              fontSize: 'clamp(26px, 6vw, 42px)', fontWeight: 800, color: '#fff',
-              lineHeight: 1.15, marginBottom: 18, letterSpacing: '-.03em',
-              textWrap: 'balance' as const, overflowWrap: 'break-word' as const,
-            }}>
-              Вывод из запоя на дому<br />
-              <em style={{ fontStyle: 'normal', color: 'var(--em)' }}>
-                в&nbsp;{city.namePrep}
-              </em>
+            <ul className={styles.heroBadges} aria-label="Ключевые условия">
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                От {city.priceVyvodFrom.toLocaleString('ru')} ₽ — после осмотра
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                Ориентир ~{city.arrivalTime} мин до приезда
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                Конфиденциально
+              </li>
+              <li className={styles.heroBadge}>
+                <span className={styles.heroBadgeDot} aria-hidden />
+                Круглосуточно
+              </li>
+            </ul>
+
+            <h1 id="vyvod-hero-heading" className={styles.title}>
+              <span className={styles.titleKicker}>Вывод из запоя на дому</span>
+              <span className={styles.titleMain}>
+                Врач‑нарколог и инфузионная помощь в&nbsp;{city.namePrep}
+              </span>
             </h1>
 
-            <p style={{
-              fontSize: 17, color: 'rgba(255,255,255,.55)',
-              marginBottom: 30, lineHeight: 1.65, maxWidth: 600,
-              marginLeft: 'auto', marginRight: 'auto'
-            }}>
-              {service.fullDescription}
+            <p className={styles.lead}>
+              Врач‑нарколог приезжает к вам, проводит осмотр и подбирает инфузионную терапию на месте — под ваше состояние и показания. При необходимости
+              круглосуточного наблюдения обсудим стационар и следующий шаг без давления. Ориентир по времени приезда и стоимость — после короткого разговора
+              по телефону.
             </p>
 
-            <a href={`tel:${city.phone}`} style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              padding: '14px clamp(18px, 4vw, 40px)',
-              minHeight: 48,
-              background: 'var(--em)', color: '#fff', borderRadius: 12,
-              fontWeight: 700, fontSize: 'clamp(15px, 3.5vw, 17px)', transition: 'all .25s',
-              textAlign: 'center' as const, maxWidth: '100%', boxSizing: 'border-box' as const,
-            }}>
-              Позвонить: {city.phoneDisplay}
-            </a>
+            <VyvodHeroActions city={city} />
+
+            <p className={styles.heroMicroTrust}>
+              Лицензия {city.partnerLicense} · анонимно · без опознавательных знаков на машине
+            </p>
           </div>
         </section>
 
-        {/* Что входит */}
-        <section style={{ padding: '60px 0' }}>
-          <div className="ctr" style={{ maxWidth: 800 }}>
-            <h2 style={{
-              fontSize: 28, fontWeight: 800, color: 'var(--deep)', marginBottom: 24
-            }}>
-              Что входит в процедуру
-            </h2>
-            <div className="ic-feature-grid">
+        <section className={styles.includesSection} aria-labelledby="vyvod-includes-heading">
+          <div className={`c ${styles.includesInner}`}>
+            <header className={styles.includesHeader}>
+              <p className={styles.includesKicker}>Формат помощи на дому</p>
+              <h2 id="vyvod-includes-heading" className={styles.includesTitle}>
+                Что входит в выезд врача
+              </h2>
+              <p className={styles.includesLead}>
+                Ниже — типовые шаги при выводе из запоя на дому. Состав инфузий и препаратов врач определяет после осмотра, с учётом состояния и сопутствующих факторов.
+              </p>
+            </header>
+
+            <ul className={styles.includesList}>
               {service.includes.map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '14px 18px', background: 'var(--bg)',
-                  borderRadius: 12, fontSize: 14, color: 'var(--t2)'
-                }}>
-                  <span style={{ color: 'var(--em)', fontWeight: 700, fontSize: 16 }}>✓</span>
-                  {item}
-                </div>
+                <li key={i} className={styles.featureCard}>
+                  <span className={styles.featureIcon} aria-hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <span className={styles.featureText}>{item}</span>
+                </li>
               ))}
+            </ul>
+
+            <div className={styles.geoCard}>
+              <h3 className={styles.geoTitle}>Выезд по городу и ориентир по времени</h3>
+              <p className={styles.geoLead}>
+                Бригады работают в {city.namePrep} и по ближайшим направлениям.
+              </p>
+              <p className={styles.geoLead}>
+                Ориентир по времени до приезда — около {city.arrivalTime} минут; фактический интервал зависит от района,
+                маршрута и загрузки линии — диспетчер уточнит при звонке.
+              </p>
+              {city.localText ? <p className={styles.geoLocal}>{city.localText}</p> : null}
             </div>
 
-            {/* Локальный текст для SEO */}
-            {city.localText && (
-              <p style={{
-                marginTop: 24, fontSize: 15, color: 'var(--t2)',
-                lineHeight: 1.7, padding: '16px 20px', background: 'var(--bg)',
-                borderRadius: 12, borderLeft: '3px solid var(--em)'
-              }}>
-                {city.localText}
-              </p>
-            )}
-
-            {/* Районы обслуживания */}
-            {city.districts.length > 0 && (
-              <div style={{ marginTop: 24 }}>
-                <h3 style={{
-                  fontSize: 18, fontWeight: 700, color: 'var(--deep)', marginBottom: 12
-                }}>
-                  Районы обслуживания в {city.namePrep}
-                </h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {city.districts.length > 0 ? (
+              <div className={styles.districtsBlock}>
+                <h3 className={styles.districtsTitle}>Районы и локальные ориентиры</h3>
+                <p className={styles.districtsSubtitle}>В {city.namePrep} — в том числе:</p>
+                <p className={styles.districtsNote}>
+                  Список не исчерпывающий: выезд возможен и за пределы перечисленных зон — уточняйте по телефону.
+                </p>
+                <ul className={styles.districtsList}>
                   {city.districts.map((d, i) => (
-                    <span key={i} style={{
-                      padding: '6px 14px', background: 'var(--bg)',
-                      borderRadius: 100, fontSize: 13, color: 'var(--t2)',
-                      border: '1px solid var(--b1)'
-                    }}>
+                    <li key={i} className={styles.districtChip}>
                       {d}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-            )}
+            ) : null}
           </div>
         </section>
 
         <PricingTable city={city} />
-        <Steps city={city} />
-        <FAQ city={city} />
-        <CTASection city={city} />
+        <Steps city={city} variant="vyvod" />
+        <FAQ city={city} variant="vyvod" />
+        <CTASection city={city} variant="vyvod" />
       </main>
 
       <Footer city={city} />
-      <MobileBar city={city} />
+      <div className="ic-mockup-scroll-pad" aria-hidden="true" />
+      <MobileBar city={city} variant="vyvod" />
       <CallbackModal city={city} />
       <CookieConsent />
       <FloatingWhatsApp city={city} />
-    </>
+    </div>
   )
 }

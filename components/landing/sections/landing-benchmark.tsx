@@ -1,3 +1,4 @@
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import { Reveal } from '../effects/reveal'
 
 const usItems = [
@@ -46,7 +47,7 @@ export function LandingBenchmarkSection() {
 
             <div className="relative z-[1] grid grid-cols-[1.15fr_0.85fr_0.85fr] gap-3.5 max-lg:grid-cols-1">
               <div className="rounded-[24px] border border-[rgba(16,185,129,0.32)] bg-gradient-to-b from-[rgba(16,185,129,.18)] to-[rgba(255,255,255,.08)] p-[22px] backdrop-blur-[8px]">
-                <h4 className="text-lg font-extrabold tracking-tight">InterClinics / premium performance prototype</h4>
+                <h4 className="text-lg font-extrabold tracking-tight">{BRAND_DISPLAY_NAME} / premium performance prototype</h4>
                 <p className="mt-2 text-[13px] leading-relaxed text-[rgba(255,255,255,0.64)]">
                   Собран как управляемая конверсионная система: горячий вызов, product split, доверие, mid-CTA, география,
                   сравнение и мультигородская масштабируемость.

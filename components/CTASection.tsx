@@ -1,18 +1,150 @@
-// components/CTASection.tsx
+// components/CTASection.tsx — секция .final; variant="vyvod" | "stacionar" | "narkolog" | "kodirovanie" | "reabilitaciya" — усиленные финалы посадочных
 import { City } from '@/data/cities'
 import LeadForm from './LeadForm'
+import styles from './CTASection.module.css'
 
-export default function CTASection({ city }: { city: City }) {
+export default function CTASection({ city, variant }: { city: City; variant?: 'vyvod' | 'stacionar' | 'narkolog' | 'kodirovanie' | 'reabilitaciya' }) {
+  if (variant === 'vyvod') {
+    return (
+      <section className={`final ${styles.finalLanding}`} id="vyvod-final-cta" aria-labelledby="vyvod-final-heading">
+        <div className="c final-inner">
+          <p className={styles.kicker}>Связь с линией</p>
+          <h2 id="vyvod-final-heading" className={styles.titleVyvod}>
+            Если хотите обсудить ситуацию — позвоните или оставьте номер
+          </h2>
+          <p className={`final-lead ${styles.leadAlign}`}>
+            Подойдёт и для себя, и за близкого взрослого. Коротко подскажем следующий шаг без давления: до выезда врача вы ни к чему не обязаны.
+          </p>
+          <a className="final-phone" href={`tel:${city.phone}`}>
+            {city.phoneDisplay}
+          </a>
+          <div className="final-form final-form--vyvod">
+            <LeadForm city={city} variant="cta" ctaVariant="vyvod" />
+          </div>
+          <div className="final-proof">
+            <span>Конфиденциально</span>
+            <span>Круглосуточная линия</span>
+            <span>Можно за близкого</span>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (variant === 'stacionar') {
+    return (
+      <section className="final">
+        <div className="c final-inner">
+          <p className={styles.kicker}>Госпитализация</p>
+          <h2 className={styles.titleVyvod}>Обсудим стационар: позвоните или оставьте номер</h2>
+          <p className={`final-lead ${styles.leadAlign}`}>
+            Поможем сориентироваться по программе и срокам. Можно обратиться за себя или за взрослого близкого. На линии
+            ответим спокойно и по делу — без навязчивости; до согласования поступления вы ни к чему не обязаны.
+          </p>
+          <a className="final-phone" href={`tel:${city.phone}`}>
+            {city.phoneDisplay}
+          </a>
+          <div className="final-form final-form--vyvod final-form--stacionar">
+            <LeadForm city={city} variant="cta" ctaVariant="stacionar" />
+          </div>
+          <div className="final-proof">
+            <span>Круглосуточная линия</span>
+            <span>Можно за близкого</span>
+            <span>Конфиденциально</span>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (variant === 'narkolog') {
+    return (
+      <section className="final" id="narkolog-final-cta">
+        <div className="c final-inner">
+          <p className={styles.kicker}>Линия вызова</p>
+          <h2 className={styles.titleVyvod}>Позвоните по линии или оставьте номер для звонка</h2>
+          <p className={`final-lead ${styles.leadAlign}`}>
+            Подойдёт и для себя, и за взрослого близкого. Коротко согласуем следующий шаг: адрес, ориентир по времени и формат выезда — спокойно и по делу. До согласования визита с врачом вы ни к чему не обязаны.
+          </p>
+          <a className="final-phone" href={`tel:${city.phone}`}>
+            {city.phoneDisplay}
+          </a>
+          <div className="final-form final-form--narkolog">
+            <LeadForm city={city} variant="cta" ctaVariant="narkolog" />
+          </div>
+          <div className="final-proof">
+            <span>Конфиденциально</span>
+            <span>Можно за близкого</span>
+            <span>По состоянию подбираем помощь</span>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (variant === 'kodirovanie') {
+    return (
+      <section className="final" id="kodirovanie-final-cta">
+        <div className="c final-inner">
+          <p className={styles.kicker}>Консультация и запись</p>
+          <h2 className={styles.titleVyvod}>Позвоните по линии или оставьте номер — обсудим кодирование в {city.namePrep}</h2>
+          <p className={`final-lead ${styles.leadAlign}`}>
+            Подойдёт и для себя, и за взрослого близкого. Коротко согласуем следующий шаг: запись, какие форматы имеет смысл обсуждать с врачом и ориентир по
+            стоимости — спокойно и по делу. До приёма вы ни к чему не обязаны.
+          </p>
+          <a className="final-phone" href={`tel:${city.phone}`}>
+            {city.phoneDisplay}
+          </a>
+          <div className="final-form final-form--kodirovanie">
+            <LeadForm city={city} variant="cta" ctaVariant="kodirovanie" />
+          </div>
+          <div className="final-proof">
+            <span>Метод подбирает врач</span>
+            <span>После трезвости по показаниям</span>
+            <span>Можно за близкого</span>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (variant === 'reabilitaciya') {
+    return (
+      <section className="final" id="reabilitaciya-final-cta">
+        <div className="c final-inner">
+          <p className={styles.kicker}>Спокойный следующий шаг</p>
+          <h2 className={styles.titleVyvod}>Обсудим программу в {city.namePrep} — без срочного давления</h2>
+          <p className={`final-lead ${styles.leadAlign}`}>
+            Позвоните или оставьте номер: коротко разберём запрос, ориентир по сроку и глубине, стоимость и логистику. Подойдёт и для себя, и за
+            взрослого близкого. До записи в программу вы ни к чему не обязаны.
+          </p>
+          <a className="final-phone" href={`tel:${city.phone}`}>
+            {city.phoneDisplay}
+          </a>
+          <div className="final-form final-form--reabilitaciya">
+            <LeadForm city={city} variant="cta" ctaVariant="reabilitaciya" />
+          </div>
+          <div className="final-proof">
+            <span>Консультация без обязательств</span>
+            <span>Устойчивость, не «быстрый фикс»</span>
+            <span>Можно за близкого</span>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
-    <section style={{ padding: '80px 0 88px', background: 'var(--deep)', textAlign: 'center' as const, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 500, height: 500, background: 'radial-gradient(circle,rgba(16,185,129,.08) 0%,transparent 55%)', borderRadius: '50%' }} />
-      <div className="ctr" style={{ position: 'relative', zIndex: 2 }}>
-        <h2 style={{ fontSize: 'clamp(24px, 5.5vw, 34px)', fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-.02em', textWrap: 'balance' }}>Не откладывайте — позвоните сейчас</h2>
-        <p style={{ fontSize: 'clamp(15px, 3.2vw, 17px)', color: 'rgba(255,255,255,.4)', marginBottom: 32, lineHeight: 1.5 }}>Бесплатная консультация нарколога, круглосуточно</p>
-        <a href={`tel:${city.phone}`} style={{ display: 'inline-block', fontSize: 'clamp(22px, 7vw, 40px)', fontWeight: 800, color: 'var(--em)', marginBottom: 26, letterSpacing: '-.02em', whiteSpace: 'nowrap' }}>
+    <section className="final">
+      <div className="c final-inner">
+        <h2>Не откладывайте — позвоните сейчас</h2>
+        <p className="final-lead">Бесплатная консультация нарколога, круглосуточно</p>
+        <a className="final-phone" href={`tel:${city.phone}`}>
           {city.phoneDisplay}
         </a>
-        <LeadForm city={city} variant="cta" />
+        <div className="ic-final-form-glass">
+          <LeadForm city={city} variant="cta" />
+        </div>
       </div>
     </section>
   )

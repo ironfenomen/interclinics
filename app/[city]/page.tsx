@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation'
 import { getCityBySlug, getCitySlugs, type City } from '@/data/cities'
 import { LandingChrome } from '@/components/landing/landing-chrome'
 import { CityLanding } from '@/components/landing/city-landing'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 export async function generateStaticParams() {
   return getCitySlugs().map(slug => ({ city: slug }))
@@ -15,17 +16,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const city = getCityBySlug(params.city)
-  if (!city) return { title: 'InterClinics' }
+  if (!city) return { title: BRAND_DISPLAY_NAME }
 
   return {
-    title: `Наркологическая клиника в ${city.namePrep} — InterClinics | Выезд за ${city.arrivalTime} мин`,
+    title: `Наркологическая клиника в ${city.namePrep} — ${BRAND_DISPLAY_NAME} | Выезд за ${city.arrivalTime} мин`,
     description: `Вывод из запоя, кодирование, лечение алкоголизма и наркомании в ${city.namePrep}. Анонимно. Круглосуточно. Лицензия. ☎ ${city.phoneDisplay}`,
     keywords: `вывод из запоя ${city.name}, нарколог на дом ${city.name}, кодирование от алкоголизма ${city.name}, наркологическая клиника ${city.name}`,
     alternates: {
       canonical: `https://interclinics.ru/${city.slug}/`,
     },
     openGraph: {
-      title: `InterClinics — наркологическая помощь в ${city.namePrep}`,
+      title: `${BRAND_DISPLAY_NAME} — наркологическая помощь в ${city.namePrep}`,
       description: `Вывод из запоя, кодирование, лечение зависимости. Анонимно, круглосуточно.`,
       url: `https://interclinics.ru/${city.slug}/`,
       locale: 'ru_RU',
@@ -38,7 +39,7 @@ function MedicalJsonLd({ city }: { city: City }) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'MedicalBusiness',
-    name: `InterClinics — наркологическая помощь в ${city.namePrep}`,
+    name: `${BRAND_DISPLAY_NAME} — наркологическая помощь в ${city.namePrep}`,
     url: `https://interclinics.ru/${city.slug}/`,
     telephone: city.phone,
     address: {

@@ -1,79 +1,160 @@
 'use client'
 
-// components/PricingTable.tsx
+// components/PricingTable.tsx — блок цен только для «Вывод из запоя»
+import Link from 'next/link'
+import { City, getCityBySlug } from '@/data/cities'
+import styles from './PricingTable.module.css'
 
-import { City } from '@/data/cities'
+function openCallback() {
+  const m = document.getElementById('callbackModal')
+  if (m) m.classList.add('open')
+  document.body.style.overflow = 'hidden'
+}
 
 export default function PricingTable({ city }: { city: City }) {
+  const nearest = city.nearestStacionarSlug ? getCityBySlug(city.nearestStacionarSlug) : undefined
+
   const packages = [
     {
-      name: 'Стандартная', desc: 'Запой до 3 дней, лёгкое похмелье',
-      price: city.priceBase, dur: '1–1.5 часа', popular: false,
-      features: ['Осмотр врачом-наркологом', 'Капельница 250 мл', 'Витамины группы B', 'Противорвотная терапия', 'Рекомендации на 3 дня']
+      name: 'Стандартная',
+      tagline: 'Лёгкое состояние, короткий запой, минимальный объём инфузий',
+      price: city.priceBase,
+      sessionHint: 'Ориентир по времени на месте: 1–1,5 ч',
+      popular: false,
+      features: [
+        'Осмотр врача‑нарколога и сбор анамнеза',
+        'Капельница базового объёма (ориентир 250 мл)',
+        'Витамины и симптоматика по показаниям',
+        'Рекомендации врача на 3 дня',
+      ],
     },
     {
-      name: 'Усиленная', desc: 'Запой до недели, выраженные симптомы',
-      price: city.priceEnhanced, dur: '2–3 часа', popular: true,
-      features: ['Расширенный осмотр + ЭКГ', 'Двойная капельница 500 мл', 'Гепатопротекторы', 'Седативная терапия', 'Медикаменты на 5 дней', 'Контрольный звонок врача']
+      name: 'Усиленная',
+      tagline: 'Средняя тяжесть, выраженные симптомы — расширенный контроль',
+      price: city.priceEnhanced,
+      sessionHint: 'Ориентир по времени на месте: 2–3 ч',
+      popular: true,
+      features: [
+        'Расширенный осмотр; ЭКГ при необходимости',
+        'Две инфузии суммарно до ~500 мл — по схеме врача',
+        'Гепатопротекторы, седация при показаниях',
+        'Медикаменты на 5 дней, контрольный звонок врача',
+      ],
     },
     {
-      name: 'Максимальная', desc: 'Длительный запой, тяжёлое состояние',
-      price: city.priceMax, dur: '3–4 часа', popular: false,
-      features: ['Полное обследование', 'Тройная капельница 750 мл', 'Нейро- и кардиопротекторы', 'Терапия на 7 дней', '2 визита врача', 'Консультация психотерапевта']
+      name: 'Максимальная',
+      tagline: 'Тяжёлая интоксикация — максимальный объём помощи на дому',
+      price: city.priceMax,
+      sessionHint: 'Ориентир по времени на месте: 3–4 ч',
+      popular: false,
+      features: [
+        'Полная оценка состояния и рисков на месте',
+        'Несколько инфузий суммарно до ~750 мл — по показаниям',
+        'Нейро- и кардиопротекторы, усиленная симптоматика',
+        'Терапия до 7 дней, до 2 визитов врача; при необходимости психотерапевт',
+      ],
     },
   ]
 
   return (
-    <section style={{ padding: '72px 0', background: 'var(--bg)' }}>
-      <div className="ctr">
-        <div className="shdr">
-          <div className="shdr__label">Стоимость</div>
-          <h2 className="shdr__title">Вывод из запоя — цены</h2>
-          <p className="shdr__desc">Прозрачные цены без скрытых доплат. Окончательная стоимость — после осмотра врача.</p>
-        </div>
-        <div className="ic-pricing-grid">
+    <section className={styles.section} aria-labelledby="pricing-vyvod-title">
+      <div className={`c ${styles.inner}`}>
+        <header className={styles.header}>
+          <p className={styles.kicker}>Ориентиры по стоимости</p>
+          <h2 id="pricing-vyvod-title" className={styles.title}>
+            Стоимость выезда: три формата помощи
+          </h2>
+          <p className={styles.lead}>
+            Цифры ниже — честный ориентир по объёму инфузий и сопровождения до звонка. Окончательный формат и цена согласуются после осмотра, без скрытых доплат
+            после приезда. Если круглосуточного наблюдения на дому недостаточно, врач спокойно подскажет формат стационара — без давления.
+          </p>
+        </header>
+
+        <div className={styles.grid}>
           {packages.map((pkg, i) => (
-            <div key={i} style={{
-              background: '#fff', borderRadius: 16, padding: '32px 24px',
-              border: `2px solid ${pkg.popular ? 'var(--em)' : 'var(--b2)'}`,
-              boxShadow: pkg.popular ? 'var(--sh-g)' : 'none',
-              position: 'relative'
-            }}>
-              {pkg.popular && (
-                <div style={{
-                  position: 'absolute', top: -11, left: '50%', transform: 'translateX(-50%)',
-                  background: 'var(--em)', color: '#fff', padding: '3px 16px', borderRadius: 100,
-                  fontSize: 11, fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '.05em', whiteSpace: 'nowrap' as const
-                }}>Чаще выбирают</div>
-              )}
-              <div style={{ fontSize: 19, fontWeight: 800, color: 'var(--deep)', marginBottom: 4 }}>{pkg.name}</div>
-              <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 18 }}>{pkg.desc}</div>
-              <div style={{ fontSize: 34, fontWeight: 800, color: 'var(--deep)', marginBottom: 3 }}>
-                {pkg.price.toLocaleString('ru')} ₽ <span style={{ fontSize: 15, fontWeight: 500, color: 'var(--t3)' }}>/ выезд</span>
+            <article
+              key={i}
+              className={`${styles.card} ${pkg.popular ? styles.cardPopular : ''}`}
+            >
+              {pkg.popular ? (
+                <div className={styles.popularBadge}>Чаще выбирают</div>
+              ) : null}
+              <h3 className={styles.cardName}>{pkg.name}</h3>
+              <p className={styles.cardTagline}>{pkg.tagline}</p>
+              <div className={styles.priceBundle} aria-label={`Ориентир ${pkg.price.toLocaleString('ru')} рублей за выезд`}>
+                <div className={styles.priceMain}>
+                  <span className={styles.priceNum}>{pkg.price.toLocaleString('ru')}</span>
+                  <span className={styles.priceCurrency}>₽</span>
+                </div>
+                <span className={styles.priceSuffix}>/ выезд</span>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 20 }}>{pkg.dur}</div>
-              <ul style={{ listStyle: 'none', marginBottom: 24 }}>
+              <p className={styles.sessionHint}>{pkg.sessionHint}</p>
+              <ul className={styles.featureList}>
                 {pkg.features.map((f, fi) => (
-                  <li key={fi} style={{ padding: '7px 0', fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'flex-start', gap: 8, lineHeight: 1.5 }}>
-                    <span style={{ color: 'var(--em)', fontWeight: 700, flexShrink: 0 }}>✓</span>
-                    {f}
+                  <li key={fi} className={styles.featureItem}>
+                    <svg className={styles.check} viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>{f}</span>
                   </li>
                 ))}
               </ul>
               <button
-                onClick={() => { const m = document.getElementById('callbackModal'); if(m) m.classList.add('open'); document.body.style.overflow='hidden' }}
-                style={{
-                  display: 'block', width: '100%', padding: 13, textAlign: 'center' as const,
-                  borderRadius: 12, fontWeight: 700, fontSize: 14, cursor: 'pointer',
-                  background: pkg.popular ? 'var(--em)' : 'transparent',
-                  color: pkg.popular ? '#fff' : 'var(--deep)',
-                  border: `2px solid ${pkg.popular ? 'var(--em)' : 'var(--b1)'}`,
-                  transition: 'all .25s'
-                }}>
-                Вызвать врача
+                type="button"
+                className={`${styles.cta} ${pkg.popular ? styles.ctaPopular : styles.ctaOutline}`}
+                onClick={openCallback}
+              >
+                Уточнить этот формат
               </button>
-            </div>
+            </article>
           ))}
+        </div>
+
+        <div className={styles.bridge}>
+          <p className={styles.bridgeEyebrow}>Стационар — отдельный маршрут</p>
+          <p className={styles.bridgeLead}>
+            Стационар с круглосуточным наблюдением — отдельный формат: при показаниях врач на выезде или диспетчер подскажут госпитализацию и маршрут, без спешки и
+            без навязывания.
+          </p>
+          {city.hasStacionar ? (
+            <div className={styles.bridgeRow}>
+              <Link href={`/${city.slug}/stacionar/`} className={styles.bridgeLink}>
+                Стационар 24/7 в {city.namePrep}
+              </Link>
+              <span className={styles.bridgeMeta}>
+                ориентир от {city.priceStacionarDay.toLocaleString('ru')} ₽ / сутки · подробности на странице
+              </span>
+            </div>
+          ) : city.nearestStacionarSlug && nearest ? (
+            <div className={styles.bridgeRow}>
+              <Link href={`/${city.nearestStacionarSlug}/stacionar/`} className={styles.bridgeLink}>
+                Ближайший стационар сети — {nearest.name}
+              </Link>
+              <span className={styles.bridgeMeta}>
+                {typeof city.nearestStacionarDistance === 'number'
+                  ? `ориентир ~${city.nearestStacionarDistance} км · `
+                  : ''}
+                от {city.priceStacionarDay.toLocaleString('ru')} ₽ / сутки · маршрут и детали на странице
+              </span>
+            </div>
+          ) : city.nearestStacionarSlug ? (
+            <div className={styles.bridgeRow}>
+              <Link href={`/${city.nearestStacionarSlug}/stacionar/`} className={styles.bridgeLink}>
+                Стационар сети — подробности и маршрут
+              </Link>
+              <span className={styles.bridgeMeta}>ориентир от {city.priceStacionarDay.toLocaleString('ru')} ₽ / сутки</span>
+            </div>
+          ) : (
+            <p className={styles.bridgeFallback}>
+              Направление в стационар сети при необходимости согласуют на линии — подскажем ближайший формат наблюдения.
+            </p>
+          )}
         </div>
       </div>
     </section>

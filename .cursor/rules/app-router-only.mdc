@@ -1,9 +1,9 @@
 ---
-description: InterClinics — правила Next.js App Router и клиентских границ (читать перед каждым изменением)
+description: «Интерклиника» — правила Next.js App Router и клиентских границ (читать перед каждым изменением)
 alwaysApply: true
 ---
 
-# Правила проекта InterClinics — перед каждым изменением
+# Правила проекта «Интерклиника» — перед каждым изменением
 
 ## 1. Только App Router
 
@@ -34,4 +34,12 @@ alwaysApply: true
 
 ## 7. Dev-сервер после команд
 
-- После выполнения **любых** команд (**`build`**, **`install`**, **очистка кэша** `.next` / `node_modules/.cache` и т.п.) **всегда** перезапустить dev-сервер командой **`npm run dev`** и убедиться, что **`http://localhost:3000`** отвечает **HTTP 200** (например `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/`).
+**Проверочные команды** (`npm run check`, `npm run check:types`, `npm run check:lint`, `npm run verify`, `npm run build`) — **НЕ** перезапускают dev-сервер. Это read-only проверки; перезапуск уничтожит уже работающий `next dev` и сломает localhost пользователя.
+
+Перезапуск `npm run dev` требуется **только** в явных случаях:
+- `npm install` / смена зависимостей
+- Ручная очистка кэша: `npm run dev:clean`, `rm -rf .next`, `rm -rf node_modules/.cache`
+- Изменение `next.config.js`
+- Разработчик явно попросил перезапустить сервер
+
+Если dev-сервер уже запущен пользователем — **не трогать его** в ходе проверок и правок кода.

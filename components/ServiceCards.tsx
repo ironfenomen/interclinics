@@ -13,7 +13,8 @@ export default function ServiceCards({ city, services }: { city: City; services:
         </div>
         <div className="ic-service-grid">
           {services.map(svc => {
-            const price = (city as any)[svc.priceKey] || city.priceBase
+            const priceValue = (city as unknown as Record<string, unknown>)[svc.priceKey]
+            const price = typeof priceValue === 'number' ? priceValue : city.priceBase
             return (
               <a href={`/${city.slug}/${svc.slug}/`} key={svc.slug} style={{
                 background: '#fff', borderRadius: 16, padding: '28px 24px',

@@ -149,7 +149,7 @@ export const cities: City[] = [
       'Ботаника', 'Осетинка', 'Ташла'
     ],
     localText:
-      'Обслуживаем все районы Ставрополя и ближайшие населённые пункты: Михайловск, Шпаковское, Надежда, Татарка. Бригада выезжает из городской базы; ориентир по времени в удалённые районы — до 40 минут.',
+      'Выезжаем по всему городу и ближайшим населённым пунктам — в том числе Михайловск, Шпаковское, Надежда, Татарка. База выезда в Ставрополе; в удалённые районы закладывайте до 40 минут в пути — точнее скажем по адресу.',
 
     active: true,
   },
@@ -204,7 +204,8 @@ export const cities: City[] = [
     arrivalTime: 35,
     teamsAvailable: 3,
     districts: ['Центр', 'Белая Ромашка', 'Новопятигорск', 'Горячеводский', 'Свободы'],
-    localText: 'Работаем по всему Пятигорску и городам КМВ. Выезд в Ессентуки, Кисловодск, Минеральные Воды, Лермонтов — от 40 минут.',
+    localText:
+      'Покрываем Пятигорск и связку городов КМВ; отдельные выезды в Ессентуки, Кисловодск, Минеральные Воды, Лермонтов — ориентир по дороге от 40 минут, зависит от маршрута.',
 
     active: true,
   },
@@ -259,7 +260,8 @@ export const cities: City[] = [
     arrivalTime: 40,
     teamsAvailable: 2,
     districts: ['Центр', 'Курортный район', 'Заводской', 'Жуковского'],
-    localText: 'Выезд наркологической бригады по Кисловодску и окрестностям. Также обслуживаем санаторную зону и пригородные посёлки.',
+    localText:
+      'Выезжаем по Кисловодску и ближайшим направлениям, включая санаторную зону и пригородные посёлки — время уточняем по конкретному адресу.',
 
     active: true,
   },
@@ -476,7 +478,8 @@ export const cities: City[] = [
     arrivalTime: 25,
     teamsAvailable: 3,
     districts: ['Центр', 'Новый город', 'Шпаковское'],
-    localText: 'Михайловск — пригород Ставрополя. Бригады базируются в Ставрополе, время прибытия — от 20 минут.',
+    localText:
+      'Михайловск — пригород Ставрополя: бригады выезжают со ставропольской базы, ориентир по приезду часто от 20 минут — уточним при звонке.',
 
     active: true,
   },
@@ -544,6 +547,40 @@ export function getCityBySlug(slug: string): City | undefined {
 // Хелпер: все активные города
 export function getActiveCities(): City[] {
   return cities.filter(c => c.active)
+}
+
+/**
+ * Фиксированный порядок городов в переключателе (шапка / mobile dropdown) и везде,
+ * где пользователь выбирает город из списка — не алфавит, не порядок объявления в массиве.
+ */
+export const CITY_SWITCHER_SLUG_ORDER: readonly string[] = [
+  'stavropol',
+  'mikhaylovsk',
+  'nevinnomyssk',
+  'mineralnye-vody',
+  'pyatigorsk',
+  'georgievsk',
+  'kislovodsk',
+  'essentuki',
+]
+
+/** Активные города в порядке {@link CITY_SWITCHER_SLUG_ORDER}; неизвестные slug — в конце. */
+export function getCitiesInSwitcherOrder(): City[] {
+  const active = getActiveCities()
+  const bySlug = new Map(active.map(c => [c.slug, c]))
+  const ordered: City[] = []
+  const seen = new Set<string>()
+  for (const slug of CITY_SWITCHER_SLUG_ORDER) {
+    const c = bySlug.get(slug)
+    if (c) {
+      ordered.push(c)
+      seen.add(slug)
+    }
+  }
+  for (const c of active) {
+    if (!seen.has(c.slug)) ordered.push(c)
+  }
+  return ordered
 }
 
 // Хелпер: все slug для generateStaticParams

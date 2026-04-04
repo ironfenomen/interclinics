@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import type { City } from '@/data/cities'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import { CallbackButton } from '../ui/callback-button'
 
 export function LandingSiteHeader({ city }: { city: City }) {
@@ -28,8 +29,8 @@ export function LandingSiteHeader({ city }: { city: City }) {
               <path d="M4 16.5 12 21l8-4.5" />
             </svg>
           </div>
-          <div className="flex min-w-0 flex-col gap-[3px] text-[22px] font-extrabold leading-[1.12] tracking-[-0.04em] text-deep">
-            InterClinics
+          <div className="flex min-w-0 flex-col gap-[3px] text-[clamp(17px,4.2vw,20px)] font-extrabold leading-[1.12] tracking-[-0.035em] text-deep">
+            {BRAND_DISPLAY_NAME}
             <span className="text-[10px] font-extrabold uppercase leading-[1.25] tracking-[0.18em] text-ink-muted-2">
               Сеть наркологических клиник
             </span>

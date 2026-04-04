@@ -1,6 +1,6 @@
 import type { City } from '@/data/cities'
 
-/** Дефолтный владелец / администратор сайта (сеть InterClinics). */
+/** Дефолтный владелец / администратор сайта (бренд «Интерклиника»). */
 export const DEFAULT_FOOTER_SITE_OWNER = {
   name: 'ООО «Амадеус»',
   inn: '2634111890',
@@ -17,10 +17,11 @@ export const DEFAULT_FOOTER_MEDICAL_EXECUTOR = {
   licenseDate: '10.08.2021',
 } as const
 
-const NOTE_MEDICAL =
+/** Та же формулировка, что в HTML-мокапе и в React-футере сервисных страниц. */
+export const FOOTER_LEGAL_NOTE_MEDICAL =
   'В зависимости от города, маршрута помощи и выбранного формата услуг медицинская помощь может оказываться иными медицинскими организациями или индивидуальными предпринимателями, имеющими право на соответствующую деятельность.'
 
-const NOTE_PSYCH =
+export const FOOTER_LEGAL_NOTE_PSYCH =
   'Психологические консультации также могут оказываться иными исполнителями, включая ИП, в рамках выбранного формата сопровождения.'
 
 function esc(s: string): string {
@@ -41,6 +42,6 @@ export function buildMockupFooterLegalHtml(city: City): string {
 
   return `<p class="footer-legal-lead">Сайт interclinics.ru принадлежит и администрируется <strong>${esc(owner.name)}</strong> (ИНН ${esc(owner.inn)}, ОГРН ${esc(owner.ogrn)}).</p>
 <p class="footer-legal-provider">Основной исполнитель медицинских услуг в базовом маршруте — <strong>${esc(med.clinicBrand)}</strong> (<strong>${esc(med.legalName)}</strong>, ИНН ${esc(med.inn)}, ОГРН ${esc(med.ogrn)}). Медицинская лицензия ${esc(med.license)} от ${esc(med.licenseDate)}.</p>
-<p class="footer-legal-note">${NOTE_MEDICAL}</p>
-<p class="footer-legal-note">${NOTE_PSYCH}</p>`
+<p class="footer-legal-note">${FOOTER_LEGAL_NOTE_MEDICAL}</p>
+<p class="footer-legal-note">${FOOTER_LEGAL_NOTE_PSYCH}</p>`
 }
