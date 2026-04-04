@@ -90,7 +90,7 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
+    gap: 12px;
   }
 
   .grid > article:nth-child(3) {
@@ -114,16 +114,16 @@
     0 14px 42px rgba(7, 20, 35, 0.06);
   box-sizing: border-box;
   transition:
-    border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    transform 0.22s ease;
+    border-color 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card:hover {
-  border-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.22);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 18px 48px rgba(10, 25, 45, 0.09);
+    0 16px 46px rgba(10, 25, 45, 0.085);
   transform: translateY(-1px);
 }
 
@@ -135,12 +135,12 @@
 
 .cardPopular {
   padding-top: 34px;
-  border-color: rgba(16, 185, 129, 0.28);
-  background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, #ffffff 42%, #fafcfe 100%);
+  border-color: rgba(16, 185, 129, 0.26);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.045) 0%, #ffffff 44%, #fafcfe 100%);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 16px 48px rgba(16, 185, 129, 0.1),
-    0 12px 36px rgba(7, 20, 35, 0.07);
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 14px 44px rgba(16, 185, 129, 0.09),
+    0 10px 34px rgba(7, 20, 35, 0.065);
 }
 
 .popularBadge {

@@ -27,9 +27,9 @@
 
 .finalLanding :global(.final-proof span) {
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .kicker {
@@ -51,17 +51,163 @@
     max-width: none;
   }
 
+  .kicker {
+    margin-bottom: 12px;
+  }
+
   .leadAlign {
     text-align: left;
+  }
+
+  .finalLanding :global(.final-phone) {
+    margin-top: 20px;
+  }
+
+  .finalLanding :global(.final-form.final-form--vyvod) {
+    margin-top: 22px;
   }
 
   .finalLanding :global(.final-proof) {
     justify-content: flex-start;
     flex-wrap: wrap;
+    margin-top: 18px;
+    gap: 7px;
   }
 }
 
 .leadAlign {
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Финал страницы «Стационар» — premium decision block в .final (все города) */
+.finalStacionar {
+  position: relative;
+  z-index: 1;
+  margin-top: -1px;
+}
+
+.kickerStacionar {
+  margin-bottom: 10px;
+  color: rgba(226, 232, 240, 0.82);
+  letter-spacing: 0.16em;
+}
+
+.finalStacionar :global(#stacionar-final-heading) {
+  max-width: min(22ch, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.leadStacionar {
+  max-width: min(34em, 100%);
+  margin-top: 14px;
+  font-size: clamp(15px, 1.65vw, 16.5px);
+  line-height: 1.58;
+  color: rgba(248, 250, 252, 0.78);
+  font-weight: 500;
+}
+
+.finalStacionar :global(.final-inner) {
+  max-width: min(640px, 100%);
+}
+
+.finalStacionar :global(.final-phone) {
+  margin-top: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.038em;
+  transition:
+    color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Номер заметный, без «крика»: чуть мягче контраст подчёркивания */
+.phoneStacionar {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.phoneStacionar:hover {
+  color: #fff;
+  border-bottom-color: rgba(16, 185, 129, 0.48);
+}
+
+.finalStacionar :global(.final-form.final-form--stacionar) {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+
+.finalStacionar :global(.final-proof) {
+  margin-top: clamp(18px, 2.6vw, 24px);
+  max-width: min(32rem, 100%);
+  gap: 7px;
+}
+
+.finalStacionar :global(.final-proof span) {
+  font-weight: 600;
+  font-size: 11.75px;
+  letter-spacing: 0.02em;
+  color: rgba(248, 250, 252, 0.85);
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.055);
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .finalStacionar :global(.final-proof span:hover) {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .kickerStacionar {
+    margin-bottom: 8px;
+  }
+
+  .finalStacionar :global(#stacionar-final-heading) {
+    max-width: none;
+    font-size: clamp(1.38rem, 5.4vw, 1.62rem);
+    line-height: 1.1;
+  }
+
+  .leadStacionar {
+    margin-top: 10px;
+    font-size: 14.75px;
+    line-height: 1.55;
+  }
+
+  .finalStacionar :global(.final-inner > p:first-child) {
+    margin-bottom: 6px;
+  }
+
+  .finalStacionar :global(.final-phone) {
+    margin-top: 14px;
+    font-size: clamp(23px, 6.5vw, 28px);
+  }
+
+  .finalStacionar :global(.final-form.final-form--stacionar) {
+    margin-top: 16px;
+  }
+
+  .finalStacionar :global(.final-proof) {
+    margin-top: 14px;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .finalStacionar :global(.final-proof span) {
+    padding: 6px 11px;
+    font-size: 11.5px;
+  }
 }

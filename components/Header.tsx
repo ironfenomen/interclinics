@@ -45,7 +45,7 @@ export default function Header({ city }: { city: City }) {
             <div className="topbar-trust">Ежедневно, круглосуточно · подбор формата помощи под ситуацию</div>
           </div>
           <div className="topbar-slot topbar-slot--right">
-            <span className="topbar-disclaimer">Лицензия {city.partnerLicense}</span>
+            <span className="topbar-disclaimer">Лицензия № {city.partnerLicense}</span>
             <a className="mini-link" href="/privacy/">
               Конфиденциальность
             </a>

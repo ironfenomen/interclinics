@@ -140,7 +140,7 @@ export default function KodirovaniePage({ params }: { params: { city: string } }
             </div>
 
             <p className={styles.heroMicroTrust}>
-              Лицензия {city.partnerLicense} · консультация до процедуры · без гарантий излечения · круглосуточная линия
+              Лицензированная помощь · консультация до процедуры · без гарантий излечения · круглосуточная линия
             </p>
           </div>
         </section>

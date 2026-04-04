@@ -33,24 +33,28 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
 
   if (variant === 'stacionar') {
     return (
-      <section className="final">
+      <section
+        className={`final ${styles.finalStacionar} ic-final-stacionar`}
+        id="stacionar-final-cta"
+        aria-labelledby="stacionar-final-heading"
+      >
         <div className="c final-inner">
-          <p className={styles.kicker}>Госпитализация</p>
-          <h2 className={styles.titleVyvod}>Обсудим стационар: позвоните или оставьте номер</h2>
-          <p className={`final-lead ${styles.leadAlign}`}>
-            Поможем сориентироваться по программе и срокам. Можно обратиться за себя или за взрослого близкого. На линии
-            ответим спокойно и по делу — без навязчивости; до согласования поступления вы ни к чему не обязаны.
+          <p className={`${styles.kicker} ${styles.kickerStacionar}`}>Линия отделения</p>
+          <h2 id="stacionar-final-heading">Разговор о поступлении</h2>
+          <p className={`final-lead ${styles.leadAlign} ${styles.leadStacionar}`}>
+            Для вас или за взрослого близкого. На линии — показания, места, порядок. До приёма врача — без давления и
+            обязательств.
           </p>
-          <a className="final-phone" href={`tel:${city.phone}`}>
+          <a className={`final-phone ${styles.phoneStacionar}`} href={`tel:${city.phone}`}>
             {city.phoneDisplay}
           </a>
           <div className="final-form final-form--vyvod final-form--stacionar">
             <LeadForm city={city} variant="cta" ctaVariant="stacionar" />
           </div>
           <div className="final-proof">
-            <span>Круглосуточная линия</span>
-            <span>Можно за близкого</span>
             <span>Конфиденциально</span>
+            <span>Линия 24/7</span>
+            <span>Можно за близкого</span>
           </div>
         </div>
       </section>

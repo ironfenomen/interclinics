@@ -498,7 +498,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
             textAlign: 'center',
           }}
         >
-          Спасибо. Перезвоним и спокойно обсудим формат поступления — обычно в течение нескольких минут.
+          Спасибо. Перезвоним, чтобы спокойно уточнить показания и порядок поступления — обычно в течение нескольких минут.
         </p>
       )
     }
@@ -509,7 +509,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
           className={`fi fi--on-dark ${error ? 'fi--err' : ''}`}
           type="tel"
           autoComplete="tel"
-          placeholder="Телефон для связи *"
+          placeholder="Номер для перезвона *"
           value={phone}
           onChange={e => {
             handlePhone(e.target.value)
@@ -519,7 +519,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
           aria-describedby="stacionar-final-hint"
         />
         <p id="stacionar-final-hint" className="ic-stacionar-form-hint">
-          Перезвоним, чтобы уточнить ситуацию и доступность мест — без обязательств до согласования с врачом.
+          Перезвоним: показания, места, порядок поступления — до визита к врачу без обязательств.
         </p>
         <label
           className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
@@ -536,7 +536,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
           />
           <span>
             Я согласен(на) на{' '}
-            <a href="/privacy/">обработку персональных данных</a>
+            <a href="/privacy/">обработку персональных данных</a> для обратного звонка
           </span>
         </label>
         <button type="button" className="fbtn" onClick={handleSubmit}>

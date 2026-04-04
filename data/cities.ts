@@ -109,8 +109,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Ставрополь, пер. Каховский, 26а',
     lat: 45.0428,
     lng: 41.9734,
@@ -172,8 +172,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Пятигорск, ул. XXXXXXX, д. XX',
     lat: 44.0486,
     lng: 43.0594,
@@ -228,8 +228,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Кисловодск, ул. XXXXXXX, д. XX',
     lat: 43.9133,
     lng: 42.7208,
@@ -284,8 +284,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Ессентуки, ул. XXXXXXX, д. XX',
     lat: 44.0449,
     lng: 42.8606,
@@ -338,8 +338,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Невинномысск, ул. XXXXXXX, д. XX',
     lat: 44.6310,
     lng: 41.9414,
@@ -392,8 +392,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Минеральные Воды, ул. XXXXXXX, д. XX',
     lat: 44.2192,
     lng: 43.1350,
@@ -446,8 +446,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Михайловск, ул. XXXXXXX, д. XX',
     lat: 45.1286,
     lng: 42.0253,
@@ -502,8 +502,8 @@ export const cities: City[] = [
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
     partnerOgrn: 'ХХХХХХХХХХХХХ',
-    partnerLicense: 'Л041-XXXXX-XX/XXXXXXXXXX',
-    partnerLicenseDate: '01.01.2024',
+    partnerLicense: 'Л041-01197-26/00327766',
+    partnerLicenseDate: '10.08.2021',
     partnerAddress: 'г. Георгиевск, ул. XXXXXXX, д. XX',
     lat: 44.1531,
     lng: 43.4700,
@@ -542,6 +542,16 @@ export const cities: City[] = [
 // Хелпер: получить город по slug
 export function getCityBySlug(slug: string): City | undefined {
   return cities.find(c => c.slug === slug && c.active)
+}
+
+/**
+ * Город с отделением стационара сети для направления при показаниях, если в текущем городе нет своего стационара.
+ * `nearestStacionarSlug` должен указывать на активный город из {@link cities}; иначе вернётся `null` (безопасный фолбэк в UI).
+ */
+export function getNearestStacionarCity(city: City): City | null {
+  if (city.hasStacionar) return null
+  if (!city.nearestStacionarSlug) return null
+  return getCityBySlug(city.nearestStacionarSlug) ?? null
 }
 
 // Хелпер: все активные города

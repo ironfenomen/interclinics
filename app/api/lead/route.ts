@@ -1,11 +1,15 @@
 // app/api/lead/route.ts
 import { NextRequest, NextResponse } from 'next/server'
+import { getCityBySlug } from '@/data/cities'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { phone, city, source, leadType } = body
+    const { phone, city: citySlugRaw, source, leadType } = body
+    const citySlug = typeof citySlugRaw === 'string' ? citySlugRaw.trim() : ''
+    const cityRow = citySlug ? getCityBySlug(citySlug) : undefined
+    const cityLabel = cityRow ? `${cityRow.name} · ${citySlug}` : citySlug || '—'
 
     const typeLabels: Record<string, string> = {
       vyzov: '🚑 Выезд',
@@ -35,10 +39,10 @@ export async function POST(request: NextRequest) {
     //     'Content-Type': 'application/json',
     //   },
     //   body: JSON.stringify([{
-    //     name: `Заявка ${BRAND_DISPLAY_NAME} — ${city}`,
+    //     name: `Заявка ${BRAND_DISPLAY_NAME} — ${cityRow?.name ?? citySlug}`,
     //     custom_fields_values: [
     //       { field_id: Number(process.env.AMO_PHONE_FIELD), values: [{ value: digits }] },
-    //       { field_id: Number(process.env.AMO_CITY_FIELD), values: [{ value: city }] },
+    //       { field_id: Number(process.env.AMO_CITY_FIELD), values: [{ value: citySlug }] },
     //       { field_id: Number(process.env.AMO_SOURCE_FIELD), values: [{ value: source }] },
     //     ],
     //   }]),
@@ -52,7 +56,7 @@ export async function POST(request: NextRequest) {
       const tgText = [
         `🔔 <b>Новая заявка ${BRAND_DISPLAY_NAME}</b>`,
         `📞 Телефон: <code>${digits}</code>`,
-        `🏙 Город: ${city}`,
+        `🏙 Город: ${cityLabel}`,
         `📌 Тип: ${typeLabels[leadTypeKey] || typeLabels.general}`,
         `📍 Источник: ${source}`,
         `⏰ ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`,
@@ -69,7 +73,14 @@ export async function POST(request: NextRequest) {
       }).catch(err => console.error('TG error:', err))
     }
 
-    console.log('✅ Lead:', { phone: digits, city, source, leadType: leadTypeKey, ts: new Date().toISOString() })
+    console.log('✅ Lead:', {
+      phone: digits,
+      city: citySlug,
+      cityName: cityRow?.name,
+      source,
+      leadType: leadTypeKey,
+      ts: new Date().toISOString(),
+    })
     return NextResponse.json({ success: true })
 
   } catch (error) {

@@ -12,7 +12,6 @@ import Footer from '@/components/Footer'
 import MobileBar from '@/components/MobileBar'
 import CallbackModal from '@/components/CallbackModal'
 import CookieConsent from '@/components/CookieConsent'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import VyvodHeroActions from './VyvodHeroActions'
 import styles from './page.module.css'
@@ -93,7 +92,7 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             <VyvodHeroActions city={city} />
 
             <p className={styles.heroMicroTrust}>
-              Лицензия {city.partnerLicense} · анонимно · без опознавательных знаков на машине
+              Лицензированная помощь · анонимно · без опознавательных знаков на машине
             </p>
           </div>
         </section>
@@ -165,7 +164,6 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
       <MobileBar city={city} variant="vyvod" />
       <CallbackModal city={city} />
       <CookieConsent />
-      <FloatingWhatsApp city={city} />
     </div>
   )
 }

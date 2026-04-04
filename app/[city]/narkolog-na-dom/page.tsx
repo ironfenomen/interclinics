@@ -100,7 +100,7 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
             </div>
 
             <p className={styles.heroMicroTrust}>
-              Лицензия {city.partnerLicense} · конфиденциально · автомобиль без рекламной маркировки · круглосуточная линия
+              Лицензированная помощь · конфиденциально · автомобиль без рекламной маркировки · круглосуточная линия
             </p>
           </div>
         </section>
