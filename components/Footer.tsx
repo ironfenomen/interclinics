@@ -16,7 +16,9 @@ export default function Footer({ city }: { city: City }) {
             ИНН {city.partnerInn} / ОГРН {city.partnerOgrn}<br />
             Лицензия {city.partnerLicense}<br />
             от {city.partnerLicenseDate} г.<br /><br />
-            {city.partnerAddress}
+            {city.slug === 'stavropol'
+              ? city.partnerAddress
+              : `Приём и координация в ${city.namePrep}. Адрес и детали уточняются при звонке.`}
           </div>
         </div>
         <div>

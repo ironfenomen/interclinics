@@ -43,18 +43,36 @@ function arrivalMaxMinutes(city: City): number {
   return Math.min(60, Math.max(45, city.arrivalTime + 15))
 }
 
-/** Адреса: локальная точка → стационар в городе → стационар в другом городе → отдельный адрес приёма. */
+/** Базовый город со своим стационаром и подтверждаемым адресом на лендинге — только Ставрополь. */
+function isStavropolBase(city: City): boolean {
+  return city.slug === 'stavropol'
+}
+
+/** Лид гео-блока: на базовом городе — фактический адрес; в остальных — без имитации локального «дома» на улице. */
+function coverageLeadHtml(city: City): string {
+  if (isStavropolBase(city)) {
+    return `В ${city.namePrep} доступны очный приём, стационар и выезд бригады на дом. Адрес и ориентир по времени можно уточнить до выезда. Ниже — как связаны приём, стационар и выездная помощь, и по каким районам обычно работает бригада.`
+  }
+  return `В ${city.namePrep} доступны очный приём, координация выезда бригады и организация стационара в сети при необходимости. Точку приёма и ориентир по времени выезда согласуют при звонке. Ниже — как связаны приём, стационар в другом пункте сети и выездная помощь, и по каким районам обычно работает бригада.`
+}
+
+/** Блок «приём в городе» без вывода чужого/ставропольского адреса как локального (все города, кроме базового стационара). */
+function receptionCoordinationBlockHtml(city: City): string {
+  return `<div class="coverage-address coverage-address--local coverage-address--city-first">
+      <div class="coverage-address__title">Приём и координация в ${city.namePrep}</div>
+      <p class="coverage-address__text">Координация очного приёма, выезда бригады и записи — в ${city.namePrep}. Точку приёма, ориентир по времени выезда и маршрут госпитализации при необходимости согласуют при звонке — с учётом района и загрузки линии.</p>
+      <p class="coverage-address__hint">Конкретный адрес точки приёма и логистика выезда уточняются при обращении.</p>
+    </div>`
+}
+
+/** Адреса: только Ставрополь — полный адрес стационара/базы; остальные — сценарий приёма без подмены города чужой улицей. */
 function coverageAddressHtml(city: City): string {
   const blocks: string[] = []
   const partner = city.partnerAddress?.trim() ?? ''
   const st = city.stacionarAddress?.trim() ?? ''
 
-  if (!city.hasStacionar && partner) {
-    blocks.push(`<div class="coverage-address coverage-address--local">
-      <div class="coverage-address__title">Очной приём в городе</div>
-      <p class="coverage-address__text">${partner}</p>
-      <p class="coverage-address__hint">Здесь согласуют визит, консультацию и маршрут помощи, в том числе при необходимости стационара в другом пункте сети.</p>
-    </div>`)
+  if (!city.hasStacionar) {
+    blocks.push(receptionCoordinationBlockHtml(city))
   }
 
   if (city.hasStacionar && st) {
@@ -207,6 +225,7 @@ export function getMockupHtml(city: City): string {
     .replaceAll('__P_MAX__', fmt(city.priceMax))
     .replaceAll('__DISTRICTS__', districtsHtml(city))
     .replaceAll('__COVERAGE_ADDRESS_HTML__', coverageAddressHtml(city))
+    .replaceAll('__COVERAGE_LEAD__', coverageLeadHtml(city))
     .replaceAll('__COVERAGE_LOCAL_HTML__', coverageLocalHtml(city))
     .replaceAll('__ARRIVAL_MAX__', String(arrivalMaxMinutes(city)))
     .replaceAll('__FOOTER_LEGAL__', buildMockupFooterLegalHtml(city))

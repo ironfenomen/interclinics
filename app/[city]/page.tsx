@@ -46,7 +46,7 @@ function MedicalJsonLd({ city }: { city: City }) {
       addressLocality: city.name,
       addressRegion: city.region,
       addressCountry: 'RU',
-      streetAddress: city.partnerAddress,
+      ...(city.slug === 'stavropol' ? { streetAddress: city.partnerAddress } : {}),
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
