@@ -18,6 +18,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 
 // ── Типы ──────────────────────────────────────────────────────
 interface CityData {
@@ -202,13 +203,13 @@ export default function CitySelector({ cities, services }: Props) {
           {/* ── Лого (всегда) ── */}
           <div className="cs-brand">
             <div className="cs-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" width="24" height="24">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                <path d="M12 3 4 7.5 12 12l8-4.5L12 3Z" />
+                <path d="M4 12l8 4.5 8-4.5" />
+                <path d="M4 16.5 12 21l8-4.5" />
               </svg>
             </div>
-            <div className="cs-brand-name">InterClinics</div>
+            <div className="cs-brand-name">{BRAND_DISPLAY_NAME}</div>
             <div className="cs-brand-sub">Сеть наркологических клиник</div>
           </div>
 
@@ -217,8 +218,39 @@ export default function CitySelector({ cities, services }: Props) {
           {/* ══════════════════════════════════════════════════ */}
           {phase === 'loading' && (
             <div className="cs-loading fade-in">
-              <div className="cs-spinner" />
+              <div className="cs-loader" aria-hidden="true">
+                <svg className="cs-loader-svg" viewBox="0 0 48 48" width="48" height="48">
+                  <defs>
+                    <linearGradient id="cs-loader-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="var(--emerald)" />
+                      <stop offset="100%" stopColor="var(--emerald-2)" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    className="cs-loader-track"
+                    cx="24"
+                    cy="24"
+                    r="20"
+                    fill="none"
+                    strokeWidth="1.75"
+                  />
+                  <g className="cs-loader-rotor">
+                    <circle
+                      className="cs-loader-arc"
+                      cx="24"
+                      cy="24"
+                      r="20"
+                      fill="none"
+                      stroke="url(#cs-loader-grad)"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeDasharray="30 96"
+                    />
+                  </g>
+                </svg>
+              </div>
               <p className="cs-loading-text">Определяем ваш город…</p>
+              <p className="cs-loading-hint">Это займёт несколько секунд</p>
             </div>
           )}
 
@@ -376,7 +408,7 @@ export default function CitySelector({ cities, services }: Props) {
 
                 <div className="cs-seo-closing">
                   <p className="cs-seo-text">
-                    InterClinics — выездная помощь, стационар и программы восстановления в {cities.length} городах
+                    {BRAND_DISPLAY_NAME} — выездная помощь, стационар и программы восстановления в {cities.length} городах
                     Ставропольского края. Конфиденциальность, круглосуточная линия, работа по лицензии и согласованию с
                     пациентом. Выберите город в списке выше или перейдите сразу к нужной услуге.
                   </p>
@@ -408,48 +440,96 @@ const CSS = `
 /* ── Анимации ──────────────────────────────────────────────── */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes orbFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
-@keyframes orbFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,15px)}}
+@keyframes csLoaderRotor{to{transform:rotate(360deg)}}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(28px,-18px)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-22px,14px)}}
+@keyframes orbFloat3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(12px,8px) scale(1.04)}}
 @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .5s ease both}
-.slide-up{animation:slideUp .6s ease both}
+.fade-in{animation:fadeIn .55s cubic-bezier(.22,1,.36,1) both}
+.slide-up{animation:slideUp .62s cubic-bezier(.22,1,.36,1) both}
 
-/* ── Страница ──────────────────────────────────────────────── */
+/* ── Страница: единая тёмная премиальная база (как hero / финалы сайта) ── */
 .cs-page{
-  min-height:100vh;position:relative;overflow:hidden;
+  min-height:100dvh;min-height:100vh;position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
-  padding:40px 20px;
-  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#060e1c;color:#fff;
+  padding:max(40px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(32px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));
+  font-family:var(--font),'Plus Jakarta Sans',system-ui,sans-serif;
+  color:#f8fafc;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -8%,rgba(16,185,129,.09),transparent 58%),
+    radial-gradient(ellipse 50% 42% at 100% 88%,rgba(215,180,105,.07),transparent 52%),
+    radial-gradient(ellipse 48% 38% at 0% 55%,rgba(20,50,82,.45),transparent 55%),
+    linear-gradient(180deg,#040a12 0%,var(--deep-2) 36%,#0a1f33 68%,#061018 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
 }
 .cs-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.cs-orb{position:absolute;border-radius:50%;filter:blur(80px)}
-.cs-orb--1{width:500px;height:500px;top:-10%;left:-8%;background:rgba(16,185,129,.10);animation:orbFloat1 12s ease-in-out infinite}
-.cs-orb--2{width:400px;height:400px;bottom:-5%;right:-5%;background:rgba(16,185,129,.07);animation:orbFloat2 15s ease-in-out infinite}
-.cs-orb--3{width:300px;height:300px;top:40%;left:55%;background:rgba(99,102,241,.05);animation:orbFloat1 18s ease-in-out infinite reverse}
+.cs-orb{position:absolute;border-radius:50%;filter:blur(88px);opacity:.95}
+.cs-orb--1{width:min(520px,120vw);height:min(520px,120vw);top:-12%;left:-10%;background:rgba(16,185,129,.11);animation:orbFloat1 14s ease-in-out infinite}
+.cs-orb--2{width:min(420px,100vw);height:min(420px,100vw);bottom:-8%;right:-6%;background:rgba(16,185,129,.06);animation:orbFloat2 17s ease-in-out infinite}
+.cs-orb--3{width:min(340px,85vw);height:min(340px,85vw);top:38%;left:52%;background:rgba(215,180,105,.055);animation:orbFloat3 20s ease-in-out infinite}
 
 .cs-wrap{position:relative;z-index:2;max-width:920px;width:100%}
 
-/* ── Бренд ─────────────────────────────────────────────────── */
-.cs-brand{text-align:center;margin-bottom:36px;animation:fadeIn .6s ease both}
+/* ── Бренд: как .brand-mark в шапке ───────────────────────── */
+.cs-brand{text-align:center;margin-bottom:clamp(28px,6vw,40px);animation:fadeIn .65s cubic-bezier(.22,1,.36,1) both}
 .cs-mark{
-  width:52px;height:52px;margin:0 auto;
-  background:linear-gradient(135deg,#10B981,#059669);
+  width:48px;height:48px;margin:0 auto;
+  color:#fff;
+  background:linear-gradient(135deg,var(--deep-2),var(--deep-3) 62%,var(--emerald));
   border-radius:14px;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 12px 32px rgba(16,185,129,.2);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.1) inset,
+    0 14px 38px rgba(7,20,35,.5),
+    0 0 0 1px rgba(255,255,255,.06);
 }
-.cs-brand-name{font-size:28px;font-weight:800;margin-top:14px;letter-spacing:-.03em}
-.cs-brand-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+.cs-mark svg{width:26px;height:26px;stroke:#fff;fill:none}
+.cs-brand-name{
+  margin-top:16px;
+  font-size:clamp(1.5rem,4.8vw,1.85rem);
+  font-weight:800;
+  letter-spacing:-.038em;
+  line-height:1.08;
+  color:#f8fafc;
+}
+.cs-brand-sub{
+  margin-top:8px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(226,232,240,.42);
+}
 
-/* ── Загрузка ──────────────────────────────────────────────── */
-.cs-loading{text-align:center;padding:48px 0}
-.cs-spinner{
-  width:36px;height:36px;margin:0 auto 16px;
-  border:3px solid rgba(255,255,255,.08);border-top-color:#10B981;
-  border-radius:50%;animation:spin .8s linear infinite;
+/* ── Загрузка: тонкий премиальный индикатор ─────────────────── */
+.cs-loading{text-align:center;padding:clamp(32px,8vw,48px) 0 28px}
+.cs-loader{width:48px;height:48px;margin:0 auto 22px}
+.cs-loader-svg{display:block;width:100%;height:auto;overflow:visible}
+.cs-loader-track{stroke:rgba(248,250,252,.09)}
+.cs-loader-rotor{
+  transform-origin:24px 24px;
+  animation:csLoaderRotor 1.12s cubic-bezier(.55,.18,.25,.82) infinite;
 }
-.cs-loading-text{font-size:14px;color:rgba(255,255,255,.35)}
+.cs-loading-text{
+  margin:0;
+  font-size:14.5px;
+  font-weight:600;
+  letter-spacing:.01em;
+  line-height:1.45;
+  color:rgba(226,232,240,.72);
+}
+.cs-loading-hint{
+  margin:8px 0 0;
+  font-size:12.5px;
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:.015em;
+  color:rgba(148,163,184,.55);
+}
+@media (prefers-reduced-motion:reduce){
+  .cs-loader-rotor{animation-duration:1.45s;animation-timing-function:linear}
+  .cs-orb--1,.cs-orb--2,.cs-orb--3{animation:none!important}
+}
 
 /* ── Подтверждение ─────────────────────────────────────────── */
 .cs-confirm{padding:12px 0}
@@ -816,26 +896,29 @@ const CSS = `
   text-wrap:pretty;
 }
 
-/* ── Телефон: завершение страницы ──────────────────────────── */
+/* ── Телефон: тёмная карточка, как финалы сайта ────────────── */
 .cs-phone{
-  margin-top:8px;
-  padding:32px 16px 28px;
+  margin-top:10px;
+  padding:clamp(24px,5vw,36px) 16px clamp(22px,4vw,30px);
   text-align:center;
 }
 .cs-phone--with-nav{
-  margin-top:4px;
-  padding-top:36px;
-  border-top:1px solid rgba(255,255,255,.07);
-  background:linear-gradient(180deg,rgba(16,185,129,.03) 0%,transparent 55%);
+  margin-top:6px;
+  padding-top:clamp(28px,6vw,38px);
+  border-top:1px solid rgba(255,255,255,.065);
+  background:linear-gradient(180deg,rgba(16,185,129,.04) 0%,transparent 58%);
 }
 .cs-phone-inner{
   max-width:22rem;
   margin:0 auto;
-  padding:24px 20px 20px;
-  border-radius:18px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
-  box-shadow:0 16px 48px rgba(0,0,0,.2);
+  padding:22px 20px 20px;
+  border-radius:var(--radius-m);
+  background:linear-gradient(165deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.025) 48%,rgba(5,12,22,.55) 100%);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 18px 52px rgba(0,0,0,.28);
+  backdrop-filter:blur(12px);
 }
 .cs-phone-kicker{
   margin:0 0 10px;
@@ -843,37 +926,48 @@ const CSS = `
   font-weight:800;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:rgba(148,163,184,.55);
+  color:rgba(148,163,184,.52);
 }
 .cs-phone-num{
   display:inline-block;
-  font-size:26px;
+  font-size:clamp(1.35rem,4.2vw,1.65rem);
   font-weight:800;
-  color:#34d399;
+  color:#f8fafc;
   text-decoration:none;
-  letter-spacing:-.03em;
-  transition:color .2s ease,filter .2s ease;
+  letter-spacing:-.032em;
+  padding-bottom:3px;
+  border-bottom:1px solid rgba(16,185,129,.42);
+  transition:color .22s ease,border-color .22s ease,box-shadow .22s ease;
 }
 .cs-phone-num:hover{
-  color:#6ee7b7;
-  filter:drop-shadow(0 0 20px rgba(16,185,129,.25));
+  color:#ecfdf5;
+  border-bottom-color:rgba(16,185,129,.65);
+  box-shadow:0 8px 28px rgba(16,185,129,.12);
 }
 .cs-phone-num:focus-visible{
-  outline:2px solid rgba(16,185,129,.5);
+  outline:2px solid rgba(16,185,129,.45);
   outline-offset:4px;
-  border-radius:6px;
+  border-radius:8px;
 }
 .cs-phone-sub{
-  margin:10px 0 0;
-  font-size:12.5px;
+  margin:12px 0 0;
+  font-size:12.25px;
   font-weight:500;
-  color:rgba(148,163,184,.55);
+  line-height:1.45;
+  color:rgba(148,163,184,.58);
 }
 
 /* ── Мобильные ─────────────────────────────────────────────── */
 @media(max-width:600px){
-  .cs-page{padding:28px 16px;align-items:flex-start;padding-top:60px}
-  .cs-brand-name{font-size:24px}
+  .cs-page{padding:max(24px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));align-items:flex-start;padding-top:max(52px,env(safe-area-inset-top))}
+  .cs-mark{width:44px;height:44px;border-radius:13px}
+  .cs-mark svg{width:24px;height:24px}
+  .cs-brand-name{font-size:clamp(1.35rem,5.2vw,1.55rem);margin-top:14px}
+  .cs-brand-sub{font-size:9.5px;letter-spacing:.15em}
+  .cs-loading{padding:28px 0 22px}
+  .cs-loader{width:44px;height:44px;margin-bottom:18px}
+  .cs-loading-text{font-size:14px}
+  .cs-loading-hint{font-size:12px}
   .cs-confirm-card{padding:28px 20px}
   .cs-confirm-q{font-size:22px}
   .cs-confirm-stats{gap:8px}
@@ -903,10 +997,10 @@ const CSS = `
   .cs-seo-districts{font-size:12px;flex-direction:column;align-items:flex-start;gap:4px}
   .cs-seo-closing{padding:16px 14px 18px;margin-top:20px;border-radius:14px}
   .cs-seo-text{font-size:13px;line-height:1.62}
-  .cs-phone{padding:22px 10px 20px}
-  .cs-phone--with-nav{padding-top:28px}
-  .cs-phone-inner{padding:18px 14px 16px}
-  .cs-phone-num{font-size:22px}
-  .cs-phone-sub{font-size:12px}
+  .cs-phone{padding:20px 10px 18px}
+  .cs-phone--with-nav{padding-top:26px}
+  .cs-phone-inner{padding:18px 14px 17px;border-radius:16px}
+  .cs-phone-num{font-size:clamp(1.2rem,5vw,1.4rem)}
+  .cs-phone-sub{font-size:11.75px}
 }
 `

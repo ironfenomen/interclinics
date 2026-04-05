@@ -134,7 +134,6 @@ export const cities: City[] = [
     stacionarBeds: 20,
 
     hasRehab: true,
-    rehabAddress: 'г. Ставрополь, ул. ХХХХ, д. ХХ',
     priceRehabDay: 2000,
     priceRehab28: 60000,
     priceRehab90: 150000,
@@ -316,6 +315,8 @@ export const cities: City[] = [
     arrivalTime: 35,
     teamsAvailable: 2,
     districts: ['Центр', 'Курортная зона', 'Новый микрорайон'],
+    localText:
+      'Курортная застройка: маршрут и время до приезда уточняем по конкретному адресу — без «одних минут для всех точек».',
 
     active: true,
   },
@@ -370,6 +371,8 @@ export const cities: City[] = [
     arrivalTime: 35,
     teamsAvailable: 2,
     districts: ['Центр', 'Низки', 'Головное'],
+    localText:
+      'Крупный город: разница по районам учитывается при оценке времени; детали — на линии под ваш адрес.',
 
     active: true,
   },
@@ -424,6 +427,8 @@ export const cities: City[] = [
     arrivalTime: 30,
     teamsAvailable: 2,
     districts: ['Центр', 'Привокзальная', 'Змейка'],
+    localText:
+      'Узел КМВ и привокзальная зона: загрузка дорог влияет на маршрут — ориентир по времени уточняем при звонке.',
 
     active: true,
   },
@@ -534,6 +539,8 @@ export const cities: City[] = [
     arrivalTime: 40,
     teamsAvailable: 2,
     districts: ['Центр', 'Привокзальная'],
+    localText:
+      'Выезд в черте города и по согласованию в ближайшие направления; фактическое время — под адрес и дорогу, без шаблонных обещаний.',
 
     active: true,
   },

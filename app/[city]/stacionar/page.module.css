@@ -35,10 +35,9 @@
   max-width: min(40rem, 100%);
 }
 
-.pageStacionar .heroNote {
-  max-width: min(42em, 100%);
-  text-wrap: balance;
-  hyphens: manual;
+/* Один блок heroLocation для Ставрополя и для «направления» — один max-width во всех городах */
+.pageStacionar .heroLocation {
+  max-width: min(40rem, 100%);
 }
 
 @media (max-width: 480px) {
@@ -210,6 +209,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Сшивка светлого FAQ с тёмным финалом — без резкой линии */
+  .pageStacionar :global(section.ic-faq-service) {
+    border-bottom-color: rgba(186, 202, 220, 0.38);
+  }
+
   .pageStacionar :global(section.final.ic-final-stacionar) {
     padding-top: clamp(48px, 12vw, 64px);
     padding-bottom: clamp(44px, 11vw, 56px);
@@ -302,7 +306,16 @@
   }
 
   .hero {
-    padding: clamp(42px, 5.2vw, 56px) 0 clamp(40px, 5.8vw, 52px);
+    padding: clamp(42px, 5.2vw, 56px) 0 clamp(40px, 5.4vw, 52px);
+    background:
+      radial-gradient(circle at 12% 16%, rgba(215, 180, 105, 0.09), transparent 20%),
+      radial-gradient(circle at 88% 14%, rgba(16, 185, 129, 0.1), transparent 22%),
+      radial-gradient(circle at 78% 88%, rgba(255, 255, 255, 0.038), transparent 30%),
+      linear-gradient(180deg, #061120 0%, #0b1d35 50%, #152f4d 100%);
+  }
+
+  .hero::before {
+    opacity: 0.78;
   }
 
   .heroMain {
@@ -310,84 +323,164 @@
   }
 
   .eyebrow {
-    margin-bottom: 12px;
-    color: rgba(255, 255, 255, 0.48);
+    margin-bottom: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(248, 250, 252, 0.4);
   }
 
   .heroBadges {
     justify-content: flex-start;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     gap: 8px;
     max-width: none;
   }
 
   .heroBadge {
-    min-height: 32px;
-    padding: 6px 12px;
-    font-size: 11.5px;
+    min-height: 30px;
+    padding: 5px 10px 5px 9px;
+    font-size: 11.125px;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.045);
-    border-color: rgba(255, 255, 255, 0.09);
+    letter-spacing: 0.035em;
+    color: rgba(248, 250, 252, 0.84);
+    background: rgba(255, 255, 255, 0.026);
+    border-color: rgba(255, 255, 255, 0.052);
+  }
+
+  .heroBadgeDot {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.18);
   }
 
   .heroBadgeStacionar {
     box-shadow: none;
-    background: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.26);
+    background: rgba(16, 185, 129, 0.058);
+    border-color: rgba(16, 185, 129, 0.17);
+    color: rgba(248, 250, 252, 0.93);
   }
 
   .heroBadgeStacionar .heroBadgeDot {
-    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.22);
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.24);
   }
 
   .title {
     align-items: flex-start;
-    margin-bottom: clamp(14px, 2vw, 18px);
+    margin-bottom: clamp(12px, 1.55vw, 16px);
   }
 
+  /* Центральная масса: сильная, но легче по оптике */
   .titleGold {
     max-width: none;
-    font-size: clamp(30px, 3.2vw, 42px);
-    line-height: 1.1;
-    letter-spacing: -0.046em;
+    font-size: clamp(26px, 2.75vw, 37px);
+    font-weight: 800;
+    line-height: 1.11;
+    letter-spacing: -0.036em;
   }
 
   .titleSubline {
     justify-content: flex-start;
     max-width: none;
-    margin-top: 0.38em;
-    font-size: clamp(21px, 2.2vw, 30px);
-    line-height: 1.12;
+    margin-top: 0.22em;
+    font-size: clamp(17px, 1.85vw, 25px);
+    font-weight: 500;
+    line-height: 1.13;
+    letter-spacing: -0.03em;
+    color: rgba(248, 250, 252, 0.86);
+    gap: 0.24em 0.38em;
+  }
+
+  .title24 {
+    font-weight: 500;
+    letter-spacing: -0.034em;
+    color: rgba(196, 245, 224, 0.84);
+  }
+
+  .titleGeoSep {
+    color: rgba(215, 180, 105, 0.36);
+    font-weight: 400;
+  }
+
+  .titleGeoEm {
+    color: rgba(228, 252, 244, 0.8);
+    font-weight: 500;
   }
 
   .heroSubline {
     margin-left: 0;
     margin-right: 0;
-    max-width: min(36rem, 100%);
+    margin-bottom: clamp(12px, 1.55vw, 16px);
+    max-width: min(35rem, 100%);
+    font-size: clamp(12.75px, 1.4vw, 14px);
+    line-height: 1.56;
+    letter-spacing: -0.008em;
+    font-weight: 500;
+    color: rgba(226, 232, 240, 0.64);
+  }
+
+  .heroSublinePrice {
+    font-weight: 600;
+  }
+
+  .heroPriceFrom {
+    font-weight: 500;
+    color: rgba(215, 180, 105, 0.72);
+  }
+
+  .heroPriceValue {
+    font-size: clamp(15.5px, 1.75vw, 18.5px);
+    font-weight: 700;
+    letter-spacing: -0.026em;
+    color: rgba(252, 252, 253, 0.94);
+  }
+
+  .heroPriceCurrency {
+    font-size: clamp(14px, 1.55vw, 17px);
+    font-weight: 700;
+  }
+
+  .heroPricePer {
+    font-weight: 500;
+    color: rgba(226, 232, 240, 0.78);
+  }
+
+  .heroSublineRest {
+    color: rgba(226, 232, 240, 0.7);
   }
 
   .lead {
     margin-left: 0;
     margin-right: 0;
-    max-width: min(38rem, 100%);
+    margin-bottom: clamp(11px, 1.4vw, 14px);
+    max-width: min(36em, 100%);
+    font-size: clamp(14.75px, 1.48vw, 16px);
+    line-height: 1.74;
+    letter-spacing: 0.008em;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.65);
   }
 
+  /* Trust-line: встроенная благородная линия доверия — не техничная вставка */
   .heroTrustStrip {
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: clamp(16px, 2.2vw, 20px);
-    max-width: min(38rem, 100%);
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    background: transparent;
-    font-size: 11.5px;
+    margin-top: clamp(9px, 1.1vw, 13px);
+    margin-bottom: clamp(18px, 2.25vw, 24px);
+    max-width: min(36em, 100%);
+    padding: 11px 16px 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.042) 0%, rgba(255, 255, 255, 0.012) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 6px 22px rgba(4, 12, 22, 0.14);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.06em;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.42);
+    letter-spacing: 0.018em;
+    line-height: 1.6;
+    color: rgba(232, 238, 248, 0.66);
+    -webkit-font-smoothing: antialiased;
   }
 
   .heroNote {
@@ -399,54 +492,83 @@
     margin-left: 0;
     margin-right: 0;
     max-width: min(38rem, 100%);
-    padding-top: 18px;
-    border-top-color: rgba(215, 180, 105, 0.14);
+    padding-top: 16px;
+    border-top-color: rgba(215, 180, 105, 0.11);
     text-align: left;
   }
 
+  /* CTA-well: кульминация колонки — мягкая глубина, без «модуля» */
   .heroActionWell {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     margin-left: 0;
     margin-right: 0;
-    max-width: min(440px, 100%);
-    padding: 16px 18px 15px;
-    border-radius: 16px;
+    margin-top: clamp(2px, 0.5vw, 6px);
+    max-width: min(36em, 100%);
+    padding: 17px 18px 16px;
+    border-radius: 15px;
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.046) 0%,
+      rgba(255, 255, 255, 0.02) 48%,
+      rgba(6, 17, 32, 0.14) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.065);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 10px 32px rgba(6, 17, 32, 0.22);
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 8px 30px rgba(4, 12, 24, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.025);
   }
 
   .heroCta {
     order: 1;
     width: 100%;
     max-width: none;
+    margin: 0;
   }
 
   .heroPhoneRow {
     order: 2;
     justify-content: flex-start;
-    margin-top: 14px;
+    align-items: baseline;
+    gap: 10px 12px;
+    margin-top: 0;
     margin-bottom: 0;
+    padding-top: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.048);
   }
 
   .heroCtaHint {
     order: 3;
-    margin-top: 10px;
+    margin-top: 11px;
     margin-left: 0;
-    max-width: 28em;
-    font-size: 11px;
-    line-height: 1.48;
-    color: rgba(255, 255, 255, 0.38);
+    margin-right: 0;
+    max-width: none;
+    padding-top: 0;
+    font-size: 10.875px;
+    line-height: 1.54;
+    letter-spacing: 0.012em;
+    font-weight: 500;
+    color: rgba(218, 226, 238, 0.46);
+    text-align: left;
   }
 
   .heroPhoneLabel {
-    color: rgba(255, 255, 255, 0.34);
+    color: rgba(255, 255, 255, 0.36);
+    letter-spacing: 0.12em;
   }
 
   .heroPhoneLink {
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 600;
+    letter-spacing: -0.02em;
+    border-bottom-color: rgba(248, 250, 252, 0.22);
+  }
+
+  /* Выше специфичность, чем у .pageStacionar .heroTrustStrip — та же оптическая колонка, что у lead */
+  .pageStacionar .heroTrustStrip {
+    max-width: min(36em, 100%);
   }
 }
 
@@ -732,6 +854,8 @@
   letter-spacing: -0.015em;
   color: rgba(248, 250, 252, 0.94);
   overflow-wrap: break-word;
+  text-wrap: balance;
+  hyphens: manual;
 }
 
 .heroLocationMeta {
@@ -839,6 +963,25 @@
     0 20px 48px rgba(16, 185, 129, 0.38);
 }
 
+/* Hero desktop: кнопка сильная, но без «тяжёлого» модуля — после базового .ctaPremium */
+@media (min-width: 900px) {
+  .pageStacionar .ctaPremium:global(.btn.btn-primary) {
+    min-height: 48px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    border-radius: 13px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 12px 32px rgba(16, 185, 129, 0.26);
+  }
+
+  .pageStacionar .ctaPremium:global(.btn.btn-primary):hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      0 14px 38px rgba(16, 185, 129, 0.3);
+  }
+}
+
 .ctaPremiumSecondary:global(.btn.btn-secondary) {
   letter-spacing: -0.018em;
   font-weight: 800;
@@ -877,100 +1020,226 @@
   color: #64748b;
 }
 
-@media (max-width: 768px) {
+/* Mobile / narrow: compact-premium hero — короче вертикаль, та же иерархия (desktop ≥900px не затрагивается) */
+@media (max-width: 899px) {
   .hero {
-    padding: 32px 0 36px;
+    padding: 24px 0 26px;
   }
 
   .eyebrow {
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
   }
 
   .heroBadges {
-    margin-bottom: 16px;
+    margin-bottom: 9px;
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .heroBadge {
+    min-height: 29px;
+    padding: 5px 10px 5px 9px;
+    font-size: 10.875px;
+    font-weight: 600;
+    letter-spacing: 0.028em;
+    border-color: rgba(255, 255, 255, 0.085);
+    background: rgba(255, 255, 255, 0.038);
+  }
+
+  .heroBadgeDot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .heroBadgeStacionar {
+    background: rgba(16, 185, 129, 0.09);
+    border-color: rgba(16, 185, 129, 0.26);
+    box-shadow: none;
   }
 
   .title {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+  }
+
+  .titleGold {
+    line-height: 1.08;
+    letter-spacing: -0.048em;
+  }
+
+  .titleSubline {
+    margin-top: 0.26em;
+    line-height: 1.11;
+    gap: 0.22em 0.36em;
+  }
+
+  .title24 {
+    font-weight: 700;
   }
 
   .heroSubline {
-    margin-bottom: 12px;
-    line-height: 1.58;
+    margin-bottom: 8px;
+    line-height: 1.48;
   }
 
   .lead {
-    margin-bottom: 12px;
-    font-size: 15px;
-    line-height: 1.65;
+    margin-bottom: 8px;
+    font-size: 14.75px;
+    line-height: 1.56;
   }
 
+  /* Trust: легче по массе, ближе к тексту — не второй «панелью» */
   .heroTrustStrip {
-    margin-bottom: 16px;
+    margin-bottom: 9px;
+    padding: 6px 11px 7px;
+    max-width: 100%;
+    border-radius: 11px;
+    border-color: rgba(255, 255, 255, 0.055);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.012) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.035),
+      0 4px 14px rgba(4, 12, 22, 0.07);
+    font-size: 10.65px;
+    line-height: 1.36;
+    letter-spacing: 0.012em;
+    font-weight: 500;
+    color: rgba(226, 232, 240, 0.52);
   }
 
   .heroNote {
-    margin-bottom: 14px;
+    margin-bottom: 9px;
   }
 
   .heroLocation {
-    margin-bottom: 16px;
-    padding-top: 14px;
+    margin: 4px auto 8px;
+    padding-top: 9px;
+    border-top-color: rgba(255, 255, 255, 0.062);
+  }
+
+  .heroLocationKicker {
+    margin-bottom: 2px;
+    font-size: 9.25px;
+    letter-spacing: 0.12em;
+  }
+
+  .heroLocationAddress {
+    margin-bottom: 4px;
+    font-size: 13.125px;
+    line-height: 1.4;
+  }
+
+  .heroLocationMeta {
+    font-size: 10.25px;
+    letter-spacing: 0.048em;
   }
 
   .heroActionWell {
-    padding: 18px 16px 18px;
+    padding: 12px 13px 11px;
+    border-radius: 15px;
+    border-color: rgba(255, 255, 255, 0.092);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.048) 0%, rgba(255, 255, 255, 0.026) 52%, rgba(6, 14, 24, 0.12) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.065),
+      0 8px 26px rgba(6, 17, 32, 0.1);
+  }
+
+  .heroPhoneRow {
+    margin-bottom: 9px;
+    gap: 5px 11px;
+  }
+
+  .heroPhoneLabel {
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+  }
+
+  .heroPhoneLink {
+    font-size: clamp(15.25px, 3.65vw, 17px);
+  }
+
+  .pageStacionar .ctaPremium:global(.btn.btn-primary) {
+    min-height: 46px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 14.75px;
+    border-radius: 13px;
   }
 
   .heroCtaHint {
-    margin-top: 12px;
+    margin-top: 7px;
+    font-size: 10.65px;
+    line-height: 1.42;
+    letter-spacing: 0.006em;
+    color: rgba(255, 255, 255, 0.36);
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 26px 0 32px;
+    padding: 22px 0 24px;
   }
 
   .titleGold {
-    font-size: clamp(24px, 8vw, 30px);
-    letter-spacing: -0.047em;
-    line-height: 1.07;
+    font-size: clamp(23px, 7.6vw, 30px);
+    letter-spacing: -0.046em;
+    line-height: 1.06;
   }
 
   .titleSubline {
-    font-size: clamp(18px, 6.8vw, 26px);
-    margin-top: 0.32em;
-    gap: 0.22em 0.38em;
+    font-size: clamp(17px, 6.4vw, 25px);
+    margin-top: 0.24em;
+    gap: 0.2em 0.34em;
   }
 
   .heroSubline {
-    font-size: 13px;
+    font-size: 12.875px;
+    margin-bottom: 7px;
+  }
+
+  .lead {
+    font-size: 14.5px;
+    margin-bottom: 7px;
+    line-height: 1.54;
   }
 
   .heroTrustStrip {
-    padding: 10px 12px;
-    font-size: 11px;
+    padding: 6px 10px 6px;
+    font-size: 10.55px;
+    margin-bottom: 8px;
+    line-height: 1.34;
   }
 
   .heroNote {
-    font-size: 13.5px;
-    margin-bottom: 14px;
+    font-size: 13.25px;
+    margin-bottom: 9px;
   }
 
   .heroLocation {
-    margin-bottom: 14px;
-    padding-top: 12px;
+    margin: 3px auto 7px;
+    padding-top: 8px;
   }
 
   .heroActionWell {
-    padding: 16px 14px 17px;
-    border-radius: 16px;
+    padding: 11px 12px 10px;
+    border-radius: 14px;
+  }
+
+  .heroPhoneRow {
+    margin-bottom: 8px;
   }
 
   .heroCtaHint {
-    margin-top: 10px;
-    font-size: 11px;
+    margin-top: 6px;
+    font-size: 10.55px;
+    line-height: 1.4;
+  }
+
+  .pageStacionar .ctaPremium:global(.btn.btn-primary) {
+    min-height: 44px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 14.5px;
   }
 }
 
@@ -981,14 +1250,14 @@
   }
 }
 
-/* --- Когда нужен стационар → на чём держится маршрут (единая proof-пара) --- */
+/* --- Когда нужен стационар: клинический reason-grid — не копия proof-слоя ниже --- */
 .whenSection {
-  padding: clamp(44px, 7vw, 80px) 0 clamp(36px, 5.5vw, 56px);
+  padding: clamp(48px, 7.2vw, 88px) 0 clamp(40px, 5.8vw, 60px);
   background:
-    radial-gradient(ellipse 75% 48% at 18% 0%, rgba(215, 180, 105, 0.06), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 92% 8%, rgba(11, 29, 53, 0.035), transparent 45%),
-    linear-gradient(180deg, #f5f8fc 0%, #fbfcfe 52%, #ffffff 100%);
-  border-bottom: none;
+    radial-gradient(ellipse 78% 42% at 14% 0%, rgba(16, 185, 129, 0.045), transparent 48%),
+    radial-gradient(ellipse 65% 38% at 94% 6%, rgba(215, 180, 105, 0.055), transparent 46%),
+    linear-gradient(180deg, #f4f8fc 0%, #fbfdff 55%, #ffffff 100%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.65);
 }
 
 .whenInner {
@@ -997,8 +1266,11 @@
 }
 
 .whenHead {
-  margin-bottom: clamp(24px, 3.6vw, 34px);
+  margin-bottom: clamp(26px, 3.8vw, 36px);
   max-width: min(40rem, 100%);
+  padding-bottom: clamp(18px, 2.4vw, 22px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .whenKicker {
@@ -1049,7 +1321,7 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(14px, 2vw, 18px);
+  gap: clamp(16px, 2.2vw, 20px);
   align-items: stretch;
 }
 
@@ -1073,12 +1345,13 @@
   flex-direction: column;
   min-height: 0;
   min-width: 0;
-  border-radius: 16px;
-  background: linear-gradient(165deg, #ffffff 0%, #f9fafb 100%);
-  border: 1px solid rgba(226, 232, 240, 0.88);
+  border-radius: 15px;
+  background: linear-gradient(168deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(226, 232, 240, 0.82);
+  border-top: 3px solid rgba(16, 185, 129, 0.32);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 10px 32px rgba(11, 29, 53, 0.04);
+    0 8px 26px rgba(11, 29, 53, 0.034);
   overflow: hidden;
   box-sizing: border-box;
   transition:
@@ -1087,37 +1360,38 @@
 }
 
 .whenCard:hover {
-  border-color: rgba(11, 29, 53, 0.12);
+  border-color: rgba(11, 29, 53, 0.1);
+  border-top-color: rgba(16, 185, 129, 0.42);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 14px 38px rgba(11, 29, 53, 0.06);
+    0 12px 34px rgba(11, 29, 53, 0.055);
 }
 
 .whenCardHead {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 12px 14px;
+  gap: 11px 13px;
   align-items: start;
-  padding: 18px 18px 0;
-  border-bottom: 1px solid rgba(241, 245, 249, 0.95);
+  padding: 17px 17px 0;
+  border-bottom: 1px solid rgba(241, 245, 249, 0.88);
 }
 
 .whenCardIndex {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 8px;
-  border-radius: 11px;
-  font-size: 11px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 7px;
+  border-radius: 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   font-variant-numeric: tabular-nums;
   color: var(--deep);
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 1px solid rgba(226, 232, 240, 0.95);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  background: linear-gradient(180deg, #f1f5f9 0%, #e8eef4 100%);
+  border: 1px solid rgba(203, 213, 225, 0.65);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset;
 }
 
 .whenCardTitle {
@@ -1133,21 +1407,155 @@
 
 .whenCardText {
   margin: 0;
-  padding: 14px 18px 18px;
+  padding: 13px 17px 17px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.62;
   font-weight: 500;
   color: var(--t2);
   overflow-wrap: break-word;
 }
 
-/* Proof-layer: холодный фон, индексы, панели — не «ещё одна сетка карточек» как у родственников */
+/* Desktop: premium clinical need-state — шапка и карточки без «инфоблочной» сухости */
+@media (min-width: 900px) {
+  .pageStacionar .whenSection {
+    padding: clamp(56px, 7.5vw, 96px) 0 clamp(48px, 6.2vw, 68px);
+    background:
+      radial-gradient(ellipse 72% 48% at 10% 0%, rgba(16, 185, 129, 0.055), transparent 52%),
+      radial-gradient(ellipse 58% 40% at 92% 4%, rgba(215, 180, 105, 0.07), transparent 50%),
+      radial-gradient(ellipse 50% 28% at 50% 100%, rgba(11, 29, 53, 0.028), transparent 55%),
+      linear-gradient(180deg, #f2f7fb 0%, #fbfdff 52%, #ffffff 100%);
+    border-bottom-color: rgba(203, 213, 225, 0.55);
+  }
+
+  .pageStacionar .whenHead {
+    margin-bottom: clamp(30px, 3.5vw, 40px);
+    max-width: min(42rem, 100%);
+    padding-bottom: clamp(22px, 2.5vw, 28px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.62);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.98),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.28);
+  }
+
+  .pageStacionar .whenKicker {
+    margin-bottom: 14px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: #52647a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .pageStacionar .whenKicker::before {
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    box-shadow:
+      0 0 0 1px rgba(215, 180, 105, 0.35),
+      0 1px 2px rgba(11, 29, 53, 0.06);
+  }
+
+  .pageStacionar .whenTitle {
+    margin-bottom: clamp(16px, 1.8vw, 20px);
+    font-size: clamp(26px, 3.2vw, 34px);
+    letter-spacing: -0.036em;
+    line-height: 1.12;
+    color: #0b1d35;
+  }
+
+  .pageStacionar .whenLead {
+    max-width: min(38.5rem, 100%);
+    font-size: clamp(15px, 1.35vw, 17px);
+    line-height: 1.72;
+    font-weight: 500;
+    letter-spacing: 0.008em;
+    color: #475569;
+  }
+
+  .pageStacionar .whenGrid {
+    gap: clamp(19px, 2.12vw, 25px);
+    margin-top: 4px;
+  }
+
+  .pageStacionar .whenCard {
+    border-radius: 16px;
+    border: 1px solid rgba(226, 232, 240, 0.78);
+    border-top: 1px solid rgba(226, 232, 240, 0.78);
+    background: linear-gradient(168deg, #ffffff 0%, #f9fbfd 52%, #f5f8fb 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(11, 29, 53, 0.03),
+      0 10px 32px rgba(11, 29, 53, 0.045),
+      0 2px 8px rgba(11, 29, 53, 0.028);
+  }
+
+  .pageStacionar .whenCard::before {
+    content: '';
+    display: block;
+    height: 3px;
+    margin: -1px -1px 0;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.55) 0%, rgba(16, 185, 129, 0.22) 42%, rgba(212, 179, 106, 0.35) 100%);
+    opacity: 0.95;
+  }
+
+  .pageStacionar .whenCard:hover {
+    border-color: rgba(148, 163, 184, 0.45);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 14px 40px rgba(11, 29, 53, 0.065),
+      0 4px 12px rgba(11, 29, 53, 0.04);
+  }
+
+  .pageStacionar .whenCard:hover::before {
+    opacity: 1;
+  }
+
+  .pageStacionar .whenCardHead {
+    gap: 12px 15px;
+    align-items: center;
+    padding: 18px 19px 14px;
+    border-bottom: 1px solid rgba(236, 241, 247, 0.95);
+  }
+
+  .pageStacionar .whenCardIndex {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #0f2744;
+    background: linear-gradient(165deg, #f8fafc 0%, #eef2f7 100%);
+    border: 1px solid rgba(203, 213, 225, 0.55);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 1px 3px rgba(11, 29, 53, 0.05);
+  }
+
+  .pageStacionar .whenCardTitle {
+    padding-top: 0;
+    font-size: clamp(15.25px, 1.25vw, 16.75px);
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: 1.3;
+  }
+
+  .pageStacionar .whenCardText {
+    padding: 15px 19px 19px;
+    font-size: 14.125px;
+    line-height: 1.68;
+    letter-spacing: 0.005em;
+    color: #526077;
+  }
+}
+
+/* Proof-layer: холоднее и плотнее, левый край — «досье», не дубль when-карточек */
 .trustSection {
   position: relative;
-  padding: clamp(40px, 6vw, 64px) 0 clamp(48px, 7.2vw, 80px);
-  background: linear-gradient(180deg, #eef2f7 0%, #e8edf4 42%, #f0f4fa 100%);
-  border-top: 1px solid rgba(11, 29, 53, 0.08);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.5);
+  padding: clamp(44px, 6.5vw, 72px) 0 clamp(52px, 7.5vw, 88px);
+  background: linear-gradient(180deg, #e8edf5 0%, #e4eaf3 38%, #eef2f8 100%);
+  border-top: 1px solid rgba(11, 29, 53, 0.07);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.55);
 }
 
 .trustSection::before {
@@ -1222,7 +1630,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(14px, 2vw, 18px);
+  gap: clamp(16px, 2.1vw, 20px);
   align-items: stretch;
 }
 
@@ -1242,16 +1650,17 @@
 .trustCard {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 14px 16px;
+  gap: 12px 14px;
   align-items: start;
   margin: 0;
-  padding: 18px 17px 19px 16px;
-  border-radius: 14px;
-  background: linear-gradient(165deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid rgba(11, 29, 53, 0.09);
+  padding: 17px 18px 18px 14px;
+  border-radius: 12px;
+  background: linear-gradient(168deg, #ffffff 0%, #f4f7fb 100%);
+  border: 1px solid rgba(11, 29, 53, 0.085);
+  border-left: 2px solid rgba(51, 65, 85, 0.28);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 10px 28px rgba(11, 29, 53, 0.045);
+    0 8px 24px rgba(11, 29, 53, 0.04);
   box-sizing: border-box;
   transition:
     border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1259,20 +1668,22 @@
 }
 
 .trustCard:hover {
-  border-color: rgba(11, 29, 53, 0.14);
+  border-color: rgba(11, 29, 53, 0.12);
+  border-left-color: rgba(51, 65, 85, 0.42);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 14px 36px rgba(11, 29, 53, 0.06);
+    0 12px 32px rgba(11, 29, 53, 0.055);
 }
 
 .trustCardIndex {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   font-variant-numeric: tabular-nums;
-  color: #94a3b8;
-  line-height: 1.2;
-  padding-top: 3px;
+  color: #64748b;
+  line-height: 1.25;
+  padding-top: 4px;
+  opacity: 0.95;
 }
 
 .trustCardBody {
@@ -1280,56 +1691,251 @@
 }
 
 .trustCardTitle {
-  margin: 0 0 7px;
-  font-size: 11px;
+  margin: 0 0 8px;
+  font-size: 10.75px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: #334155;
-  line-height: 1.32;
+  color: #1e293b;
+  line-height: 1.35;
 }
 
 .trustCardText {
   margin: 0;
-  font-size: 13.25px;
-  line-height: 1.52;
+  font-size: 13.35px;
+  line-height: 1.54;
   font-weight: 500;
   color: var(--t2);
   overflow-wrap: break-word;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.01em;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .whenCard:hover,
-  .trustCard:hover {
+/* Desktop: premium proof-layer — шапка сильнее, карточки дифференцированы (не шесть плиток) */
+@media (min-width: 900px) {
+  .pageStacionar .trustSection {
+    padding: clamp(52px, 6.8vw, 82px) 0 clamp(56px, 7.2vw, 94px);
+    background:
+      radial-gradient(ellipse 70% 52% at 8% 0%, rgba(16, 185, 129, 0.06), transparent 55%),
+      radial-gradient(ellipse 55% 42% at 96% 8%, rgba(215, 180, 105, 0.065), transparent 52%),
+      linear-gradient(180deg, #e6ecf6 0%, #e2e9f2 40%, #edf1f8 100%);
+    border-top-color: rgba(11, 29, 53, 0.065);
+    border-bottom-color: rgba(180, 198, 218, 0.55);
+  }
+
+  .pageStacionar .trustSection::before {
+    width: min(200px, 44%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(11, 29, 53, 0.1), transparent);
+  }
+
+  .pageStacionar .trustHead {
+    margin-bottom: clamp(28px, 3.2vw, 38px);
+    max-width: min(42rem, 100%);
+  }
+
+  .pageStacionar .trustKicker {
+    margin-bottom: 14px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: #4b5f76;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .pageStacionar .trustSection .trustKicker::before {
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    border-radius: 2px;
+    background: linear-gradient(145deg, #c4a054, rgba(16, 185, 129, 0.55));
+    box-shadow:
+      0 0 0 1px rgba(215, 180, 105, 0.32),
+      0 1px 2px rgba(11, 29, 53, 0.07);
+  }
+
+  .pageStacionar .trustHeading {
+    margin-bottom: clamp(14px, 1.6vw, 18px);
+    font-size: clamp(26px, 3.1vw, 33px);
+    letter-spacing: -0.038em;
+    line-height: 1.11;
+    color: #0b1d35;
+  }
+
+  .pageStacionar .trustSub {
+    max-width: min(38.5rem, 100%);
+    font-size: clamp(15px, 1.3vw, 16.75px);
+    line-height: 1.7;
+    letter-spacing: 0.005em;
+    font-weight: 500;
+    color: #475569;
+  }
+
+  .pageStacionar .trustGrid {
+    gap: clamp(19px, 2.08vw, 24px);
+    margin-top: 4px;
+  }
+
+  .pageStacionar .trustCard {
+    position: relative;
+    padding: 19px 20px 21px 17px;
+    gap: 13px 16px;
+    align-items: stretch;
+    border-radius: 14px;
+    border: 1px solid rgba(11, 29, 53, 0.078);
+    border-left-width: 3px;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 1) inset,
-      0 10px 28px rgba(11, 29, 53, 0.045);
+      0 10px 30px rgba(11, 29, 53, 0.045),
+      0 2px 6px rgba(11, 29, 53, 0.028);
+  }
+
+  .pageStacionar .trustCardIndex {
+    padding-top: 5px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .pageStacionar .trustCardTitle {
+    margin-bottom: 9px;
+    font-size: 10.875px;
+    letter-spacing: 0.105em;
+    line-height: 1.38;
+    color: #0f2744;
+  }
+
+  .pageStacionar .trustCardText {
+    font-size: 13.5px;
+    line-height: 1.62;
+    letter-spacing: -0.008em;
+    color: #526077;
+  }
+
+  /* Оси proof-system: лицензия → отделение → наблюдение → среда → близкий → тайна */
+  .pageStacionar .trustCard:nth-child(1) {
+    border-left-color: rgba(16, 185, 129, 0.52);
+    background: linear-gradient(168deg, #ffffff 0%, #f5fbf9 52%, #f2f8f6 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(1) .trustCardIndex {
+    color: rgba(5, 118, 90, 0.88);
+  }
+
+  .pageStacionar .trustCard:nth-child(2) {
+    border-left-color: rgba(196, 160, 84, 0.55);
+    background: linear-gradient(168deg, #ffffff 0%, #fbf9f5 48%, #f7f4ee 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(2) .trustCardIndex {
+    color: rgba(146, 118, 58, 0.92);
+  }
+
+  .pageStacionar .trustCard:nth-child(3) {
+    border-left-color: rgba(13, 148, 136, 0.5);
+    background: linear-gradient(168deg, #ffffff 0%, #f4faf9 52%, #f0f7f6 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(3) .trustCardIndex {
+    color: rgba(15, 118, 110, 0.88);
+  }
+
+  .pageStacionar .trustCard:nth-child(4) {
+    border-left-color: rgba(71, 85, 105, 0.48);
+    background: linear-gradient(168deg, #ffffff 0%, #f6f8fb 52%, #f1f4f9 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(4) .trustCardIndex {
+    color: rgba(71, 85, 105, 0.92);
+  }
+
+  .pageStacionar .trustCard:nth-child(5) {
+    border-left-color: rgba(180, 83, 9, 0.38);
+    background: linear-gradient(168deg, #ffffff 0%, #fbfaf8 50%, #f8f6f3 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(5) .trustCardIndex {
+    color: rgba(146, 88, 42, 0.88);
+  }
+
+  .pageStacionar .trustCard:nth-child(6) {
+    border-left-color: rgba(51, 65, 85, 0.55);
+    background: linear-gradient(168deg, #ffffff 0%, #f5f7fa 52%, #f0f3f8 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(6) .trustCardIndex {
+    color: rgba(51, 65, 85, 0.9);
+  }
+
+  .pageStacionar .trustCard:hover {
+    border-color: rgba(11, 29, 53, 0.11);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 14px 38px rgba(11, 29, 53, 0.065),
+      0 4px 10px rgba(11, 29, 53, 0.035);
+  }
+
+  .pageStacionar .trustCard:nth-child(1):hover {
+    border-left-color: rgba(16, 185, 129, 0.68);
+  }
+
+  .pageStacionar .trustCard:nth-child(2):hover {
+    border-left-color: rgba(196, 160, 84, 0.72);
+  }
+
+  .pageStacionar .trustCard:nth-child(3):hover {
+    border-left-color: rgba(13, 148, 136, 0.65);
+  }
+
+  .pageStacionar .trustCard:nth-child(4):hover {
+    border-left-color: rgba(71, 85, 105, 0.62);
+  }
+
+  .pageStacionar .trustCard:nth-child(5):hover {
+    border-left-color: rgba(180, 83, 9, 0.5);
+  }
+
+  .pageStacionar .trustCard:nth-child(6):hover {
+    border-left-color: rgba(51, 65, 85, 0.72);
   }
 }
 
-/* Путь до поступления: reassurance-process — спокойный flow, не служебная инструкция */
+@media (prefers-reduced-motion: reduce) {
+  .whenCard:hover {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 8px 26px rgba(11, 29, 53, 0.034);
+  }
+
+  .trustCard:hover {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 8px 24px rgba(11, 29, 53, 0.04);
+  }
+}
+
+/* Путь до поступления: единый узел маршрута — тихая ось шагов, не отдельный «виджет» */
 .todaySection {
-  padding: clamp(44px, 7.5vw, 84px) 0;
-  background: linear-gradient(180deg, #eef2f7 0%, #f8fafc 38%, #ffffff 100%);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.48);
+  padding: clamp(48px, 7.8vw, 92px) 0;
+  background: linear-gradient(180deg, #eef2f8 0%, #f6f9fc 36%, #ffffff 100%);
+  border-bottom: 1px solid rgba(220, 230, 241, 0.5);
 }
 
 .todayInner {
   max-width: min(640px, 100%);
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 34px) clamp(20px, 3.2vw, 30px);
-  border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(252, 253, 255, 0.98) 100%);
-  border: 1px solid rgba(226, 232, 240, 0.78);
+  padding: clamp(26px, 4.2vw, 36px) clamp(22px, 3.4vw, 32px);
+  border-radius: 22px;
+  background: linear-gradient(152deg, rgba(255, 255, 255, 0.99) 0%, rgba(248, 250, 252, 0.97) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.72);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 16px 44px rgba(10, 25, 45, 0.045);
+    0 18px 48px rgba(10, 25, 45, 0.042),
+    0 0 0 1px rgba(255, 255, 255, 0.4);
   box-sizing: border-box;
 }
 
 .todayHead {
-  margin-bottom: clamp(18px, 3vw, 24px);
+  margin-bottom: clamp(20px, 3.2vw, 26px);
   text-align: center;
 }
 
@@ -1369,6 +1975,19 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  position: relative;
+}
+
+.todayList::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.4), rgba(226, 232, 240, 0.95));
+  pointer-events: none;
 }
 
 .todayStep {
@@ -1378,6 +1997,8 @@
   margin: 0;
   padding: 13px 0 14px;
   border-bottom: 1px solid rgba(226, 232, 240, 0.72);
+  position: relative;
+  z-index: 1;
 }
 
 .todayStep:last-child {
@@ -1399,8 +2020,10 @@
   font-variant-numeric: tabular-nums;
   color: var(--deep);
   background: #ffffff;
-  border: 1px solid rgba(11, 29, 53, 0.1);
-  box-shadow: 0 1px 2px rgba(11, 29, 53, 0.05);
+  border: 1px solid rgba(11, 29, 53, 0.09);
+  box-shadow:
+    0 0 0 2px rgba(16, 185, 129, 0.12),
+    0 1px 3px rgba(11, 29, 53, 0.06);
 }
 
 .todayStepBody {
@@ -1430,9 +2053,9 @@
 }
 
 .todayCta {
-  margin-top: clamp(22px, 3.6vw, 30px);
-  padding-top: clamp(22px, 3.2vw, 28px);
-  border-top: 1px solid rgba(226, 232, 240, 0.88);
+  margin-top: clamp(24px, 3.8vw, 32px);
+  padding-top: clamp(24px, 3.4vw, 30px);
+  border-top: 1px solid rgba(226, 232, 240, 0.78);
   display: flex;
   justify-content: center;
 }
@@ -1446,7 +2069,158 @@
   letter-spacing: -0.02em;
 }
 
+/* Desktop: путь до поступления — дороже встроенный узел, не «белый виджет» */
+@media (min-width: 900px) {
+  .pageStacionar .todaySection {
+    padding: clamp(52px, 7.6vw, 96px) 0;
+    background: linear-gradient(180deg, #edf1f8 0%, #f6f9fc 40%, #ffffff 100%);
+    border-bottom-color: rgba(215, 226, 238, 0.52);
+  }
+
+  .pageStacionar .todayInner {
+    max-width: min(616px, 100%);
+    padding: clamp(30px, 4.4vw, 40px) clamp(28px, 3.6vw, 36px);
+    border-radius: 20px;
+    border: 1px solid rgba(218, 228, 240, 0.68);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 22px 56px rgba(10, 25, 45, 0.045),
+      0 6px 20px rgba(11, 29, 53, 0.035);
+  }
+
+  .pageStacionar .todayHead {
+    margin-bottom: clamp(22px, 3.4vw, 30px);
+  }
+
+  .pageStacionar .todayKicker {
+    margin-bottom: 10px;
+    font-size: 10.75px;
+    letter-spacing: 0.13em;
+    color: #5a6e85;
+  }
+
+  .pageStacionar .todayTitle {
+    margin-bottom: 11px;
+    font-size: clamp(23px, 2.55vw, 28.5px);
+    line-height: 1.11;
+    letter-spacing: -0.034em;
+  }
+
+  .pageStacionar .todayLead {
+    line-height: 1.62;
+    font-size: clamp(14.5px, 1.42vw, 15.5px);
+    color: #526077;
+  }
+
+  .pageStacionar .todayList::before {
+    left: 15px;
+    top: 5px;
+    bottom: 11px;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.38), rgba(226, 232, 240, 0.92));
+  }
+
+  .pageStacionar .todayStep {
+    padding: 15px 0 16px;
+    border-bottom-color: rgba(226, 232, 240, 0.68);
+  }
+
+  .pageStacionar .todayStepNum {
+    width: 32px;
+    height: 32px;
+    margin-top: 0;
+    border-radius: 10px;
+    font-size: 12.75px;
+    box-shadow:
+      0 0 0 2px rgba(16, 185, 129, 0.1),
+      0 2px 6px rgba(11, 29, 53, 0.06);
+  }
+
+  .pageStacionar .todayStepLead {
+    font-size: 14.125px;
+    letter-spacing: -0.019em;
+  }
+
+  .pageStacionar .todayStepDetail {
+    font-size: 13.5px;
+    line-height: 1.52;
+  }
+
+  .pageStacionar .todayCta {
+    margin-top: clamp(26px, 3.9vw, 34px);
+    padding-top: clamp(26px, 3.8vw, 32px);
+    border-top-color: rgba(226, 232, 240, 0.65);
+  }
+
+  .pageStacionar .todayCtaBtn {
+    max-width: min(358px, 100%);
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  /* Родственники: теплее и человечнее, чем proof-сетка — без утилитарности */
+  .pageStacionar .contentSection.stacionarRelativesBand {
+    padding-top: clamp(56px, 8.4vw, 98px);
+    padding-bottom: clamp(54px, 8vw, 94px);
+  }
+
+  .pageStacionar .stacionarRelHead {
+    margin-bottom: clamp(26px, 4vw, 34px);
+    max-width: min(40rem, 100%);
+  }
+
+  .pageStacionar .relativesKicker {
+    margin-bottom: 12px;
+    font-size: 10.75px;
+    letter-spacing: 0.12em;
+    color: rgba(95, 78, 40, 0.82);
+  }
+
+  .pageStacionar .stacionarRelTitle {
+    margin-bottom: 13px;
+    font-size: clamp(25px, 2.75vw, 31px);
+    line-height: 1.11;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+  }
+
+  .pageStacionar .stacionarRelLead {
+    line-height: 1.64;
+    font-size: clamp(14.5px, 1.48vw, 15.75px);
+    max-width: min(38em, 100%);
+  }
+
+  .pageStacionar .stacionarRelList {
+    gap: 16px 18px;
+  }
+
+  .pageStacionar .stacionarRelItem {
+    padding: 20px 22px 21px;
+    border-radius: 18px;
+    border-color: rgba(228, 218, 205, 0.52);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.99) inset,
+      0 12px 36px rgba(11, 29, 53, 0.032);
+  }
+
+  .pageStacionar .stacionarRelItemTitle {
+    margin-bottom: 7px;
+    font-size: clamp(14.125px, 1.38vw, 15.125px);
+  }
+
+  .pageStacionar .stacionarRelItemText {
+    font-size: 13.625px;
+    line-height: 1.58;
+  }
+}
+
 @media (max-width: 480px) {
+  .todayList::before {
+    left: 13px;
+    top: 5px;
+    bottom: 8px;
+  }
+
   .todaySection {
     padding: clamp(36px, 10vw, 52px) 0;
   }
@@ -1880,33 +2654,49 @@
 
 @media (max-width: 640px) {
   .programsSection {
-    padding: clamp(40px, 10vw, 56px) 0;
+    padding: 34px 0 30px;
   }
 
   .programsSection .sectionHeader {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+  }
+
+  .sectionKicker {
+    margin-bottom: 9px;
+    font-size: 10px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.28rem, 4.9vw, 1.55rem);
+    line-height: 1.1;
   }
 
   .sectionLead {
-    margin-top: 12px;
-    font-size: 14px;
-    line-height: 1.6;
+    margin-top: 10px;
+    font-size: 13.75px;
+    line-height: 1.54;
   }
 
   .programExplainer {
-    margin-bottom: 18px;
-    padding: 13px 14px 14px;
-    border-radius: 13px;
+    margin-bottom: 14px;
+    padding: 11px 12px 12px;
+    border-radius: 12px;
+    border-color: rgba(220, 230, 241, 0.68);
   }
 
   .programExplainerInner {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 11px;
+  }
+
+  .programExplainerLabel {
+    margin-bottom: 4px;
+    font-size: 9.5px;
   }
 
   .programExplainerDetail {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 12.875px;
+    line-height: 1.48;
   }
 
   .programExplainerCell:first-child {
@@ -1917,66 +2707,353 @@
   }
 
   .programExplainerCell:not(:last-child) {
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.75);
+    padding-bottom: 11px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.72);
   }
 
   .programGrid {
-    gap: 10px;
+    gap: 8px;
+  }
+
+  .programTierRow {
+    margin-bottom: 8px;
+    min-height: 0;
+    gap: 6px 10px;
   }
 
   .programCard {
-    padding: 16px 16px 18px;
-    border-radius: 16px;
+    padding: 13px 14px 15px;
+    border-radius: 15px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 5px 18px rgba(10, 25, 45, 0.028);
+  }
+
+  .programCardFeatured {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 0 0 1px rgba(215, 180, 105, 0.1),
+      0 6px 22px rgba(11, 29, 53, 0.038);
   }
 
   .programFeaturedNote {
-    font-size: 11.5px;
-    margin-bottom: 9px;
+    font-size: 11.25px;
+    line-height: 1.42;
+    margin-bottom: 7px;
+  }
+
+  .programDuration {
+    margin-bottom: 6px;
+    font-size: 9.5px;
   }
 
   .programName {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-size: clamp(15.5px, 4.2vw, 17px);
+    line-height: 1.18;
   }
 
   .programDesc {
-    font-size: 13.25px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.48;
   }
 
   .programFit {
-    margin-top: 12px;
-    padding-top: 11px;
+    margin-top: 10px;
+    padding-top: 9px;
+  }
+
+  .programFitLabel {
+    font-size: 9.5px;
+    margin-bottom: 4px;
   }
 
   .programFitText {
-    font-size: 12.5px;
+    font-size: 12.25px;
+    line-height: 1.48;
   }
 
   .programPriceBlock {
-    padding-top: 13px;
+    padding-top: 11px;
   }
 
   .programPriceValue {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .programPriceHint {
     font-size: 9px;
-    margin-top: 4px;
+    margin-top: 3px;
+    letter-spacing: 0.07em;
   }
 
   .programsClosing {
-    margin-top: 22px;
-    padding-top: 20px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top-color: rgba(226, 232, 240, 0.82);
   }
 
   .programsFooterNote {
-    font-size: 12px;
+    font-size: 11.75px;
+    line-height: 1.48;
   }
 
   .programsBlockCta {
+    margin-top: 12px;
+  }
+
+  .programsCtaBtn {
+    min-height: 48px;
+    border-radius: 12px;
+  }
+}
+
+/* Mobile: программы + палаты/фото (≤899px; desktop ≥900 без изменений) */
+@media (max-width: 899px) {
+  .pageStacionar .programsSection {
+    padding: clamp(26px, 6.8vw, 34px) 0 clamp(24px, 6.2vw, 32px);
+    border-top-color: rgba(220, 230, 241, 0.52);
+    border-bottom-color: rgba(220, 230, 241, 0.38);
+  }
+
+  .pageStacionar .programsSection .sectionHeader {
+    margin-bottom: clamp(12px, 3.2vw, 16px);
+  }
+
+  .pageStacionar .programsSection .sectionLead {
+    margin-top: 9px;
+    font-size: 13.875px;
+    line-height: 1.5;
+  }
+
+  .pageStacionar .programExplainer {
+    margin-bottom: clamp(12px, 3vw, 14px);
+    padding: 10px 12px 11px;
+    border-radius: 12px;
+    border-color: rgba(218, 228, 240, 0.65);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  }
+
+  .pageStacionar .programExplainerInner {
+    gap: 9px;
+  }
+
+  .pageStacionar .programExplainerCell:not(:last-child) {
+    padding-bottom: 9px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.65);
+  }
+
+  .pageStacionar .programExplainerDetail {
+    font-size: 12.75px;
+    line-height: 1.44;
+  }
+
+  .pageStacionar .programGrid {
+    gap: 7px;
+  }
+
+  .pageStacionar .programTierRow {
+    margin-bottom: 7px;
+    min-height: 0;
+    gap: 5px 9px;
+  }
+
+  .pageStacionar .programTier {
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 9.5px;
+  }
+
+  .pageStacionar .programCard {
+    padding: 12px 13px 13px;
+    border-radius: 14px;
+    border-color: rgba(226, 232, 240, 0.82);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 4px 16px rgba(10, 25, 45, 0.026);
+  }
+
+  .pageStacionar .programCardFeatured {
+    background: linear-gradient(178deg, #ffffff 0%, #f9fbfc 55%, #fafcfd 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 0 0 1px rgba(215, 180, 105, 0.09),
+      0 5px 18px rgba(11, 29, 53, 0.032);
+  }
+
+  .pageStacionar .programCardFeatured::before {
+    opacity: 0.75;
+  }
+
+  .pageStacionar .programFeaturedNote {
+    margin-bottom: 6px;
+    font-size: 11.125px;
+    line-height: 1.38;
+    color: #7a8799;
+  }
+
+  .pageStacionar .programDuration {
+    margin-bottom: 5px;
+    font-size: 9.25px;
+    letter-spacing: 0.12em;
+  }
+
+  .pageStacionar .programName {
+    margin-bottom: 5px;
+    font-size: clamp(15.25px, 4vw, 16.75px);
+    line-height: 1.16;
+  }
+
+  .pageStacionar .programDesc {
+    font-size: 12.875px;
+    line-height: 1.44;
+  }
+
+  .pageStacionar .programFit {
+    margin-top: 9px;
+    padding-top: 8px;
+  }
+
+  .pageStacionar .programFitText {
+    font-size: 12.125px;
+    line-height: 1.44;
+  }
+
+  .pageStacionar .programPriceBlock {
+    padding-top: 10px;
+    border-top-color: rgba(226, 232, 240, 0.75);
+  }
+
+  .pageStacionar .programPriceValue {
+    font-size: 17.5px;
+  }
+
+  .pageStacionar .programPriceHint {
+    margin-top: 4px;
+    font-size: 9px;
+    letter-spacing: 0.075em;
+  }
+
+  .pageStacionar .programsClosing {
     margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(226, 232, 240, 0.78);
+  }
+
+  .pageStacionar .programsFooterNote {
+    font-size: 11.625px;
+    line-height: 1.44;
+  }
+
+  .pageStacionar .programsBlockCta {
+    margin-top: 10px;
+  }
+
+  .pageStacionar .programsCtaBtn {
+    min-height: 46px;
+    max-width: min(360px, 100%);
+    border-radius: 12px;
+    border-color: rgba(11, 29, 53, 0.1);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.85) inset,
+      0 6px 18px rgba(10, 25, 45, 0.06);
+  }
+
+  /* Палаты: компактнее ритм, спокойнее панель условий */
+  .pageStacionar .evidenceSection:global(.stacionar-section) {
+    padding: clamp(32px, 8vw, 40px) 0 clamp(34px, 8.2vw, 42px);
+  }
+
+  .pageStacionar .stacionarEvidencePanel {
+    padding: 11px 9px 12px;
+    border-radius: 17px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.055) inset,
+      0 14px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .pageStacionar .stacionarEvidencePanel::before {
+    border-radius: 16px;
+    opacity: 0.72;
+  }
+
+  .pageStacionar :global(.stacionar-gallery__head) {
+    margin-bottom: 9px;
+  }
+
+  .pageStacionar :global(.stacionar-gallery__lead) {
+    margin-top: 5px;
+    font-size: 13px;
+    line-height: 1.44;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__top) {
+    gap: 9px;
+    min-height: 0;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__stack) {
+    gap: 9px;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__figure) {
+    border-radius: 13px;
+    box-shadow:
+      0 6px 22px rgba(0, 0, 0, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.028) inset;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__figure--facade) {
+    margin-top: 8px;
+  }
+
+  .pageStacionar :global(.stacionar-gallery__figure--hero img) {
+    min-height: min(44vw, 220px);
+  }
+
+  .pageStacionar :global(.stacionar-gallery__figure--facade img) {
+    min-height: min(34vw, 190px);
+  }
+
+  .pageStacionar .stacionarEvidenceFoot {
+    margin-top: 6px;
+    padding-top: 10px;
+    gap: 8px;
+    border-top-color: rgba(255, 255, 255, 0.07);
+  }
+
+  .pageStacionar .stacionarEvidenceBridge {
+    font-size: 11.875px;
+    line-height: 1.42;
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions) {
+    padding: 10px 10px 11px;
+    border-radius: 12px;
+    border-color: rgba(255, 255, 255, 0.07);
+    background: linear-gradient(165deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.09) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.045) inset,
+      0 3px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__title) {
+    margin-bottom: 7px;
+    font-size: 9.25px;
+    letter-spacing: 0.12em;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__list) {
+    gap: 6px;
+  }
+
+  .pageStacionar .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__list li) {
+    font-size: 12.75px;
+    line-height: 1.42;
+    padding-left: 13px;
+    color: rgba(255, 255, 255, 0.74);
   }
 }
 
@@ -2228,15 +3305,15 @@
   scroll-margin-top: 12px;
 }
 
-/* Reassurance-layer: теплее, мягче, без индексов — не дублирует proof-сетку */
+/* Reassurance-layer: теплее и спокойнее proof-сетки — человеческий, взрослый тон */
 .contentSection.stacionarRelativesBand {
-  padding-top: clamp(52px, 8.5vw, 90px);
-  padding-bottom: clamp(50px, 8vw, 88px);
+  padding-top: clamp(54px, 8.8vw, 96px);
+  padding-bottom: clamp(52px, 8.2vw, 92px);
   background:
-    radial-gradient(ellipse 70% 48% at 50% 0%, rgba(215, 180, 105, 0.06), transparent 52%),
-    linear-gradient(180deg, #fdfcfa 0%, #faf6f1 38%, #f8fafc 100%);
-  border-top: 1px solid rgba(228, 220, 208, 0.55);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.48);
+    radial-gradient(ellipse 72% 46% at 48% 0%, rgba(215, 180, 105, 0.065), transparent 54%),
+    linear-gradient(180deg, #fdfbf8 0%, #faf6f0 40%, #f7fafc 100%);
+  border-top: 1px solid rgba(228, 220, 208, 0.5);
+  border-bottom: 1px solid rgba(220, 230, 241, 0.46);
 }
 
 .stacionarRelativesInner {
@@ -2275,10 +3352,10 @@
 .stacionarRelTitle {
   margin: 0 0 12px;
   font-size: clamp(24px, 3.6vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.034em;
+  font-weight: 600;
+  letter-spacing: -0.036em;
   overflow-wrap: break-word;
-  line-height: 1.14;
+  line-height: 1.15;
   color: var(--deep);
   text-wrap: balance;
 }
@@ -2321,13 +3398,13 @@
 .stacionarRelItem {
   position: relative;
   margin: 0;
-  padding: clamp(17px, 2.2vw, 21px) clamp(18px, 2.4vw, 22px);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(232, 224, 214, 0.75);
+  padding: clamp(18px, 2.35vw, 22px) clamp(19px, 2.5vw, 23px);
+  border-radius: 19px;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 252, 248, 0.88) 100%);
+  border: 1px solid rgba(232, 224, 214, 0.68);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 8px 24px rgba(11, 29, 53, 0.035);
+    0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    0 10px 28px rgba(11, 29, 53, 0.032);
   box-sizing: border-box;
   transition:
     border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2811,172 +3888,219 @@
 
 /* --- Мобильная доводка: галерея, FAQ-контекст, финальная форма (все города) --- */
 @media (max-width: 639px) {
+  /* Тёмная секция палат: короче по вертикали, спокойнее глубина */
+  .evidenceSection:global(.stacionar-section) {
+    padding: 40px 0 44px;
+  }
+
+  .evidenceKicker {
+    margin-bottom: 7px;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+  }
+
   .pageStacionar :global(.stacionar-gallery__head) {
-    margin-bottom: 14px;
+    margin-bottom: 11px;
     text-align: left;
     max-width: none;
   }
 
   .pageStacionar :global(.stacionar-gallery__title) {
-    font-size: clamp(1.15rem, 4.8vw, 1.35rem);
-    line-height: 1.2;
+    font-size: clamp(1.12rem, 4.6vw, 1.32rem);
+    line-height: 1.14;
+    letter-spacing: -0.03em;
   }
 
   .pageStacionar :global(.stacionar-gallery__lead) {
-    margin-top: 8px;
-    font-size: 13.5px;
-    line-height: 1.52;
+    margin-top: 6px;
+    font-size: 13.125px;
+    line-height: 1.48;
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__top) {
+    min-height: 0;
+    gap: 10px;
+  }
+
+  .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__stack) {
+    gap: 10px;
+  }
+
+  .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__figure) {
+    border-radius: 14px;
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.26),
+      0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  }
+
+  .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__figure--facade) {
+    margin-top: 10px;
+    max-height: none;
+    border-radius: 14px;
   }
 
   .pageStacionar :global(.stacionar-gallery__figure--hero img) {
-    min-height: min(52vw, 280px);
+    min-height: min(48vw, 240px);
   }
 
   .pageStacionar :global(.stacionar-gallery__figure--facade img) {
-    min-height: min(40vw, 220px);
+    min-height: min(36vw, 200px);
     object-position: center 32%;
   }
 
   .stacionarEvidencePanel {
-    padding: 14px 11px 17px;
-    border-radius: 20px;
+    padding: 12px 10px 14px;
+    border-radius: 18px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 18px 48px rgba(0, 0, 0, 0.24);
   }
 
   .stacionarEvidencePanel::before {
-    border-radius: 19px;
+    border-radius: 17px;
+    opacity: 0.75;
   }
 
   .stacionarEvidenceFoot {
-    margin-top: 10px;
-    padding-top: 14px;
-    gap: 12px;
+    margin-top: 8px;
+    padding-top: 12px;
+    gap: 10px;
+    border-top-color: rgba(255, 255, 255, 0.075);
   }
 
   .stacionarEvidenceBridge {
-    font-size: 12.5px;
-    line-height: 1.48;
-    color: rgba(255, 255, 255, 0.52);
-  }
-
-  .evidenceSection .stacionarEvidencePanel :global(.stacionar-gallery__figure--facade) {
-    max-height: none;
+    font-size: 12.125px;
+    line-height: 1.46;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0 4px;
   }
 
   .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions) {
-    padding: 14px 13px 16px;
-    border-radius: 14px;
+    padding: 11px 11px 13px;
+    border-radius: 13px;
+    border-color: rgba(255, 255, 255, 0.075);
+    background: linear-gradient(165deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.1) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 4px 20px rgba(0, 0, 0, 0.12);
   }
 
   .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__title) {
-    font-size: 10px;
-    margin-bottom: 10px;
+    font-size: 9.5px;
+    margin-bottom: 8px;
+    letter-spacing: 0.13em;
   }
 
   .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__list) {
     grid-template-columns: 1fr;
-    gap: 9px;
+    gap: 7px;
   }
 
   .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__list li) {
-    font-size: 13.25px;
-    line-height: 1.5;
-    padding-left: 16px;
-  }
-
-  .whenSection {
-    padding: 36px 0 28px;
-  }
-
-  .whenHead {
-    margin-bottom: 18px;
-  }
-
-  .whenCardHead {
-    padding: 14px 14px 0;
-  }
-
-  .whenCardText {
-    padding: 12px 14px 15px;
-    font-size: 13.5px;
-    line-height: 1.56;
-  }
-
-  .whenCardIndex {
-    min-width: 32px;
-    height: 32px;
-    font-size: 10px;
-  }
-
-  .trustSection {
-    padding: 28px 0 40px;
-  }
-
-  .trustHead {
-    margin-bottom: 16px;
-  }
-
-  .trustCard {
-    padding: 14px 13px 15px 14px;
-    gap: 11px 12px;
-  }
-
-  .trustCardIndex {
-    font-size: 9px;
-    padding-top: 2px;
-  }
-
-  .trustCardTitle {
-    font-size: 10.5px;
-    margin-bottom: 5px;
-  }
-
-  .trustCardText {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.46;
+    padding-left: 14px;
+    color: rgba(255, 255, 255, 0.76);
   }
 
-  .programsSection .sectionHeader {
-    margin-bottom: 16px;
+  .evidenceSection .stacionarEvidencePanel :global(.stacionar-conditions__list li::before) {
+    top: 0.52em;
+    width: 3px;
+    height: 3px;
   }
 
-  .programExplainer {
-    margin-bottom: 16px;
-    padding: 12px 13px 13px;
-  }
-
-  .programCard {
-    padding: 15px 14px 16px;
-  }
-
-  .programsClosing {
-    margin-top: 20px;
-    padding-top: 18px;
-  }
+  /* Программы + палаты: см. @media (max-width: 899px) .pageStacionar */
 
   .contentSection {
     padding: clamp(36px, 8vw, 52px) 0;
   }
 
   .contentSection.stacionarRouteBand {
-    padding-top: clamp(32px, 7.5vw, 46px);
-    padding-bottom: clamp(30px, 7.2vw, 44px);
+    padding-top: 28px;
+    padding-bottom: 26px;
   }
 
-  .contentSection.stacionarRelativesBand {
-    padding-top: clamp(30px, 7.2vw, 44px);
-    padding-bottom: clamp(28px, 6.8vw, 42px);
+  .stacionarRouteHead {
+    margin-bottom: 13px;
+    text-align: left;
   }
 
-  .stacionarRelHead {
-    margin-bottom: 16px;
+  .stacionarRouteKicker {
+    margin-bottom: 7px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
   }
 
-  .stacionarRelItem {
-    padding: 13px 14px 14px;
+  .stacionarRouteTitle {
+    font-size: clamp(1.22rem, 4.9vw, 1.42rem);
+    line-height: 1.09;
+    letter-spacing: -0.036em;
   }
 
-  .stacionarRelItemTitle::before {
-    top: 0.52em;
+  .stacionarRouteLead {
+    margin-top: 9px;
+    font-size: 14px;
+    line-height: 1.54;
+  }
+
+  .stacionarProcessShell {
+    padding: 11px 10px 13px;
+    border-radius: 16px;
+    border-color: rgba(218, 228, 240, 0.85);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.96) inset,
+      0 12px 32px rgba(11, 29, 53, 0.042);
+  }
+
+  .stacionarProcessShell::before {
+    left: 14px;
+    right: 14px;
+    height: 1px;
+    opacity: 0.55;
+  }
+
+  .stacionarStagesGrid {
+    gap: 8px;
+  }
+
+  .stacionarStageCard {
+    padding: 11px 11px 12px;
+    border-radius: 13px;
+    border-color: rgba(220, 230, 241, 0.82);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.95) inset,
+      0 5px 16px rgba(11, 29, 53, 0.032);
+  }
+
+  .stacionarStageCardRow {
+    gap: 10px;
+  }
+
+  .stacionarStageCardMain {
+    gap: 5px;
+  }
+
+  .stacionarStageNum {
+    width: 31px;
+    height: 31px;
+    margin-top: 0;
+    font-size: 12.75px;
+    border-radius: 10px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.2) inset,
+      0 5px 14px rgba(16, 185, 129, 0.16);
+  }
+
+  .stacionarStageName {
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.022em;
+  }
+
+  .stacionarStageText {
+    font-size: 13.125px;
+    line-height: 1.5;
   }
 
   .midCtaTitle {
@@ -2984,20 +4108,554 @@
   }
 }
 
-@media (max-width: 639px) {
+/* Mobile trust-trio: «Когда уместен» → «Опора маршрута» → «Для родственников» (≤899px; desktop ≥900 без изменений) */
+@media (max-width: 899px) {
+  .pageStacionar .whenSection {
+    padding: clamp(22px, 6.5vw, 30px) 0 clamp(18px, 5vw, 24px);
+    background:
+      radial-gradient(ellipse 82% 40% at 14% 0%, rgba(16, 185, 129, 0.042), transparent 52%),
+      linear-gradient(180deg, #f3f8fc 0%, #fbfdff 52%, #ffffff 100%);
+    border-bottom-color: rgba(210, 222, 236, 0.48);
+  }
+
+  .pageStacionar .whenHead {
+    margin-bottom: clamp(10px, 3vw, 14px);
+    padding-bottom: clamp(8px, 2.2vw, 11px);
+    border-bottom-color: rgba(226, 232, 240, 0.72);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.92);
+  }
+
+  .pageStacionar .whenKicker {
+    margin-bottom: 5px;
+  }
+
+  .pageStacionar .whenTitle {
+    margin-bottom: 7px;
+  }
+
+  .pageStacionar .whenLead {
+    font-size: 14px;
+    line-height: 1.52;
+    letter-spacing: 0.006em;
+  }
+
+  .pageStacionar .whenGrid {
+    gap: 7px;
+  }
+
+  .pageStacionar .whenCard {
+    border-radius: 13px;
+    border-top-width: 2px;
+    border-top-color: rgba(16, 185, 129, 0.24);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 5px 17px rgba(11, 29, 53, 0.026);
+  }
+
+  .pageStacionar .whenCard:nth-child(even) {
+    border-top-color: rgba(215, 180, 105, 0.22);
+  }
+
+  .pageStacionar .whenCardHead {
+    padding: 9px 11px 0;
+    gap: 8px 10px;
+  }
+
+  .pageStacionar .whenCardIndex {
+    min-width: 29px;
+    height: 29px;
+    font-size: 9.25px;
+  }
+
+  .pageStacionar .whenCardTitle {
+    font-size: 13.875px;
+    line-height: 1.24;
+  }
+
+  .pageStacionar .whenCardText {
+    padding: 8px 11px 10px;
+    font-size: 13px;
+    line-height: 1.46;
+    letter-spacing: 0.008em;
+  }
+
+  .pageStacionar .trustSection {
+    padding: clamp(16px, 4.8vw, 22px) 0 clamp(22px, 6vw, 30px);
+    border-top: 1px solid rgba(203, 213, 225, 0.42);
+    background:
+      radial-gradient(ellipse 68% 44% at 8% 0%, rgba(16, 185, 129, 0.045), transparent 55%),
+      radial-gradient(ellipse 58% 36% at 96% 4%, rgba(215, 180, 105, 0.04), transparent 52%),
+      linear-gradient(180deg, #e6edf6 0%, #e4eaf3 42%, #eef2f8 100%);
+  }
+
+  .pageStacionar .trustSection::before {
+    opacity: 0.5;
+  }
+
+  .pageStacionar .trustHead {
+    margin-bottom: clamp(10px, 2.8vw, 13px);
+    max-width: none;
+  }
+
+  .pageStacionar .trustKicker {
+    margin-bottom: 6px;
+  }
+
+  .pageStacionar .trustHeading {
+    margin-bottom: 6px;
+    font-size: clamp(1.28rem, 5vw, 1.5rem);
+    line-height: 1.09;
+  }
+
+  .pageStacionar .trustSub {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .pageStacionar .trustGrid {
+    gap: 7px;
+  }
+
+  .pageStacionar .trustCard {
+    padding: 10px 10px 11px 9px;
+    gap: 8px 10px;
+    border-radius: 12px;
+    border-left-width: 2px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 5px 15px rgba(11, 29, 53, 0.03);
+  }
+
+  .pageStacionar .trustCard:nth-child(odd) {
+    background: linear-gradient(168deg, #ffffff 0%, #f7fbfc 55%, #f2f7f9 100%);
+  }
+
+  .pageStacionar .trustCard:nth-child(even) {
+    background: linear-gradient(168deg, #fcfdfe 0%, #f4f7fb 52%, #edf1f7 100%);
+  }
+
+  .pageStacionar .trustCardIndex {
+    font-size: 8.25px;
+    padding-top: 2px;
+    letter-spacing: 0.13em;
+  }
+
+  .pageStacionar .trustCardTitle {
+    font-size: 10px;
+    margin-bottom: 3px;
+    letter-spacing: 0.09em;
+  }
+
+  .pageStacionar .trustCardText {
+    font-size: 12.875px;
+    line-height: 1.44;
+    letter-spacing: -0.005em;
+  }
+
+  .pageStacionar .contentSection.stacionarRelativesBand {
+    padding-top: clamp(20px, 5.8vw, 28px);
+    padding-bottom: clamp(20px, 5.8vw, 28px);
+    background:
+      radial-gradient(ellipse 76% 50% at 50% 0%, rgba(215, 180, 105, 0.055), transparent 54%),
+      linear-gradient(180deg, #fdfbf8 0%, #faf6f0 36%, #f5f9fc 100%);
+    border-top-color: rgba(228, 220, 208, 0.4);
+  }
+
+  .pageStacionar .stacionarRelHead {
+    margin-bottom: clamp(10px, 2.8vw, 13px);
+    text-align: left;
+  }
+
+  .pageStacionar .relativesKicker {
+    margin-bottom: 5px;
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+  }
+
+  .pageStacionar .stacionarRelTitle {
+    margin-bottom: 6px;
+    font-size: clamp(1.22rem, 4.9vw, 1.42rem);
+    line-height: 1.1;
+  }
+
+  .pageStacionar .stacionarRelLead {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #5e7288;
+  }
+
+  .pageStacionar .stacionarRelList {
+    gap: 7px;
+  }
+
+  .pageStacionar .stacionarRelItem {
+    padding: 10px 11px 11px;
+    border-radius: 13px;
+    border-color: rgba(232, 224, 214, 0.58);
+    background: linear-gradient(168deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 252, 248, 0.92) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.98) inset,
+      0 6px 17px rgba(11, 29, 53, 0.024);
+  }
+
+  .pageStacionar .stacionarRelItem:nth-child(even) {
+    background: linear-gradient(168deg, #fffcfa 0%, #faf6f0 100%);
+  }
+
+  .pageStacionar .stacionarRelItemTitle {
+    margin-bottom: 4px;
+    padding-left: 14px;
+    font-size: 13.875px;
+    line-height: 1.32;
+  }
+
+  .pageStacionar .stacionarRelItemText {
+    padding-left: 14px;
+    font-size: 12.875px;
+    line-height: 1.46;
+  }
+
+  .pageStacionar .stacionarRelItemTitle::before {
+    top: 0.52em;
+    width: 4px;
+    height: 4px;
+  }
+}
+
+@media (max-width: 899px) {
+  /* Единая тёмная оконцовка: FAQ → финал → футер → scroll-pad (desktop ≥900 без изменений) */
+  .pageStacionar :global(section.ic-faq-service) {
+    border-bottom-color: rgba(186, 202, 220, 0.34);
+  }
+
+  .pageStacionar :global(section.final.ic-final-stacionar) {
+    padding-top: clamp(36px, 10vw, 50px);
+    padding-bottom: clamp(34px, 9.5vw, 48px);
+    background:
+      radial-gradient(ellipse 74% 48% at 18% 86%, rgba(16, 185, 129, 0.085), transparent 54%),
+      radial-gradient(ellipse 56% 34% at 82% 10%, rgba(214, 179, 106, 0.05), transparent 50%),
+      linear-gradient(180deg, #050f1a 0%, #0a1a2e 44%, #0c2740 76%, #0b253c 100%);
+    border-bottom-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar) {
+    gap: 9px;
+    padding: 12px 12px 14px;
+    border-radius: 15px;
+    border-color: rgba(255, 255, 255, 0.082);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.082) 0%, rgba(255, 255, 255, 0.036) 52%, rgba(6, 14, 24, 0.16) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 14px 36px rgba(0, 0, 0, 0.2);
+  }
+
   .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .fi) {
     font-size: 16px;
-    min-height: 52px;
+    min-height: 48px;
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .fbtn) {
+    min-height: 48px;
+    font-size: 15px;
+    letter-spacing: -0.017em;
+    border-radius: 12px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 9px 26px rgba(16, 185, 129, 0.24);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .form-consent-check span) {
+    font-size: 12.35px;
+    line-height: 1.42;
+    color: rgba(226, 232, 240, 0.74);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .ic-stacionar-form-hint) {
+    font-size: 12.35px;
+    line-height: 1.48;
+    color: rgba(226, 232, 240, 0.58);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-phone) {
+    font-size: clamp(21px, 6vw, 26px);
+    padding-bottom: 2px;
+    border-bottom-color: rgba(248, 250, 252, 0.24);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-proof) {
+    margin-top: 12px;
+    gap: 6px;
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-proof span) {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: rgba(248, 250, 252, 0.82);
+    border-color: rgba(255, 255, 255, 0.07);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.026) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.035) inset,
+      0 3px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .pageStacionar :global(.footer) {
+    padding-top: 30px;
+    padding-bottom: max(48px, calc(24px + env(safe-area-inset-bottom, 0px)));
+    background: linear-gradient(180deg, #0b253c 0%, #081a2a 17%, #050d16 50%, #02060c 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.032);
+  }
+
+  .pageStacionar :global(.footer-grid) {
+    gap: 22px;
+  }
+
+  .pageStacionar :global(.footer h4) {
+    margin-bottom: 9px;
+    font-size: 10.75px;
+    letter-spacing: 0.105em;
+    color: rgba(248, 250, 252, 0.66);
+  }
+
+  .pageStacionar :global(.footer-text) {
+    margin-top: 12px;
+    font-size: 12.35px;
+    line-height: 1.56;
+    color: rgba(226, 232, 240, 0.56);
+  }
+
+  .pageStacionar :global(.footer-brand small) {
+    font-size: 11px;
+    line-height: 1.4;
+    color: rgba(203, 213, 225, 0.5);
+  }
+
+  .pageStacionar :global(.footer ul) {
+    gap: 7px;
+  }
+
+  .pageStacionar :global(.footer a) {
+    font-size: 12.35px;
+  }
+
+  .pageStacionar :global(.footer-medical-strip) {
+    margin-top: 18px;
+    padding: 10px 12px 11px;
+    border-radius: 12px;
+    border-color: rgba(255, 255, 255, 0.055);
+    background: linear-gradient(148deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.035),
+      0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .pageStacionar :global(.footer-medical-strip__text) {
+    font-size: 12.35px;
+    line-height: 1.48;
+    color: rgba(241, 245, 249, 0.8);
+  }
+
+  .pageStacionar :global(.footer-bottom) {
+    margin-top: 15px;
+    padding-top: 13px;
+    border-top-color: rgba(255, 255, 255, 0.048);
+  }
+
+  .pageStacionar :global(.footer-disclaimer) {
+    font-size: 11.5px;
+    line-height: 1.48;
+    color: rgba(186, 199, 216, 0.46);
+    letter-spacing: 0.006em;
+  }
+
+  .pageStacionar :global(.ic-mockup-scroll-pad) {
+    background:
+      linear-gradient(180deg, rgba(8, 18, 30, 0.24) 0%, transparent 40%),
+      linear-gradient(180deg, #060d14 0%, #03060a 44%, #010305 100%);
+  }
+}
+
+/* Desktop: нижняя треть — единая тёмная оконцовка (FAQ полируется в FAQ.module; здесь CTA + футер + сшивка) */
+@media (min-width: 900px) {
+  .pageStacionar :global(section.ic-faq-service) {
+    border-bottom-color: rgba(190, 206, 224, 0.42);
+  }
+
+  /* Финал CTA: нижний стоп градиента = верх футера — без «шва» */
+  .pageStacionar :global(section.final.ic-final-stacionar) {
+    padding-top: clamp(78px, 10.2vw, 106px);
+    padding-bottom: clamp(82px, 11vw, 114px);
+    background:
+      radial-gradient(ellipse 52% 38% at 14% 78%, rgba(16, 185, 129, 0.1), transparent 55%),
+      radial-gradient(ellipse 48% 32% at 88% 12%, rgba(214, 179, 106, 0.078), transparent 52%),
+      radial-gradient(ellipse 40% 24% at 50% 100%, rgba(0, 0, 0, 0.12), transparent 50%),
+      linear-gradient(180deg, #040d18 0%, #081a2c 28%, #0b2238 58%, #0c2740 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.042),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar) {
+    padding: 21px 23px 22px;
+    gap: 15px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.095);
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.048) 48%,
+      rgba(6, 14, 24, 0.22) 100%
+    );
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.075) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+      0 26px 64px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(18px);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .fi) {
+    border-radius: 13px;
   }
 
   .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .fbtn) {
     min-height: 52px;
-    font-size: 15.5px;
+    font-size: 15.25px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 10px 28px rgba(16, 185, 129, 0.26);
   }
 
   .pageStacionar :global(.ic-final-stacionar .final-form.final-form--stacionar .ic-stacionar-form-hint) {
-    font-size: 12.75px;
+    margin-top: -2px;
+    font-size: 12.125px;
     line-height: 1.52;
+    color: rgba(226, 232, 240, 0.7);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-phone) {
+    font-size: clamp(27px, 2.85vw, 33px);
+    font-weight: 700;
+    letter-spacing: -0.036em;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(248, 250, 252, 0.28);
+    padding-bottom: 4px;
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-proof) {
+    margin-top: clamp(22px, 3vw, 30px);
+    gap: 9px 10px;
+    max-width: min(36rem, 100%);
+  }
+
+  .pageStacionar :global(.ic-final-stacionar .final-proof span) {
+    padding: 8px 14px;
+    font-size: 11.375px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(248, 250, 252, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.038) 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 6px 20px rgba(0, 0, 0, 0.14);
+    transition:
+      border-color 0.28s ease,
+      background 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pageStacionar :global(.ic-final-stacionar .final-proof span:hover) {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.055) 100%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.08) inset,
+        0 8px 24px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  .pageStacionar :global(.footer) {
+    padding-top: clamp(54px, 7.2vw, 72px);
+    padding-bottom: max(46px, calc(28px + env(safe-area-inset-bottom, 0px)));
+    background:
+      radial-gradient(ellipse 55% 42% at 12% 0%, rgba(16, 185, 129, 0.04), transparent 45%),
+      linear-gradient(
+        180deg,
+        #0c2740 0%,
+        #0a2136 14%,
+        #061018 40%,
+        #030910 68%,
+        #02060c 100%
+      );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.038);
+  }
+
+  .pageStacionar :global(.footer-grid) {
+    align-items: start;
+    gap: clamp(30px, 4.2vw, 44px) clamp(24px, 3.4vw, 36px);
+  }
+
+  .pageStacionar :global(.footer-col--brand) {
+    max-width: min(440px, 100%);
+  }
+
+  .pageStacionar :global(.footer h4) {
+    margin-bottom: 14px;
+    font-size: 11.25px;
+    letter-spacing: 0.12em;
+    color: rgba(248, 250, 252, 0.78);
+  }
+
+  .pageStacionar :global(.footer-text) {
+    margin-top: 19px;
+    line-height: 1.7;
     color: rgba(226, 232, 240, 0.66);
+  }
+
+  .pageStacionar :global(.footer ul) {
+    gap: 11px;
+  }
+
+  .pageStacionar :global(.footer-brand small) {
+    color: rgba(203, 213, 225, 0.58);
+  }
+
+  .pageStacionar :global(.footer-medical-strip) {
+    margin-top: clamp(34px, 4vw, 42px);
+    padding: 16px 22px 17px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    background: linear-gradient(152deg, rgba(0, 0, 0, 0.28) 0%, rgba(255, 255, 255, 0.04) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 12px 36px rgba(0, 0, 0, 0.2);
+  }
+
+  .pageStacionar :global(.footer-medical-strip__text) {
+    line-height: 1.58;
+    color: rgba(241, 245, 249, 0.86);
+  }
+
+  .pageStacionar :global(.footer-bottom) {
+    margin-top: clamp(28px, 3.2vw, 34px);
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .pageStacionar :global(.footer-disclaimer) {
+    font-size: 12px;
+    line-height: 1.68;
+    color: rgba(186, 199, 216, 0.52);
+    letter-spacing: 0.01em;
+  }
+
+  .pageStacionar :global(.footer-brand) {
+    letter-spacing: -0.035em;
   }
 }

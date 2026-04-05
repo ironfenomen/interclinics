@@ -10,7 +10,6 @@ import Footer from '@/components/Footer'
 import MobileBar from '@/components/MobileBar'
 import CallbackModal from '@/components/CallbackModal'
 import CookieConsent from '@/components/CookieConsent'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import OpenCallbackButton from '@/components/OpenCallbackButton'
 import styles from './page.module.css'
 
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
   if (!city) return {}
   const pageUrl = `https://interclinics.ru/${city.slug}/kodirovanie/`
   const title = `Кодирование от алкоголизма в ${city.namePrep} — от ${city.priceCoding.toLocaleString('ru')}₽ | ${BRAND_DISPLAY_NAME}`
-  const description = `Кодирование от алкоголизма в ${city.namePrep}. Эспераль, Торпедо, Вивитрол, Довженко. От ${city.priceCoding.toLocaleString('ru')}₽. ☎ ${city.phoneDisplay}`
+  const description = `Кодирование от алкоголизма в ${city.namePrep}. Препаратные и психотерапевтические форматы подбором врача. От ${city.priceCoding.toLocaleString('ru')}₽. ☎ ${city.phoneDisplay}`
   return {
     title,
     description,
@@ -88,94 +87,95 @@ export default function KodirovaniePage({ params }: { params: { city: string } }
   ]
 
   return (
-    <div className={styles.pageRoot}>
+    <div className={`${styles.pageRoot} ${styles.pageKodirovanie} page-kodirovanie`}>
       <Header city={city} />
-      <main>
+      <main className={styles.mainKodirovanie}>
         <section className={styles.hero} aria-labelledby="kodirovanie-hero-heading">
           <div className={styles.heroGlow} aria-hidden />
           <div className={styles.heroMesh} aria-hidden />
-          <div className={`c ${styles.heroInner}`}>
-            <p className={styles.eyebrow}>Медицинское кодирование · врач‑нарколог · {city.namePrep}</p>
+          <div className={`c ${styles.heroScene}`}>
+            <div className={styles.heroMain}>
+              <p className={styles.eyebrow}>
+                <span className={styles.eyebrowPrefix}>Кодирование · врач‑нарколог</span>
+                <span className={styles.eyebrowCity}>{city.namePrep}</span>
+              </p>
 
-            <ul className={styles.heroBadges} aria-label="Ключевые условия">
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                От {city.priceCoding.toLocaleString('ru')} ₽ — ориентир по методам
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                5 форматов кодирования
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                После детоксикации и периода трезвости
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                Метод подбирает врач индивидуально
-              </li>
-            </ul>
+              <h1 id="kodirovanie-hero-heading" className={styles.title}>
+                <span className={styles.titleKicker}>Кодирование от алкоголизма</span>
+                <span className={styles.titleMain}>
+                  В {city.namePrep} — после стабилизации и очного осмотра нарколога
+                </span>
+              </h1>
 
-            <h1 id="kodirovanie-hero-heading" className={styles.title}>
-              <span className={styles.titleKicker}>Кодирование от алкоголизма</span>
-              <span className={styles.titleMain}>
-                В {city.namePrep} — после детоксикации, периода трезвости и осмотра врача
-              </span>
-            </h1>
+              <ul className={styles.heroBadges} aria-label="Условия и формат">
+                <li className={styles.heroBadge}>
+                  <span className={styles.heroBadgeDot} aria-hidden />
+                  От {city.priceCoding.toLocaleString('ru')} ₽ — ориентир · 6 форматов
+                </li>
+                <li className={styles.heroBadge}>
+                  <span className={styles.heroBadgeDot} aria-hidden />
+                  После детоксикации и устойчивой трезвости
+                </li>
+                <li className={styles.heroBadge}>
+                  <span className={styles.heroBadgeDot} aria-hidden />
+                  Метод и срок — по показаниям после осмотра
+                </li>
+              </ul>
 
-            <p className={styles.lead}>
-              Кодирование проводится только после перенесённой детоксикации и устойчивого периода трезвости: ориентир — не менее 3–5 дней, если врач по
-              показаниям и противопоказаниям не определит иначе. Нарколог оценивает состояние и подбирает формат — медикаментозное, психотерапевтическое или
-              комбинированное кодирование. Следующий шаг — консультация и согласование плана: спокойно, без давления и без обещаний «универсального» результата.
-            </p>
+              <p className={styles.lead}>
+                Ориентир по трезвости — часто 3–5 суток; точнее решает врач. Формат подбирают индивидуально. Следующий шаг — консультация и согласование плана,
+                без давления и без обещаний «универсального» результата.
+              </p>
 
-            <div className={styles.heroCtaBlock}>
-              <OpenCallbackButton className={styles.heroCta}>Обсудить кодирование с врачом</OpenCallbackButton>
-              <p className={styles.heroCtaHint}>
-                Или позвоните на линию:{' '}
-                <a className={styles.heroTelLink} href={`tel:${city.phone}`}>
-                  {city.phoneDisplay}
-                </a>
+              <div className={styles.heroActionWell}>
+                <OpenCallbackButton className={`btn btn-primary ${styles.heroCta} ${styles.ctaPremium}`}>
+                  Обсудить кодирование с врачом
+                </OpenCallbackButton>
+                <p className={styles.heroCtaHint}>
+                  Или наберите линию:{' '}
+                  <a className={styles.heroTelLink} href={`tel:${city.phone}`}>
+                    {city.phoneDisplay}
+                  </a>
+                </p>
+              </div>
+
+              <p className={styles.heroTrustStrip}>
+                Лицензия · консультация до процедуры · без гарантий излечения · линия 24/7
               </p>
             </div>
-
-            <p className={styles.heroMicroTrust}>
-              Лицензированная помощь · консультация до процедуры · без гарантий излечения · круглосуточная линия
-            </p>
           </div>
         </section>
 
-        <section className={styles.methodsSection} aria-labelledby="kodirovanie-methods-heading">
+        <section
+          className={`${styles.methodsSection} ic-kodirovanie-methods`}
+          aria-labelledby="kodirovanie-methods-heading"
+        >
           <div className={`c ${styles.methodsInner}`}>
             <header className={styles.methodsHeader}>
-              <p className={styles.methodsKicker}>Форматы кодирования</p>
+              <p className={styles.methodsKicker}>Подбор формата врачом</p>
               <h2 id="kodirovanie-methods-heading" className={styles.methodsTitle}>
-                Методы и ориентиры по стоимости
+                Ориентиры по методам и стоимости
               </h2>
               <p className={styles.methodsLead}>
-                Ниже — варианты, с которыми работает врач. Итоговый формат выбирается после консультации, оценки периода трезвости, противопоказаний и задачи
-                лечения — не «с сайта по одному клику».
+                Ниже — форматы, которые обсуждают после осмотра и оценки трезвости. Цена и срок — ориентир; итог в консультации, не «по списку на экране».
               </p>
             </header>
             <div className={styles.methodsGrid}>
               {methods.map((m, i) => (
                 <article key={i} className={styles.methodCard}>
-                  <div className={styles.methodCardHead}>
-                    <h3 className={styles.methodName}>{m.name}</h3>
-                    <div className={styles.methodMeta}>
-                      <span className={styles.methodPrice}>{m.price}</span>
-                      <span className={styles.methodTerm} title="Срок действия / курса по протоколу">
-                        {m.term}
-                      </span>
-                    </div>
+                  <h3 className={styles.methodName}>{m.name}</h3>
+                  <div className={styles.methodPriceBlock}>
+                    <span className={styles.methodPrice}>{m.price}</span>
+                    <span className={styles.methodTerm} title="Срок или формат по протоколу">
+                      {m.term}
+                    </span>
                   </div>
                   <p className={styles.methodDesc}>{m.desc}</p>
                 </article>
               ))}
             </div>
             <p className={styles.methodsFootnote}>
-              Ориентиры по цене и сроку не заменяют очный осмотр: кодирование проводится после периода трезвости по показаниям; итоговый вариант и момент процедуры
-              согласуются с врачом.
+              Ориентиры не заменяют осмотр: время и вариант согласуют с врачом по показаниям после трезвости.
             </p>
           </div>
         </section>
@@ -188,7 +188,6 @@ export default function KodirovaniePage({ params }: { params: { city: string } }
       <MobileBar city={city} variant="kodirovanie" />
       <CallbackModal city={city} />
       <CookieConsent />
-      <FloatingWhatsApp city={city} />
     </div>
   )
 }

@@ -336,7 +336,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
           aria-describedby="narkolog-final-hint"
         />
         <p id="narkolog-final-hint" className="ic-narkolog-form-hint">
-          Перезвоним, чтобы уточнить адрес, время и ориентир по выезду — без обязательств до согласования с врачом.
+          Перезвоним, чтобы уточнить адрес, время и выезд — до согласования с врачом вы не обязаны.
         </p>
         <label
           className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}
@@ -376,7 +376,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
             textAlign: 'center',
           }}
         >
-          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут, чтобы согласовать консультацию и вопросы по кодированию.
+          Спасибо. Перезвоним в ближайшее время — обычно в течение нескольких минут, чтобы согласовать консультацию.
         </p>
       )
     }
@@ -397,7 +397,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
           aria-describedby="kodirovanie-final-hint"
         />
         <p id="kodirovanie-final-hint" className="ic-kodirovanie-form-hint">
-          Перезвоним, чтобы согласовать консультацию и обсудить, какие варианты кодирования уместны в вашей ситуации — без обязательств до приёма врача.
+          Перезвоним для записи и короткого обсуждения вариантов — до визита к врачу вы не обязаны.
         </p>
         <label
           className={`form-consent-check ${consentError ? 'form-consent--invalid' : ''}`}

@@ -2,6 +2,7 @@
 
 // components/Steps.tsx — variant="vyvod" | "narkolog" для усиленных блоков; иначе — базовая сетка
 import { City } from '@/data/cities'
+import OpenCallbackButton from '@/components/OpenCallbackButton'
 import styles from './Steps.module.css'
 
 type StepsVariant = 'vyvod' | 'narkolog' | undefined
@@ -19,7 +20,7 @@ export default function Steps({ city, variant }: { city: City; variant?: StepsVa
         n: 2,
         title: 'Короткое уточнение',
         text:
-          'На линии спокойно выясняем симптомы и контекст, чтобы врач приехал с нужным набором. Это не замена очному осмотру и не дистанционная постановка диагноза — только ориентир для выезда.',
+          'На линии уточняем симптомы и контекст, чтобы врач приехал с нужным набором. Это не осмотр и не диагноз по телефону — только ориентир для выезда.',
       },
       {
         n: 3,
@@ -30,21 +31,20 @@ export default function Steps({ city, variant }: { city: City; variant?: StepsVa
         n: 4,
         title: 'Помощь на месте и дальнейший шаг',
         text:
-          'Назначенная терапия и процедуры по показаниям, рекомендации на ближайшие часы и дни. При необходимости круглосуточного наблюдения или другого формата обсудим стационар и маршрут — без давления и без обещаний «решим всё за один визит».',
+          'Терапия и процедуры по показаниям, рекомендации на ближайшее время. При необходимости наблюдения или другого формата обсудим стационар и маршрут — без давления и без обещаний «всё за один визит».',
       },
     ]
 
     return (
-      <section className={styles.section} aria-labelledby="narkolog-steps-title">
+      <section className={`${styles.section} ${styles.sectionNarkolog} ic-steps-narkolog`} aria-labelledby="narkolog-steps-title">
         <div className={`c ${styles.inner}`}>
           <header className={styles.header}>
-            <p className={styles.kicker}>Порядок после обращения</p>
+            <p className={styles.kicker}>Маршрут после обращения</p>
             <h2 id="narkolog-steps-title" className={styles.title}>
               Как организован выезд нарколога
             </h2>
             <p className={styles.lead}>
-              Понятная цепочка: контакт и уточнение, приезд врача, осмотр и помощь на дому. Так проще ориентироваться, что будет дальше — без ощущения хаоса и
-              «неизвестности после звонка».
+              Связь → уточнение → приезд → осмотр и помощь на дому. Понятный порядок шагов — без лишней тревоги после звонка.
             </p>
           </header>
 
@@ -63,6 +63,13 @@ export default function Steps({ city, variant }: { city: City; variant?: StepsVa
                 </div>
               </article>
             ))}
+          </div>
+
+          <div className={styles.routeFooter}>
+            <OpenCallbackButton className={`btn btn-primary ${styles.routeCta}`}>
+              Запросить выезд нарколога
+            </OpenCallbackButton>
+            <p className={styles.routeHint}>Время и адрес — на линии; до выезда врача вы ни к чему не обязаны.</p>
           </div>
         </div>
       </section>

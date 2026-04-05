@@ -63,14 +63,20 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
 
   if (variant === 'narkolog') {
     return (
-      <section className="final" id="narkolog-final-cta">
+      <section
+        className={`final ${styles.finalNarkolog} ic-final-narkolog`}
+        id="narkolog-final-cta"
+        aria-labelledby="narkolog-final-heading"
+      >
         <div className="c final-inner">
-          <p className={styles.kicker}>Линия вызова</p>
-          <h2 className={styles.titleVyvod}>Позвоните по линии или оставьте номер для звонка</h2>
-          <p className={`final-lead ${styles.leadAlign}`}>
-            Подойдёт и для себя, и за взрослого близкого. Коротко согласуем следующий шаг: адрес, ориентир по времени и формат выезда — спокойно и по делу. До согласования визита с врачом вы ни к чему не обязаны.
+          <p className={`${styles.kicker} ${styles.kickerNarkolog}`}>Линия вызова</p>
+          <h2 id="narkolog-final-heading">
+            Согласуем выезд: звонок или номер для обратной связи
+          </h2>
+          <p className={`final-lead ${styles.leadAlign} ${styles.leadNarkolog}`}>
+            Для себя или за взрослого близкого. На линии — адрес, время и формат выезда; до визита врача вы ни к чему не обязаны.
           </p>
-          <a className="final-phone" href={`tel:${city.phone}`}>
+          <a className={`final-phone ${styles.phoneNarkolog}`} href={`tel:${city.phone}`}>
             {city.phoneDisplay}
           </a>
           <div className="final-form final-form--narkolog">
@@ -79,7 +85,7 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
           <div className="final-proof">
             <span>Конфиденциально</span>
             <span>Можно за близкого</span>
-            <span>По состоянию подбираем помощь</span>
+            <span>Помощь по показаниям</span>
           </div>
         </div>
       </section>
@@ -88,23 +94,26 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
 
   if (variant === 'kodirovanie') {
     return (
-      <section className="final" id="kodirovanie-final-cta">
+      <section
+        className={`final ${styles.finalKodirovanie} ic-final-kodirovanie`}
+        id="kodirovanie-final-cta"
+        aria-labelledby="kodirovanie-final-heading"
+      >
         <div className="c final-inner">
-          <p className={styles.kicker}>Консультация и запись</p>
-          <h2 className={styles.titleVyvod}>Позвоните по линии или оставьте номер — обсудим кодирование в {city.namePrep}</h2>
-          <p className={`final-lead ${styles.leadAlign}`}>
-            Подойдёт и для себя, и за взрослого близкого. Коротко согласуем следующий шаг: запись, какие форматы имеет смысл обсуждать с врачом и ориентир по
-            стоимости — спокойно и по делу. До приёма вы ни к чему не обязаны.
+          <p className={`${styles.kicker} ${styles.kickerKodirovanie}`}>Консультация по кодированию</p>
+          <h2 id="kodirovanie-final-heading">Обсудим кодирование в {city.namePrep}</h2>
+          <p className={`final-lead ${styles.leadAlign} ${styles.leadKodirovanie}`}>
+            Для себя или за взрослого близкого. На линии — запись и понятный ориентир по форматам и стоимости. До приёма врача вы ни к чему не обязаны.
           </p>
-          <a className="final-phone" href={`tel:${city.phone}`}>
+          <a className={`final-phone ${styles.phoneKodirovanie}`} href={`tel:${city.phone}`}>
             {city.phoneDisplay}
           </a>
           <div className="final-form final-form--kodirovanie">
             <LeadForm city={city} variant="cta" ctaVariant="kodirovanie" />
           </div>
           <div className="final-proof">
-            <span>Метод подбирает врач</span>
-            <span>После трезвости по показаниям</span>
+            <span>Осмотр до процедуры</span>
+            <span>Трезвость по показаниям</span>
             <span>Можно за близкого</span>
           </div>
         </div>
@@ -114,23 +123,29 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
 
   if (variant === 'reabilitaciya') {
     return (
-      <section className="final" id="reabilitaciya-final-cta">
+      <section
+        className={`final ${styles.finalReabilitaciya} ic-final-reabilitaciya`}
+        id="reabilitaciya-final-cta"
+        aria-labelledby="reabilitaciya-final-heading"
+      >
         <div className="c final-inner">
-          <p className={styles.kicker}>Спокойный следующий шаг</p>
-          <h2 className={styles.titleVyvod}>Обсудим программу в {city.namePrep} — без срочного давления</h2>
-          <p className={`final-lead ${styles.leadAlign}`}>
-            Позвоните или оставьте номер: коротко разберём запрос, ориентир по сроку и глубине, стоимость и логистику. Подойдёт и для себя, и за
-            взрослого близкого. До записи в программу вы ни к чему не обязаны.
+          <p className={`${styles.kicker} ${styles.kickerReabilitaciya}`}>Согласование программы</p>
+          <h2 id="reabilitaciya-final-heading" className={styles.titleReabilitaciya}>
+            Программа в {city.namePrep}: спокойно, без давления
+          </h2>
+          <p className={`final-lead ${styles.leadAlign} ${styles.leadReabilitaciya}`}>
+            Позвоните или оставьте номер — разберём запрос и ориентир по сроку и стоимости. Для себя или за взрослого близкого. До записи вы ни к чему
+            не обязаны.
           </p>
-          <a className="final-phone" href={`tel:${city.phone}`}>
+          <a className={`final-phone ${styles.phoneReabilitaciya}`} href={`tel:${city.phone}`}>
             {city.phoneDisplay}
           </a>
           <div className="final-form final-form--reabilitaciya">
             <LeadForm city={city} variant="cta" ctaVariant="reabilitaciya" />
           </div>
           <div className="final-proof">
-            <span>Консультация без обязательств</span>
-            <span>Устойчивость, не «быстрый фикс»</span>
+            <span>Без обязательств до записи</span>
+            <span>Опора, не «быстрый фикс»</span>
             <span>Можно за близкого</span>
           </div>
         </div>

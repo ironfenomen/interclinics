@@ -11,7 +11,6 @@ import Footer from '@/components/Footer'
 import MobileBar from '@/components/MobileBar'
 import CallbackModal from '@/components/CallbackModal'
 import CookieConsent from '@/components/CookieConsent'
-import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import OpenCallbackButton from '@/components/OpenCallbackButton'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import styles from './page.module.css'
@@ -48,64 +47,72 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
   if (!service) notFound()
 
   return (
-    <div className={styles.pageRoot}>
+    <div className={`${styles.pageRoot} ${styles.pageNarkolog} page-narkolog-na-dom`}>
       <Header city={city} />
       <main>
         <section className={styles.hero} aria-labelledby="narkolog-hero-heading">
           <div className={styles.heroGlow} aria-hidden />
           <div className={styles.heroMesh} aria-hidden />
-          <div className={`c ${styles.heroInner}`}>
-            <p className={styles.eyebrow}>Выезд врача · наркология · на адрес в {city.namePrep}</p>
+          <div className={`c ${styles.heroShell}`}>
+            <div className={styles.heroMain}>
+              <p className={styles.eyebrow}>Выезд врача · наркология · на адрес в {city.namePrep}</p>
 
-            <ul className={styles.heroBadges} aria-label="Условия выезда">
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                Врач‑нарколог на ваш адрес
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                Ориентир ~{city.arrivalTime} мин до приезда
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                От {city.priceNarkolog.toLocaleString('ru')} ₽ — ориентир за выезд
-              </li>
-              <li className={styles.heroBadge}>
-                <span className={styles.heroBadgeDot} aria-hidden />
-                Помощь подбирается по состоянию
-              </li>
-            </ul>
+              <div className={styles.heroBadges} aria-label="Формат выезда">
+                <span className={styles.heroBadge}>
+                  <span className={styles.heroBadgeDot} aria-hidden />
+                  Врач‑нарколог на ваш адрес
+                </span>
+                <span className={styles.heroBadge}>
+                  <span className={styles.heroBadgeDot} aria-hidden />
+                  Помощь подбирается по состоянию
+                </span>
+              </div>
 
-            <h1 id="narkolog-hero-heading" className={styles.title}>
-              <span className={styles.titleKicker}>Вызов нарколога на дом</span>
-              <span className={styles.titleMain}>
-                Очный осмотр и врачебная помощь на месте в&nbsp;{city.namePrep}
-              </span>
-            </h1>
+              <h1 id="narkolog-hero-heading" className={styles.title}>
+                <span className={styles.titleKicker}>Вызов нарколога на дом</span>
+                <span className={styles.titleMain}>
+                  Очный осмотр и врачебная помощь на месте в&nbsp;{city.namePrep}
+                </span>
+              </h1>
 
-            <p className={styles.lead}>
-              Врач‑нарколог приезжает по адресу: осмотр, оценка состояния, подбор терапии и процедур на дому — по показаниям, а не «для галочки». При
-              необходимости спокойно обсудим стационар или дальнейший маршрут — без давления. Ориентир по времени приезда и стоимости уточняем при
-              звонке; итог — после осмотра.
-            </p>
-
-            <div className={styles.heroCtaBlock}>
-              <OpenCallbackButton className={styles.heroCta}>Запросить выезд нарколога</OpenCallbackButton>
-              <p className={styles.heroCtaHint}>
-                Или наберите сами:{' '}
-                <a className={styles.heroTelLink} href={`tel:${city.phone}`}>
-                  {city.phoneDisplay}
-                </a>
+              <p className={styles.heroSubline} aria-label="Ориентир по времени приезда и стоимости выезда">
+                <span className={styles.heroSublineRest}>ориентир ~{city.arrivalTime} мин до приезда</span>
+                <span className={styles.heroSublineSep} aria-hidden>
+                  ·
+                </span>
+                <span className={styles.heroSublinePrice}>
+                  <span className={styles.heroPriceFrom}>от</span>{' '}
+                  <span className={styles.heroPriceValue}>{city.priceNarkolog.toLocaleString('ru')}</span>{' '}
+                  <span className={styles.heroPriceCurrency}>₽</span>
+                  <span className={styles.heroPricePer}>за выезд</span>
+                </span>
               </p>
-            </div>
 
-            <p className={styles.heroMicroTrust}>
-              Лицензированная помощь · конфиденциально · автомобиль без рекламной маркировки · круглосуточная линия
-            </p>
+              <p className={styles.lead}>
+                Врач‑нарколог приезжает по адресу: осмотр, оценка состояния, терапия и процедуры на дому — по показаниям. Стационар или другой формат
+                обсуждаем спокойно и без давления. Время приезда и ориентир по стоимости — на линии; итог согласуем после осмотра.
+              </p>
+
+              <p className={styles.heroTrustStrip}>
+                Лицензия · конфиденциально · без рекламы на авто · линия 24/7
+              </p>
+
+              <div className={styles.heroActionWell}>
+                <OpenCallbackButton className={`btn btn-primary ${styles.heroCta} ${styles.ctaPremium}`}>
+                  Запросить выезд нарколога
+                </OpenCallbackButton>
+                <p className={styles.heroCtaHint}>
+                  Или наберите сами:{' '}
+                  <a className={styles.heroTelLink} href={`tel:${city.phone}`}>
+                    {city.phoneDisplay}
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className={styles.includesSection} aria-labelledby="narkolog-includes-heading">
+        <section className={`${styles.includesSection} ic-narkolog-includes`} aria-labelledby="narkolog-includes-heading">
           <div className={`c ${styles.includesInner}`}>
             <header className={styles.includesHeader}>
               <p className={styles.includesKicker}>Формат выездной помощи</p>
@@ -113,8 +120,8 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
                 Что входит в вызов нарколога
               </h2>
               <p className={styles.includesLead}>
-                Ниже — состав типового визита. Объём процедур, препаратов и длительность наблюдения врач определяет после осмотра, с учётом состояния и
-                показаний; при необходимости спокойно обсудит стационар или дальнейший маршрут — без обещаний «универсального» плана.
+                Состав визита — ниже. Объём и препараты — после осмотра, по показаниям; без универсального «пакета». При необходимости — разговор о
+                стационаре или другом формате, без шаблонных обещаний.
               </p>
             </header>
 
@@ -122,7 +129,7 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
               {service.includes.map((item, i) => (
                 <li key={i} className={styles.featureCard}>
                   <span className={styles.featureIcon} aria-hidden>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </span>
@@ -132,21 +139,20 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
             </ul>
 
             <div className={styles.geoCard}>
-              <h3 className={styles.geoTitle}>Выезд по городу и ориентир по времени</h3>
+              <p className={styles.geoKicker}>Выезд и срок</p>
+              <h3 className={styles.geoTitle}>По городу и ориентир по времени</h3>
               <p className={styles.geoLead}>
-                Врач‑нарколог выезжает в {city.namePrep} и по согласованным направлениям рядом с городом. Ориентир до приезда — около {city.arrivalTime}{' '}
-                минут; фактическое время зависит от района, маршрута и загрузки линии — диспетчер уточнит при звонке.
+                Выезд в {city.namePrep} и по согласованию рядом с городом. Ориентир до приезда — около {city.arrivalTime} мин; фактическое время зависит от
+                района, дороги и загрузки линии — уточняем при звонке.
               </p>
               {city.localText ? <p className={styles.geoLocal}>{city.localText}</p> : null}
             </div>
 
             {city.districts.length > 0 ? (
               <div className={styles.districtsBlock}>
-                <h3 className={styles.districtsTitle}>Районы и ориентиры на карте города</h3>
-                <p className={styles.districtsSubtitle}>В {city.namePrep} — в том числе:</p>
-                <p className={styles.districtsNote}>
-                  Перечень не исчерпывающий: при необходимости согласуем выезд и за пределы перечисленных зон — уточняйте на линии.
-                </p>
+                <h3 className={styles.districtsTitle}>Ориентиры по районам</h3>
+                <p className={styles.districtsSubtitle}>В {city.namePrep}, в том числе:</p>
+                <p className={styles.districtsNote}>Ориентиры; выезд за эти зоны — по согласованию на линии.</p>
                 <ul className={styles.districtsList}>
                   {city.districts.map((d, i) => (
                     <li key={i} className={styles.districtChip}>
@@ -168,7 +174,6 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
       <MobileBar city={city} variant="narkolog" />
       <CallbackModal city={city} />
       <CookieConsent />
-      <FloatingWhatsApp city={city} />
     </div>
   )
 }

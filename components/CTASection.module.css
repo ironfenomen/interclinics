@@ -170,6 +170,31 @@
   }
 }
 
+@media (max-width: 899px) {
+  .kickerStacionar {
+    margin-bottom: 6px;
+    letter-spacing: 0.148em;
+    color: rgba(214, 179, 106, 0.66);
+  }
+
+  .finalStacionar :global(#stacionar-final-heading) {
+    font-size: clamp(1.28rem, 4.6vw, 1.54rem);
+    letter-spacing: -0.036em;
+    line-height: 1.07;
+  }
+
+  .leadStacionar {
+    margin-top: 8px;
+    font-size: 14.45px;
+    line-height: 1.51;
+    color: rgba(248, 250, 252, 0.73);
+  }
+
+  .finalStacionar :global(.final-phone) {
+    margin-top: 12px;
+  }
+}
+
 @media (max-width: 560px) {
   .kickerStacionar {
     margin-bottom: 8px;
@@ -209,5 +234,693 @@
   .finalStacionar :global(.final-proof span) {
     padding: 6px 11px;
     font-size: 11.5px;
+  }
+}
+
+/* Desktop: финал стационара — спокойный decision block, сильная иерархия */
+@media (min-width: 900px) {
+  .kickerStacionar {
+    margin-bottom: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(214, 179, 106, 0.72);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .finalStacionar :global(#stacionar-final-heading) {
+    max-width: min(26ch, 100%);
+    font-size: clamp(28px, 3.12vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: #f8fafc;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .leadStacionar {
+    margin-top: clamp(15px, 1.75vw, 18px);
+    max-width: min(33em, 100%);
+    font-size: clamp(15px, 1.42vw, 16.25px);
+    line-height: 1.65;
+    color: rgba(226, 232, 240, 0.78);
+    letter-spacing: 0.005em;
+  }
+
+  .finalStacionar :global(.final-inner) {
+    max-width: min(600px, 100%);
+  }
+
+  .finalStacionar :global(.final-phone) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalStacionar :global(.final-form.final-form--stacionar) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalStacionar :global(.final-proof) {
+    margin-top: clamp(22px, 2.9vw, 28px);
+    gap: 9px;
+  }
+
+  .finalStacionar :global(.final-proof span) {
+    font-size: 11.5px;
+    padding: 7px 13px;
+    border-color: rgba(255, 255, 255, 0.085);
+    background: rgba(255, 255, 255, 0.048);
+  }
+}
+
+/* Финал «Нарколог на дом» — premium decision block (все города) */
+.finalNarkolog {
+  position: relative;
+  z-index: 1;
+  margin-top: -1px;
+}
+
+.kickerNarkolog {
+  margin-bottom: 10px;
+  color: rgba(226, 232, 240, 0.82);
+  letter-spacing: 0.16em;
+}
+
+.finalNarkolog :global(#narkolog-final-heading) {
+  max-width: min(24ch, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(25px, 3.9vw, 35px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.09;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.leadNarkolog {
+  max-width: min(33em, 100%);
+  margin-top: 14px;
+  font-size: clamp(15px, 1.65vw, 16.25px);
+  line-height: 1.58;
+  color: rgba(248, 250, 252, 0.78);
+  font-weight: 500;
+}
+
+.finalNarkolog :global(.final-inner) {
+  max-width: min(640px, 100%);
+}
+
+.finalNarkolog :global(.final-phone) {
+  margin-top: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.038em;
+  transition:
+    color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.phoneNarkolog {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.phoneNarkolog:hover {
+  color: #fff;
+  border-bottom-color: rgba(16, 185, 129, 0.48);
+}
+
+.finalNarkolog :global(.final-form.final-form--narkolog) {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+
+.finalNarkolog :global(.final-proof) {
+  margin-top: clamp(18px, 2.6vw, 24px);
+  max-width: min(32rem, 100%);
+  gap: 7px;
+}
+
+.finalNarkolog :global(.final-proof span) {
+  font-weight: 600;
+  font-size: 11.75px;
+  letter-spacing: 0.02em;
+  color: rgba(248, 250, 252, 0.85);
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.055);
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .finalNarkolog :global(.final-proof span:hover) {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .kickerNarkolog {
+    margin-bottom: 6px;
+    letter-spacing: 0.148em;
+    color: rgba(214, 179, 106, 0.66);
+  }
+
+  .finalNarkolog :global(#narkolog-final-heading) {
+    font-size: clamp(1.26rem, 4.5vw, 1.52rem);
+    letter-spacing: -0.034em;
+    line-height: 1.08;
+  }
+
+  .leadNarkolog {
+    margin-top: 8px;
+    font-size: 14.45px;
+    line-height: 1.51;
+    color: rgba(248, 250, 252, 0.73);
+  }
+
+  .finalNarkolog :global(.final-phone) {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .kickerNarkolog {
+    margin-bottom: 8px;
+  }
+
+  .finalNarkolog :global(#narkolog-final-heading) {
+    max-width: none;
+    font-size: clamp(1.34rem, 5.2vw, 1.58rem);
+    line-height: 1.1;
+  }
+
+  .leadNarkolog {
+    margin-top: 10px;
+    font-size: 14.75px;
+    line-height: 1.55;
+  }
+
+  .finalNarkolog :global(.final-inner > p:first-child) {
+    margin-bottom: 6px;
+  }
+
+  .finalNarkolog :global(.final-phone) {
+    margin-top: 14px;
+    font-size: clamp(23px, 6.5vw, 28px);
+  }
+
+  .finalNarkolog :global(.final-form.final-form--narkolog) {
+    margin-top: 16px;
+  }
+
+  .finalNarkolog :global(.final-proof) {
+    margin-top: 14px;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .finalNarkolog :global(.final-proof span) {
+    padding: 6px 11px;
+    font-size: 11.5px;
+  }
+}
+
+@media (min-width: 900px) {
+  .kickerNarkolog {
+    margin-bottom: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(214, 179, 106, 0.72);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .finalNarkolog :global(#narkolog-final-heading) {
+    max-width: min(28ch, 100%);
+    font-size: clamp(28px, 3.05vw, 35px);
+    line-height: 1.06;
+    letter-spacing: -0.034em;
+    color: #f8fafc;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .leadNarkolog {
+    margin-top: clamp(15px, 1.75vw, 18px);
+    max-width: min(32em, 100%);
+    font-size: clamp(15px, 1.42vw, 16.125px);
+    line-height: 1.64;
+    color: rgba(226, 232, 240, 0.78);
+    letter-spacing: 0.005em;
+  }
+
+  .finalNarkolog :global(.final-inner) {
+    max-width: min(600px, 100%);
+  }
+
+  .finalNarkolog :global(.final-phone) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalNarkolog :global(.final-form.final-form--narkolog) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalNarkolog :global(.final-proof) {
+    margin-top: clamp(22px, 2.9vw, 28px);
+    gap: 9px;
+  }
+
+  .finalNarkolog :global(.final-proof span) {
+    font-size: 11.5px;
+    padding: 7px 13px;
+    border-color: rgba(255, 255, 255, 0.085);
+    background: rgba(255, 255, 255, 0.048);
+  }
+}
+
+/* Финал «Кодирование» — premium decision block (все города) */
+.finalKodirovanie {
+  position: relative;
+  z-index: 1;
+  margin-top: -1px;
+}
+
+.kickerKodirovanie {
+  margin-bottom: 10px;
+  color: rgba(226, 232, 240, 0.82);
+  letter-spacing: 0.16em;
+}
+
+.finalKodirovanie :global(#kodirovanie-final-heading) {
+  /* Длинные namePrep (Минеральных Водах, Невинномысске) — единый баланс без «узкой колонки» */
+  max-width: min(36ch, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(25px, 3.9vw, 35px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.09;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.leadKodirovanie {
+  max-width: min(32em, 100%);
+  margin-top: 14px;
+  font-size: clamp(15px, 1.65vw, 16.25px);
+  line-height: 1.58;
+  color: rgba(248, 250, 252, 0.78);
+  font-weight: 500;
+}
+
+.finalKodirovanie :global(.final-inner) {
+  max-width: min(640px, 100%);
+}
+
+.finalKodirovanie :global(.final-phone) {
+  margin-top: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.038em;
+  transition:
+    color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.phoneKodirovanie {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.phoneKodirovanie:hover {
+  color: #fff;
+  border-bottom-color: rgba(16, 185, 129, 0.48);
+}
+
+.finalKodirovanie :global(.final-form.final-form--kodirovanie) {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+
+.finalKodirovanie :global(.final-proof) {
+  margin-top: clamp(18px, 2.6vw, 24px);
+  max-width: min(34rem, 100%);
+  gap: 7px;
+}
+
+.finalKodirovanie :global(.final-proof span) {
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: rgba(248, 250, 252, 0.85);
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.055);
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .finalKodirovanie :global(.final-proof span:hover) {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .kickerKodirovanie {
+    margin-bottom: 6px;
+    letter-spacing: 0.148em;
+    color: rgba(214, 179, 106, 0.66);
+  }
+
+  .finalKodirovanie :global(#kodirovanie-final-heading) {
+    font-size: clamp(1.26rem, 4.5vw, 1.52rem);
+    letter-spacing: -0.034em;
+    line-height: 1.08;
+  }
+
+  .leadKodirovanie {
+    margin-top: 8px;
+    font-size: 14.45px;
+    line-height: 1.51;
+    color: rgba(248, 250, 252, 0.73);
+  }
+
+  .finalKodirovanie :global(.final-phone) {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .kickerKodirovanie {
+    margin-bottom: 8px;
+  }
+
+  .finalKodirovanie :global(#kodirovanie-final-heading) {
+    max-width: none;
+    font-size: clamp(1.34rem, 5.2vw, 1.58rem);
+    line-height: 1.1;
+  }
+
+  .leadKodirovanie {
+    margin-top: 10px;
+    font-size: 14.75px;
+    line-height: 1.55;
+  }
+
+  .finalKodirovanie :global(.final-inner > p:first-child) {
+    margin-bottom: 6px;
+  }
+
+  .finalKodirovanie :global(.final-phone) {
+    margin-top: 14px;
+    font-size: clamp(23px, 6.5vw, 28px);
+  }
+
+  .finalKodirovanie :global(.final-form.final-form--kodirovanie) {
+    margin-top: 16px;
+  }
+
+  .finalKodirovanie :global(.final-proof) {
+    margin-top: 14px;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .finalKodirovanie :global(.final-proof span) {
+    padding: 6px 11px;
+    font-size: 11.25px;
+  }
+}
+
+@media (min-width: 900px) {
+  .kickerKodirovanie {
+    margin-bottom: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(214, 179, 106, 0.72);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .finalKodirovanie :global(#kodirovanie-final-heading) {
+    max-width: min(34ch, 100%);
+    font-size: clamp(28px, 3.05vw, 35px);
+    line-height: 1.06;
+    letter-spacing: -0.034em;
+    color: #f8fafc;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .leadKodirovanie {
+    margin-top: clamp(15px, 1.75vw, 18px);
+    max-width: min(30em, 100%);
+    font-size: clamp(15px, 1.42vw, 16.125px);
+    line-height: 1.64;
+    color: rgba(226, 232, 240, 0.78);
+    letter-spacing: 0.005em;
+  }
+
+  .finalKodirovanie :global(.final-inner) {
+    max-width: min(600px, 100%);
+  }
+
+  .finalKodirovanie :global(.final-phone) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalKodirovanie :global(.final-form.final-form--kodirovanie) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalKodirovanie :global(.final-proof) {
+    margin-top: clamp(22px, 2.9vw, 28px);
+    gap: 9px;
+  }
+
+  .finalKodirovanie :global(.final-proof span) {
+    font-size: 11.5px;
+    padding: 7px 13px;
+    border-color: rgba(255, 255, 255, 0.085);
+    background: rgba(255, 255, 255, 0.048);
+  }
+}
+
+/* Финал «Реабилитация» — premium decision block (все города) */
+.finalReabilitaciya {
+  position: relative;
+  z-index: 1;
+  margin-top: -1px;
+}
+
+.kickerReabilitaciya {
+  margin-bottom: 10px;
+  color: rgba(226, 232, 240, 0.82);
+  letter-spacing: 0.16em;
+}
+
+.titleReabilitaciya {
+  /* Длинные namePrep (Минеральных Водах, Невинномысске) — единый баланс без «узкой колонки» */
+  max-width: min(44ch, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(25px, 3.9vw, 35px);
+  font-weight: 800;
+  letter-spacing: -0.038em;
+  line-height: 1.09;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.leadReabilitaciya {
+  max-width: min(33em, 100%);
+  margin-top: 14px;
+  font-size: clamp(15px, 1.65vw, 16.25px);
+  line-height: 1.58;
+  color: rgba(248, 250, 252, 0.78);
+  font-weight: 500;
+}
+
+.finalReabilitaciya :global(.final-inner) {
+  max-width: min(640px, 100%);
+}
+
+.finalReabilitaciya :global(.final-phone) {
+  margin-top: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.038em;
+  transition:
+    color 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.phoneReabilitaciya {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.phoneReabilitaciya:hover {
+  color: #fff;
+  border-bottom-color: rgba(16, 185, 129, 0.48);
+}
+
+.finalReabilitaciya :global(.final-form.final-form--reabilitaciya) {
+  margin-top: clamp(20px, 3vw, 28px);
+}
+
+.finalReabilitaciya :global(.final-proof) {
+  margin-top: clamp(18px, 2.6vw, 24px);
+  max-width: min(32rem, 100%);
+  gap: 7px;
+}
+
+.finalReabilitaciya :global(.final-proof span) {
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: rgba(248, 250, 252, 0.82);
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.055);
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .finalReabilitaciya :global(.final-proof span:hover) {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .kickerReabilitaciya {
+    margin-bottom: 6px;
+    letter-spacing: 0.148em;
+    color: rgba(214, 179, 106, 0.66);
+  }
+
+  .titleReabilitaciya {
+    font-size: clamp(1.26rem, 4.5vw, 1.52rem);
+    letter-spacing: -0.034em;
+    line-height: 1.08;
+  }
+
+  .leadReabilitaciya {
+    margin-top: 8px;
+    font-size: 14.45px;
+    line-height: 1.51;
+    color: rgba(248, 250, 252, 0.73);
+  }
+
+  .finalReabilitaciya :global(.final-phone) {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .finalReabilitaciya .kicker {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+  }
+
+  .kickerReabilitaciya {
+    margin-bottom: 8px;
+  }
+
+  .titleReabilitaciya {
+    max-width: none;
+    font-size: clamp(1.34rem, 5.2vw, 1.58rem);
+    line-height: 1.1;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .leadReabilitaciya {
+    margin-top: 10px;
+    font-size: 14.75px;
+    line-height: 1.55;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .finalReabilitaciya :global(.final-inner > p:first-child) {
+    margin-bottom: 6px;
+  }
+
+  .finalReabilitaciya :global(.final-phone) {
+    margin-top: 14px;
+    font-size: clamp(23px, 6.5vw, 28px);
+  }
+
+  .finalReabilitaciya :global(.final-form.final-form--reabilitaciya) {
+    margin-top: 16px;
+  }
+
+  .finalReabilitaciya :global(.final-proof) {
+    margin-top: 14px;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .finalReabilitaciya :global(.final-proof span) {
+    padding: 6px 11px;
+    font-size: 11.5px;
+  }
+}
+
+@media (min-width: 900px) {
+  .kickerReabilitaciya {
+    margin-bottom: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(214, 179, 106, 0.72);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .titleReabilitaciya {
+    max-width: min(40ch, 100%);
+    font-size: clamp(28px, 3.05vw, 35px);
+    line-height: 1.06;
+    letter-spacing: -0.034em;
+    color: #f8fafc;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .leadReabilitaciya {
+    margin-top: clamp(15px, 1.75vw, 18px);
+    max-width: min(32em, 100%);
+    font-size: clamp(15px, 1.42vw, 16.125px);
+    line-height: 1.64;
+    color: rgba(226, 232, 240, 0.78);
+    letter-spacing: 0.005em;
+  }
+
+  .finalReabilitaciya :global(.final-inner) {
+    max-width: min(600px, 100%);
+  }
+
+  .finalReabilitaciya :global(.final-phone) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalReabilitaciya :global(.final-form.final-form--reabilitaciya) {
+    margin-top: clamp(24px, 3.1vw, 32px);
+  }
+
+  .finalReabilitaciya :global(.final-proof) {
+    margin-top: clamp(22px, 2.9vw, 28px);
+    gap: 9px;
+  }
+
+  .finalReabilitaciya :global(.final-proof span) {
+    font-size: 11.5px;
+    padding: 7px 13px;
+    border-color: rgba(255, 255, 255, 0.085);
+    background: rgba(255, 255, 255, 0.048);
   }
 }

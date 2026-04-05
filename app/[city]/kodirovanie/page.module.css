@@ -1,19 +1,272 @@
 /* Кодирование — та же система, что narkolog-na-dom / vyvod / stacionar */
 .pageRoot {
   overflow-x: hidden;
+  --ic-y-section: clamp(56px, 9vw, 88px);
+  /* Единый вертикальный шаг с FAQ (.section использует --vyvod-section-y) */
+  --vyvod-section-y: var(--ic-y-section);
   background:
     radial-gradient(circle at top left, rgba(215, 180, 105, 0.09), transparent 22%),
     radial-gradient(circle at 90% 5%, rgba(16, 185, 129, 0.09), transparent 18%),
     linear-gradient(180deg, #ffffff 0%, #f7fafd 20%, #ffffff 56%, #f6fafd 100%);
 }
 
+@media (max-width: 768px) {
+  .pageRoot {
+    --ic-y-section: clamp(44px, 9vw, 80px);
+  }
+}
+
+/* Тот же каркас, что у стационара: один quality bar текста, без отдельной «шапки страницы» */
+.pageKodirovanie {
+  text-rendering: optimizeLegibility;
+}
+
+.mainKodirovanie {
+  min-width: 0;
+}
+
+/* Тонкий шов hero → методы */
+.pageKodirovanie .hero {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/*
+ * Шаблон «Кодирование»: FAQ → нижний CTA → футер — одна спокойная тёмная оконцовка (все города).
+ */
+/* Один шов methods → FAQ (без двойной линии) */
+.pageKodirovanie .methodsSection {
+  border-bottom: none;
+  box-shadow: inset 0 -1px 0 rgba(220, 230, 241, 0.45);
+}
+
+.pageKodirovanie :global(section.ic-faq-kodirovanie) {
+  border-top-color: rgba(218, 228, 240, 0.55);
+  border-bottom: 1px solid rgba(218, 228, 240, 0.52);
+}
+
+.pageKodirovanie :global(section.final.ic-final-kodirovanie) {
+  padding-top: clamp(68px, 9.5vw, 92px);
+  padding-bottom: clamp(72px, 10vw, 96px);
+  background:
+    radial-gradient(circle at 18% 72%, rgba(16, 185, 129, 0.1), transparent 22%),
+    radial-gradient(circle at 84% 16%, rgba(214, 179, 106, 0.075), transparent 26%),
+    linear-gradient(180deg, #071221 0%, #0b1d35 46%, #0e2840 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 11px;
+  margin-top: clamp(24px, 3.1vw, 32px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding: 16px 16px 17px;
+  border-radius: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.092) 0%, rgba(255, 255, 255, 0.042) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 48px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(16px);
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fi) {
+  border-radius: 12px;
+  min-height: 50px;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fi:focus-visible) {
+  outline: 2px solid rgba(52, 211, 153, 0.42);
+  outline-offset: 2px;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check span) {
+  color: rgba(226, 232, 240, 0.8);
+  line-height: 1.5;
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check a:focus-visible) {
+  outline-offset: 2px;
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check input:focus-visible) {
+  outline: 2px solid rgba(52, 211, 153, 0.45);
+  outline-offset: 2px;
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .ic-kodirovanie-form-hint) {
+  margin: -2px 0 0;
+  font-size: 12.25px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fbtn) {
+  border-radius: 12px;
+  min-height: 52px;
+  font-size: 15.125px;
+  font-weight: 800;
+  letter-spacing: -0.021em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    0 12px 32px rgba(16, 185, 129, 0.28);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fbtn:hover) {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 16px 40px rgba(16, 185, 129, 0.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fbtn:hover) {
+    transform: none;
+  }
+}
+
+.pageKodirovanie :global(.footer) {
+  margin-top: -1px;
+  border-top: none;
+  background: linear-gradient(180deg, #0e2840 0%, #081a2a 20%, #050d16 48%, #030910 100%);
+  padding-top: clamp(44px, 6.5vw, 56px);
+  padding-bottom: max(36px, calc(22px + env(safe-area-inset-bottom, 0px)));
+}
+
+.pageKodirovanie :global(.footer-grid) {
+  gap: clamp(26px, 3.8vw, 36px) clamp(20px, 2.8vw, 30px);
+}
+
+.pageKodirovanie :global(.footer h4) {
+  margin-bottom: 12px;
+  letter-spacing: 0.11em;
+  color: rgba(248, 250, 252, 0.72);
+}
+
+.pageKodirovanie :global(.footer-brand) {
+  letter-spacing: -0.036em;
+}
+
+.pageKodirovanie :global(.footer-brand small) {
+  color: rgba(226, 232, 240, 0.55);
+}
+
+.pageKodirovanie :global(.footer-text) {
+  margin-top: 16px;
+  line-height: 1.68;
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.pageKodirovanie :global(.footer ul) {
+  gap: 10px;
+}
+
+.pageKodirovanie :global(.footer a) {
+  transition:
+    color 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.24s ease;
+}
+
+.pageKodirovanie :global(.footer a:hover) {
+  color: rgba(255, 255, 255, 0.94);
+  border-bottom-color: rgba(16, 185, 129, 0.42);
+}
+
+.pageKodirovanie :global(.footer a:focus-visible) {
+  outline-offset: 3px;
+}
+
+.pageKodirovanie :global(.footer-medical-strip) {
+  margin-top: 28px;
+  max-width: min(720px, 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(145deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.pageKodirovanie :global(.footer-medical-strip__text) {
+  color: rgba(241, 245, 249, 0.82);
+  line-height: 1.55;
+}
+
+.pageKodirovanie :global(.footer-bottom) {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.pageKodirovanie :global(.footer-disclaimer) {
+  color: rgba(203, 213, 225, 0.52);
+  line-height: 1.62;
+}
+
+/* На десктопе без плавающего WA — единый спокойный финал (виджет не подключён на странице) */
+@media (min-width: 769px) {
+  .pageKodirovanie :global(a.ic-float-wa-desktop.float-wa) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageKodirovanie :global(section.final.ic-final-kodirovanie) {
+    padding-top: clamp(48px, 12vw, 64px);
+    padding-bottom: clamp(44px, 11vw, 56px);
+  }
+
+  .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie) {
+    gap: 10px;
+    padding: 14px 14px 15px;
+    border-radius: 15px;
+  }
+
+  .pageKodirovanie :global(.footer) {
+    padding-top: 36px;
+    padding-bottom: max(40px, calc(24px + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .pageKodirovanie :global(.footer-grid) {
+    gap: 28px;
+  }
+
+  .pageKodirovanie :global(.footer-medical-strip) {
+    margin-top: 22px;
+    padding: 12px 14px;
+  }
+
+  .pageKodirovanie :global(.footer-bottom) {
+    margin-top: 18px;
+    padding-top: 16px;
+  }
+
+  .pageKodirovanie :global(.ic-mockup-scroll-pad) {
+    background:
+      linear-gradient(180deg, rgba(8, 18, 30, 0.35) 0%, transparent 42%),
+      linear-gradient(180deg, #060d14 0%, #03060a 45%, #010305 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+}
+
 .hero {
   position: relative;
   overflow: hidden;
+  padding: clamp(40px, 9.5vw, 72px) 0 clamp(44px, 10vw, 88px);
   background:
     radial-gradient(ellipse 90% 60% at 50% -20%, rgba(16, 185, 129, 0.09), transparent 55%),
     linear-gradient(180deg, #050b14 0%, var(--deep) 42%, #071a2e 100%);
-  padding: clamp(48px, 11vw, 80px) 0 clamp(56px, 12vw, 96px);
 }
 
 .heroGlow {
@@ -30,7 +283,7 @@
 .heroMesh {
   position: absolute;
   inset: 0;
-  opacity: 0.35;
+  opacity: 0.34;
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
@@ -38,147 +291,183 @@
   pointer-events: none;
 }
 
-.heroInner {
+.heroScene {
   position: relative;
   z-index: 2;
-  max-width: min(780px, 100%);
+}
+
+.heroMain {
+  max-width: min(720px, 100%);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  min-width: 0;
 }
 
+/* Две строки: одинаковый премиум-ритм для коротких и длинных namePrep */
 .eyebrow {
-  margin: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+
+.eyebrowPrefix {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.38;
+}
+
+.eyebrowCity {
+  font-size: 10.75px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.35;
+  max-width: min(44ch, 100%);
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.title {
+  margin: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28em;
+  text-wrap: balance;
+}
+
+.titleKicker {
+  font-size: clamp(28px, 5.2vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.041em;
+  line-height: 1.07;
+  color: #fff;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.22);
+}
+
+.titleMain {
+  font-size: clamp(18px, 3.35vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.031em;
+  line-height: 1.22;
+  color: rgba(196, 245, 224, 0.92);
+  max-width: min(46ch, 100%);
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .heroBadges {
   list-style: none;
-  margin: 0 auto 26px;
+  margin: 0 auto 20px;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(8px, 1.2vw, 10px);
-  max-width: min(100%, 720px);
+  align-items: center;
+  gap: 8px 10px;
+  max-width: min(100%, 640px);
 }
 
 .heroBadge {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  padding: 8px 13px;
+  gap: 6px;
+  min-height: 32px;
+  padding: 7px 12px 7px 11px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.065);
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.012em;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.088);
+  color: rgba(248, 250, 252, 0.88);
+  font-size: 11.75px;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.011em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .heroBadgeDot {
   flex-shrink: 0;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #d7b469 0%, #b8860b 100%);
-  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.28);
-}
-
-.title {
-  margin: 0 0 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.32em;
-  text-wrap: balance;
-}
-
-.titleKicker {
-  font-size: clamp(28px, 5.4vw, 46px);
-  font-weight: 800;
-  letter-spacing: -0.042em;
-  line-height: 1.08;
-  color: #fff;
-}
-
-.titleMain {
-  font-size: clamp(18px, 3.4vw, 26px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.28;
-  color: #dffcef;
-  max-width: 42ch;
+  background: linear-gradient(145deg, rgba(215, 179, 106, 0.95) 0%, #a67c1a 100%);
+  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.22);
 }
 
 .lead {
-  font-size: clamp(15.5px, 2.25vw, 17.5px);
-  color: rgba(255, 255, 255, 0.62);
-  margin: 0 auto 30px;
-  line-height: 1.72;
-  max-width: 42em;
+  font-size: clamp(15px, 2.1vw, 16.75px);
+  color: rgba(226, 232, 240, 0.72);
+  margin: 0 auto 22px;
+  line-height: 1.62;
+  max-width: min(38em, 100%);
   font-weight: 500;
-  text-wrap: pretty;
+  text-wrap: balance;
+  letter-spacing: 0.01em;
 }
 
-.heroCtaBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 22px;
+.heroActionWell {
+  margin: 0 auto 18px;
+  max-width: min(440px, 100%);
+  padding: 20px 20px 19px;
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 14px 40px rgba(6, 17, 32, 0.14);
+  box-sizing: border-box;
 }
 
 .heroCta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px clamp(22px, 4.5vw, 40px);
-  min-height: 52px;
-  background: linear-gradient(180deg, #12d991, var(--em));
-  color: #fff;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: clamp(15px, 3.4vw, 17px);
-  letter-spacing: -0.02em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;
-  max-width: 100%;
+  width: 100%;
+  max-width: min(420px, 100%);
+  margin: 0 auto;
   box-sizing: border-box;
-  box-shadow: 0 14px 36px rgba(16, 185, 129, 0.28);
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
 }
 
-.heroCta:hover {
+.ctaPremium:global(.btn.btn-primary) {
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 16px 40px rgba(16, 185, 129, 0.32);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ctaPremium:global(.btn.btn-primary):hover {
   transform: translateY(-1px);
-  box-shadow: 0 18px 42px rgba(16, 185, 129, 0.34);
-}
-
-.heroCta:focus-visible {
-  outline: 2px solid rgba(16, 185, 129, 0.55);
-  outline-offset: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 20px 48px rgba(16, 185, 129, 0.38);
 }
 
 .heroCtaHint {
   margin: 14px auto 0;
-  max-width: 34em;
-  font-size: 12px;
-  line-height: 1.55;
+  padding-top: 2px;
+  max-width: 32em;
+  font-size: 11.5px;
+  line-height: 1.5;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.01em;
+  color: rgba(226, 232, 240, 0.45);
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .heroTelLink {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.86);
   font-weight: 700;
   text-decoration: underline;
   text-decoration-color: rgba(16, 185, 129, 0.45);
@@ -190,184 +479,418 @@
   text-decoration-color: rgba(16, 185, 129, 0.75);
 }
 
-.heroMicroTrust {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.55;
+.heroTrustStrip {
+  margin: 0 auto;
+  padding: 10px 14px;
+  max-width: min(520px, 100%);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  font-size: 11.25px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.34);
-  max-width: 36em;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.45;
+  letter-spacing: 0.016em;
+  color: rgba(255, 255, 255, 0.48);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 481px) {
+  .heroTrustStrip {
+    padding: 11px 16px;
+    font-size: 11.5px;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding: clamp(48px, 5.5vw, 72px) 0 clamp(52px, 5.8vw, 84px);
+    background:
+      radial-gradient(circle at 12% 18%, rgba(215, 180, 105, 0.09), transparent 22%),
+      radial-gradient(circle at 88% 12%, rgba(16, 185, 129, 0.11), transparent 24%),
+      radial-gradient(circle at 78% 88%, rgba(255, 255, 255, 0.04), transparent 32%),
+      linear-gradient(180deg, #061120 0%, #0b1d35 48%, #152f4d 100%);
+  }
+
+  .heroGlow {
+    opacity: 0.92;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 62%);
+  }
+
+  .heroMesh {
+    opacity: 0.38;
+  }
+
+  .title {
+    margin-bottom: clamp(20px, 2.4vw, 26px);
+    gap: 0.26em;
+  }
+
+  .titleKicker {
+    font-size: clamp(32px, 2.95vw, 44px);
+    letter-spacing: -0.039em;
+  }
+
+  .titleMain {
+    font-size: clamp(19px, 1.75vw, 24px);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    line-height: 1.24;
+    color: rgba(223, 252, 239, 0.94);
+  }
+
+  .heroBadges {
+    margin-bottom: clamp(22px, 2.6vw, 28px);
+    gap: 10px 12px;
+  }
+
+  .heroBadge {
+    min-height: 33px;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .lead {
+    margin-bottom: clamp(22px, 2.5vw, 28px);
+    font-size: clamp(15.25px, 1.42vw, 16.25px);
+    line-height: 1.64;
+    color: rgba(226, 232, 240, 0.76);
+  }
+
+  .heroActionWell {
+    padding: 22px 23px 21px;
+    margin-bottom: 20px;
+    border-radius: 18px;
+    border-color: rgba(255, 255, 255, 0.115);
+  }
+}
+
+@media (max-width: 899px) {
+  .heroBadges {
+    margin-bottom: 18px;
+    gap: 7px 8px;
+  }
+
+  .lead {
+    margin-bottom: 18px;
+    font-size: 14.75px;
+    line-height: 1.58;
+  }
+
+  .heroActionWell {
+    padding: 16px 16px 15px;
+    border-radius: 16px;
+  }
 }
 
 @media (max-width: 480px) {
   .heroBadge {
     font-size: 11px;
-    padding: 7px 11px;
-    min-height: 32px;
+    padding: 6px 10px 6px 9px;
+    min-height: 30px;
   }
 
   .titleMain {
     max-width: none;
   }
+
+  .heroTrustStrip {
+    font-size: 10.65px;
+    padding: 8px 11px 9px;
+    line-height: 1.4;
+  }
 }
 
-/* --- Методы кодирования (premium grid) --- */
+/* Mobile: один вертикальный ритм с блоком методов и FAQ (слева, без «центр→лево») */
+@media (max-width: 767px) {
+  .pageKodirovanie .heroMain {
+    text-align: left;
+  }
+
+  .pageKodirovanie .eyebrow {
+    align-items: flex-start;
+  }
+
+  .pageKodirovanie .eyebrowCity {
+    text-align: left;
+  }
+
+  .pageKodirovanie .title {
+    align-items: flex-start;
+  }
+
+  .pageKodirovanie .heroBadges {
+    justify-content: flex-start;
+  }
+
+  .pageKodirovanie .lead {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .pageKodirovanie .heroActionWell {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+
+  .pageKodirovanie .heroTrustStrip {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+}
+
+/* --- Методы: premium clinical selector (не каталог цен) --- */
 .methodsSection {
+  position: relative;
   padding: var(--ic-y-section, 88px) 0;
-  background: linear-gradient(180deg, #f6fafc 0%, #fbfcfe 38%, #ffffff 100%);
-  border-top: 1px solid rgba(220, 230, 241, 0.65);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.45);
+  background:
+    radial-gradient(ellipse 72% 42% at 50% 0%, rgba(16, 185, 129, 0.045), transparent 55%),
+    linear-gradient(180deg, #f3f8fc 0%, #fafcfe 40%, #ffffff 100%);
+  border-top: 1px solid rgba(215, 225, 238, 0.7);
+  border-bottom: 1px solid rgba(220, 230, 241, 0.5);
 }
 
 .methodsInner {
-  max-width: min(1120px, 100%);
+  max-width: min(1080px, 100%);
   margin: 0 auto;
 }
 
 .methodsHeader {
   text-align: center;
-  max-width: min(720px, 100%);
-  margin: 0 auto 40px;
+  max-width: min(38rem, 100%);
+  margin: 0 auto clamp(28px, 4vw, 40px);
 }
 
 .methodsKicker {
-  margin: 0 0 12px;
-  font-size: 11px;
+  margin: 0 0 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--em-d);
+  color: rgba(15, 118, 110, 0.88);
 }
 
 .methodsTitle {
-  font-size: clamp(26px, 4vw, 34px);
+  font-size: clamp(25px, 3.6vw, 32px);
   font-weight: 800;
   color: var(--deep);
-  margin: 0 0 16px;
-  letter-spacing: -0.038em;
-  line-height: 1.12;
+  margin: 0 0 12px;
+  letter-spacing: -0.036em;
+  line-height: 1.1;
   text-wrap: balance;
 }
 
 .methodsLead {
   margin: 0;
-  font-size: clamp(15px, 2.1vw, 17px);
-  line-height: 1.68;
+  font-size: clamp(14.5px, 1.85vw, 16px);
+  line-height: 1.58;
   font-weight: 500;
-  color: var(--t2);
-  text-wrap: pretty;
+  color: rgba(71, 85, 105, 0.94);
+  text-wrap: balance;
+  letter-spacing: 0.01em;
 }
 
 .methodsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 12px;
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {
   .methodsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    gap: clamp(16px, 2vw, 20px);
   }
 }
 
 .methodCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 20px 20px 22px;
-  border-radius: 16px;
-  background: #fff;
-  border: 1px solid rgba(220, 230, 241, 0.95);
-  box-shadow: 0 10px 36px rgba(10, 25, 45, 0.055);
+  padding: 0;
+  border-radius: 17px;
+  background: linear-gradient(165deg, #ffffff 0%, #f8fbfd 52%, #fafcfe 100%);
+  border: 1px solid rgba(218, 228, 240, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    0 10px 32px rgba(11, 29, 53, 0.045);
   box-sizing: border-box;
+  overflow: hidden;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.methodCard:hover {
-  border-color: rgba(16, 185, 129, 0.22);
-  box-shadow: 0 14px 40px rgba(10, 25, 45, 0.07);
+.methodCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(215, 179, 106, 0.55) 0%, rgba(16, 185, 129, 0.45) 55%, rgba(11, 29, 53, 0.12) 100%);
+  opacity: 0.88;
+  pointer-events: none;
 }
 
-.methodCardHead {
-  margin-bottom: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+@media (hover: hover) and (pointer: fine) {
+  .methodCard:hover {
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 16px 44px rgba(11, 29, 53, 0.07);
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .methodCard {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .methodCard:hover {
+    transform: none;
+  }
 }
 
 .methodName {
-  font-size: 16px;
+  font-size: 15.75px;
   font-weight: 800;
   color: var(--deep);
-  margin: 0 0 12px;
-  letter-spacing: -0.022em;
-  line-height: 1.28;
+  margin: 0;
+  padding: 18px 18px 0;
+  letter-spacing: -0.024em;
+  line-height: 1.3;
   text-wrap: balance;
 }
 
 @media (min-width: 480px) {
   .methodName {
-    font-size: 17px;
+    font-size: 16.5px;
+    padding: 20px 22px 0;
   }
 }
 
-.methodMeta {
+.methodPriceBlock {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 0 18px 0;
+}
+
+@media (min-width: 480px) {
+  .methodPriceBlock {
+    margin-top: 14px;
+    padding: 0 22px 0;
+  }
 }
 
 .methodPrice {
-  font-size: clamp(18px, 2.2vw, 21px);
+  font-size: clamp(17px, 1.9vw, 19.5px);
   font-weight: 800;
-  color: var(--deep);
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  color: rgba(15, 23, 42, 0.96);
+  letter-spacing: -0.032em;
+  line-height: 1.15;
 }
 
 .methodTerm {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #475569;
-  background: rgba(248, 250, 252, 0.95);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  white-space: nowrap;
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(100, 116, 139, 0.9);
+  line-height: 1.4;
 }
 
 .methodDesc {
-  font-size: 13.5px;
-  line-height: 1.6;
-  font-weight: 500;
-  color: var(--t2);
   margin: 0;
+  margin-top: 14px;
+  padding: 16px 18px 18px;
+  border-top: 1px solid rgba(232, 238, 246, 0.95);
+  font-size: 13.25px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: rgba(71, 85, 105, 0.94);
   flex: 1;
 }
 
 @media (min-width: 480px) {
   .methodDesc {
-    font-size: 14px;
-    line-height: 1.58;
+    font-size: 13.875px;
+    line-height: 1.56;
+    padding: 17px 22px 20px;
+    margin-top: 15px;
   }
 }
 
 .methodsFootnote {
-  margin: 28px auto 0;
-  max-width: min(52em, 100%);
+  margin: clamp(22px, 3.5vw, 32px) auto 0;
+  max-width: min(40em, 100%);
   text-align: center;
-  font-size: 13px;
-  line-height: 1.62;
+  font-size: 12.75px;
+  line-height: 1.55;
   font-weight: 500;
-  color: #64748b;
+  color: rgba(100, 116, 139, 0.88);
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 900px) {
+  .methodsSection {
+    padding: clamp(72px, 8vw, 96px) 0;
+  }
+
+  .methodsHeader {
+    margin-bottom: clamp(36px, 4.5vw, 48px);
+  }
+
+  .methodsLead {
+    font-size: clamp(15px, 1.35vw, 16px);
+    line-height: 1.6;
+  }
+
+  .methodCard {
+    border-radius: 18px;
+    min-height: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .methodsHeader {
+    text-align: left;
+    margin-bottom: 22px;
+  }
+
+  .methodsTitle {
+    font-size: clamp(22px, 5.4vw, 28px);
+  }
+
+  .methodsFootnote {
+    text-align: left;
+    font-size: 12.5px;
+  }
+}
+
+/* Заголовок «Методы» — тот же вертикальный ритм, что у FAQ (последним в каскаде) */
+.pageKodirovanie .methodsHeader {
+  margin: 0 auto clamp(24px, 3.6vw, 36px);
+}
+
+@media (min-width: 900px) {
+  .pageKodirovanie .methodsHeader {
+    margin: 0 auto clamp(32px, 4.2vw, 44px);
+  }
+}
+
+@media (max-width: 767px) {
+  .pageKodirovanie .methodsHeader {
+    margin: 0 auto 22px;
+  }
 }

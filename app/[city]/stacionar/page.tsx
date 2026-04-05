@@ -47,13 +47,13 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
     ? 'Реальные палаты и среда — спокойный ориентир до разговора о поступлении.'
     : nearest
       ? `Те же стандарты — стационар сети в ${nearest.namePrep} при направлении из ${city.nameGen}. Заезд — на линии.`
-      : 'Спокойная среда и режим отделения — без декора вместо факта.'
+      : 'Стандарты сети те же; среду, заезд и детали — на линии, без декора вместо факта.'
 
   const facadeAlt = city.hasStacionar
     ? 'Фасад и вход: ориентир на дороге к отделению'
     : nearest
       ? `Здание стационара сети в ${nearest.namePrep} — ориентир для приезда`
-      : 'Фасад и вход: ориентир на дороге к отделению'
+      : 'Фасад стационара сети — ориентир для приезда уточняют на линии'
 
   const programs: {
     id: string
@@ -292,11 +292,26 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
               )}
 
               {!city.hasStacionar && nearest && (
-                <p className={styles.heroNote}>
-                  Из {city.nameGen} при показаниях — стационар сети в {nearest.namePrep}
-                  {typeof city.nearestStacionarDistance === 'number' && ` (~${city.nearestStacionarDistance} км)`}. Адрес и заезд — на
-                  линии.
-                </p>
+                <div className={styles.heroLocation} aria-label="Госпитализация при показаниях">
+                  <p className={styles.heroLocationKicker}>При показаниях к стационару</p>
+                  <p className={styles.heroLocationAddress}>
+                    Отделение сети в {nearest.namePrep}
+                    {typeof city.nearestStacionarDistance === 'number'
+                      ? ` · ориентир ${city.nearestStacionarDistance} км из ${city.nameGen}`
+                      : ` · обращение из ${city.nameGen}`}
+                  </p>
+                  <p className={styles.heroLocationMeta}>Адрес и заезд — на линии</p>
+                </div>
+              )}
+
+              {!city.hasStacionar && !nearest && (
+                <div className={styles.heroLocation} aria-label="Стационар сети">
+                  <p className={styles.heroLocationKicker}>Стационар сети</p>
+                  <p className={styles.heroLocationAddress}>
+                    При показаниях — госпитализация в отделении сети; география и формат уточняют на линии.
+                  </p>
+                  <p className={styles.heroLocationMeta}>Адрес для заезда — при записи</p>
+                </div>
               )}
 
               <div className={styles.heroActionWell}>

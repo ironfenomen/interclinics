@@ -392,73 +392,727 @@
   }
 }
 
-@media (max-width: 560px) {
-  .sectionStacionar {
-    padding: 34px 0 32px;
+/* Non-desktop: единый лёгкий ритм аккордеона (desktop ≥900 — отдельный блок ниже) */
+@media (max-width: 899px) {
+  .sectionStacionar .header {
+    margin-bottom: clamp(14px, 3.6vw, 20px);
   }
 
-  .sectionStacionar .header {
-    margin-bottom: 16px;
+  .sectionStacionar .kicker {
+    margin-bottom: 7px;
+    font-size: 10px;
+    letter-spacing: 0.132em;
+  }
+
+  .sectionStacionar .title {
+    margin-bottom: 7px;
+    font-size: clamp(1.3rem, 4vw, 1.58rem);
+    line-height: 1.08;
+  }
+
+  .sectionStacionar .subtitle {
+    font-size: 14.5px;
+    line-height: 1.54;
+    max-width: 36em;
   }
 
   .sectionStacionar .list {
-    gap: 6px;
+    gap: 10px;
   }
 
   .sectionStacionar .trigger {
-    padding: 13px 12px 13px 14px;
+    min-height: 0;
+    padding: 10px 12px 10px 14px;
+    gap: 11px;
+  }
+
+  .sectionStacionar .question {
+    font-size: 14.625px;
+    line-height: 1.32;
+  }
+
+  .sectionStacionar .iconWrapStacionar {
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+    margin-top: 0;
+    border: 1px solid rgba(218, 228, 240, 0.78);
+    background: linear-gradient(180deg, rgba(252, 253, 255, 0.98) 0%, rgba(248, 250, 252, 0.92) 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88) inset;
+  }
+
+  .sectionStacionar .iconStacionar {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.65;
+  }
+
+  .sectionStacionar .iconWrapOpen {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.085);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+  }
+
+  .answerStacionar {
+    padding: 7px 12px 12px 37px;
+    font-size: 13.35px;
+    line-height: 1.52;
+    border-top-color: rgba(226, 232, 240, 0.82);
+    background: linear-gradient(180deg, rgba(249, 251, 253, 0.48) 0%, rgba(255, 255, 255, 0.26) 100%);
+    color: rgba(71, 85, 105, 0.94);
+  }
+
+  .sectionStacionar .item {
+    border-radius: 15px;
+  }
+
+  .sectionStacionar .itemOpen {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.99) inset,
+      0 5px 20px rgba(7, 20, 35, 0.038);
+  }
+}
+
+@media (max-width: 560px) {
+  .sectionStacionar {
+    padding: 28px 0 24px;
+  }
+
+  .sectionStacionar .header {
+    margin-bottom: 12px;
+  }
+
+  .sectionStacionar .kicker {
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+  }
+
+  .sectionStacionar .title {
+    margin-bottom: 6px;
+    font-size: clamp(1.28rem, 4.5vw, 1.55rem);
+    line-height: 1.07;
+  }
+
+  .sectionStacionar .subtitle {
+    font-size: 14.5px;
+    line-height: 1.52;
+  }
+
+  /* Легче «гармошка»: больше воздуха между рядами, тише тени */
+  .sectionStacionar .list {
+    gap: 10px;
+  }
+
+  .sectionStacionar .item {
+    border-color: rgba(218, 228, 240, 0.78);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.96) inset,
+      0 3px 14px rgba(7, 20, 35, 0.028);
+  }
+
+  .sectionStacionar .itemOpen {
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.98) inset,
+      0 6px 22px rgba(7, 20, 35, 0.042);
+  }
+
+  .sectionStacionar .trigger {
+    padding: 12px 12px 12px 14px;
     gap: 10px;
     align-items: flex-start;
   }
 
   .triggerBody {
-    gap: 10px;
+    gap: 9px;
   }
 
   .qIndex {
     width: 1.35rem;
     margin-top: 1px;
-    font-size: 10px;
+    font-size: 9.75px;
+    letter-spacing: 0.09em;
+    color: rgba(100, 116, 139, 0.62);
   }
 
   .sectionStacionar .question {
-    line-height: 1.36;
+    line-height: 1.34;
     font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .iconWrapStacionar {
+    border-color: rgba(218, 228, 240, 0.82);
+  }
+
+  .sectionStacionar .iconWrapStacionar {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .sectionStacionar .iconStacionar {
+    width: 14px;
+    height: 14px;
   }
 
   .answerStacionar {
-    padding: 10px 14px 15px 40px;
-    font-size: 13.65px;
-    line-height: 1.62;
+    padding: 8px 14px 14px 39px;
+    font-size: 13.5px;
+    line-height: 1.58;
+    border-top-color: rgba(226, 232, 240, 0.88);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.58) 0%, rgba(255, 255, 255, 0.32) 100%);
   }
 }
 
-@media (max-width: 639px) {
+/* Desktop: премиальный medical FAQ — тише ритм, мягче open, дороже закрытое состояние */
+@media (min-width: 900px) {
+  .sectionStacionar {
+    padding: clamp(52px, 7.5vw, 88px) 0 clamp(50px, 7vw, 76px);
+    background:
+      radial-gradient(ellipse 85% 44% at 50% 0%, rgba(16, 185, 129, 0.045), transparent 52%),
+      radial-gradient(ellipse 50% 36% at 8% 55%, rgba(215, 179, 106, 0.04), transparent 50%),
+      linear-gradient(180deg, #f7fbfd 0%, #f0f6fb 40%, #e9f0f8 100%);
+    border-top: 1px solid rgba(210, 222, 236, 0.58);
+    border-bottom: 1px solid rgba(198, 212, 230, 0.48);
+  }
+
+  .sectionStacionar .inner {
+    max-width: min(672px, 100%);
+  }
+
+  .sectionStacionar .header {
+    margin-bottom: clamp(26px, 3.4vw, 34px);
+  }
+
+  .sectionStacionar .kicker {
+    margin-bottom: 14px;
+    letter-spacing: 0.14em;
+    color: rgba(15, 118, 110, 0.88);
+  }
+
+  .sectionStacionar .title {
+    margin-bottom: 14px;
+    font-size: clamp(26px, 3.1vw, 32px);
+    letter-spacing: -0.041em;
+    line-height: 1.11;
+  }
+
+  .sectionStacionar .subtitle {
+    font-size: clamp(15px, 1.55vw, 16px);
+    line-height: 1.64;
+    color: rgba(71, 85, 105, 0.94);
+  }
+
+  .sectionStacionar .list {
+    gap: 10px;
+  }
+
+  .sectionStacionar .item {
+    border-radius: 18px;
+    border-color: rgba(214, 224, 238, 0.85);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 4px 18px rgba(7, 20, 35, 0.032);
+  }
+
+  .sectionStacionar .itemOpen {
+    border-color: rgba(16, 185, 129, 0.22);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 9px 32px rgba(7, 20, 35, 0.055);
+  }
+
   .sectionStacionar .trigger {
-    min-height: 0;
-    padding: 12px 12px 12px 13px;
+    padding: 18px 20px 18px 22px;
+    gap: 14px;
+  }
+
+  .sectionStacionar .trigger:hover {
+    background: rgba(16, 185, 129, 0.025);
   }
 
   .sectionStacionar .question {
-    font-size: 14.85px;
-    line-height: 1.35;
+    font-size: clamp(15.25px, 1.5vw, 16px);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
   }
 
-  .sectionStacionar .iconWrap,
   .iconWrapStacionar {
     width: 32px;
     height: 32px;
     border-radius: 11px;
-    margin-top: 1px;
+    border-color: rgba(210, 220, 235, 0.95);
+  }
+
+  .iconStacionar {
+    color: rgba(71, 85, 105, 0.82);
+  }
+
+  .sectionStacionar .iconOpen {
+    color: rgba(4, 120, 87, 0.92);
   }
 
   .answerStacionar {
-    padding: 2px 13px 14px 38px;
-    font-size: 13.55px;
-    line-height: 1.6;
+    padding: 14px 22px 20px 56px;
+    font-size: 14.5px;
+    line-height: 1.69;
+    color: #475569;
+    border-top: 1px solid rgba(228, 235, 244, 0.92);
+    background: linear-gradient(180deg, rgba(252, 253, 255, 0.95) 0%, rgba(248, 250, 252, 0.75) 100%);
   }
 
-  .sectionStacionar .item {
+  .qIndex {
+    color: rgba(100, 116, 139, 0.65);
+  }
+}
+
+/* --- variant=narkolog: premium medical FAQ (не затрагивает vyvod / прочие) --- */
+.faqNarkolog {
+  background:
+    radial-gradient(ellipse 78% 48% at 50% 0%, rgba(16, 185, 129, 0.042), transparent 52%),
+    linear-gradient(180deg, #ffffff 0%, #f3f8fc 40%, #f8fafc 100%);
+  border-top-color: rgba(218, 228, 240, 0.65);
+}
+
+.faqNarkolog .inner {
+  max-width: min(720px, 100%);
+}
+
+.faqNarkolog .header {
+  margin-bottom: clamp(24px, 3.6vw, 36px);
+}
+
+.faqNarkolog .kicker {
+  margin-bottom: 11px;
+  letter-spacing: 0.145em;
+  color: rgba(15, 118, 110, 0.88);
+}
+
+.faqNarkolog .title {
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.faqNarkolog .subtitle {
+  max-width: 36em;
+  font-size: clamp(14.75px, 2vw, 16.25px);
+  line-height: 1.58;
+  font-weight: 500;
+  color: rgba(71, 85, 105, 0.92);
+}
+
+.faqNarkolog .list {
+  gap: 9px;
+}
+
+.faqNarkolog .item {
+  border-radius: 16px;
+  border-color: rgba(220, 230, 241, 0.9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 5px 20px rgba(7, 20, 35, 0.035);
+}
+
+.faqNarkolog .itemOpen {
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 10px 34px rgba(7, 20, 35, 0.065);
+}
+
+.faqNarkolog .question {
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.38;
+}
+
+.faqNarkolog .answer {
+  padding: 0 20px 16px 20px;
+  font-size: 14.375px;
+  line-height: 1.62;
+  color: rgba(71, 85, 105, 0.94);
+  border-top-color: rgba(232, 238, 246, 0.95);
+  background: linear-gradient(180deg, rgba(252, 253, 255, 0.65) 0%, transparent 100%);
+}
+
+.faqNarkolog .trigger:hover {
+  background: rgba(16, 185, 129, 0.032);
+}
+
+@media (min-width: 900px) {
+  .faqNarkolog {
+    padding: clamp(64px, 8vw, 96px) 0;
+  }
+
+  .faqNarkolog .trigger {
+    padding: 18px 20px 18px 22px;
+  }
+
+  .faqNarkolog .answer {
+    padding: 0 22px 18px 22px;
+    font-size: 14.5px;
+    line-height: 1.64;
+  }
+}
+
+@media (max-width: 899px) {
+  .faqNarkolog {
+    padding: clamp(44px, 10vw, 64px) 0;
+  }
+
+  .faqNarkolog .header {
+    margin-bottom: 20px;
+  }
+
+  .faqNarkolog .subtitle {
+    font-size: 14.5px;
+    line-height: 1.52;
+  }
+
+  .faqNarkolog .list {
+    gap: 8px;
+  }
+
+  .faqNarkolog .item {
+    border-radius: 14px;
+  }
+
+  .faqNarkolog .trigger {
+    padding: 13px 14px 13px 16px;
+  }
+
+  .faqNarkolog .question {
+    font-size: 14.75px;
+    line-height: 1.34;
+  }
+
+  .faqNarkolog .answer {
+    padding: 0 16px 14px 16px;
+    font-size: 14px;
+    line-height: 1.56;
+  }
+
+  .faqNarkolog .iconWrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 560px) {
+  .faqNarkolog .answer {
+    font-size: 13.875px;
+    line-height: 1.55;
+  }
+}
+
+/* Кодирование: тот же premium-ритм, чуть плотнее ответ на mobile */
+.faqKodirovanie {
+  background:
+    radial-gradient(ellipse 78% 48% at 50% 0%, rgba(16, 185, 129, 0.04), transparent 52%),
+    linear-gradient(180deg, #ffffff 0%, #f3f8fc 40%, #f8fafc 100%);
+  border-top-color: rgba(218, 228, 240, 0.65);
+}
+
+.faqKodirovanie .inner {
+  max-width: min(720px, 100%);
+}
+
+.faqKodirovanie .header {
+  margin-bottom: clamp(24px, 3.6vw, 36px);
+}
+
+.faqKodirovanie .kicker {
+  margin-bottom: 11px;
+  letter-spacing: 0.145em;
+  color: rgba(15, 118, 110, 0.88);
+}
+
+.faqKodirovanie .title {
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.faqKodirovanie .subtitle {
+  max-width: 36em;
+  font-size: clamp(14.75px, 2vw, 16.25px);
+  line-height: 1.58;
+  font-weight: 500;
+  color: rgba(71, 85, 105, 0.92);
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.faqKodirovanie .list {
+  gap: 9px;
+}
+
+.faqKodirovanie .item {
+  border-radius: 16px;
+  border-color: rgba(220, 230, 241, 0.9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 5px 20px rgba(7, 20, 35, 0.035);
+}
+
+.faqKodirovanie .itemOpen {
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 10px 34px rgba(7, 20, 35, 0.065);
+}
+
+.faqKodirovanie .question {
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.38;
+}
+
+.faqKodirovanie .answer {
+  padding: 0 20px 16px 20px;
+  font-size: 14.375px;
+  line-height: 1.62;
+  color: rgba(71, 85, 105, 0.94);
+  border-top-color: rgba(232, 238, 246, 0.95);
+  background: linear-gradient(180deg, rgba(252, 253, 255, 0.65) 0%, transparent 100%);
+}
+
+.faqKodirovanie .trigger:hover {
+  background: rgba(16, 185, 129, 0.032);
+}
+
+@media (min-width: 900px) {
+  .faqKodirovanie {
+    padding: clamp(64px, 8vw, 96px) 0;
+  }
+
+  .faqKodirovanie .trigger {
+    padding: 18px 20px 18px 22px;
+  }
+
+  .faqKodirovanie .answer {
+    padding: 0 22px 18px 22px;
+    font-size: 14.5px;
+    line-height: 1.64;
+  }
+}
+
+@media (max-width: 899px) {
+  .faqKodirovanie {
+    padding: clamp(44px, 10vw, 64px) 0;
+  }
+
+  .faqKodirovanie .header {
+    margin-bottom: 20px;
+  }
+
+  .faqKodirovanie .subtitle {
+    font-size: 14.5px;
+    line-height: 1.52;
+  }
+
+  .faqKodirovanie .list {
+    gap: 8px;
+  }
+
+  .faqKodirovanie .item {
+    border-radius: 14px;
+  }
+
+  .faqKodirovanie .trigger {
+    padding: 13px 14px 13px 16px;
+  }
+
+  .faqKodirovanie .question {
+    font-size: 14.75px;
+    line-height: 1.34;
+  }
+
+  .faqKodirovanie .answer {
+    padding: 0 16px 13px 16px;
+    font-size: 14px;
+    line-height: 1.54;
+  }
+
+  .faqKodirovanie .iconWrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 560px) {
+  .faqKodirovanie .answer {
+    font-size: 13.75px;
+    line-height: 1.52;
+    padding-bottom: 12px;
+  }
+}
+
+/* Реабилитация: premium recovery FAQ — спокойный медицинско‑психологический тон */
+.faqReabilitaciya {
+  background:
+    radial-gradient(ellipse 72% 42% at 50% 0%, rgba(215, 179, 106, 0.045), transparent 52%),
+    radial-gradient(ellipse 78% 48% at 50% 0%, rgba(16, 185, 129, 0.038), transparent 52%),
+    linear-gradient(180deg, #ffffff 0%, #f4f8fc 40%, #f9fbfd 100%);
+  border-top-color: rgba(218, 228, 240, 0.68);
+}
+
+.faqReabilitaciya .inner {
+  max-width: min(720px, 100%);
+}
+
+.faqReabilitaciya .header {
+  margin-bottom: clamp(24px, 3.5vw, 36px);
+}
+
+.faqReabilitaciya .kicker {
+  margin-bottom: 11px;
+  letter-spacing: 0.145em;
+  color: rgba(15, 118, 110, 0.88);
+}
+
+.faqReabilitaciya .kicker::before {
+  background: linear-gradient(145deg, rgba(215, 179, 106, 0.95), rgba(16, 185, 129, 0.85));
+}
+
+.faqReabilitaciya .title {
+  margin-bottom: 12px;
+  line-height: 1.1;
+  letter-spacing: -0.036em;
+}
+
+.faqReabilitaciya .subtitle {
+  max-width: 36em;
+  font-size: clamp(14.75px, 2vw, 16.25px);
+  line-height: 1.58;
+  font-weight: 500;
+  color: rgba(71, 85, 105, 0.93);
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.faqReabilitaciya .list {
+  gap: 9px;
+}
+
+.faqReabilitaciya .item {
+  border-radius: 17px;
+  border-color: rgba(218, 228, 240, 0.92);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.97) inset,
+    0 5px 20px rgba(7, 20, 35, 0.034);
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqReabilitaciya .itemOpen {
+  border-color: rgba(16, 185, 129, 0.24);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 10px 36px rgba(7, 20, 35, 0.062);
+}
+
+.faqReabilitaciya .question {
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.38;
+}
+
+.faqReabilitaciya .answer {
+  padding: 0 20px 17px 20px;
+  font-size: 14.375px;
+  line-height: 1.64;
+  color: rgba(71, 85, 105, 0.94);
+  border-top-color: rgba(232, 238, 246, 0.95);
+  background: linear-gradient(180deg, rgba(252, 253, 255, 0.72) 0%, transparent 100%);
+}
+
+.faqReabilitaciya .trigger:hover {
+  background: rgba(16, 185, 129, 0.028);
+}
+
+.faqReabilitaciya .trigger:focus-visible {
+  outline-width: 2px;
+  outline-offset: 2px;
+}
+
+.faqReabilitaciya .iconWrap {
+  transition:
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.38s cubic-bezier(0.33, 0.85, 0.32, 1);
+}
+
+@media (min-width: 900px) {
+  .faqReabilitaciya {
+    padding: clamp(64px, 8vw, 96px) 0;
+  }
+
+  .faqReabilitaciya .trigger {
+    padding: 18px 20px 18px 22px;
+  }
+
+  .faqReabilitaciya .answer {
+    padding: 0 22px 19px 22px;
+    font-size: 14.5px;
+    line-height: 1.66;
+  }
+}
+
+@media (max-width: 899px) {
+  .faqReabilitaciya {
+    padding: clamp(44px, 10vw, 64px) 0;
+  }
+
+  .faqReabilitaciya .header {
+    margin-bottom: 20px;
+  }
+
+  .faqReabilitaciya .subtitle {
+    font-size: 14.5px;
+    line-height: 1.52;
+  }
+
+  .faqReabilitaciya .list {
+    gap: 8px;
+  }
+
+  .faqReabilitaciya .item {
     border-radius: 15px;
+  }
+
+  .faqReabilitaciya .trigger {
+    padding: 13px 14px 13px 16px;
+  }
+
+  .faqReabilitaciya .question {
+    font-size: 14.75px;
+    line-height: 1.34;
+  }
+
+  .faqReabilitaciya .answer {
+    padding: 0 16px 14px 16px;
+    font-size: 14px;
+    line-height: 1.56;
+  }
+
+  .faqReabilitaciya .iconWrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 560px) {
+  .faqReabilitaciya .answer {
+    font-size: 13.75px;
+    line-height: 1.54;
+    padding-bottom: 13px;
   }
 }
