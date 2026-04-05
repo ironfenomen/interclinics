@@ -58,8 +58,12 @@ export async function generateMetadata({ params }: { params: { city: string } })
   const city = getCityBySlug(params.city)
   if (!city) return {}
   const pageUrl = `https://interclinics.ru/${city.slug}/reabilitaciya/`
-  const title = `Реабилитация и восстановление в ${city.namePrep} — программа сопровождения | ${BRAND_DISPLAY_NAME}`
-  const description = `Психосоциальное восстановление в ${city.namePrep}: этапность, сопровождение, работа с семьёй. Ориентир от ${city.priceRehabDay.toLocaleString('ru')} ₽/сутки. Консультация по срокам. ☎ ${city.phoneDisplay}`
+  const title = city.hasRehab
+    ? `Реабилитация и восстановление в ${city.namePrep} — программа сопровождения | ${BRAND_DISPLAY_NAME}`
+    : `Реабилитация и сопровождение для жителей ${city.nameGen} — программа сети | ${BRAND_DISPLAY_NAME}`
+  const description = city.hasRehab
+    ? `Психосоциальное восстановление в ${city.namePrep}: этапность, сопровождение, работа с семьёй. Ориентир от ${city.priceRehabDay.toLocaleString('ru')} ₽/сутки. Консультация по срокам. ☎ ${city.phoneDisplay}`
+    : `Психосоциальное восстановление для жителей ${city.nameGen}: этапность и сопровождение сети ${BRAND_DISPLAY_NAME}. Ориентир от ${city.priceRehabDay.toLocaleString('ru')} ₽/сутки; центр прохождения и логистика — по согласованию на линии. ☎ ${city.phoneDisplay}`
   return {
     title,
     description,
@@ -137,7 +141,9 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
             <h1 id="reabilitaciya-hero-heading" className={styles.title}>
               <span className={styles.titleKicker}>Реабилитация и сопровождение</span>
               <span className={styles.titleMain}>
-                В {city.namePrep} — опора после стабилизации, без срочного «выхода в ноль»
+                {city.hasRehab
+                  ? `В ${city.namePrep} — опора после стабилизации, без срочного «выхода в ноль»`
+                  : `Для жителей ${city.nameGen} — опора после стабилизации, без срочного «выхода в ноль»`}
               </span>
             </h1>
 
@@ -201,11 +207,8 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
 
             {!city.hasRehab && routeCenter && (
               <p className={styles.programsContextLine}>
-                Программы для жителей {city.nameGen} проходят в центре сети в {routeCenter.namePrep}
-                {typeof city.nearestStacionarDistance === 'number'
-                  ? ` (ориентир ~${city.nearestStacionarDistance} км).`
-                  : '.'}{' '}
-                Сроки и логистику согласуем при обращении.
+                Программы для жителей {city.nameGen} проходят в центре сети ({routeCenter.name}). Сроки, заезд и логистику согласуем при обращении —
+                без обещаний «как на экране».
               </p>
             )}
 
@@ -318,7 +321,7 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
                 </article>
               ))}
             </div>
-            {city.rehabProgram?.trim() && (
+            {city.hasRehab && city.rehabProgram?.trim() && (
               <p className={`${styles.methodsFootnote} ${styles.recoveryIncludesFootnote}`}>
                 В групповой части может использоваться формат «{city.rehabProgram}» рядом с индивидуальной поддержкой — по правилам программы.
               </p>
@@ -342,7 +345,7 @@ export default function ReabilitaciyaPage({ params }: { params: { city: string }
             </header>
             <div className={styles.narrativeRhythmBody}>
               <p className={styles.narrativePara}>
-                Реабилитация — это не сутки «под капельницей» и не гонка. Здесь важны регулярность, предсказуемость и участие: человек не
+                Реабилитация — это не сутки только острой выездной помощи и не гонка. Здесь важны регулярность, предсказуемость и участие: человек не
                 «перетерпевает», а постепенно перестраивает распорядок, отношения к себе и к близким. Задача программы — дать опору и язык для
                 этого, без морализаторства и без обещания, что достаточно одного рывка.
               </p>

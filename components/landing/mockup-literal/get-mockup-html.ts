@@ -1,7 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { getActiveCities, getCitiesInSwitcherOrder, getCityBySlug, type City } from '@/data/cities'
+import {
+  getActiveCities,
+  getCitiesInSwitcherOrder,
+  getCityBySlug,
+  isStavropolCity,
+  type City,
+} from '@/data/cities'
 import { buildMockupFooterLegalHtml } from '@/lib/footer-legal-mockup'
 import {
   brigadePluralPhrase,
@@ -51,16 +57,19 @@ function isStavropolBase(city: City): boolean {
 /** Лид гео-блока: на базовом городе — фактический адрес; в остальных — без имитации локального «дома» на улице. */
 function coverageLeadHtml(city: City): string {
   if (isStavropolBase(city)) {
-    return `В ${city.namePrep} доступны очный приём, стационар и выезд бригады на дом. Адрес и ориентир по времени можно уточнить до выезда. Ниже — как связаны приём, стационар и выездная помощь, и по каким районам обычно работает бригада.`
+    return `В ${city.namePrep} доступны очный приём, стационар и выезд бригады на дом. Адрес и ориентир по времени можно уточнить при записи. Ниже — как связаны приём, стационар и выездная помощь, и по каким районам обычно работает бригада.`
   }
-  return `В ${city.namePrep} доступны очный приём, координация выезда бригады и организация стационара в сети при необходимости. Точку приёма и ориентир по времени выезда согласуют при звонке. Ниже — как связаны приём, стационар в другом пункте сети и выездная помощь, и по каким районам обычно работает бригада.`
+  return `В ${city.namePrep} доступны очный приём, координация выезда бригады и организация стационара в сети при необходимости. Точку приёма и порядок выезда согласуют при звонке. Ниже — как связаны приём, стационар в другом пункте сети и выездная помощь, и по каким районам обычно работает бригада.`
 }
 
 /** Блок «приём в городе» без вывода чужого/ставропольского адреса как локального (все города, кроме базового стационара). */
 function receptionCoordinationBlockHtml(city: City): string {
+  const logisticsPhrase = isStavropolCity(city)
+    ? 'Точку приёма, ориентир по времени выезда и маршрут госпитализации при необходимости согласуют при звонке — с учётом района и загрузки линии.'
+    : 'Точку приёма, порядок выезда и маршрут госпитализации при необходимости согласуют при звонке — с учётом района и загрузки линии.'
   return `<div class="coverage-address coverage-address--local coverage-address--city-first">
       <div class="coverage-address__title">Приём и координация в ${city.namePrep}</div>
-      <p class="coverage-address__text">Координация очного приёма, выезда бригады и записи — в ${city.namePrep}. Точку приёма, ориентир по времени выезда и маршрут госпитализации при необходимости согласуют при звонке — с учётом района и загрузки линии.</p>
+      <p class="coverage-address__text">Координация очного приёма, выезда бригады и записи — в ${city.namePrep}. ${logisticsPhrase}</p>
       <p class="coverage-address__hint">Конкретный адрес точки приёма и логистика выезда уточняются при обращении.</p>
     </div>`
 }
@@ -89,14 +98,10 @@ function coverageAddressHtml(city: City): string {
 
   if (!city.hasStacionar && city.nearestStacionarSlug) {
     const n = getCityBySlug(city.nearestStacionarSlug)
-    const km =
-      typeof city.nearestStacionarDistance === 'number'
-        ? ` Расстояние ориентировочно около ${city.nearestStacionarDistance} км.`
-        : ''
     if (n) {
       blocks.push(`<div class="coverage-address coverage-address--network">
         <div class="coverage-address__title">Стационар сети</div>
-        <p class="coverage-address__text">Стационарное лечение для жителей ${city.nameGen} организуем в ${n.namePrep}.${km}</p>
+        <p class="coverage-address__text">Стационарное лечение для жителей ${city.nameGen} организуем в ${n.namePrep}. Направление и логистику согласуют при обращении — по показаниям и договорённости.</p>
         <p class="coverage-address__hint">Направление и перевозка — по решению врача и договорённости с семьёй.</p>
       </div>`)
     }
@@ -147,11 +152,7 @@ function stacionarMetaHtml(city: City): string {
   if (!city.hasStacionar && city.nearestStacionarSlug) {
     const n = getCityBySlug(city.nearestStacionarSlug)
     if (n) {
-      const km =
-        typeof city.nearestStacionarDistance === 'number'
-          ? ` · ориентир ${city.nearestStacionarDistance} км`
-          : ''
-      return `<p class="stacionar-meta stacionar-meta--nearest">Стационарное лечение для пациентов из ${city.name} организуем в клинике в ${n.namePrep}${km}. Программы и стоимость ниже — для этого центра.</p>`
+      return `<p class="stacionar-meta stacionar-meta--nearest">Стационарное лечение для пациентов из ${city.name} организуем в клинике в ${n.namePrep}. Программы и стоимость ниже — для этого центра. Направление согласуют на линии.</p>`
     }
   }
   return ''
@@ -198,9 +199,58 @@ function citySwitcherHtml(current: City): string {
 </div>`
 }
 
+function mockupTemplateForCity(city: City): string {
+  let t = loadTemplate()
+  if (!isStavropolCity(city)) {
+    t = t
+      .replace(
+        '<div class="hero-badge"><span class="dot"></span>Выезд врача — до __ARRIVAL__ минут</div>',
+        '<div class="hero-badge"><span class="dot"></span>Выезд нарколога на дом</div>',
+      )
+      .replace(
+        'Круглосуточная линия: выезд нарколога на дом (ориентир — __ARRIVAL__ мин), при необходимости — очный приём.',
+        'Круглосуточная линия: выезд нарколога на дом и согласование формата на линии; при необходимости — очный приём.',
+      )
+      .replace(
+        'Лицензия · Конфиденциально · Выезд до __ARRIVAL__ мин',
+        'Лицензия · Конфиденциально · Координация 24/7',
+      )
+      .replace(
+        '<span class="badge coverage-map-eyebrow">Районы и ориентир по времени</span>',
+        '<span class="badge coverage-map-eyebrow">Районы выезда</span>',
+      )
+      .replace(
+        '<p class="coverage-map-lead">Районы и направления, куда чаще всего ездим. Время прибытия называют при звонке — с учётом адреса и дороги.</p>',
+        '<p class="coverage-map-lead">Районы и направления обслуживания. Детали выезда согласуют при звонке — с учётом адреса, загрузки линии и ситуации.</p>',
+      )
+      .replace('<div class="pin p1">Клиника / база выезда</div>', '<div class="pin p1">Сеть · координация выезда</div>')
+      .replace(
+        '<div class="pin p2">По городу — ~__ARRIVAL__ мин</div>',
+        '<div class="pin p2">По городу — по согласованию</div>',
+      )
+      .replace(
+        '<div class="pin p3">Дальние участки — до __ARRIVAL_MAX__ мин</div>',
+        '<div class="pin p3">Удалённые участки — уточняют на линии</div>',
+      )
+      .replace(
+        'Точный ориентир согласуют при звонке: время зависит от района, загрузки бригад и времени суток.',
+        'Порядок выезда и загрузку линии согласуют при звонке — без обещаний «с экрана».',
+      )
+      .replace(
+        '<p>По заявке в __CITY_PREP__ уточняют адрес, ориентир по времени и что желательно подготовить до приезда бригады.</p>',
+        '<p>По заявке в __CITY_PREP__ уточняют адрес, порядок выезда и что желательно подготовить до приезда бригады.</p>',
+      )
+      .replace(
+        '<div class="faq-a__inner">Ориентир по времени зависит от загрузки бригад, района и ситуации. При звонке скажут честно: когда можно ждать врача и что делать до приезда. В часы пик или при большом расстоянии срок может сдвинуться — это лучше озвучить сразу, чем обещать нереальное. Заявки обычно принимают круглосуточно или в режиме, указанном для вашего города в контактах; выезд ночью возможен, если это предусмотрено службой.</div>',
+        '<div class="faq-a__inner">Срок выезда зависит от загрузки бригад, района и ситуации. При звонке объяснят порядок ожидания и что делать до приезда бригады. В часы пик или при высокой загрузке линии интервал может сдвинуться — это лучше озвучить сразу, чем обещать нереальное. Заявки обычно принимают круглосуточно или в режиме, указанном для вашего города в контактах; выезд ночью возможен, если это предусмотрено службой.</div>',
+      )
+  }
+  return t
+}
+
 /** HTML тела страницы — буквальный мокап + подстановки города (без изменения визуала макета). */
 export function getMockupHtml(city: City): string {
-  const t = loadTemplate()
+  const t = mockupTemplateForCity(city)
   return t
     .replaceAll('__HOW_WE_WORK_SECTION__', MOCKUP_HOW_WE_WORK_SECTION_INNER)
     .replaceAll('__PHONE__', city.phone.replace(/\s/g, ''))

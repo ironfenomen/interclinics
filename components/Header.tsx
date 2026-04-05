@@ -95,7 +95,7 @@ export default function Header({ city }: { city: City }) {
                 <span className="city-chip__label">{city.name}</span>
               </a>
               <a
-                className="header-phone header-phone--mobile-inline"
+                className="header-phone header-phone--mobile-stack"
                 href={`tel:${city.phone}`}
                 aria-label={`Позвонить ${city.phoneDisplay}`}
               >

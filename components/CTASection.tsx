@@ -100,10 +100,10 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
         aria-labelledby="kodirovanie-final-heading"
       >
         <div className="c final-inner">
-          <p className={`${styles.kicker} ${styles.kickerKodirovanie}`}>Консультация по кодированию</p>
-          <h2 id="kodirovanie-final-heading">Обсудим кодирование в {city.namePrep}</h2>
+          <p className={`${styles.kicker} ${styles.kickerKodirovanie}`}>Запись на консультацию</p>
+          <h2 id="kodirovanie-final-heading">Кодирование в {city.namePrep}</h2>
           <p className={`final-lead ${styles.leadAlign} ${styles.leadKodirovanie}`}>
-            Для себя или за взрослого близкого. На линии — запись и понятный ориентир по форматам и стоимости. До приёма врача вы ни к чему не обязаны.
+            Для себя или за взрослого близкого. Ориентиры по форматам и стоимости — на линии. До визита к врачу вы ни к чему не обязаны.
           </p>
           <a className={`final-phone ${styles.phoneKodirovanie}`} href={`tel:${city.phone}`}>
             {city.phoneDisplay}
@@ -131,7 +131,9 @@ export default function CTASection({ city, variant }: { city: City; variant?: 'v
         <div className="c final-inner">
           <p className={`${styles.kicker} ${styles.kickerReabilitaciya}`}>Согласование программы</p>
           <h2 id="reabilitaciya-final-heading" className={styles.titleReabilitaciya}>
-            Программа в {city.namePrep}: спокойно, без давления
+            {city.hasRehab
+              ? `Программа в ${city.namePrep}: спокойно, без давления`
+              : `Программа сети для жителей ${city.nameGen}: спокойно, без давления`}
           </h2>
           <p className={`final-lead ${styles.leadAlign} ${styles.leadReabilitaciya}`}>
             Позвоните или оставьте номер — разберём запрос и ориентир по сроку и стоимости. Для себя или за взрослого близкого. До записи вы ни к чему

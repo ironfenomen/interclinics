@@ -10,12 +10,12 @@ export function LandingPricingSection({ city }: { city: City }) {
   const packs = [
     {
       label: 'Базовый вход',
-      title: 'Стандартная капельница',
+      title: 'Базовый выезд',
       desc: 'Для коротких эпизодов, умеренных симптомов и пользователей, которые ищут понятный первый шаг без перегруза деталями.',
       price: city.priceBase,
       lines: [
         'Быстрый и понятный оффер без избыточных обещаний',
-        'Подходит под горячие запросы «прокапаться», «снять запой»',
+        'Подходит под запросы «снять запой», «нужен врач на дому»',
         'Нормальная точка входа для price-sensitive трафика',
       ],
       cta: { type: 'modal' as const },
@@ -64,6 +64,11 @@ export function LandingPricingSection({ city }: { city: City }) {
           </div>
         </Reveal>
 
+        <p className="mx-auto mb-8 max-w-[640px] px-1 text-center text-[14px] font-medium leading-relaxed text-[#5e7288]">
+          В сумму входят выезд, осмотр врача и помощь в рамках плана, который согласуют с вами после осмотра. До начала процедур фиксируют объём и стоимость; скрытых
+          доплат после этого нет.
+        </p>
+
         <div className="grid grid-cols-3 gap-[18px] max-[1024px]:grid-cols-2 max-md:grid-cols-1">
           {packs.map(p => (
             <Reveal key={p.title}>
@@ -82,7 +87,14 @@ export function LandingPricingSection({ city }: { city: City }) {
                 <div className="mt-[18px] text-[44px] font-extrabold tracking-tight text-deep-2">
                   {rub(p.price)} ₽ <small className="text-[15px] font-bold text-ink-muted">/ выезд</small>
                 </div>
-                <ul className="mt-[18px] grid list-none gap-2.5">
+                <p className="mt-1 mb-4 flex items-center gap-1.5 text-[12px] font-semibold text-[#10B981]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <circle cx="12" cy="12" r="9" stroke="#10B981" strokeWidth="1.5" />
+                    <path d="M8 12l2.5 2.5L16 9" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Всё включено · без доплат на месте
+                </p>
+                <ul className="mt-0 grid list-none gap-2.5">
                   {p.lines.map(line => (
                     <li
                       key={line}
@@ -113,6 +125,10 @@ export function LandingPricingSection({ city }: { city: City }) {
             </Reveal>
           ))}
         </div>
+
+        <p className="mx-auto mt-5 max-w-[640px] px-1 text-center text-[13px] font-medium leading-relaxed text-[#94a3b8]">
+          Ориентир по пакету виден на странице; окончательную сумму фиксируют после осмотра, до продолжения помощи. Если нужен стационар — обсудим отдельно, без давления.
+        </p>
 
         <Reveal>
           <div className="mt-[22px] grid grid-cols-[1.05fr_auto] items-center gap-5 rounded-[28px] bg-gradient-to-br from-deep-2 to-deep-3 p-6 text-white shadow-landingLg max-lg:grid-cols-1">

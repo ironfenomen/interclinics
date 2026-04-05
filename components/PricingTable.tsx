@@ -11,20 +11,38 @@ function openCallback() {
   document.body.style.overflow = 'hidden'
 }
 
+function AllInclusiveLine({ className }: { className: string }) {
+  return (
+    <p className={className}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="9" stroke="#10B981" strokeWidth="1.5" />
+        <path
+          d="M8 12l2.5 2.5L16 9"
+          stroke="#10B981"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span>Всё включено · без доплат на месте</span>
+    </p>
+  )
+}
+
 export default function PricingTable({ city }: { city: City }) {
   const nearest = city.nearestStacionarSlug ? getCityBySlug(city.nearestStacionarSlug) : undefined
 
   const packages = [
     {
       name: 'Стандартная',
-      tagline: 'Лёгкое состояние, короткий запой, минимальный объём инфузий',
+      tagline: 'Лёгкое состояние, короткий запой — базовый ориентир помощи на дому',
       price: city.priceBase,
       sessionHint: 'Ориентир по времени на месте: 1–1,5 ч',
       popular: false,
       features: [
         'Осмотр врача‑нарколога и сбор анамнеза',
-        'Капельница базового объёма (ориентир 250 мл)',
-        'Витамины и симптоматика по показаниям',
+        'Медицинская помощь по показаниям в рамках ориентира пакета',
+        'Симптоматическая поддержка по решению врача',
         'Рекомендации врача на 3 дня',
       ],
     },
@@ -36,22 +54,22 @@ export default function PricingTable({ city }: { city: City }) {
       popular: true,
       features: [
         'Расширенный осмотр; ЭКГ при необходимости',
-        'Две инфузии суммарно до ~500 мл — по схеме врача',
-        'Гепатопротекторы, седация при показаниях',
-        'Медикаменты на 5 дней, контрольный звонок врача',
+        'Более глубокая помощь по показаниям — по решению врача на месте',
+        'Симптоматическая и поддерживающая терапия по показаниям',
+        'Рекомендации и наблюдение по плану врача; контрольный звонок',
       ],
     },
     {
       name: 'Максимальная',
-      tagline: 'Тяжёлая интоксикация — максимальный объём помощи на дому',
+      tagline: 'Тяжёлая интоксикация — максимальный ориентир помощи на дому',
       price: city.priceMax,
       sessionHint: 'Ориентир по времени на месте: 3–4 ч',
       popular: false,
       features: [
         'Полная оценка состояния и рисков на месте',
-        'Несколько инфузий суммарно до ~750 мл — по показаниям',
-        'Нейро- и кардиопротекторы, усиленная симптоматика',
-        'Терапия до 7 дней, до 2 визитов врача; при необходимости психотерапевт',
+        'Интенсивная помощь по показаниям в рамках выездного формата',
+        'Плотное наблюдение до стабилизации по решению врача',
+        'При необходимости — до дополнительных визитов и обсуждение стационара без давления',
       ],
     },
   ]
@@ -65,10 +83,15 @@ export default function PricingTable({ city }: { city: City }) {
             Стоимость выезда: три формата помощи
           </h2>
           <p className={styles.lead}>
-            Цифры ниже — честный ориентир по объёму инфузий и сопровождения до звонка. Окончательный формат и цена согласуются после осмотра, без скрытых доплат
-            после приезда. Если круглосуточного наблюдения на дому недостаточно, врач спокойно подскажет формат стационара — без давления.
+            Цифры ниже — ориентир по уровню выездной помощи. Окончательный формат и цена определяются после осмотра врача, до продолжения процедур, без скрытых
+            доплат после согласования. Если круглосуточного наблюдения на дому недостаточно, врач спокойно подскажет формат стационара — без давления.
           </p>
         </header>
+
+        <p className={styles.pricingIntro}>
+          В сумму входят выезд, осмотр врача и помощь в рамках плана, который согласуют с вами после осмотра. До начала процедур фиксируют объём и стоимость; скрытых
+          доплат после этого нет.
+        </p>
 
         <div className={styles.grid}>
           {packages.map((pkg, i) => (
@@ -88,6 +111,7 @@ export default function PricingTable({ city }: { city: City }) {
                 </div>
                 <span className={styles.priceSuffix}>/ выезд</span>
               </div>
+              <AllInclusiveLine className={styles.allInclusive} />
               <p className={styles.sessionHint}>{pkg.sessionHint}</p>
               <ul className={styles.featureList}>
                 {pkg.features.map((f, fi) => (
@@ -116,6 +140,11 @@ export default function PricingTable({ city }: { city: City }) {
           ))}
         </div>
 
+        <p className={styles.pricingFootnote}>
+          Ориентир по пакету виден на странице; окончательную сумму фиксируют после осмотра, до продолжения помощи. Если нужен стационар — обсудим отдельно, без
+          давления.
+        </p>
+
         <div className={styles.bridge}>
           <p className={styles.bridgeEyebrow}>Стационар — отдельный маршрут</p>
           <p className={styles.bridgeLead}>
@@ -134,12 +163,9 @@ export default function PricingTable({ city }: { city: City }) {
           ) : city.nearestStacionarSlug && nearest ? (
             <div className={styles.bridgeRow}>
               <Link href={`/${city.nearestStacionarSlug}/stacionar/`} className={styles.bridgeLink}>
-                Ближайший стационар сети — {nearest.name}
+                Стационар сети — {nearest.name}
               </Link>
               <span className={styles.bridgeMeta}>
-                {typeof city.nearestStacionarDistance === 'number'
-                  ? `ориентир ~${city.nearestStacionarDistance} км · `
-                  : ''}
                 от {city.priceStacionarDay.toLocaleString('ru')} ₽ / сутки · маршрут и детали на странице
               </span>
             </div>
@@ -152,7 +178,7 @@ export default function PricingTable({ city }: { city: City }) {
             </div>
           ) : (
             <p className={styles.bridgeFallback}>
-              Направление в стационар сети при необходимости согласуют на линии — подскажем ближайший формат наблюдения.
+              Направление в стационар сети при необходимости согласуют на линии — подскажем подходящий формат наблюдения.
             </p>
           )}
         </div>

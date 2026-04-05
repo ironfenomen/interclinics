@@ -1,7 +1,7 @@
 /* Кодирование — та же система, что narkolog-na-dom / vyvod / stacionar */
 .pageRoot {
   overflow-x: hidden;
-  --ic-y-section: clamp(56px, 9vw, 88px);
+  --ic-y-section: clamp(52px, 8.8vw, 86px);
   /* Единый вертикальный шаг с FAQ (.section использует --vyvod-section-y) */
   --vyvod-section-y: var(--ic-y-section);
   background:
@@ -25,9 +25,9 @@
   min-width: 0;
 }
 
-/* Тонкий шов hero → методы */
+/* Тонкий шов hero → методы (без резкого «обрыва» тёмного) */
 .pageKodirovanie .hero {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /*
@@ -40,56 +40,67 @@
 }
 
 .pageKodirovanie :global(section.ic-faq-kodirovanie) {
-  border-top-color: rgba(218, 228, 240, 0.55);
-  border-bottom: 1px solid rgba(218, 228, 240, 0.52);
+  border-top-color: rgba(218, 228, 240, 0.42);
+  border-bottom: 1px solid rgba(218, 228, 240, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(241, 245, 249, 0.48);
 }
 
 .pageKodirovanie :global(section.final.ic-final-kodirovanie) {
-  padding-top: clamp(68px, 9.5vw, 92px);
-  padding-bottom: clamp(72px, 10vw, 96px);
+  position: relative;
+  padding-top: clamp(70px, 9.8vw, 96px);
+  padding-bottom: clamp(74px, 10.2vw, 100px);
   background:
-    radial-gradient(circle at 18% 72%, rgba(16, 185, 129, 0.1), transparent 22%),
-    radial-gradient(circle at 84% 16%, rgba(214, 179, 106, 0.075), transparent 26%),
-    linear-gradient(180deg, #071221 0%, #0b1d35 46%, #0e2840 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    radial-gradient(ellipse 78% 52% at 50% 102%, rgba(16, 185, 129, 0.065), transparent 46%),
+    radial-gradient(circle at 16% 68%, rgba(16, 185, 129, 0.085), transparent 26%),
+    radial-gradient(circle at 86% 12%, rgba(214, 179, 106, 0.055), transparent 32%),
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(255, 255, 255, 0.028), transparent 42%),
+    linear-gradient(180deg, #061018 0%, #0a1a2e 36%, #0d2238 64%, #0f2a42 100%);
+  border-bottom: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -36px 52px -30px rgba(0, 0, 0, 0.32);
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie) {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 11px;
+  gap: 12px;
   margin-top: clamp(24px, 3.1vw, 32px);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
-  padding: 16px 16px 17px;
-  border-radius: 17px;
+  padding: 18px 18px 19px;
+  border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(168deg, rgba(255, 255, 255, 0.092) 0%, rgba(255, 255, 255, 0.042) 100%);
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.038) 52%, rgba(6, 14, 24, 0.12) 100%);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 20px 48px rgba(0, 0, 0, 0.26);
-  backdrop-filter: blur(16px);
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 18px 48px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(20px);
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fi) {
   border-radius: 12px;
   min-height: 50px;
+  border-color: rgba(255, 255, 255, 0.12);
   transition:
     border-color 0.22s ease,
     box-shadow 0.22s ease;
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fi:focus-visible) {
-  outline: 2px solid rgba(52, 211, 153, 0.42);
+  outline: 2px solid rgba(52, 211, 153, 0.4);
   outline-offset: 2px;
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.24);
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check span) {
-  color: rgba(226, 232, 240, 0.8);
-  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.76);
+  line-height: 1.52;
+  font-size: 12.375px;
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check a:focus-visible) {
@@ -97,27 +108,27 @@
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check input:focus-visible) {
-  outline: 2px solid rgba(52, 211, 153, 0.45);
+  outline: 2px solid rgba(52, 211, 153, 0.42);
   outline-offset: 2px;
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .ic-kodirovanie-form-hint) {
-  margin: -2px 0 0;
-  font-size: 12.25px;
-  line-height: 1.5;
+  margin: -1px 0 0;
+  font-size: 12.125px;
+  line-height: 1.52;
   font-weight: 500;
-  color: rgba(226, 232, 240, 0.68);
+  color: rgba(226, 232, 240, 0.62);
 }
 
 .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fbtn) {
   border-radius: 12px;
-  min-height: 52px;
-  font-size: 15.125px;
+  min-height: 50px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: -0.021em;
+  letter-spacing: -0.02em;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.17),
-    0 12px 32px rgba(16, 185, 129, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 8px 26px rgba(16, 185, 129, 0.2);
   transition:
     transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1);
@@ -127,8 +138,8 @@
   .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fbtn:hover) {
     transform: translateY(-1px);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 16px 40px rgba(16, 185, 129, 0.32);
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 14px 36px rgba(16, 185, 129, 0.28);
   }
 }
 
@@ -139,21 +150,29 @@
 }
 
 .pageKodirovanie :global(.footer) {
-  margin-top: -1px;
-  border-top: none;
-  background: linear-gradient(180deg, #0e2840 0%, #081a2a 20%, #050d16 48%, #030910 100%);
-  padding-top: clamp(44px, 6.5vw, 56px);
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+  background: linear-gradient(
+    180deg,
+    #0c2234 0%,
+    #091a2a 18%,
+    #071420 42%,
+    #050e18 68%,
+    #030a12 100%
+  );
+  padding-top: clamp(44px, 6.2vw, 58px);
   padding-bottom: max(36px, calc(22px + env(safe-area-inset-bottom, 0px)));
 }
 
 .pageKodirovanie :global(.footer-grid) {
-  gap: clamp(26px, 3.8vw, 36px) clamp(20px, 2.8vw, 30px);
+  gap: clamp(28px, 4vw, 38px) clamp(22px, 3vw, 32px);
 }
 
 .pageKodirovanie :global(.footer h4) {
-  margin-bottom: 12px;
-  letter-spacing: 0.11em;
-  color: rgba(248, 250, 252, 0.72);
+  margin-bottom: 14px;
+  letter-spacing: 0.12em;
+  color: rgba(248, 250, 252, 0.68);
+  font-weight: 800;
 }
 
 .pageKodirovanie :global(.footer-brand) {
@@ -161,28 +180,51 @@
 }
 
 .pageKodirovanie :global(.footer-brand small) {
-  color: rgba(226, 232, 240, 0.55);
+  color: rgba(226, 232, 240, 0.5);
+  letter-spacing: 0.035em;
 }
 
 .pageKodirovanie :global(.footer-text) {
   margin-top: 16px;
-  line-height: 1.68;
-  color: rgba(226, 232, 240, 0.62);
+  line-height: 1.74;
+  color: rgba(226, 232, 240, 0.52);
+  font-size: 13px;
+}
+
+.pageKodirovanie :global(.footer-text p) {
+  margin-bottom: 12px;
+}
+
+.pageKodirovanie :global(.footer-text p:last-child) {
+  margin-bottom: 0;
+}
+
+.pageKodirovanie :global(.footer-legal-lead),
+.pageKodirovanie :global(.footer-legal-provider) {
+  line-height: 1.72;
+  color: rgba(241, 245, 249, 0.52);
+}
+
+.pageKodirovanie :global(.footer-legal-note) {
+  line-height: 1.7;
+  color: rgba(203, 213, 225, 0.42);
+  margin-bottom: 10px;
 }
 
 .pageKodirovanie :global(.footer ul) {
-  gap: 10px;
+  gap: 9px;
 }
 
 .pageKodirovanie :global(.footer a) {
+  color: rgba(226, 232, 240, 0.58);
   transition:
     color 0.24s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.24s ease;
 }
 
 .pageKodirovanie :global(.footer a:hover) {
-  color: rgba(255, 255, 255, 0.94);
-  border-bottom-color: rgba(16, 185, 129, 0.42);
+  color: rgba(255, 255, 255, 0.92);
+  border-bottom-color: rgba(16, 185, 129, 0.38);
 }
 
 .pageKodirovanie :global(.footer a:focus-visible) {
@@ -190,28 +232,33 @@
 }
 
 .pageKodirovanie :global(.footer-medical-strip) {
-  margin-top: 28px;
+  margin-top: 26px;
   max-width: min(720px, 100%);
+  padding: 13px 16px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(145deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  background: linear-gradient(150deg, rgba(0, 0, 0, 0.14) 0%, rgba(255, 255, 255, 0.028) 52%, rgba(5, 12, 20, 0.12) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 22px rgba(0, 0, 0, 0.12);
 }
 
 .pageKodirovanie :global(.footer-medical-strip__text) {
-  color: rgba(241, 245, 249, 0.82);
-  line-height: 1.55;
+  color: rgba(241, 245, 249, 0.74);
+  line-height: 1.58;
+  font-size: 12.75px;
 }
 
 .pageKodirovanie :global(.footer-bottom) {
   margin-top: 22px;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .pageKodirovanie :global(.footer-disclaimer) {
-  color: rgba(203, 213, 225, 0.52);
-  line-height: 1.62;
+  color: rgba(203, 213, 225, 0.42);
+  line-height: 1.66;
+  font-size: 11.75px;
 }
 
 /* На десктопе без плавающего WA — единый спокойный финал (виджет не подключён на странице) */
@@ -223,33 +270,55 @@
 
 @media (max-width: 768px) {
   .pageKodirovanie :global(section.final.ic-final-kodirovanie) {
-    padding-top: clamp(48px, 12vw, 64px);
-    padding-bottom: clamp(44px, 11vw, 56px);
+    padding-top: clamp(46px, 11vw, 60px);
+    padding-bottom: clamp(48px, 11.5vw, 62px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -28px 40px -26px rgba(0, 0, 0, 0.32);
   }
 
   .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie) {
     gap: 10px;
     padding: 14px 14px 15px;
-    border-radius: 15px;
+    border-radius: 16px;
+    border-color: rgba(255, 255, 255, 0.085);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 14px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .fi) {
+    min-height: 48px;
+  }
+
+  .pageKodirovanie :global(.ic-final-kodirovanie .final-form.final-form--kodirovanie .form-consent-check span) {
+    font-size: 12.125px;
+    line-height: 1.48;
+    color: rgba(226, 232, 240, 0.72);
   }
 
   .pageKodirovanie :global(.footer) {
-    padding-top: 36px;
-    padding-bottom: max(40px, calc(24px + env(safe-area-inset-bottom, 0px)));
+    padding-top: clamp(34px, 9vw, 44px);
+    padding-bottom: max(42px, calc(26px + env(safe-area-inset-bottom, 0px)));
   }
 
   .pageKodirovanie :global(.footer-grid) {
-    gap: 28px;
+    gap: 26px;
+  }
+
+  .pageKodirovanie :global(.footer-text) {
+    font-size: 12.875px;
+    line-height: 1.68;
   }
 
   .pageKodirovanie :global(.footer-medical-strip) {
-    margin-top: 22px;
+    margin-top: 24px;
     padding: 12px 14px;
   }
 
   .pageKodirovanie :global(.footer-bottom) {
-    margin-top: 18px;
-    padding-top: 16px;
+    margin-top: 22px;
+    padding-top: 18px;
   }
 
   .pageKodirovanie :global(.ic-mockup-scroll-pad) {
@@ -263,31 +332,37 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(40px, 9.5vw, 72px) 0 clamp(44px, 10vw, 88px);
+  padding: clamp(42px, 9.2vw, 74px) 0 clamp(48px, 10vw, 92px);
   background:
-    radial-gradient(ellipse 90% 60% at 50% -20%, rgba(16, 185, 129, 0.09), transparent 55%),
-    linear-gradient(180deg, #050b14 0%, var(--deep) 42%, #071a2e 100%);
+    radial-gradient(ellipse 92% 56% at 50% -20%, rgba(16, 185, 129, 0.11), transparent 58%),
+    radial-gradient(ellipse 72% 48% at 100% 22%, rgba(215, 180, 105, 0.065), transparent 50%),
+    radial-gradient(ellipse 58% 42% at 0% 82%, rgba(59, 130, 246, 0.055), transparent 52%),
+    radial-gradient(ellipse 140% 60% at 50% 120%, rgba(0, 0, 0, 0.22), transparent 48%),
+    linear-gradient(180deg, #030910 0%, var(--deep) 42%, #081a2c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
 }
 
 .heroGlow {
   position: absolute;
   top: -42%;
   right: -18%;
-  width: min(680px, 120vw);
-  height: min(680px, 120vw);
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, transparent 62%);
+  width: min(760px, 125vw);
+  height: min(760px, 125vw);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, rgba(16, 185, 129, 0.035) 44%, transparent 66%);
   border-radius: 50%;
   pointer-events: none;
+  opacity: 0.92;
+  filter: blur(0.5px);
 }
 
 .heroMesh {
   position: absolute;
   inset: 0;
   opacity: 0.34;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px);
   background-size: 28px 28px;
-  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.2) 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.2) 62%, transparent 100%);
   pointer-events: none;
 }
 
@@ -309,38 +384,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  margin: 0 0 16px;
+  gap: 7px;
+  margin: 0 0 clamp(18px, 2.35vw, 22px);
   text-wrap: balance;
 }
 
 .eyebrowPrefix {
-  font-size: 11px;
+  font-size: 10.875px;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.165em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  line-height: 1.38;
+  color: rgba(248, 250, 252, 0.38);
+  line-height: 1.4;
 }
 
 .eyebrowCity {
-  font-size: 10.75px;
+  font-size: 10.625px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.145em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.52);
-  line-height: 1.35;
+  color: rgba(214, 179, 106, 0.74);
+  line-height: 1.36;
   max-width: min(44ch, 100%);
   text-align: center;
   overflow-wrap: break-word;
 }
 
 .title {
-  margin: 0 0 18px;
+  margin: 0 0 clamp(18px, 2.2vw, 22px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.28em;
+  gap: 0.26em;
   text-wrap: balance;
 }
 
@@ -350,7 +425,7 @@
   letter-spacing: -0.041em;
   line-height: 1.07;
   color: #fff;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.22);
+  text-shadow: 0 1px 36px rgba(0, 0, 0, 0.18);
 }
 
 .titleMain {
@@ -366,13 +441,13 @@
 
 .heroBadges {
   list-style: none;
-  margin: 0 auto 20px;
+  margin: 0 auto clamp(18px, 2.4vw, 22px);
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 8px 10px;
+  align-items: stretch;
+  gap: 9px 11px;
   max-width: min(100%, 640px);
 }
 
@@ -380,18 +455,20 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 7px 12px 7px 11px;
+  gap: 8px;
+  min-height: 36px;
+  padding: 9px 16px 9px 13px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.088);
-  color: rgba(248, 250, 252, 0.88);
-  font-size: 11.75px;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.085) 0%, rgba(255, 255, 255, 0.034) 48%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  color: rgba(248, 250, 252, 0.93);
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.28;
-  letter-spacing: -0.011em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  letter-spacing: -0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.085),
+    0 6px 24px rgba(0, 0, 0, 0.14);
 }
 
 .heroBadgeDot {
@@ -399,32 +476,36 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: linear-gradient(145deg, rgba(215, 179, 106, 0.95) 0%, #a67c1a 100%);
-  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.22);
+  background: linear-gradient(145deg, #d6b36a 0%, rgba(16, 185, 129, 0.82) 100%);
+  box-shadow:
+    0 0 0 1px rgba(215, 180, 105, 0.32),
+    0 0 12px rgba(16, 185, 129, 0.18);
 }
 
 .lead {
-  font-size: clamp(15px, 2.1vw, 16.75px);
-  color: rgba(226, 232, 240, 0.72);
-  margin: 0 auto 22px;
-  line-height: 1.62;
-  max-width: min(38em, 100%);
-  font-weight: 500;
+  font-size: clamp(14.875px, 2.05vw, 16.5px);
+  color: rgba(226, 232, 240, 0.8);
+  margin: 0 auto clamp(22px, 2.75vw, 28px);
+  line-height: 1.66;
+  max-width: min(36em, 100%);
+  font-weight: 400;
   text-wrap: balance;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.008em;
 }
 
 .heroActionWell {
-  margin: 0 auto 18px;
+  margin: 0 auto clamp(18px, 2.15vw, 22px);
   max-width: min(440px, 100%);
-  padding: 20px 20px 19px;
+  padding: 23px 23px 22px;
   border-radius: 18px;
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.078) 0%, rgba(255, 255, 255, 0.028) 50%, rgba(5, 12, 22, 0.12) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 14px 40px rgba(6, 17, 32, 0.14);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 20px 48px rgba(4, 10, 20, 0.32),
+    0 0 0 1px rgba(0, 0, 0, 0.14) inset;
   box-sizing: border-box;
+  backdrop-filter: blur(14px);
 }
 
 .heroCta {
@@ -435,33 +516,42 @@
 }
 
 .ctaPremium:global(.btn.btn-primary) {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.022em;
   font-weight: 800;
   border-radius: 14px;
+  min-height: 48px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 16px 40px rgba(16, 185, 129, 0.32);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 14px 36px rgba(16, 185, 129, 0.26);
   transition:
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ctaPremium:global(.btn.btn-primary):hover {
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 20px 48px rgba(16, 185, 129, 0.38);
+@media (hover: hover) and (pointer: fine) {
+  .ctaPremium:global(.btn.btn-primary):hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      0 18px 44px rgba(16, 185, 129, 0.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaPremium:global(.btn.btn-primary):hover {
+    transform: none;
+  }
 }
 
 .heroCtaHint {
-  margin: 14px auto 0;
-  padding-top: 2px;
+  margin: 15px auto 0;
+  padding-top: 3px;
   max-width: 32em;
-  font-size: 11.5px;
-  line-height: 1.5;
+  font-size: 11.75px;
+  line-height: 1.54;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  color: rgba(226, 232, 240, 0.45);
+  letter-spacing: 0.012em;
+  color: rgba(226, 232, 240, 0.56);
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -481,41 +571,47 @@
 
 .heroTrustStrip {
   margin: 0 auto;
-  padding: 10px 14px;
-  max-width: min(520px, 100%);
+  padding: 13px 17px;
+  max-width: min(560px, 100%);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  font-size: 11.25px;
-  font-weight: 500;
-  line-height: 1.45;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.52;
   letter-spacing: 0.016em;
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(226, 232, 240, 0.68);
   text-wrap: balance;
   overflow-wrap: break-word;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 8px 28px rgba(0, 0, 0, 0.16);
   -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 481px) {
   .heroTrustStrip {
-    padding: 11px 16px;
-    font-size: 11.5px;
+    padding: 14px 20px;
+    font-size: 11.625px;
+    letter-spacing: 0.017em;
   }
 }
 
 @media (min-width: 900px) {
   .hero {
-    padding: clamp(48px, 5.5vw, 72px) 0 clamp(52px, 5.8vw, 84px);
+    padding: clamp(52px, 5.8vw, 78px) 0 clamp(56px, 6.2vw, 90px);
     background:
-      radial-gradient(circle at 12% 18%, rgba(215, 180, 105, 0.09), transparent 22%),
-      radial-gradient(circle at 88% 12%, rgba(16, 185, 129, 0.11), transparent 24%),
-      radial-gradient(circle at 78% 88%, rgba(255, 255, 255, 0.04), transparent 32%),
-      linear-gradient(180deg, #061120 0%, #0b1d35 48%, #152f4d 100%);
+      radial-gradient(circle at 12% 14%, rgba(215, 180, 105, 0.09), transparent 26%),
+      radial-gradient(circle at 86% 8%, rgba(16, 185, 129, 0.125), transparent 28%),
+      radial-gradient(ellipse 58% 40% at 78% 88%, rgba(255, 255, 255, 0.048), transparent 36%),
+      radial-gradient(ellipse 130% 55% at 50% 108%, rgba(0, 0, 0, 0.18), transparent 42%),
+      linear-gradient(180deg, #050e18 0%, #0b1d35 44%, #15324f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .heroGlow {
-    opacity: 0.92;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 62%);
+    opacity: 0.94;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.115) 0%, rgba(16, 185, 129, 0.038) 46%, transparent 66%);
   }
 
   .heroMesh {
@@ -523,8 +619,8 @@
   }
 
   .title {
-    margin-bottom: clamp(20px, 2.4vw, 26px);
-    gap: 0.26em;
+    margin-bottom: clamp(20px, 2.5vw, 26px);
+    gap: 0.24em;
   }
 
   .titleKicker {
@@ -542,53 +638,59 @@
 
   .heroBadges {
     margin-bottom: clamp(22px, 2.6vw, 28px);
-    gap: 10px 12px;
+    gap: 10px 13px;
   }
 
   .heroBadge {
-    min-height: 33px;
-    padding: 8px 14px;
-    font-size: 12px;
+    min-height: 36px;
+    padding: 9px 16px;
+    font-size: 12.125px;
   }
 
   .lead {
-    margin-bottom: clamp(22px, 2.5vw, 28px);
-    font-size: clamp(15.25px, 1.42vw, 16.25px);
-    line-height: 1.64;
-    color: rgba(226, 232, 240, 0.76);
+    margin-bottom: clamp(22px, 2.6vw, 28px);
+    font-size: clamp(15.125px, 1.42vw, 16.25px);
+    line-height: 1.66;
+    color: rgba(226, 232, 240, 0.8);
+    max-width: min(35em, 100%);
   }
 
   .heroActionWell {
-    padding: 22px 23px 21px;
-    margin-bottom: 20px;
+    padding: 25px 25px 24px;
+    margin-bottom: clamp(18px, 2.2vw, 22px);
     border-radius: 18px;
-    border-color: rgba(255, 255, 255, 0.115);
+    border-color: rgba(255, 255, 255, 0.15);
   }
 }
 
 @media (max-width: 899px) {
   .heroBadges {
-    margin-bottom: 18px;
-    gap: 7px 8px;
+    margin-bottom: 17px;
+    gap: 8px 9px;
   }
 
   .lead {
-    margin-bottom: 18px;
-    font-size: 14.75px;
-    line-height: 1.58;
+    margin-bottom: 17px;
+    font-size: 14.625px;
+    line-height: 1.62;
   }
 
   .heroActionWell {
-    padding: 16px 16px 15px;
-    border-radius: 16px;
+    padding: 17px 17px 16px;
+    border-radius: 17px;
   }
 }
 
 @media (max-width: 480px) {
+  .hero {
+    padding: clamp(36px, 10vw, 48px) 0 clamp(40px, 10.5vw, 56px);
+  }
+
   .heroBadge {
-    font-size: 11px;
-    padding: 6px 10px 6px 9px;
-    min-height: 30px;
+    font-size: 11.125px;
+    padding: 7px 11px 7px 10px;
+    min-height: 31px;
+    gap: 6px;
   }
 
   .titleMain {
@@ -596,9 +698,10 @@
   }
 
   .heroTrustStrip {
-    font-size: 10.65px;
-    padding: 8px 11px 9px;
-    line-height: 1.4;
+    font-size: 10.875px;
+    padding: 10px 12px 11px;
+    line-height: 1.42;
+    letter-spacing: 0.018em;
   }
 }
 
@@ -640,70 +743,98 @@
     margin-right: 0;
     max-width: 100%;
   }
+
+  .pageKodirovanie .heroBadges {
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .pageKodirovanie .heroBadge {
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 38px;
+    padding: 10px 15px 10px 14px;
+  }
 }
 
 /* --- Методы: premium clinical selector (не каталог цен) --- */
 .methodsSection {
   position: relative;
-  padding: var(--ic-y-section, 88px) 0;
+  padding: clamp(54px, 7.6vw, 90px) 0 clamp(50px, 6.9vw, 86px);
   background:
-    radial-gradient(ellipse 72% 42% at 50% 0%, rgba(16, 185, 129, 0.045), transparent 55%),
-    linear-gradient(180deg, #f3f8fc 0%, #fafcfe 40%, #ffffff 100%);
-  border-top: 1px solid rgba(215, 225, 238, 0.7);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.5);
+    radial-gradient(ellipse 90% 50% at 14% -2%, rgba(16, 185, 129, 0.045), transparent 52%),
+    radial-gradient(ellipse 72% 44% at 90% 6%, rgba(59, 130, 246, 0.032), transparent 48%),
+    linear-gradient(180deg, #eef4f8 0%, #f7fafc 34%, #fafcfd 70%, #f4f8fb 100%);
+  border-top: 1px solid rgba(208, 220, 234, 0.55);
+  border-bottom: 1px solid rgba(218, 228, 240, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .methodsInner {
-  max-width: min(1080px, 100%);
+  max-width: min(1060px, 100%);
   margin: 0 auto;
 }
 
 .methodsHeader {
   text-align: center;
-  max-width: min(38rem, 100%);
-  margin: 0 auto clamp(28px, 4vw, 40px);
+  max-width: min(40rem, 100%);
+  margin: 0 auto clamp(30px, 3.8vw, 42px);
 }
 
 .methodsKicker {
-  margin: 0 0 10px;
-  font-size: 10.5px;
+  margin: 0 0 12px;
+  font-size: 10.875px;
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.152em;
   text-transform: uppercase;
-  color: rgba(15, 118, 110, 0.88);
+  color: rgba(11, 29, 53, 0.4);
 }
 
 .methodsTitle {
   font-size: clamp(25px, 3.6vw, 32px);
   font-weight: 800;
   color: var(--deep);
-  margin: 0 0 12px;
+  margin: 0 0 clamp(12px, 1.6vw, 16px);
   letter-spacing: -0.036em;
-  line-height: 1.1;
+  line-height: 1.09;
   text-wrap: balance;
 }
 
 .methodsLead {
   margin: 0;
-  font-size: clamp(14.5px, 1.85vw, 16px);
-  line-height: 1.58;
+  font-size: clamp(14.75px, 1.82vw, 16.125px);
+  line-height: 1.66;
   font-weight: 500;
-  color: rgba(71, 85, 105, 0.94);
+  color: rgba(51, 65, 85, 0.88);
   text-wrap: balance;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.007em;
+  max-width: min(38em, 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .methodsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 13px;
   align-items: stretch;
+  max-width: min(1040px, 100%);
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .methodsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(16px, 2vw, 20px);
+    gap: 17px 20px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .methodsGrid {
+    gap: 19px 22px;
   }
 }
 
@@ -714,11 +845,10 @@
   min-height: 0;
   padding: 0;
   border-radius: 17px;
-  background: linear-gradient(165deg, #ffffff 0%, #f8fbfd 52%, #fafcfe 100%);
-  border: 1px solid rgba(218, 228, 240, 0.92);
+  border: 1px solid rgba(214, 223, 235, 0.78);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.98) inset,
-    0 10px 32px rgba(11, 29, 53, 0.045);
+    0 6px 22px rgba(11, 29, 53, 0.026);
   box-sizing: border-box;
   overflow: hidden;
   transition:
@@ -727,24 +857,82 @@
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Порядок карточек на странице фиксирован: импланты → инъекция → налтрексон → психотерапия → двойной блок */
+.methodCard:nth-child(1),
+.methodCard:nth-child(2) {
+  background:
+    radial-gradient(ellipse 100% 80% at 0% 0%, rgba(16, 185, 129, 0.06), transparent 50%),
+    linear-gradient(180deg, #feffff 0%, #f4faf8 48%, #f0f7f5 100%);
+  border-color: rgba(196, 218, 208, 0.72);
+}
+
+.methodCard:nth-child(3) {
+  background:
+    radial-gradient(ellipse 90% 70% at 100% 0%, rgba(59, 130, 246, 0.06), transparent 48%),
+    linear-gradient(180deg, #fbfdff 0%, #f5f9fc 52%, #f1f6fb 100%);
+  border-color: rgba(186, 206, 232, 0.68);
+}
+
+.methodCard:nth-child(4) {
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 0%, rgba(99, 102, 241, 0.045), transparent 52%),
+    linear-gradient(180deg, #fdfefe 0%, #f7f8fc 50%, #f3f5fa 100%);
+  border-color: rgba(199, 204, 224, 0.75);
+}
+
+.methodCard:nth-child(5) {
+  background:
+    radial-gradient(ellipse 95% 75% at 80% 0%, rgba(215, 179, 106, 0.08), transparent 50%),
+    linear-gradient(180deg, #fffefb 0%, #faf8f4 48%, #f5f3ef 100%);
+  border-color: rgba(220, 210, 188, 0.65);
+}
+
+.methodCard:nth-child(6) {
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 0%, rgba(16, 185, 129, 0.055), transparent 48%),
+    radial-gradient(ellipse 70% 50% at 100% 100%, rgba(59, 130, 246, 0.05), transparent 45%),
+    linear-gradient(180deg, #fbfeff 0%, #f4f8f9 100%);
+  border-color: rgba(200, 214, 224, 0.72);
+}
+
 .methodCard::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, rgba(215, 179, 106, 0.55) 0%, rgba(16, 185, 129, 0.45) 55%, rgba(11, 29, 53, 0.12) 100%);
-  opacity: 0.88;
+  height: 2px;
   pointer-events: none;
+  opacity: 0.92;
+}
+
+.methodCard:nth-child(1)::before,
+.methodCard:nth-child(2)::before {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.65) 0%, rgba(11, 29, 53, 0.15) 100%);
+}
+
+.methodCard:nth-child(3)::before {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.55) 0%, rgba(16, 185, 129, 0.35) 100%);
+}
+
+.methodCard:nth-child(4)::before {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.45) 0%, rgba(16, 185, 129, 0.32) 100%);
+}
+
+.methodCard:nth-child(5)::before {
+  background: linear-gradient(90deg, rgba(215, 179, 106, 0.55) 0%, rgba(16, 185, 129, 0.28) 100%);
+}
+
+.methodCard:nth-child(6)::before {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.5) 0%, rgba(59, 130, 246, 0.35) 50%, rgba(215, 179, 106, 0.3) 100%);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .methodCard:hover {
-    border-color: rgba(16, 185, 129, 0.2);
+    border-color: rgba(148, 163, 184, 0.32);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 1) inset,
-      0 16px 44px rgba(11, 29, 53, 0.07);
+      0 10px 32px rgba(11, 29, 53, 0.04);
     transform: translateY(-1px);
   }
 }
@@ -760,137 +948,256 @@
 }
 
 .methodName {
-  font-size: 15.75px;
+  font-size: 15.5px;
   font-weight: 800;
   color: var(--deep);
   margin: 0;
-  padding: 18px 18px 0;
-  letter-spacing: -0.024em;
-  line-height: 1.3;
+  padding: 17px 18px 0;
+  letter-spacing: -0.026em;
+  line-height: 1.28;
   text-wrap: balance;
 }
 
 @media (min-width: 480px) {
   .methodName {
-    font-size: 16.5px;
-    padding: 20px 22px 0;
+    font-size: 16.25px;
+    padding: 19px 21px 0;
   }
 }
 
 .methodPriceBlock {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  margin-top: 12px;
-  padding: 0 18px 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin: 13px 14px 0;
+  padding: 11px 12px 12px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.65) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 @media (min-width: 480px) {
   .methodPriceBlock {
-    margin-top: 14px;
-    padding: 0 22px 0;
+    margin: 14px 17px 0;
+    padding: 12px 14px 13px;
   }
 }
 
 .methodPrice {
-  font-size: clamp(17px, 1.9vw, 19.5px);
+  font-size: clamp(15.75px, 1.68vw, 17.5px);
   font-weight: 800;
-  color: rgba(15, 23, 42, 0.96);
-  letter-spacing: -0.032em;
-  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: rgba(30, 41, 59, 0.94);
+  letter-spacing: -0.03em;
+  line-height: 1.18;
 }
 
 .methodTerm {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgba(100, 116, 139, 0.9);
-  line-height: 1.4;
+  display: inline-block;
+  margin-left: auto;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 10.875px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  color: rgba(71, 85, 105, 0.78);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(203, 213, 225, 0.58);
+  line-height: 1.28;
 }
 
 .methodDesc {
+  position: relative;
   margin: 0;
-  margin-top: 14px;
-  padding: 16px 18px 18px;
-  border-top: 1px solid rgba(232, 238, 246, 0.95);
-  font-size: 13.25px;
-  line-height: 1.55;
-  font-weight: 500;
-  color: rgba(71, 85, 105, 0.94);
+  margin-top: 4px;
+  padding: 15px 18px 17px;
+  border-top: none;
+  font-size: 13.375px;
+  line-height: 1.64;
+  font-weight: 400;
+  color: rgba(71, 85, 105, 0.86);
   flex: 1;
+  letter-spacing: 0.008em;
+  max-width: 54ch;
+}
+
+.methodDesc::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: 0 0 13px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0) 0%,
+    rgba(148, 163, 184, 0.22) 15%,
+    rgba(148, 163, 184, 0.28) 50%,
+    rgba(148, 163, 184, 0.22) 85%,
+    rgba(148, 163, 184, 0) 100%
+  );
 }
 
 @media (min-width: 480px) {
   .methodDesc {
-    font-size: 13.875px;
-    line-height: 1.56;
-    padding: 17px 22px 20px;
-    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.68;
+    padding: 16px 21px 19px;
+    margin-top: 6px;
+  }
+
+  .methodDesc::before {
+    margin-bottom: 14px;
   }
 }
 
 .methodsFootnote {
-  margin: clamp(22px, 3.5vw, 32px) auto 0;
-  max-width: min(40em, 100%);
+  position: relative;
+  margin: clamp(28px, 3.8vw, 38px) auto 0;
+  padding-top: 22px;
+  max-width: min(42em, 100%);
   text-align: center;
   font-size: 12.75px;
-  line-height: 1.55;
+  line-height: 1.66;
   font-weight: 500;
-  color: rgba(100, 116, 139, 0.88);
-  letter-spacing: 0.01em;
+  color: rgba(82, 96, 118, 0.76);
+  letter-spacing: 0.009em;
+}
+
+.methodsFootnote::before {
+  content: '';
+  display: block;
+  width: min(100px, 36%);
+  height: 1px;
+  margin: 0 auto 18px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 163, 184, 0.35),
+    rgba(16, 185, 129, 0.22),
+    rgba(148, 163, 184, 0.35),
+    transparent
+  );
 }
 
 @media (min-width: 900px) {
   .methodsSection {
-    padding: clamp(72px, 8vw, 96px) 0;
+    padding: clamp(72px, 7.8vw, 96px) 0 clamp(68px, 7.2vw, 92px);
   }
 
   .methodsHeader {
-    margin-bottom: clamp(36px, 4.5vw, 48px);
+    margin-bottom: clamp(34px, 4.2vw, 46px);
   }
 
   .methodsLead {
-    font-size: clamp(15px, 1.35vw, 16px);
-    line-height: 1.6;
+    font-size: clamp(15px, 1.38vw, 16.125px);
+    line-height: 1.62;
   }
 
   .methodCard {
-    border-radius: 18px;
     min-height: 100%;
+  }
+
+  .methodsFootnote {
+    text-align: left;
+    padding-top: 22px;
+  }
+
+  .methodsFootnote::before {
+    margin-left: 0;
+    margin-right: auto;
   }
 }
 
 @media (max-width: 767px) {
+  .methodsSection {
+    padding: clamp(38px, 8.2vw, 50px) 0 clamp(40px, 7.8vw, 54px);
+  }
+
   .methodsHeader {
     text-align: left;
-    margin-bottom: 22px;
+    margin-bottom: clamp(18px, 4.8vw, 24px);
+    max-width: 100%;
   }
 
   .methodsTitle {
     font-size: clamp(22px, 5.4vw, 28px);
   }
 
+  .methodsLead {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+    font-size: clamp(14.125px, 3.85vw, 15.125px);
+    line-height: 1.58;
+  }
+
+  .methodsGrid {
+    gap: 10px;
+  }
+
+  .methodCard {
+    border-radius: 16px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.96) inset,
+      0 4px 16px rgba(11, 29, 53, 0.022);
+  }
+
+  .methodPriceBlock {
+    margin-left: 14px;
+    margin-right: 14px;
+    padding: 11px 12px 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 10px;
+    background: linear-gradient(145deg, rgba(252, 252, 253, 0.98) 0%, rgba(244, 247, 250, 0.72) 100%);
+  }
+
+  .methodTerm {
+    margin-left: 0;
+  }
+
+  .methodDesc {
+    font-size: 13.125px;
+    line-height: 1.6;
+    padding: 12px 16px 15px;
+    max-width: none;
+  }
+
   .methodsFootnote {
     text-align: left;
-    font-size: 12.5px;
+    font-size: 12.375px;
+    line-height: 1.58;
+    margin-top: clamp(20px, 4.8vw, 26px);
+    padding-top: 15px;
+  }
+
+  .methodsFootnote::before {
+    margin-left: 0;
+    margin-right: auto;
+    width: min(80px, 38%);
+    margin-bottom: 13px;
   }
 }
 
 /* Заголовок «Методы» — тот же вертикальный ритм, что у FAQ (последним в каскаде) */
 .pageKodirovanie .methodsHeader {
-  margin: 0 auto clamp(24px, 3.6vw, 36px);
+  margin: 0 auto clamp(26px, 3.6vw, 38px);
 }
 
 @media (min-width: 900px) {
   .pageKodirovanie .methodsHeader {
-    margin: 0 auto clamp(32px, 4.2vw, 44px);
+    margin: 0 auto clamp(34px, 4.2vw, 46px);
   }
 }
 
 @media (max-width: 767px) {
   .pageKodirovanie .methodsHeader {
-    margin: 0 auto 22px;
+    margin: 0 auto clamp(20px, 5vw, 26px);
   }
 }

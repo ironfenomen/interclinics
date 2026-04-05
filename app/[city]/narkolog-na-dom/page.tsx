@@ -1,7 +1,7 @@
 // app/[city]/narkolog-na-dom/page.tsx
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getCityBySlug, getCitySlugs } from '@/data/cities'
+import { getCityBySlug, getCitySlugs, isStavropolCity } from '@/data/cities'
 import { getServiceBySlug } from '@/data/services'
 import Header from '@/components/Header'
 import Steps from '@/components/Steps'
@@ -23,8 +23,12 @@ export async function generateMetadata({ params }: { params: { city: string } })
   const city = getCityBySlug(params.city)
   if (!city) return {}
   const pageUrl = `https://interclinics.ru/${city.slug}/narkolog-na-dom/`
-  const title = `Нарколог на дом в ${city.namePrep} — выезд за ${city.arrivalTime} мин | ${BRAND_DISPLAY_NAME}`
-  const description = `Вызов нарколога на дом в ${city.namePrep}. От ${city.priceNarkolog.toLocaleString('ru')}₽. Приедем за ${city.arrivalTime} мин. Анонимно. ☎ ${city.phoneDisplay}`
+  const title = isStavropolCity(city)
+    ? `Нарколог на дом в ${city.namePrep} — выезд за ${city.arrivalTime} мин | ${BRAND_DISPLAY_NAME}`
+    : `Нарколог на дом в ${city.namePrep} — выезд и осмотр на месте | ${BRAND_DISPLAY_NAME}`
+  const description = isStavropolCity(city)
+    ? `Вызов нарколога на дом в ${city.namePrep}. От ${city.priceNarkolog.toLocaleString('ru')}₽. Приедем за ${city.arrivalTime} мин. Анонимно. ☎ ${city.phoneDisplay}`
+    : `Вызов нарколога на дом в ${city.namePrep}. От ${city.priceNarkolog.toLocaleString('ru')}₽. Согласование выезда на линии. Анонимно. ☎ ${city.phoneDisplay}`
   return {
     title,
     description,
@@ -45,6 +49,7 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
   if (!city) notFound()
   const service = getServiceBySlug('narkolog-na-dom')
   if (!service) notFound()
+  const stv = isStavropolCity(city)
 
   return (
     <div className={`${styles.pageRoot} ${styles.pageNarkolog} page-narkolog-na-dom`}>
@@ -75,8 +80,10 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
                 </span>
               </h1>
 
-              <p className={styles.heroSubline} aria-label="Ориентир по времени приезда и стоимости выезда">
-                <span className={styles.heroSublineRest}>ориентир ~{city.arrivalTime} мин до приезда</span>
+              <p className={styles.heroSubline} aria-label="Стоимость выезда и согласование на линии">
+                <span className={styles.heroSublineRest}>
+                  {stv ? `ориентир ~${city.arrivalTime} мин до приезда` : 'срок выезда — на линии'}
+                </span>
                 <span className={styles.heroSublineSep} aria-hidden>
                   ·
                 </span>
@@ -89,8 +96,11 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
               </p>
 
               <p className={styles.lead}>
-                Врач‑нарколог приезжает по адресу: осмотр, оценка состояния, терапия и процедуры на дому — по показаниям. Стационар или другой формат
-                обсуждаем спокойно и без давления. Время приезда и ориентир по стоимости — на линии; итог согласуем после осмотра.
+                Врач‑нарколог приезжает по адресу: осмотр, оценка, помощь на дому — по показаниям. Стационар или другой формат обсуждаем спокойно, без
+                давления.{' '}
+                {stv
+                  ? 'Время приезда и ориентир по стоимости — на линии; итог согласуем после осмотра.'
+                  : 'Стоимость и порядок выезда — на линии; итог согласуем после осмотра.'}
               </p>
 
               <p className={styles.heroTrustStrip}>
@@ -120,8 +130,8 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
                 Что входит в вызов нарколога
               </h2>
               <p className={styles.includesLead}>
-                Состав визита — ниже. Объём и препараты — после осмотра, по показаниям; без универсального «пакета». При необходимости — разговор о
-                стационаре или другом формате, без шаблонных обещаний.
+                Шаги визита — ниже. Объём помощи — после осмотра, по показаниям; без универсального «пакета». При необходимости — разговор о стационаре или другом
+                формате, без шаблонных обещаний.
               </p>
             </header>
 
@@ -140,10 +150,19 @@ export default function NarkologNaDomPage({ params }: { params: { city: string }
 
             <div className={styles.geoCard}>
               <p className={styles.geoKicker}>Выезд и срок</p>
-              <h3 className={styles.geoTitle}>По городу и ориентир по времени</h3>
+              <h3 className={styles.geoTitle}>{stv ? 'По городу и ориентир по времени' : 'По городу и согласование выезда'}</h3>
               <p className={styles.geoLead}>
-                Выезд в {city.namePrep} и по согласованию рядом с городом. Ориентир до приезда — около {city.arrivalTime} мин; фактическое время зависит от
-                района, дороги и загрузки линии — уточняем при звонке.
+                {stv ? (
+                  <>
+                    Выезд в {city.namePrep} и по согласованию рядом с городом. Ориентир до приезда — около {city.arrivalTime} мин; фактическое время зависит от
+                    района, дороги и загрузки линии — уточняем при звонке.
+                  </>
+                ) : (
+                  <>
+                    Выезд в {city.namePrep} и по согласованию с диспетчером. Порядок и срок приезда согласуют на линии — с учётом адреса, района и загрузки, без
+                    универсальных «минут для всех» до разговора.
+                  </>
+                )}
               </p>
               {city.localText ? <p className={styles.geoLocal}>{city.localText}</p> : null}
             </div>

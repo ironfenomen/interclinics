@@ -5,7 +5,7 @@
 
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getCityBySlug, getCitySlugs, type City } from '@/data/cities'
+import { getCityBySlug, getCitySlugs, isStavropolCity, type City } from '@/data/cities'
 import { LandingChrome } from '@/components/landing/landing-chrome'
 import { CityLanding } from '@/components/landing/city-landing'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
@@ -19,7 +19,9 @@ export async function generateMetadata({ params }: { params: { city: string } })
   if (!city) return { title: BRAND_DISPLAY_NAME }
 
   return {
-    title: `Наркологическая клиника в ${city.namePrep} — ${BRAND_DISPLAY_NAME} | Выезд за ${city.arrivalTime} мин`,
+    title: isStavropolCity(city)
+      ? `Наркологическая клиника в ${city.namePrep} — ${BRAND_DISPLAY_NAME} | Выезд за ${city.arrivalTime} мин`
+      : `Наркологическая клиника в ${city.namePrep} — ${BRAND_DISPLAY_NAME} | Выезд и координация 24/7`,
     description: `Вывод из запоя, кодирование, лечение алкоголизма и наркомании в ${city.namePrep}. Анонимно. Круглосуточно. Лицензия. ☎ ${city.phoneDisplay}`,
     keywords: `вывод из запоя ${city.name}, нарколог на дом ${city.name}, кодирование от алкоголизма ${city.name}, наркологическая клиника ${city.name}`,
     alternates: {

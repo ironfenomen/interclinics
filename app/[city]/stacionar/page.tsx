@@ -52,8 +52,8 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
   const facadeAlt = city.hasStacionar
     ? 'Фасад и вход: ориентир на дороге к отделению'
     : nearest
-      ? `Здание стационара сети в ${nearest.namePrep} — ориентир для приезда`
-      : 'Фасад стационара сети — ориентир для приезда уточняют на линии'
+      ? `Здание стационара сети в ${nearest.namePrep} — адрес и порядок заезда уточняют на линии`
+      : 'Фасад стационара сети — адрес и порядок заезда уточняют на линии'
 
   const programs: {
     id: string
@@ -131,7 +131,7 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
     },
     {
       title: 'Если нужна помощь сегодня',
-      text: 'Линия 24/7: срочность, места, дорога, что взять. Стационар не показан — скажут прямо и подскажут формат.',
+      text: 'Линия 24/7: срочность, места, что взять с собой, порядок заезда. Стационар не показан — скажут прямо и подскажут формат.',
     },
     {
       title: 'Разговор о помощи',
@@ -296,9 +296,7 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
                   <p className={styles.heroLocationKicker}>При показаниях к стационару</p>
                   <p className={styles.heroLocationAddress}>
                     Отделение сети в {nearest.namePrep}
-                    {typeof city.nearestStacionarDistance === 'number'
-                      ? ` · ориентир ${city.nearestStacionarDistance} км из ${city.nameGen}`
-                      : ` · обращение из ${city.nameGen}`}
+                    {` · обращение из ${city.nameGen}`}
                   </p>
                   <p className={styles.heroLocationMeta}>Адрес и заезд — на линии</p>
                 </div>
@@ -474,6 +472,7 @@ export default function StacionarPage({ params }: { params: { city: string } }) 
                       <span className={styles.programPriceCurrency}>₽</span>
                     </div>
                     <div className={styles.programPriceHint}>ориентир за полный типичный срок</div>
+                    <p className={styles.programPriceNote}>Стоимость за программу · обсуждаем до поступления</p>
                   </div>
                 </article>
               ))}

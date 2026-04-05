@@ -1,7 +1,7 @@
 'use client'
 
 // components/Hero.tsx
-import { City } from '@/data/cities'
+import { City, isStavropolCity } from '@/data/cities'
 import LeadForm from './LeadForm'
 
 export default function Hero({ city }: { city: City }) {
@@ -22,7 +22,12 @@ export default function Hero({ city }: { city: City }) {
           <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:18 }}>
             {[
               { t: 'Стационар 24/7', em: 'station' as const },
-              { t: `Выезд врача — до ${city.arrivalTime} мин`, em: false },
+              {
+                t: isStavropolCity(city)
+                  ? `Выезд врача — до ${city.arrivalTime} мин`
+                  : 'Выезд нарколога на дом',
+                em: false,
+              },
               { t: 'Конфиденциально', em: false },
             ].map((c, i) => (
               <div
@@ -49,7 +54,17 @@ export default function Hero({ city }: { city: City }) {
           </h1>
 
           <p style={{ fontSize:16, color:'rgba(255,255,255,.58)', marginBottom:18, lineHeight:1.62, maxWidth:540 }}>
-            Круглосуточная линия: выезд нарколога на дом (ориентир — {city.arrivalTime} мин), при необходимости — очный приём. При показаниях — круглосуточный стационар с наблюдением. Кодирование и реабилитация — следующие этапы маршрута по решению врача.
+            {isStavropolCity(city) ? (
+              <>
+                Круглосуточная линия: выезд нарколога на дом (ориентир — {city.arrivalTime} мин), при необходимости — очный приём. При показаниях — круглосуточный
+                стационар с наблюдением. Кодирование и реабилитация — следующие этапы маршрута по решению врача.
+              </>
+            ) : (
+              <>
+                Круглосуточная линия: выезд нарколога на дом и согласование формата на линии; при необходимости — очный приём. При показаниях — круглосуточный
+                стационар с наблюдением. Кодирование и реабилитация — следующие этапы маршрута по решению врача.
+              </>
+            )}
           </p>
 
           <div style={{ display:'flex', flexWrap:'wrap', gap:'7px 8px', marginBottom:18 }}>
@@ -141,7 +156,9 @@ export default function Hero({ city }: { city: City }) {
               fontSize:12, fontWeight:500, color:'rgba(255,255,255,.52)', lineHeight:1.45, letterSpacing:'0.018em', textWrap:'balance',
             }}
           >
-            Лицензия · Конфиденциально · Выезд до {city.arrivalTime} мин
+            {isStavropolCity(city)
+              ? `Лицензия · Конфиденциально · Выезд до ${city.arrivalTime} мин`
+              : 'Лицензия · Конфиденциально · Координация 24/7'}
           </p>
         </div>
 

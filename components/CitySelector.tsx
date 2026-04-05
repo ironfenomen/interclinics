@@ -19,6 +19,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { isStavropolCity } from '@/data/cities'
 
 // ── Типы ──────────────────────────────────────────────────────
 interface CityData {
@@ -167,7 +168,7 @@ export default function CitySelector({ cities, services }: Props) {
         setDetected(city)
         setPhase('confirm')
       } else {
-        setPhase('select')
+      setPhase('select')
       }
       setFadeKey((k) => k + 1)
     })()
@@ -187,7 +188,7 @@ export default function CitySelector({ cities, services }: Props) {
   // ==================================================================
   // РЕНДЕР
   // ==================================================================
-  return (
+    return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
@@ -269,19 +270,22 @@ export default function CitySelector({ cities, services }: Props) {
 
                 <h1 className="cs-confirm-q">Ваш город — {detected.name}?</h1>
                 <p className="cs-confirm-sub">
-                  Наркологическая помощь в {detected.namePrep}: выезд ~{detected.arrivalTime} мин
-                  {detected.hasStacionar ? ', стационар 24/7' : ''}, реабилитация
+                  {isStavropolCity(detected)
+                    ? `Наркологическая помощь в ${detected.namePrep}: выезд ~${detected.arrivalTime} мин${detected.hasStacionar ? ', стационар 24/7' : ''}, реабилитация`
+                    : `Наркологическая помощь в ${detected.namePrep}: выезд на дом, координация на линии${detected.hasStacionar ? ', стационар 24/7' : ''}, реабилитация`}
                 </p>
 
                 {/* Мини-карточки инфо */}
                 <div className="cs-confirm-stats">
                   <div className="cs-stat">
-                    <span className="cs-stat-val">{detected.arrivalTime} мин</span>
-                    <span className="cs-stat-lbl">выезд</span>
+                    <span className="cs-stat-val">
+                      {isStavropolCity(detected) ? `${detected.arrivalTime} мин` : 'По звонку'}
+                    </span>
+                    <span className="cs-stat-lbl">{isStavropolCity(detected) ? 'выезд' : 'срок выезда'}</span>
                   </div>
                   <div className="cs-stat">
                     <span className="cs-stat-val">от {detected.priceBase.toLocaleString('ru')} ₽</span>
-                    <span className="cs-stat-lbl">капельница</span>
+                    <span className="cs-stat-lbl">базовый выезд</span>
                   </div>
                   <div className="cs-stat">
                     <span className="cs-stat-val">24/7</span>
@@ -293,13 +297,13 @@ export default function CitySelector({ cities, services }: Props) {
                 <div className="cs-confirm-btns">
                   <button className="cs-btn cs-btn--primary" onClick={() => goToCity(detected)}>
                     Да, перейти в {detected.name}
-                  </button>
+              </button>
                   <button className="cs-btn cs-btn--ghost" onClick={switchToSelect}>
-                    Выбрать другой город
-                  </button>
-                </div>
-              </div>
+                Выбрать другой город
+              </button>
             </div>
+          </div>
+          </div>
           )}
 
           {/* ══════════════════════════════════════════════════ */}
@@ -309,19 +313,19 @@ export default function CitySelector({ cities, services }: Props) {
             <div className="cs-select slide-up">
               <h1 className="cs-h1">Выберите город</h1>
               <p className="cs-h1-sub">
-                Наркологическая помощь в Ставропольском крае — выезд на дом, стационар, реабилитация
-              </p>
+          Наркологическая помощь в Ставропольском крае — выезд на дом, стационар, реабилитация
+        </p>
 
               {/* Сетка городов */}
               <div className="cs-grid">
                 {cities.map((city, i) => (
-                  <a
-                    key={city.slug}
-                    href={`/${city.slug}/`}
+            <a
+              key={city.slug}
+              href={`/${city.slug}/`}
                     className="cs-card"
                     style={{ animationDelay: `${0.05 * i}s` }}
-                    onClick={(e) => {
-                      e.preventDefault()
+              onClick={(e) => {
+                e.preventDefault()
                       goToCity(city)
                     }}
                   >
@@ -335,7 +339,7 @@ export default function CitySelector({ cities, services }: Props) {
                       <div className="cs-card-city">{city.name}</div>
                       <div className="cs-card-region">{city.region}</div>
 
-                      {city.districts.length > 0 && (
+              {city.districts.length > 0 && (
                         <div className="cs-card-districts">
                           {city.districts.slice(0, 3).map((d) => (
                             <span key={d} className="cs-dtag">
@@ -344,32 +348,36 @@ export default function CitySelector({ cities, services }: Props) {
                           ))}
                           {city.districts.length > 3 && (
                             <span className="cs-dtag cs-dtag--more">+{city.districts.length - 3}</span>
-                          )}
-                        </div>
-                      )}
+                  )}
+                </div>
+              )}
                     </div>
 
                     <div className="cs-card-foot">
                       <div className="cs-card-metrics">
                         <div className="cs-card-metric">
-                          <span className="cs-card-metric-label">Капельница</span>
+                          <span className="cs-card-metric-label">Базовый выезд</span>
                           <span className="cs-card-metric-value">
                             от {city.priceBase.toLocaleString('ru')}{' '}
                             <span className="cs-card-metric-currency">₽</span>
                           </span>
                         </div>
                         <div className="cs-card-metric cs-card-metric--time">
-                          <span className="cs-card-metric-label">Ориентир выезда</span>
-                          <span className="cs-card-metric-value">~{city.arrivalTime} мин</span>
+                          <span className="cs-card-metric-label">
+                            {isStavropolCity(city) ? 'Ориентир выезда' : 'Формат выезда'}
+                          </span>
+                          <span className="cs-card-metric-value">
+                            {isStavropolCity(city) ? `~${city.arrivalTime} мин` : 'на линии'}
+                          </span>
                         </div>
                       </div>
                       <span className="cs-card-arrow" aria-hidden="true">
                         →
                       </span>
-                    </div>
-                  </a>
-                ))}
               </div>
+            </a>
+          ))}
+        </div>
 
               {/* ── Навигация по сети + SEO: города × услуги (данные из props) ── */}
               <nav className="cs-seo" aria-labelledby="cs-seo-heading">
@@ -384,24 +392,24 @@ export default function CitySelector({ cities, services }: Props) {
                 </div>
 
                 <ul className="cs-seo-entries">
-                  {cities.map((city) => (
+          {cities.map((city) => (
                     <li key={city.slug} className="cs-seo-entry">
                       <h3 className="cs-seo-h3">
                         <a href={`/${city.slug}/`}>{city.name}</a>
-                      </h3>
+              </h3>
                       <div className="cs-seo-links">
                         {services.map((s) => (
                           <a key={s.slug} href={`/${city.slug}/${s.slug}/`}>
                             {s.name} в {city.namePrep}
-                          </a>
-                        ))}
-                      </div>
-                      {city.districts.length > 0 && (
+                  </a>
+                ))}
+              </div>
+              {city.districts.length > 0 && (
                         <p className="cs-seo-districts">
                           <span className="cs-seo-districts-label">Районы работы</span>
                           <span className="cs-seo-districts-text">{city.districts.join(', ')}</span>
-                        </p>
-                      )}
+                </p>
+              )}
                     </li>
                   ))}
                 </ul>
@@ -411,8 +419,8 @@ export default function CitySelector({ cities, services }: Props) {
                     {BRAND_DISPLAY_NAME} — выездная помощь, стационар и программы восстановления в {cities.length} городах
                     Ставропольского края. Конфиденциальность, круглосуточная линия, работа по лицензии и согласованию с
                     пациентом. Выберите город в списке выше или перейдите сразу к нужной услуге.
-                  </p>
-                </div>
+          </p>
+        </div>
               </nav>
             </div>
           )}
@@ -422,8 +430,8 @@ export default function CitySelector({ cities, services }: Props) {
             <div className="cs-phone-inner">
               <p className="cs-phone-kicker">Единая линия сети</p>
               <a href="tel:+78001005849" className="cs-phone-num">
-                8 (800) 100-58-49
-              </a>
+            8 (800) 100-58-49
+          </a>
               <p className="cs-phone-sub">Бесплатно по РФ · Круглосуточно</p>
             </div>
           </div>

@@ -318,6 +318,8 @@
   #ic-service-header .header-actions__row--meta .city-chip,
   #ic-service-header .city-chip {
     max-width: 100%;
+    /* Вторая строка шапки: город + телефон — компактный чип в одной линии с номером */
+    min-height: 36px;
   }
 }
 

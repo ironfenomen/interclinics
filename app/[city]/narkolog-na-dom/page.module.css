@@ -13,18 +13,23 @@
 
 @media (max-width: 768px) {
   .pageRoot {
-    --ic-y-section: clamp(44px, 9vw, 80px);
+    /* Чуть легче вертикальный ритм середины страницы на mobile */
+    --ic-y-section: clamp(40px, 8.5vw, 76px);
   }
 }
 
 /* Сшивка светлого тела страницы: один шов между «составом» и «маршрутом», мягкий вход из hero */
 .pageNarkolog :global(.ic-narkolog-includes) {
-  border-top: 1px solid rgba(215, 225, 238, 0.58);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  border-top: 1px solid rgba(212, 223, 236, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 -1px 0 rgba(11, 29, 53, 0.035);
 }
 
 .pageNarkolog :global(.ic-steps-narkolog) {
   border-top: none;
+  /* Мягкая сшивка с блоком «состав вызова»: светлый шов сверху, без второго «жёсткого» разделителя */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
 /*
@@ -40,8 +45,12 @@
   background:
     radial-gradient(circle at 18% 72%, rgba(16, 185, 129, 0.1), transparent 22%),
     radial-gradient(circle at 84% 16%, rgba(214, 179, 106, 0.075), transparent 26%),
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 45%),
     linear-gradient(180deg, #071221 0%, #0b1d35 46%, #0e2840 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    inset 0 -48px 64px -48px rgba(0, 0, 0, 0.28);
 }
 
 .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog) {
@@ -124,35 +133,62 @@
 }
 
 .pageNarkolog :global(.footer) {
-  margin-top: -1px;
+  margin-top: 0;
   border-top: none;
-  background: linear-gradient(180deg, #0e2840 0%, #081a2a 20%, #050d16 48%, #030910 100%);
-  padding-top: clamp(44px, 6.5vw, 56px);
-  padding-bottom: max(36px, calc(22px + env(safe-area-inset-bottom, 0px)));
+  background:
+    radial-gradient(ellipse 72% 48% at 50% 0%, rgba(16, 185, 129, 0.055), transparent 52%),
+    linear-gradient(180deg, #0a2236 0%, #081a2a 16%, #051016 44%, #030910 68%, #02060c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.048),
+    inset 0 -120px 100px -100px rgba(0, 0, 0, 0.35);
+  padding-top: clamp(48px, 7vw, 64px);
+  padding-bottom: max(40px, calc(24px + env(safe-area-inset-bottom, 0px)));
 }
 
 .pageNarkolog :global(.footer-grid) {
-  gap: clamp(26px, 3.8vw, 36px) clamp(20px, 2.8vw, 30px);
+  gap: clamp(28px, 4vw, 38px) clamp(22px, 3vw, 32px);
 }
 
 .pageNarkolog :global(.footer h4) {
-  margin-bottom: 12px;
-  letter-spacing: 0.11em;
-  color: rgba(248, 250, 252, 0.72);
+  margin-bottom: 13px;
+  letter-spacing: 0.105em;
+  color: rgba(248, 250, 252, 0.74);
 }
 
 .pageNarkolog :global(.footer-brand) {
-  letter-spacing: -0.036em;
+  letter-spacing: -0.034em;
 }
 
 .pageNarkolog :global(.footer-brand small) {
-  color: rgba(226, 232, 240, 0.55);
+  color: rgba(203, 213, 225, 0.58);
 }
 
 .pageNarkolog :global(.footer-text) {
-  margin-top: 16px;
-  line-height: 1.68;
-  color: rgba(226, 232, 240, 0.62);
+  margin-top: 17px;
+  line-height: 1.66;
+  color: rgba(226, 232, 240, 0.64);
+}
+
+.pageNarkolog :global(.footer-text p) {
+  margin-top: 0;
+  margin-bottom: 0.62rem;
+}
+
+.pageNarkolog :global(.footer-text p:last-child) {
+  margin-bottom: 0;
+}
+
+.pageNarkolog :global(.footer-legal-lead),
+.pageNarkolog :global(.footer-legal-provider) {
+  line-height: 1.66;
+  color: rgba(226, 232, 240, 0.66) !important;
+}
+
+.pageNarkolog :global(.footer-legal-note) {
+  margin-bottom: 0.55rem !important;
+  line-height: 1.62 !important;
+  font-size: 11.125px !important;
+  color: rgba(203, 213, 225, 0.54) !important;
 }
 
 .pageNarkolog :global(.footer ul) {
@@ -160,14 +196,15 @@
 }
 
 .pageNarkolog :global(.footer a) {
+  color: rgba(226, 232, 240, 0.68);
   transition:
     color 0.24s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.24s ease;
 }
 
 .pageNarkolog :global(.footer a:hover) {
-  color: rgba(255, 255, 255, 0.94);
-  border-bottom-color: rgba(16, 185, 129, 0.42);
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(16, 185, 129, 0.4);
 }
 
 .pageNarkolog :global(.footer a:focus-visible) {
@@ -175,35 +212,40 @@
 }
 
 .pageNarkolog :global(.footer-medical-strip) {
-  margin-top: 28px;
+  margin-top: clamp(26px, 3.6vw, 34px);
   max-width: min(720px, 100%);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(145deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 14px 17px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  background: linear-gradient(152deg, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.035) 48%, rgba(5, 12, 20, 0.18) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
 .pageNarkolog :global(.footer-medical-strip__text) {
-  color: rgba(241, 245, 249, 0.82);
-  line-height: 1.55;
+  color: rgba(241, 245, 249, 0.84);
+  line-height: 1.56;
+  letter-spacing: 0.01em;
 }
 
 .pageNarkolog :global(.footer-bottom) {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: clamp(22px, 3vw, 28px);
+  padding-top: clamp(18px, 2.5vw, 22px);
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
 }
 
 .pageNarkolog :global(.footer-disclaimer) {
-  color: rgba(203, 213, 225, 0.52);
-  line-height: 1.62;
+  color: rgba(186, 199, 216, 0.5);
+  line-height: 1.64;
+  letter-spacing: 0.008em;
+  max-width: min(52em, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: pretty;
 }
 
 @media (max-width: 768px) {
-  .pageNarkolog :global(section.ic-faq-narkolog) {
-    border-bottom-color: rgba(186, 202, 220, 0.38);
-  }
-
   .pageNarkolog :global(section.final.ic-final-narkolog) {
     padding-top: clamp(48px, 12vw, 64px);
     padding-bottom: clamp(44px, 11vw, 56px);
@@ -254,9 +296,11 @@
 .heroGlow {
   position: absolute;
   top: -42%;
-  right: -18%;
+  left: 50%;
+  right: auto;
   width: min(680px, 120vw);
   height: min(680px, 120vw);
+  transform: translateX(-50%);
   background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, transparent 62%);
   border-radius: 50%;
   pointer-events: none;
@@ -289,25 +333,27 @@
 }
 
 .eyebrow {
-  margin: 0 0 18px;
+  margin: 0 0 16px;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(248, 250, 252, 0.38);
   max-width: 100%;
-  line-height: 1.38;
+  line-height: 1.42;
   text-wrap: balance;
   overflow-wrap: break-word;
 }
 
 .heroBadges {
-  margin: 0 auto 20px;
+  margin: 0 auto 18px;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(8px, 1.2vw, 10px);
+  align-items: flex-start;
+  gap: clamp(7px, 1.1vw, 9px);
+  row-gap: 8px;
   max-width: min(100%, 640px);
 }
 
@@ -315,65 +361,67 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  padding: 8px 13px;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 12px 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.065);
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.012em;
+  background: rgba(255, 255, 255, 0.042);
+  border: 1px solid rgba(255, 255, 255, 0.078);
+  color: rgba(248, 250, 252, 0.86);
+  font-size: 11.875px;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: 0.006em;
 }
 
 .heroBadgeDot {
   flex-shrink: 0;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #d7b469 0%, #b8860b 100%);
-  box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.28);
+  background: linear-gradient(145deg, #d6b36a 0%, #a67c2e 100%);
+  box-shadow: 0 0 0 1px rgba(214, 179, 106, 0.22);
+  opacity: 0.92;
 }
 
 .title {
-  margin: 0 0 18px;
+  margin: 0 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.26em;
+  gap: 0.22em;
   text-wrap: balance;
 }
 
 .titleKicker {
   font-size: clamp(28px, 5.4vw, 46px);
   font-weight: 800;
-  letter-spacing: -0.042em;
-  line-height: 1.08;
-  color: #fff;
+  letter-spacing: -0.04em;
+  line-height: 1.06;
+  color: #f8fafc;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .titleMain {
-  font-size: clamp(19px, 3.6vw, 28px);
-  font-weight: 800;
-  letter-spacing: -0.032em;
-  line-height: 1.2;
-  color: #dffcef;
+  font-size: clamp(18px, 3.45vw, 27px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  color: rgba(196, 245, 224, 0.9);
   /* Длинные падежные названия (Минеральные Воды, Невинномысск и т.д.) — без лишнего сжатия */
-  max-width: min(42ch, 100%);
+  max-width: min(40ch, 100%);
   overflow-wrap: break-word;
 }
 
 /* Время и цена — одна строка, не конкурирует с H1 (как стационар) */
 .heroSubline {
-  margin: 0 auto 18px;
-  max-width: min(38rem, 100%);
+  margin: 0 auto 16px;
+  max-width: min(36rem, 100%);
   font-size: clamp(13px, 1.85vw, 15px);
   font-weight: 500;
-  letter-spacing: -0.014em;
-  line-height: 1.55;
-  color: rgba(226, 232, 240, 0.78);
+  letter-spacing: -0.012em;
+  line-height: 1.52;
+  color: rgba(226, 232, 240, 0.76);
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -424,43 +472,67 @@
 }
 
 .lead {
-  font-size: clamp(16px, 2.4vw, 18px);
-  color: rgba(255, 255, 255, 0.58);
-  margin: 0 auto 22px;
-  line-height: 1.68;
-  max-width: 38em;
+  font-size: clamp(15.5px, 2.35vw, 17.5px);
+  color: rgba(226, 232, 240, 0.7);
+  margin: 0 auto 18px;
+  line-height: 1.62;
+  max-width: 36em;
   font-weight: 500;
+  letter-spacing: 0.003em;
   text-wrap: pretty;
 }
 
+/* Разделитель + типографика: не «коробка-служебка», а спокойная строка доверия */
 .heroTrustStrip {
-  margin: 0 auto 20px;
-  padding: 11px 15px;
-  max-width: min(520px, 100%);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.085);
-  font-size: 11.5px;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.018em;
-  color: rgba(255, 255, 255, 0.52);
+  position: relative;
+  margin: 2px auto 20px;
+  padding: 13px 0 0;
+  max-width: min(36em, 100%);
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: transparent;
+  font-size: 11.375px;
+  font-weight: 600;
+  line-height: 1.52;
+  letter-spacing: 0.022em;
+  color: rgba(203, 213, 225, 0.72);
   text-wrap: balance;
   overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
 }
 
+.heroTrustStrip::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(72px, 28%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.45) 50%, transparent);
+  pointer-events: none;
+}
+
 .heroActionWell {
   margin: 0 auto;
   max-width: min(440px, 100%);
-  padding: 20px 20px 19px;
+  padding: 21px 21px 20px;
   border-radius: 18px;
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.032));
-  border: 1px solid rgba(255, 255, 255, 0.115);
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.068) 0%, rgba(255, 255, 255, 0.03) 52%, rgba(4, 12, 22, 0.14) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.085),
-    0 14px 40px rgba(6, 17, 32, 0.13);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 18px 48px rgba(4, 14, 28, 0.2);
   box-sizing: border-box;
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .heroActionWell {
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  }
 }
 
 /* primary CTA — база .btn.btn-primary из mockup-literal; посадка в well */
@@ -472,12 +544,12 @@
 }
 
 .ctaPremium:global(.btn.btn-primary) {
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
   font-weight: 800;
   border-radius: 14px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 16px 40px rgba(16, 185, 129, 0.32);
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 18px 44px rgba(16, 185, 129, 0.3);
   transition:
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
@@ -491,14 +563,14 @@
 }
 
 .heroCtaHint {
-  margin: 14px auto 0;
-  padding-top: 2px;
+  margin: 15px auto 0;
+  padding-top: 1px;
   max-width: 32em;
-  font-size: 11.5px;
-  line-height: 1.5;
+  font-size: 11.375px;
+  line-height: 1.52;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.012em;
+  color: rgba(203, 213, 225, 0.48);
   overflow-wrap: break-word;
   text-wrap: balance;
 }
@@ -516,185 +588,212 @@
   text-decoration-color: rgba(16, 185, 129, 0.75);
 }
 
-@media (min-width: 481px) {
-  .heroTrustStrip {
-    padding: 12px 16px;
-    font-size: 12px;
-  }
-}
-
-/* Desktop: premium medical first screen — глубина, колонка, иерархия как стационар */
+/* Desktop: оптический центр колонки + симметричный свет — без «съезда» влево относительно glow */
 @media (min-width: 900px) {
   .hero {
-    padding: clamp(48px, 5.5vw, 72px) 0 clamp(52px, 5.8vw, 80px);
+    padding: clamp(52px, 6vw, 80px) 0 clamp(58px, 6.4vw, 94px);
     background:
-      radial-gradient(circle at 12% 18%, rgba(215, 180, 105, 0.1), transparent 22%),
-      radial-gradient(circle at 88% 12%, rgba(16, 185, 129, 0.12), transparent 24%),
-      radial-gradient(circle at 78% 88%, rgba(255, 255, 255, 0.045), transparent 32%),
-      linear-gradient(180deg, #061120 0%, #0b1d35 48%, #152f4d 100%);
+      radial-gradient(ellipse 52% 42% at 50% -8%, rgba(16, 185, 129, 0.11), transparent 55%),
+      radial-gradient(circle at 18% 22%, rgba(215, 180, 105, 0.085), transparent 26%),
+      radial-gradient(circle at 82% 20%, rgba(16, 185, 129, 0.1), transparent 28%),
+      radial-gradient(ellipse 48% 36% at 50% 100%, rgba(0, 0, 0, 0.14), transparent 45%),
+      radial-gradient(ellipse 110% 38% at 50% 100%, rgba(244, 249, 252, 0.055), transparent 52%),
+      linear-gradient(180deg, #050e18 0%, #0b1d35 44%, #132a45 100%);
   }
 
   .heroGlow {
-    top: -48%;
-    right: -22%;
-    width: min(760px, 85vw);
-    height: min(760px, 85vw);
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.125) 0%, transparent 58%);
-    opacity: 0.95;
+    top: -44%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(780px, 88vw);
+    height: min(780px, 88vw);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.13) 0%, transparent 58%);
+    opacity: 0.92;
   }
 
   .heroMesh {
-    opacity: 0.42;
+    opacity: 0.38;
     background-size: 26px 26px;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
-    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.052) 1px, transparent 1px);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 94%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 94%);
   }
 
   .heroMain {
-    text-align: left;
-    max-width: min(34.5rem, 100%);
-    margin-left: 0;
+    text-align: center;
+    max-width: min(40.5rem, 100%);
+    margin-left: auto;
     margin-right: auto;
   }
 
   .eyebrow {
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     font-size: 10.5px;
     letter-spacing: 0.15em;
     color: rgba(248, 250, 252, 0.4);
   }
 
   .heroBadges {
-    justify-content: flex-start;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 16px;
-    gap: 8px;
-    max-width: none;
+    justify-content: center;
+    margin-bottom: clamp(18px, 1.75vw, 22px);
+    gap: 9px;
+    row-gap: 10px;
+    max-width: min(38rem, 100%);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .heroBadge {
-    min-height: 30px;
-    padding: 5px 11px 5px 9px;
-    font-size: 11.125px;
+    min-height: 31px;
+    padding: 7px 14px 7px 11px;
+    font-size: 11.25px;
     font-weight: 600;
-    letter-spacing: 0.032em;
-    color: rgba(248, 250, 252, 0.84);
-    background: rgba(255, 255, 255, 0.028);
-    border-color: rgba(255, 255, 255, 0.055);
+    letter-spacing: 0.015em;
+    color: rgba(248, 250, 252, 0.88);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.078);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
   }
 
   .heroBadgeDot {
     width: 5px;
     height: 5px;
-    box-shadow: 0 0 0 1px rgba(215, 180, 105, 0.2);
+    box-shadow: 0 0 0 1px rgba(214, 179, 106, 0.22);
   }
 
   .title {
-    align-items: flex-start;
-    margin-bottom: clamp(12px, 1.5vw, 16px);
-    gap: 0.22em;
+    align-items: center;
+    margin-bottom: clamp(15px, 1.6vw, 19px);
+    gap: 0.18em;
   }
 
   .titleKicker {
-    font-size: clamp(32px, 2.9vw, 44px);
+    font-size: clamp(34px, 3.05vw, 46px);
     font-weight: 800;
     letter-spacing: -0.038em;
-    line-height: 1.09;
+    line-height: 1.04;
     color: #f8fafc;
-    max-width: 18ch;
+    max-width: min(22ch, 100%);
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.22),
+      0 18px 42px rgba(0, 0, 0, 0.12);
   }
 
   .titleMain {
     margin-top: 0.08em;
-    max-width: none;
-    font-size: clamp(18px, 1.75vw, 24px);
+    max-width: min(32rem, 100%);
+    font-size: clamp(17px, 1.75vw, 24px);
     font-weight: 600;
     letter-spacing: -0.028em;
     line-height: 1.22;
-    color: rgba(196, 245, 224, 0.88);
+    color: rgba(209, 250, 229, 0.92);
+    text-shadow: 0 1px 18px rgba(16, 185, 129, 0.08);
   }
 
   .heroSubline {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: clamp(12px, 1.45vw, 16px);
-    max-width: min(35rem, 100%);
-    font-size: clamp(12.75px, 1.35vw, 14px);
-    line-height: 1.56;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: clamp(15px, 1.55vw, 18px);
+    max-width: min(36rem, 100%);
+    font-size: clamp(13px, 1.35vw, 14.5px);
+    line-height: 1.55;
     letter-spacing: -0.008em;
-    color: rgba(226, 232, 240, 0.72);
+    color: rgba(226, 232, 240, 0.74);
   }
 
   .heroSublineRest {
-    color: rgba(226, 232, 240, 0.78);
-  }
-
-  .heroPriceFrom {
-    color: rgba(215, 180, 105, 0.75);
-  }
-
-  .heroPriceValue {
-    font-size: clamp(15.5px, 1.65vw, 18.5px);
-    font-weight: 700;
-    letter-spacing: -0.026em;
-    color: rgba(252, 252, 253, 0.96);
-  }
-
-  .heroPriceCurrency {
-    font-size: clamp(14px, 1.45vw, 17px);
-    font-weight: 700;
-  }
-
-  .heroPricePer {
-    font-weight: 500;
     color: rgba(226, 232, 240, 0.8);
   }
 
+  .heroPriceFrom {
+    color: rgba(215, 180, 105, 0.78);
+  }
+
+  .heroPriceValue {
+    font-size: clamp(16px, 1.7vw, 19px);
+    font-weight: 800;
+    letter-spacing: -0.028em;
+    color: rgba(252, 252, 253, 0.98);
+  }
+
+  .heroPriceCurrency {
+    font-size: clamp(14.5px, 1.5vw, 17.5px);
+    font-weight: 800;
+  }
+
+  .heroPricePer {
+    font-weight: 600;
+    color: rgba(226, 232, 240, 0.82);
+  }
+
   .lead {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: clamp(14px, 1.5vw, 18px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: clamp(17px, 1.7vw, 21px);
     max-width: min(36em, 100%);
-    font-size: clamp(14.75px, 1.42vw, 16px);
-    line-height: 1.66;
-    letter-spacing: 0.004em;
+    font-size: clamp(14.75px, 1.4vw, 16px);
+    line-height: 1.65;
+    letter-spacing: 0.006em;
     font-weight: 500;
-    color: rgba(226, 232, 240, 0.72);
+    color: rgba(226, 232, 240, 0.7);
     text-wrap: balance;
     -webkit-font-smoothing: antialiased;
   }
 
   .heroTrustStrip {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: clamp(18px, 2vw, 24px);
-    padding: 10px 14px 11px;
-    max-width: min(36rem, 100%);
-    border-radius: 13px;
-    border-color: rgba(255, 255, 255, 0.068);
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.042) 0%, rgba(255, 255, 255, 0.018) 100%);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: clamp(24px, 2.35vw, 30px);
+    padding: 13px 22px 14px;
+    max-width: min(36em, 100%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.032) 48%,
+      rgba(4, 12, 22, 0.16) 100%
+    );
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.05),
-      0 6px 22px rgba(4, 12, 24, 0.12);
-    font-size: 11.75px;
-    line-height: 1.48;
-    letter-spacing: 0.014em;
-    color: rgba(226, 232, 240, 0.58);
+      inset 0 1px 0 rgba(255, 255, 255, 0.09),
+      0 12px 36px rgba(4, 12, 22, 0.16);
+    font-size: 11.25px;
+    line-height: 1.5;
+    letter-spacing: 0.034em;
+    color: rgba(226, 232, 240, 0.76);
+  }
+
+  .heroTrustStrip::before {
+    display: none;
+  }
+
+  @supports (backdrop-filter: blur(8px)) {
+    .heroTrustStrip {
+      backdrop-filter: blur(12px) saturate(1.12);
+      -webkit-backdrop-filter: blur(12px) saturate(1.12);
+    }
   }
 
   .heroActionWell {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: min(26.5rem, 100%);
-    padding: 22px 23px 21px;
-    border-radius: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(27.5rem, 100%);
+    padding: 24px 26px 23px;
+    border-radius: 20px;
     border-color: rgba(255, 255, 255, 0.12);
-    background: linear-gradient(168deg, rgba(255, 255, 255, 0.062) 0%, rgba(255, 255, 255, 0.034) 100%);
+    background: linear-gradient(
+      172deg,
+      rgba(255, 255, 255, 0.082) 0%,
+      rgba(255, 255, 255, 0.038) 46%,
+      rgba(4, 14, 26, 0.2) 100%
+    );
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.095),
-      0 18px 48px rgba(4, 14, 28, 0.2);
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+      0 24px 60px rgba(4, 12, 24, 0.28),
+      0 0 0 1px rgba(16, 185, 129, 0.06);
   }
 
   .heroCta {
@@ -702,54 +801,73 @@
   }
 
   .ctaPremium:global(.btn.btn-primary) {
-    min-height: 50px;
+    min-height: 51px;
     padding-top: 13px;
     padding-bottom: 13px;
-    border-radius: 13px;
-    font-size: 15px;
+    border-radius: 14px;
+    font-size: 15.125px;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 14px 36px rgba(16, 185, 129, 0.3);
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 16px 40px rgba(16, 185, 129, 0.32);
   }
 
   .ctaPremium:global(.btn.btn-primary):hover {
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.24),
-      0 16px 42px rgba(16, 185, 129, 0.34);
+      inset 0 1px 0 rgba(255, 255, 255, 0.26),
+      0 18px 44px rgba(16, 185, 129, 0.36);
   }
 
   .heroCtaHint {
-    margin-top: 12px;
-    font-size: 12px;
-    color: rgba(226, 232, 240, 0.45);
+    margin-top: 14px;
+    font-size: 12.125px;
+    letter-spacing: 0.011em;
+    color: rgba(203, 213, 225, 0.48);
   }
 }
 
 /* Узкие экраны: компактный hero, та же иерархия (desktop ≥900px не затрагивается) */
 @media (max-width: 899px) {
   .hero {
-    padding: 24px 0 28px;
+    padding: clamp(26px, 6.5vw, 36px) 0 clamp(32px, 7.8vw, 44px);
+    background:
+      radial-gradient(ellipse 95% 55% at 50% -18%, rgba(16, 185, 129, 0.1), transparent 52%),
+      radial-gradient(circle at 50% 108%, rgba(0, 0, 0, 0.18), transparent 42%),
+      radial-gradient(ellipse 115% 36% at 50% 100%, rgba(244, 249, 252, 0.04), transparent 50%),
+      linear-gradient(180deg, #040a12 0%, var(--deep) 44%, #071a2e 100%);
+  }
+
+  .heroGlow {
+    opacity: 0.95;
+    width: min(620px, 130vw);
+    height: min(620px, 130vw);
+  }
+
+  .heroMesh {
+    opacity: 0.32;
   }
 
   .eyebrow {
-    margin-bottom: 8px;
+    margin-bottom: 11px;
     font-size: 9.5px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.145em;
+    color: rgba(248, 250, 252, 0.42);
   }
 
   .heroBadges {
-    margin-bottom: 12px;
-    gap: 6px;
+    margin-bottom: 15px;
+    gap: 7px;
+    row-gap: 8px;
   }
 
   .heroBadge {
-    min-height: 29px;
-    padding: 5px 10px 5px 9px;
-    font-size: 10.875px;
+    min-height: 30px;
+    padding: 6px 12px 6px 10px;
+    font-size: 10.75px;
     font-weight: 600;
-    letter-spacing: 0.028em;
-    border-color: rgba(255, 255, 255, 0.085);
-    background: rgba(255, 255, 255, 0.038);
+    letter-spacing: 0.016em;
+    border-color: rgba(255, 255, 255, 0.078);
+    background: rgba(255, 255, 255, 0.042);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
   }
 
   .heroBadgeDot {
@@ -758,40 +876,109 @@
   }
 
   .title {
-    margin-bottom: 10px;
+    margin-bottom: 13px;
+    gap: 0.2em;
+  }
+
+  .titleKicker {
+    font-size: clamp(27px, 7.4vw, 34px);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.22),
+      0 14px 36px rgba(0, 0, 0, 0.14);
+  }
+
+  .titleMain {
+    font-size: clamp(17px, 4.15vw, 20px);
+    line-height: 1.19;
+    letter-spacing: -0.028em;
+    color: rgba(204, 250, 229, 0.92);
   }
 
   .heroSubline {
-    margin-bottom: 10px;
+    margin-bottom: 13px;
     line-height: 1.48;
+    color: rgba(226, 232, 240, 0.78);
   }
 
   .lead {
-    margin-bottom: 12px;
-    font-size: 14.75px;
-    line-height: 1.56;
+    margin-bottom: 15px;
+    font-size: 14.5px;
+    line-height: 1.54;
+    letter-spacing: 0.004em;
+    color: rgba(226, 232, 240, 0.71);
   }
 
+  /* Спокойная «капсула» доверия — не сухая служебная строка */
   .heroTrustStrip {
-    margin-bottom: 12px;
-    padding: 6px 11px 7px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding: 11px 16px 12px;
     max-width: 100%;
-    border-radius: 11px;
-    border-color: rgba(255, 255, 255, 0.055);
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.012) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    border-radius: 14px;
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.028) 48%,
+      rgba(4, 12, 22, 0.14) 100%
+    );
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.035),
-      0 4px 14px rgba(4, 12, 22, 0.07);
-    font-size: 10.65px;
-    line-height: 1.36;
-    letter-spacing: 0.012em;
-    color: rgba(226, 232, 240, 0.52);
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 10px 28px rgba(4, 12, 22, 0.12);
+    font-size: 10.625px;
+    font-weight: 600;
+    line-height: 1.48;
+    letter-spacing: 0.038em;
+    color: rgba(226, 232, 240, 0.78);
+  }
+
+  .heroTrustStrip::before {
+    display: none;
+  }
+
+  @supports (backdrop-filter: blur(8px)) {
+    .heroTrustStrip {
+      backdrop-filter: blur(10px) saturate(1.1);
+      -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    }
   }
 
   .heroActionWell {
-    padding: 16px 16px 15px;
+    padding: 16px 16px 17px;
     max-width: 100%;
-    border-radius: 16px;
+    border-radius: 17px;
+    border-color: rgba(255, 255, 255, 0.11);
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.032) 50%,
+      rgba(4, 12, 22, 0.16) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+      0 16px 40px rgba(4, 14, 28, 0.22),
+      0 0 0 1px rgba(16, 185, 129, 0.05);
+  }
+
+  .ctaPremium:global(.btn.btn-primary) {
+    min-height: 50px;
+    border-radius: 14px;
+    font-size: 15px;
+    letter-spacing: -0.019em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 16px 38px rgba(16, 185, 129, 0.28);
+  }
+
+  .heroCtaHint {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: rgba(203, 213, 225, 0.52);
   }
 }
 
@@ -817,10 +1004,11 @@
   position: relative;
   padding: var(--ic-y-section, 88px) 0;
   background:
-    radial-gradient(ellipse 70% 42% at 50% 0%, rgba(16, 185, 129, 0.04), transparent 55%),
-    linear-gradient(180deg, #f4f9fc 0%, #fafcfe 42%, #ffffff 100%);
-  border-top: 1px solid rgba(215, 225, 238, 0.65);
-  border-bottom: 1px solid rgba(220, 230, 241, 0.5);
+    radial-gradient(ellipse 78% 48% at 50% 0%, rgba(16, 185, 129, 0.042), transparent 56%),
+    radial-gradient(ellipse 90% 28% at 50% 0%, rgba(255, 255, 255, 0.65), transparent 58%),
+    linear-gradient(180deg, #f2f8fc 0%, #fafcfe 44%, #ffffff 100%);
+  border-top: 1px solid rgba(215, 225, 238, 0.62);
+  border-bottom: 1px solid rgba(220, 230, 241, 0.48);
 }
 
 .includesInner {
@@ -967,13 +1155,13 @@
 .geoCard {
   margin-bottom: clamp(24px, 3vw, 32px);
   padding: clamp(20px, 2.5vw, 26px) clamp(20px, 2.5vw, 28px);
-  border-radius: 18px;
+  border-radius: 17px;
   background:
-    linear-gradient(135deg, rgba(248, 253, 250, 0.95) 0%, rgba(255, 255, 255, 0.99) 55%, #ffffff 100%);
-  border: 1px solid rgba(16, 185, 129, 0.14);
+    linear-gradient(148deg, rgba(248, 253, 250, 0.96) 0%, rgba(255, 255, 255, 0.99) 52%, #ffffff 100%);
+  border: 1px solid rgba(16, 185, 129, 0.13);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.98) inset,
-    0 12px 36px rgba(7, 20, 35, 0.055);
+    0 10px 32px rgba(7, 20, 35, 0.048);
   box-sizing: border-box;
 }
 
@@ -1021,10 +1209,12 @@
 .districtsBlock {
   margin-top: 0;
   padding: clamp(18px, 2.2vw, 24px) clamp(16px, 2vw, 22px);
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.92) 0%, rgba(255, 255, 255, 0.65) 100%);
-  border: 1px solid rgba(226, 232, 240, 0.95);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88) inset;
+  border-radius: 17px;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.94) 0%, rgba(255, 255, 255, 0.72) 100%);
+  border: 1px solid rgba(218, 228, 240, 0.9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 8px 26px rgba(11, 29, 53, 0.038);
   box-sizing: border-box;
 }
 
@@ -1135,36 +1325,40 @@
 
 @media (max-width: 899px) {
   .includesSection {
-    padding: clamp(44px, 10vw, 64px) 0;
+    padding: clamp(38px, 8.5vw, 56px) 0;
   }
 
   .includesHeader {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     text-align: left;
   }
 
+  .includesKicker {
+    margin-bottom: 8px;
+  }
+
   .includesTitle {
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
   .includesLead {
-    font-size: 14.5px;
-    line-height: 1.52;
+    font-size: 14.375px;
+    line-height: 1.5;
   }
 
   .includesList {
-    gap: 9px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 18px;
   }
 
   .featureCard {
-    padding: 15px 15px 15px 17px;
+    padding: 14px 14px 14px 16px;
     border-radius: 14px;
   }
 
   .featureCard::before {
-    top: 12px;
-    bottom: 12px;
+    top: 11px;
+    bottom: 11px;
   }
 
   .featureIcon {
@@ -1179,12 +1373,14 @@
   }
 
   .featureText {
-    font-size: 14.5px;
-    line-height: 1.52;
+    font-size: 14.375px;
+    line-height: 1.5;
+    padding-top: 1px;
   }
 
   .geoCard {
-    padding: 17px 16px 18px;
+    margin-bottom: 18px;
+    padding: 16px 15px 17px;
     border-radius: 16px;
   }
 
@@ -1195,32 +1391,35 @@
 
   .geoTitle {
     font-size: clamp(16px, 4.2vw, 17.5px);
-    margin-bottom: 10px;
+    margin-bottom: 9px;
+    line-height: 1.22;
   }
 
   .geoLead {
-    font-size: 14.5px;
-    line-height: 1.55;
+    font-size: 14.375px;
+    line-height: 1.52;
   }
 
   .geoLocal {
-    font-size: 14.25px;
-    margin-top: 14px;
-    padding-top: 14px;
+    font-size: 14.125px;
+    margin-top: 12px;
+    padding-top: 12px;
+    line-height: 1.52;
   }
 
   .districtsBlock {
-    padding: 15px 14px 16px;
+    padding: 14px 13px 15px;
   }
 
   .districtsNote {
-    margin-bottom: 12px;
-    font-size: 12.5px;
+    margin-bottom: 10px;
+    font-size: 12.375px;
+    line-height: 1.45;
   }
 
   .districtChip {
-    padding: 7px 12px;
-    font-size: 12.25px;
+    padding: 6px 11px;
+    font-size: 12.125px;
   }
 }
 
@@ -1232,165 +1431,205 @@
 
 /* Единая тёмная оконцовка: FAQ → финал → футер → scroll-pad (desktop ≥900 — отдельный блок ниже) */
 @media (max-width: 899px) {
-  .pageNarkolog :global(section.ic-faq-narkolog) {
-    border-bottom-color: rgba(186, 202, 220, 0.34);
+  .pageNarkolog :global(section.final.ic-final-narkolog) {
+    padding-top: clamp(32px, 9vw, 46px);
+    padding-bottom: clamp(32px, 8.5vw, 44px);
+    background:
+      radial-gradient(ellipse 72% 44% at 20% 88%, rgba(16, 185, 129, 0.075), transparent 54%),
+      radial-gradient(ellipse 52% 32% at 82% 12%, rgba(214, 179, 106, 0.045), transparent 50%),
+      linear-gradient(180deg, #050f1a 0%, #0a1a2e 46%, #0c2740 78%, #0a2238 100%);
+    border-bottom: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.045),
+      inset 0 -36px 48px -40px rgba(0, 0, 0, 0.24);
   }
 
-  .pageNarkolog :global(section.final.ic-final-narkolog) {
-    padding-top: clamp(36px, 10vw, 50px);
-    padding-bottom: clamp(34px, 9.5vw, 48px);
-    background:
-      radial-gradient(ellipse 74% 48% at 18% 86%, rgba(16, 185, 129, 0.085), transparent 54%),
-      radial-gradient(ellipse 56% 34% at 82% 10%, rgba(214, 179, 106, 0.05), transparent 50%),
-      linear-gradient(180deg, #050f1a 0%, #0a1a2e 44%, #0c2740 76%, #0b253c 100%);
-    border-bottom-color: rgba(255, 255, 255, 0.04);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  /* Лёгче блок «лид → телефон → форма» без потери силы CTA */
+  .pageNarkolog :global(.ic-final-narkolog .final-lead) {
+    margin-top: 7px;
+    font-size: 14.25px;
+    line-height: 1.46;
+    color: rgba(248, 250, 252, 0.7);
+  }
+
+  .pageNarkolog :global(.ic-final-narkolog .final-phone) {
+    margin-top: 11px;
+    font-size: clamp(20px, 5.6vw, 25px);
+    padding-bottom: 1px;
+    border-bottom-color: rgba(248, 250, 252, 0.22);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog) {
-    gap: 9px;
-    padding: 12px 12px 14px;
+    margin-top: 14px;
+    gap: 8px;
+    padding: 11px 11px 13px;
     border-radius: 15px;
-    border-color: rgba(255, 255, 255, 0.082);
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.082) 0%, rgba(255, 255, 255, 0.036) 52%, rgba(6, 14, 24, 0.16) 100%);
+    border-color: rgba(255, 255, 255, 0.078);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.03) 52%, rgba(6, 14, 24, 0.14) 100%);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.05) inset,
-      0 14px 36px rgba(0, 0, 0, 0.2);
+      0 1px 0 rgba(255, 255, 255, 0.045) inset,
+      0 12px 32px rgba(0, 0, 0, 0.18);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog .fi) {
     font-size: 16px;
-    min-height: 48px;
-    border-color: rgba(255, 255, 255, 0.1);
+    min-height: 47px;
+    border-color: rgba(255, 255, 255, 0.095);
     border-radius: 12px;
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog .fbtn) {
-    min-height: 48px;
-    font-size: 15px;
-    letter-spacing: -0.017em;
+    min-height: 47px;
+    font-size: 14.875px;
+    letter-spacing: -0.018em;
     border-radius: 12px;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.14),
-      0 9px 26px rgba(16, 185, 129, 0.24);
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 8px 22px rgba(16, 185, 129, 0.22);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog .form-consent-check span) {
-    font-size: 12.35px;
-    line-height: 1.42;
-    color: rgba(226, 232, 240, 0.74);
+    font-size: 12.125px;
+    line-height: 1.38;
+    color: rgba(226, 232, 240, 0.7);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog .ic-narkolog-form-hint) {
-    font-size: 12.35px;
-    line-height: 1.48;
-    color: rgba(226, 232, 240, 0.58);
-  }
-
-  .pageNarkolog :global(.ic-final-narkolog .final-phone) {
-    font-size: clamp(21px, 6vw, 26px);
-    padding-bottom: 2px;
-    border-bottom-color: rgba(248, 250, 252, 0.24);
+    font-size: 12px;
+    line-height: 1.44;
+    color: rgba(226, 232, 240, 0.54);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-proof) {
-    margin-top: 12px;
-    gap: 6px;
+    margin-top: 11px;
+    gap: 5px 7px;
+    row-gap: 5px;
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-proof span) {
-    padding: 5px 10px;
-    font-size: 11px;
+    padding: 4px 9px;
+    font-size: 10.75px;
     font-weight: 600;
-    letter-spacing: 0.03em;
-    color: rgba(248, 250, 252, 0.82);
-    border-color: rgba(255, 255, 255, 0.07);
+    letter-spacing: 0.028em;
+    color: rgba(248, 250, 252, 0.8);
+    border-color: rgba(255, 255, 255, 0.065);
     border-radius: 999px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.026) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.048) 0%, rgba(255, 255, 255, 0.02) 100%);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.035) inset,
-      0 3px 12px rgba(0, 0, 0, 0.1);
+      0 1px 0 rgba(255, 255, 255, 0.03) inset,
+      0 2px 10px rgba(0, 0, 0, 0.08);
   }
 
   .pageNarkolog :global(.footer) {
-    padding-top: 30px;
-    padding-bottom: max(48px, calc(24px + env(safe-area-inset-bottom, 0px)));
-    background: linear-gradient(180deg, #0b253c 0%, #081a2a 17%, #050d16 50%, #02060c 100%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.032);
+    padding-top: clamp(26px, 7.5vw, 34px);
+    padding-bottom: max(48px, calc(26px + env(safe-area-inset-bottom, 0px)));
+    background:
+      radial-gradient(ellipse 88% 40% at 50% 0%, rgba(16, 185, 129, 0.048), transparent 50%),
+      linear-gradient(180deg, #091e30 0%, #071826 12%, #050f18 40%, #030910 66%, #02060c 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.038),
+      inset 0 -88px 72px -82px rgba(0, 0, 0, 0.3);
   }
 
   .pageNarkolog :global(.footer-grid) {
-    gap: 22px;
+    gap: 17px;
   }
 
   .pageNarkolog :global(.footer h4) {
-    margin-bottom: 9px;
-    font-size: 10.75px;
-    letter-spacing: 0.105em;
-    color: rgba(248, 250, 252, 0.66);
+    margin-bottom: 7px;
+    font-size: 10.5px;
+    letter-spacing: 0.098em;
+    color: rgba(248, 250, 252, 0.68);
   }
 
   .pageNarkolog :global(.footer-text) {
-    margin-top: 12px;
-    font-size: 12.35px;
-    line-height: 1.56;
+    margin-top: 9px;
+    font-size: 12.125px;
+    line-height: 1.48;
     color: rgba(226, 232, 240, 0.56);
   }
 
+  .pageNarkolog :global(.footer-text p) {
+    margin-bottom: 0.52rem;
+  }
+
+  .pageNarkolog :global(.footer-legal-lead),
+  .pageNarkolog :global(.footer-legal-provider) {
+    font-size: 12px !important;
+    line-height: 1.48 !important;
+  }
+
+  .pageNarkolog :global(.footer-legal-note) {
+    font-size: 10.75px !important;
+    line-height: 1.46 !important;
+  }
+
   .pageNarkolog :global(.footer-brand small) {
-    font-size: 11px;
+    font-size: 10.75px;
     line-height: 1.4;
     color: rgba(203, 213, 225, 0.5);
   }
 
   .pageNarkolog :global(.footer ul) {
-    gap: 7px;
+    gap: 5px;
   }
 
   .pageNarkolog :global(.footer a) {
-    font-size: 12.35px;
+    font-size: 12px;
   }
 
   .pageNarkolog :global(.footer-medical-strip) {
-    margin-top: 18px;
+    margin-top: 17px;
     padding: 10px 12px 11px;
     border-radius: 12px;
     border-color: rgba(255, 255, 255, 0.055);
-    background: linear-gradient(148deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.03) 100%);
+    background: linear-gradient(155deg, rgba(0, 0, 0, 0.16) 0%, rgba(255, 255, 255, 0.028) 50%, rgba(5, 12, 18, 0.14) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.035),
-      0 6px 20px rgba(0, 0, 0, 0.12);
+      0 4px 14px rgba(0, 0, 0, 0.08);
   }
 
   .pageNarkolog :global(.footer-medical-strip__text) {
-    font-size: 12.35px;
-    line-height: 1.48;
+    font-size: 12px;
+    line-height: 1.42;
     color: rgba(241, 245, 249, 0.8);
   }
 
   .pageNarkolog :global(.footer-bottom) {
-    margin-top: 15px;
-    padding-top: 13px;
-    border-top-color: rgba(255, 255, 255, 0.048);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top-color: rgba(255, 255, 255, 0.04);
   }
 
   .pageNarkolog :global(.footer-disclaimer) {
-    font-size: 11.5px;
-    line-height: 1.48;
-    color: rgba(186, 199, 216, 0.46);
-    letter-spacing: 0.006em;
+    font-size: 11.125px;
+    line-height: 1.46;
+    color: rgba(186, 199, 216, 0.42);
+    letter-spacing: 0.004em;
   }
 
   .pageNarkolog :global(.ic-mockup-scroll-pad) {
     background:
-      linear-gradient(180deg, rgba(8, 18, 30, 0.24) 0%, transparent 40%),
-      linear-gradient(180deg, #060d14 0%, #03060a 44%, #010305 100%);
+      linear-gradient(180deg, rgba(5, 12, 20, 0.4) 0%, transparent 36%),
+      linear-gradient(180deg, #040c14 0%, #02060a 46%, #010305 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.032);
   }
 }
 
 @media (min-width: 900px) {
-  .pageNarkolog :global(section.ic-faq-narkolog) {
-    border-bottom-color: rgba(190, 206, 224, 0.42);
+  .pageNarkolog :global(.ic-final-narkolog .final-lead) {
+    margin-top: clamp(13px, 1.6vw, 17px);
+    line-height: 1.62;
+    color: rgba(226, 232, 240, 0.76);
+    letter-spacing: 0.006em;
+  }
+
+  .pageNarkolog :global(.ic-final-narkolog .final-phone) {
+    margin-top: clamp(22px, 2.85vw, 30px);
+  }
+
+  .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog) {
+    margin-top: clamp(22px, 2.85vw, 30px);
   }
 
   .pageNarkolog :global(section.final.ic-final-narkolog) {
@@ -1401,10 +1640,10 @@
       radial-gradient(ellipse 48% 32% at 88% 12%, rgba(214, 179, 106, 0.078), transparent 52%),
       radial-gradient(ellipse 40% 24% at 50% 100%, rgba(0, 0, 0, 0.12), transparent 50%),
       linear-gradient(180deg, #040d18 0%, #081a2c 28%, #0b2238 58%, #0c2740 100%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    border-bottom: none;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.042),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      inset 0 -56px 72px -52px rgba(0, 0, 0, 0.3);
   }
 
   .pageNarkolog :global(.ic-final-narkolog .final-form.final-form--narkolog) {
@@ -1487,24 +1726,27 @@
   }
 
   .pageNarkolog :global(.footer) {
-    padding-top: clamp(54px, 7.2vw, 72px);
-    padding-bottom: max(46px, calc(28px + env(safe-area-inset-bottom, 0px)));
+    padding-top: clamp(52px, 7.2vw, 72px);
+    padding-bottom: max(48px, calc(30px + env(safe-area-inset-bottom, 0px)));
     background:
-      radial-gradient(ellipse 55% 42% at 12% 0%, rgba(16, 185, 129, 0.04), transparent 45%),
+      linear-gradient(180deg, rgba(10, 34, 54, 0.5) 0%, transparent 14%),
+      radial-gradient(ellipse 58% 44% at 14% 0%, rgba(16, 185, 129, 0.048), transparent 48%),
       linear-gradient(
         180deg,
-        #0c2740 0%,
-        #0a2136 14%,
-        #061018 40%,
-        #030910 68%,
+        #0a2236 0%,
+        #081a2a 12%,
+        #061018 38%,
+        #030910 64%,
         #02060c 100%
       );
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.038);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -130px 110px -95px rgba(0, 0, 0, 0.36);
   }
 
   .pageNarkolog :global(.footer-grid) {
     align-items: start;
-    gap: clamp(30px, 4.2vw, 44px) clamp(24px, 3.4vw, 36px);
+    gap: clamp(32px, 4.4vw, 46px) clamp(26px, 3.5vw, 38px);
   }
 
   .pageNarkolog :global(.footer-col--brand) {
@@ -1513,55 +1755,65 @@
 
   .pageNarkolog :global(.footer h4) {
     margin-bottom: 14px;
-    font-size: 11.25px;
-    letter-spacing: 0.12em;
-    color: rgba(248, 250, 252, 0.78);
+    font-size: 11.125px;
+    letter-spacing: 0.115em;
+    color: rgba(248, 250, 252, 0.76);
   }
 
   .pageNarkolog :global(.footer-text) {
-    margin-top: 19px;
-    line-height: 1.7;
-    color: rgba(226, 232, 240, 0.66);
+    margin-top: 16px;
+    line-height: 1.62;
+    font-size: 12.875px;
+    color: rgba(226, 232, 240, 0.62);
+  }
+
+  .pageNarkolog :global(.footer-legal-lead),
+  .pageNarkolog :global(.footer-legal-provider) {
+    font-size: 12.375px !important;
   }
 
   .pageNarkolog :global(.footer ul) {
-    gap: 11px;
+    gap: 10px;
   }
 
   .pageNarkolog :global(.footer-brand small) {
-    color: rgba(203, 213, 225, 0.58);
+    color: rgba(203, 213, 225, 0.56);
   }
 
   .pageNarkolog :global(.footer-medical-strip) {
-    margin-top: clamp(34px, 4vw, 42px);
-    padding: 16px 22px 17px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.085);
-    background: linear-gradient(152deg, rgba(0, 0, 0, 0.28) 0%, rgba(255, 255, 255, 0.04) 100%);
+    margin-top: clamp(32px, 4vw, 40px);
+    padding: 15px 21px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.078);
+    background: linear-gradient(155deg, rgba(0, 0, 0, 0.22) 0%, rgba(255, 255, 255, 0.038) 48%, rgba(5, 12, 20, 0.2) 100%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.05),
-      0 12px 36px rgba(0, 0, 0, 0.2);
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 10px 32px rgba(0, 0, 0, 0.18);
   }
 
   .pageNarkolog :global(.footer-medical-strip__text) {
-    line-height: 1.58;
-    color: rgba(241, 245, 249, 0.86);
+    line-height: 1.6;
+    font-size: 13px;
+    color: rgba(241, 245, 249, 0.85);
   }
 
   .pageNarkolog :global(.footer-bottom) {
-    margin-top: clamp(28px, 3.2vw, 34px);
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: clamp(26px, 3.2vw, 32px);
+    padding-top: clamp(22px, 2.8vw, 26px);
+    border-top: 1px solid rgba(255, 255, 255, 0.052);
   }
 
   .pageNarkolog :global(.footer-disclaimer) {
-    font-size: 12px;
-    line-height: 1.68;
-    color: rgba(186, 199, 216, 0.52);
-    letter-spacing: 0.01em;
+    font-size: 11.75px;
+    line-height: 1.6;
+    color: rgba(186, 199, 216, 0.46);
+    letter-spacing: 0.006em;
+    max-width: min(52em, 100%);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .pageNarkolog :global(.footer-brand) {
-    letter-spacing: -0.035em;
+    letter-spacing: -0.034em;
   }
 }

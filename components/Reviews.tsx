@@ -14,7 +14,7 @@ export default function Reviews() {
               <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--em)', color: '#fff', fontSize: 16, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>АР</div>
               <div><div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>Артур Р.</div><div style={{ fontSize: 12, color: 'rgba(255,255,255,.35)' }}>Март 2026</div></div>
             </div>
-            <p style={{ fontSize: 14, color: 'rgba(255,255,255,.55)', lineHeight: 1.65 }}>Процедура прошла отлично. Делали усиленную капельницу, врачи молодцы, приехали быстро.</p>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,.55)', lineHeight: 1.65 }}>Процедура прошла отлично. Взяли усиленный пакет выезда, врачи молодцы, приехали быстро.</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14, padding: '10px 14px', background: 'rgba(255,255,255,.06)', borderRadius: 8 }}>
               <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--em)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
                 <svg viewBox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M8 5v14l11-7z" /></svg>

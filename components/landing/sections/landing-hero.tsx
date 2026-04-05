@@ -1,4 +1,4 @@
-import type { City } from '@/data/cities'
+import { isStavropolCity, type City } from '@/data/cities'
 import { Reveal } from '../effects/reveal'
 import { CallbackButton } from '../ui/callback-button'
 import { HeroFormPanel } from './hero-form-panel'
@@ -11,7 +11,7 @@ export function LandingHero({ city }: { city: City }) {
           <div className="py-8 max-md:py-3">
             <div className="mb-[22px] flex flex-wrap gap-[10px]">
               {[
-                'Выезд в течение 30 минут',
+                isStavropolCity(city) ? 'Выезд в течение 30 минут' : 'Координация выезда на дом',
                 'Подходит под мультигородскую архитектуру',
                 'Сделано под Яндекс Директ',
               ].map(t => (

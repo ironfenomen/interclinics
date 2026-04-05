@@ -1,7 +1,7 @@
 // app/[city]/vyvod-iz-zapoya/page.tsx
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getCityBySlug, getCitySlugs } from '@/data/cities'
+import { getCityBySlug, getCitySlugs, isStavropolCity } from '@/data/cities'
 import { getServiceBySlug } from '@/data/services'
 import Header from '@/components/Header'
 import PricingTable from '@/components/PricingTable'
@@ -24,8 +24,10 @@ export async function generateMetadata({ params }: { params: { city: string } })
   const city = getCityBySlug(params.city)
   if (!city) return {}
   const canonical = `https://interclinics.ru/${city.slug}/vyvod-iz-zapoya/`
-  const description = `Вывод из запоя на дому в ${city.namePrep}: осмотр врача‑нарколога, инфузионная терапия. От ${city.priceVyvodFrom.toLocaleString('ru')} ₽ после осмотра. Ориентир ${city.arrivalTime} мин. Конфиденциально, круглосуточно. ☎ ${city.phoneDisplay}`
-  const title = `Вывод из запоя на дому в ${city.namePrep} — врач‑нарколог и капельница | ${BRAND_DISPLAY_NAME}`
+  const description = isStavropolCity(city)
+    ? `Вывод из запоя на дому в ${city.namePrep}: осмотр врача‑нарколога, помощь по показаниям. От ${city.priceVyvodFrom.toLocaleString('ru')} ₽ после осмотра. Ориентир ${city.arrivalTime} мин. Конфиденциально, круглосуточно. ☎ ${city.phoneDisplay}`
+    : `Вывод из запоя на дому в ${city.namePrep}: осмотр врача‑нарколога, помощь по показаниям. От ${city.priceVyvodFrom.toLocaleString('ru')} ₽ после осмотра. Согласование выезда на линии. Конфиденциально, круглосуточно. ☎ ${city.phoneDisplay}`
+  const title = `Вывод из запоя на дому в ${city.namePrep} — врач‑нарколог на дому | ${BRAND_DISPLAY_NAME}`
   return {
     title,
     description,
@@ -46,6 +48,7 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
   if (!city) notFound()
   const service = getServiceBySlug('vyvod-iz-zapoya')
   if (!service) notFound()
+  const stv = isStavropolCity(city)
 
   return (
     <div className={styles.pageRoot}>
@@ -64,7 +67,7 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
               </li>
               <li className={styles.heroBadge}>
                 <span className={styles.heroBadgeDot} aria-hidden />
-                Ориентир ~{city.arrivalTime} мин до приезда
+                {stv ? `Ориентир ~${city.arrivalTime} мин до приезда` : 'Срок выезда — на линии'}
               </li>
               <li className={styles.heroBadge}>
                 <span className={styles.heroBadgeDot} aria-hidden />
@@ -79,14 +82,16 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             <h1 id="vyvod-hero-heading" className={styles.title}>
               <span className={styles.titleKicker}>Вывод из запоя на дому</span>
               <span className={styles.titleMain}>
-                Врач‑нарколог и инфузионная помощь в&nbsp;{city.namePrep}
+                Врач‑нарколог и помощь на дому в&nbsp;{city.namePrep}
               </span>
             </h1>
 
             <p className={styles.lead}>
-              Врач‑нарколог приезжает к вам, проводит осмотр и подбирает инфузионную терапию на месте — под ваше состояние и показания. При необходимости
-              круглосуточного наблюдения обсудим стационар и следующий шаг без давления. Ориентир по времени приезда и стоимость — после короткого разговора
-              по телефону.
+              Врач‑нарколог приезжает к вам, проводит осмотр и оказывает помощь на месте по показаниям. При необходимости круглосуточного наблюдения обсудим
+              стационар и следующий шаг без давления.{' '}
+              {stv
+                ? 'Ориентир по времени приезда уточняют при записи; окончательный формат и стоимость — после осмотра.'
+                : 'Порядок выезда и ориентир по сроку согласуют при записи; окончательный формат и стоимость — после осмотра.'}
             </p>
 
             <VyvodHeroActions city={city} />
@@ -105,7 +110,7 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
                 Что входит в выезд врача
               </h2>
               <p className={styles.includesLead}>
-                Ниже — типовые шаги при выводе из запоя на дому. Состав инфузий и препаратов врач определяет после осмотра, с учётом состояния и сопутствующих факторов.
+                Ниже — типовые шаги при выводе из запоя на дому. Объём помощи врач определяет после осмотра, с учётом состояния и сопутствующих факторов.
               </p>
             </header>
 
@@ -123,13 +128,22 @@ export default function VyvodIzZapoyaPage({ params }: { params: { city: string }
             </ul>
 
             <div className={styles.geoCard}>
-              <h3 className={styles.geoTitle}>Выезд по городу и ориентир по времени</h3>
+              <h3 className={styles.geoTitle}>{stv ? 'Выезд по городу и ориентир по времени' : 'Выезд по городу и согласование'}</h3>
               <p className={styles.geoLead}>
-                Бригады работают в {city.namePrep} и по ближайшим направлениям.
+                Бригады работают в {city.namePrep}
+                {stv ? ' и по согласованию в смежных направлениях' : ' и по согласованию с диспетчером'}.
               </p>
               <p className={styles.geoLead}>
-                Ориентир по времени до приезда — около {city.arrivalTime} минут; фактический интервал зависит от района,
-                маршрута и загрузки линии — диспетчер уточнит при звонке.
+                {stv ? (
+                  <>
+                    Ориентир по времени до приезда — около {city.arrivalTime} минут; фактический интервал зависит от района, маршрута и загрузки линии —
+                    диспетчер уточнит при звонке.
+                  </>
+                ) : (
+                  <>
+                    Порядок и срок приезда согласуют на линии — с учётом района, маршрута и загрузки; без универсальных «минут для всех» до разговора.
+                  </>
+                )}
               </p>
               {city.localText ? <p className={styles.geoLocal}>{city.localText}</p> : null}
             </div>

@@ -456,19 +456,21 @@
   .finalNarkolog :global(#narkolog-final-heading) {
     max-width: min(28ch, 100%);
     font-size: clamp(28px, 3.05vw, 35px);
-    line-height: 1.06;
-    letter-spacing: -0.034em;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
     color: #f8fafc;
-    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.18);
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.12),
+      0 2px 32px rgba(0, 0, 0, 0.2);
   }
 
   .leadNarkolog {
-    margin-top: clamp(15px, 1.75vw, 18px);
+    margin-top: clamp(14px, 1.65vw, 17px);
     max-width: min(32em, 100%);
-    font-size: clamp(15px, 1.42vw, 16.125px);
-    line-height: 1.64;
-    color: rgba(226, 232, 240, 0.78);
-    letter-spacing: 0.005em;
+    font-size: clamp(15px, 1.42vw, 16.0625px);
+    line-height: 1.62;
+    color: rgba(226, 232, 240, 0.76);
+    letter-spacing: 0.006em;
   }
 
   .finalNarkolog :global(.final-inner) {
@@ -504,32 +506,34 @@
 }
 
 .kickerKodirovanie {
-  margin-bottom: 10px;
-  color: rgba(226, 232, 240, 0.82);
-  letter-spacing: 0.16em;
+  margin-bottom: 11px;
+  color: rgba(226, 232, 240, 0.76);
+  letter-spacing: 0.165em;
+  font-weight: 800;
 }
 
 .finalKodirovanie :global(#kodirovanie-final-heading) {
   /* Длинные namePrep (Минеральных Водах, Невинномысске) — единый баланс без «узкой колонки» */
-  max-width: min(36ch, 100%);
+  max-width: min(38ch, 100%);
   margin-left: auto;
   margin-right: auto;
   font-size: clamp(25px, 3.9vw, 35px);
   font-weight: 800;
   letter-spacing: -0.038em;
-  line-height: 1.09;
+  line-height: 1.08;
   color: #fff;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 
 .leadKodirovanie {
-  max-width: min(32em, 100%);
-  margin-top: 14px;
-  font-size: clamp(15px, 1.65vw, 16.25px);
-  line-height: 1.58;
-  color: rgba(248, 250, 252, 0.78);
+  max-width: min(31em, 100%);
+  margin-top: 15px;
+  font-size: clamp(15px, 1.65vw, 16.125px);
+  line-height: 1.63;
+  color: rgba(226, 232, 240, 0.78);
   font-weight: 500;
+  letter-spacing: 0.005em;
 }
 
 .finalKodirovanie :global(.final-inner) {
@@ -547,7 +551,7 @@
 .phoneKodirovanie {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.96);
-  border-bottom-color: rgba(255, 255, 255, 0.3);
+  border-bottom-color: rgba(255, 255, 255, 0.28);
 }
 
 .phoneKodirovanie:hover {
@@ -562,16 +566,16 @@
 .finalKodirovanie :global(.final-proof) {
   margin-top: clamp(18px, 2.6vw, 24px);
   max-width: min(34rem, 100%);
-  gap: 7px;
+  gap: 8px;
 }
 
 .finalKodirovanie :global(.final-proof span) {
   font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
-  color: rgba(248, 250, 252, 0.85);
-  border-color: rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.055);
+  font-size: 11.125px;
+  letter-spacing: 0.016em;
+  color: rgba(248, 250, 252, 0.66);
+  border-color: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.032);
   transition:
     border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -580,8 +584,8 @@
 
 @media (hover: hover) and (pointer: fine) {
   .finalKodirovanie :global(.final-proof span:hover) {
-    border-color: rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.055);
     box-shadow: none;
   }
 }
@@ -601,13 +605,18 @@
 
   .leadKodirovanie {
     margin-top: 8px;
-    font-size: 14.45px;
-    line-height: 1.51;
-    color: rgba(248, 250, 252, 0.73);
+    font-size: 14.375px;
+    line-height: 1.56;
+    color: rgba(226, 232, 240, 0.7);
   }
 
   .finalKodirovanie :global(.final-phone) {
     margin-top: 12px;
+  }
+
+  .finalKodirovanie :global(.final-proof span) {
+    font-size: 11px;
+    padding: 6px 12px;
   }
 }
 
@@ -624,8 +633,8 @@
 
   .leadKodirovanie {
     margin-top: 10px;
-    font-size: 14.75px;
-    line-height: 1.55;
+    font-size: 14.625px;
+    line-height: 1.58;
   }
 
   .finalKodirovanie :global(.final-inner > p:first-child) {
@@ -638,31 +647,35 @@
   }
 
   .finalKodirovanie :global(.final-form.final-form--kodirovanie) {
-    margin-top: 16px;
+    margin-top: 15px;
   }
 
   .finalKodirovanie :global(.final-proof) {
-    margin-top: 14px;
+    margin-top: 13px;
     justify-content: flex-start;
     gap: 6px;
   }
 
   .finalKodirovanie :global(.final-proof span) {
-    padding: 6px 11px;
-    font-size: 11.25px;
+    padding: 5px 10px;
+    font-size: 10.875px;
+    letter-spacing: 0.014em;
+    color: rgba(248, 250, 252, 0.64);
+    border-color: rgba(255, 255, 255, 0.048);
+    background: rgba(255, 255, 255, 0.028);
   }
 }
 
 @media (min-width: 900px) {
   .kickerKodirovanie {
     margin-bottom: 12px;
-    letter-spacing: 0.15em;
-    color: rgba(214, 179, 106, 0.72);
+    letter-spacing: 0.158em;
+    color: rgba(214, 179, 106, 0.68);
     -webkit-font-smoothing: antialiased;
   }
 
   .finalKodirovanie :global(#kodirovanie-final-heading) {
-    max-width: min(34ch, 100%);
+    max-width: min(36ch, 100%);
     font-size: clamp(28px, 3.05vw, 35px);
     line-height: 1.06;
     letter-spacing: -0.034em;
@@ -674,9 +687,9 @@
     margin-top: clamp(15px, 1.75vw, 18px);
     max-width: min(30em, 100%);
     font-size: clamp(15px, 1.42vw, 16.125px);
-    line-height: 1.64;
-    color: rgba(226, 232, 240, 0.78);
-    letter-spacing: 0.005em;
+    line-height: 1.65;
+    color: rgba(226, 232, 240, 0.76);
+    letter-spacing: 0.004em;
   }
 
   .finalKodirovanie :global(.final-inner) {
@@ -693,14 +706,16 @@
 
   .finalKodirovanie :global(.final-proof) {
     margin-top: clamp(22px, 2.9vw, 28px);
-    gap: 9px;
+    gap: 8px;
   }
 
   .finalKodirovanie :global(.final-proof span) {
-    font-size: 11.5px;
-    padding: 7px 13px;
-    border-color: rgba(255, 255, 255, 0.085);
-    background: rgba(255, 255, 255, 0.048);
+    font-size: 11.25px;
+    padding: 6px 12px;
+    letter-spacing: 0.016em;
+    color: rgba(248, 250, 252, 0.7);
+    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.042);
   }
 }
 
@@ -712,9 +727,10 @@
 }
 
 .kickerReabilitaciya {
-  margin-bottom: 10px;
-  color: rgba(226, 232, 240, 0.82);
-  letter-spacing: 0.16em;
+  margin-bottom: 11px;
+  color: rgba(226, 232, 240, 0.76);
+  letter-spacing: 0.165em;
+  font-weight: 800;
 }
 
 .titleReabilitaciya {
@@ -725,19 +741,20 @@
   font-size: clamp(25px, 3.9vw, 35px);
   font-weight: 800;
   letter-spacing: -0.038em;
-  line-height: 1.09;
+  line-height: 1.08;
   color: #fff;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 
 .leadReabilitaciya {
-  max-width: min(33em, 100%);
-  margin-top: 14px;
-  font-size: clamp(15px, 1.65vw, 16.25px);
-  line-height: 1.58;
-  color: rgba(248, 250, 252, 0.78);
+  max-width: min(32em, 100%);
+  margin-top: 15px;
+  font-size: clamp(15px, 1.65vw, 16.125px);
+  line-height: 1.64;
+  color: rgba(226, 232, 240, 0.78);
   font-weight: 500;
+  letter-spacing: 0.005em;
 }
 
 .finalReabilitaciya :global(.final-inner) {
@@ -755,7 +772,7 @@
 .phoneReabilitaciya {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.96);
-  border-bottom-color: rgba(255, 255, 255, 0.3);
+  border-bottom-color: rgba(255, 255, 255, 0.28);
 }
 
 .phoneReabilitaciya:hover {
@@ -770,16 +787,16 @@
 .finalReabilitaciya :global(.final-proof) {
   margin-top: clamp(18px, 2.6vw, 24px);
   max-width: min(32rem, 100%);
-  gap: 7px;
+  gap: 8px;
 }
 
 .finalReabilitaciya :global(.final-proof span) {
   font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
-  color: rgba(248, 250, 252, 0.82);
-  border-color: rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.055);
+  font-size: 11.25px;
+  letter-spacing: 0.018em;
+  color: rgba(248, 250, 252, 0.7);
+  border-color: rgba(255, 255, 255, 0.065);
+  background: rgba(255, 255, 255, 0.038);
   transition:
     border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -788,8 +805,8 @@
 
 @media (hover: hover) and (pointer: fine) {
   .finalReabilitaciya :global(.final-proof span:hover) {
-    border-color: rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.055);
     box-shadow: none;
   }
 }
@@ -870,15 +887,17 @@
 
   .finalReabilitaciya :global(.final-proof span) {
     padding: 6px 11px;
-    font-size: 11.5px;
+    font-size: 11.125px;
+    letter-spacing: 0.015em;
+    color: rgba(248, 250, 252, 0.68);
   }
 }
 
 @media (min-width: 900px) {
   .kickerReabilitaciya {
     margin-bottom: 12px;
-    letter-spacing: 0.15em;
-    color: rgba(214, 179, 106, 0.72);
+    letter-spacing: 0.158em;
+    color: rgba(214, 179, 106, 0.68);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -895,9 +914,9 @@
     margin-top: clamp(15px, 1.75vw, 18px);
     max-width: min(32em, 100%);
     font-size: clamp(15px, 1.42vw, 16.125px);
-    line-height: 1.64;
-    color: rgba(226, 232, 240, 0.78);
-    letter-spacing: 0.005em;
+    line-height: 1.65;
+    color: rgba(226, 232, 240, 0.76);
+    letter-spacing: 0.004em;
   }
 
   .finalReabilitaciya :global(.final-inner) {
@@ -914,13 +933,15 @@
 
   .finalReabilitaciya :global(.final-proof) {
     margin-top: clamp(22px, 2.9vw, 28px);
-    gap: 9px;
+    gap: 8px;
   }
 
   .finalReabilitaciya :global(.final-proof span) {
-    font-size: 11.5px;
-    padding: 7px 13px;
-    border-color: rgba(255, 255, 255, 0.085);
-    background: rgba(255, 255, 255, 0.048);
+    font-size: 11.25px;
+    padding: 6px 12px;
+    letter-spacing: 0.016em;
+    color: rgba(248, 250, 252, 0.7);
+    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.042);
   }
 }

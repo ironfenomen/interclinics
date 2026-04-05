@@ -7,6 +7,7 @@ import { CallbackButton } from '../ui/callback-button'
 
 export function LandingSiteHeader({ city }: { city: City }) {
   const [scrolled, setScrolled] = useState(false)
+  const homeHref = `/${city.slug}/`
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -20,8 +21,8 @@ export function LandingSiteHeader({ city }: { city: City }) {
         scrolled ? 'shadow-[0_10px_28px_rgba(10,25,45,0.08)]' : ''
       }`}
     >
-      <div className="mockup-container header-inner grid min-h-[84px] w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-[clamp(20px,2.6vw,36px)] py-2.5 max-md:min-h-[76px] max-md:grid-cols-[auto_auto] max-md:justify-between min-[1025px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
-        <a className="brand flex min-w-0 shrink-0 items-center gap-[14px] justify-self-start min-[1025px]:justify-self-end" href="#">
+      <div className="mockup-container header-inner grid min-h-[84px] w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-[clamp(20px,2.6vw,36px)] py-2.5 max-md:min-h-0 max-md:py-0 min-[1025px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+        <a className="brand flex min-w-0 shrink-0 items-center gap-[14px] justify-self-start min-[1025px]:justify-self-end" href={homeHref}>
           <div className="mockup-brand-mark flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-[15px]">
             <svg className="h-[26px] w-[26px] stroke-white" viewBox="0 0 24 24" fill="none" strokeWidth="2" aria-hidden>
               <path d="M12 3 4 7.5 12 12l8-4.5L12 3Z" />
@@ -60,25 +61,27 @@ export function LandingSiteHeader({ city }: { city: City }) {
 
         <div className="header-actions header-actions--cluster min-w-0 shrink-0 justify-self-end max-md:justify-self-end">
           <div className="header-actions__row header-actions__row--main">
-            <a
-              className="header-phone hidden min-[769px]:block"
-              href={`tel:${city.phone}`}
-            >
+            <a className="header-phone header-phone--desktop-only" href={`tel:${city.phone}`}>
               {city.phoneDisplay}
             </a>
-            <CallbackButton className="btn-primary-mock max-md:hidden">Обратный звонок</CallbackButton>
+            <CallbackButton className="btn-primary-mock header-callback-btn">Обратный звонок</CallbackButton>
           </div>
-          <div className="header-actions__row header-actions__row--meta hidden min-[769px]:flex">
-            <div className="city-chip inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-white px-3 py-[9px] text-[12px] font-extrabold text-deep-2 whitespace-nowrap">
-              <svg className="h-[15px] w-[15px] stroke-emerald" viewBox="0 0 24 24" fill="none" strokeWidth="2" aria-hidden>
+          <div className="header-actions__row header-actions__row--meta">
+            <a className="city-chip" href={homeHref}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                 <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              {city.name}
-            </div>
-            <span className="header-phone-note hidden min-[1025px]:inline">
-              Бесплатно по РФ, круглосуточно
-            </span>
+              <span className="city-chip__label">{city.name}</span>
+            </a>
+            <a
+              className="header-phone header-phone--mobile-stack"
+              href={`tel:${city.phone}`}
+              aria-label={`Позвонить ${city.phoneDisplay}`}
+            >
+              {city.phoneDisplay}
+            </a>
+            <span className="header-phone-note hidden min-[1025px]:inline">Бесплатно по РФ, круглосуточно</span>
           </div>
         </div>
       </div>

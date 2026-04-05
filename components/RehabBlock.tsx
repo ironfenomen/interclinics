@@ -43,7 +43,7 @@ export default function RehabBlock({ city }: { city: City }) {
           <h2 className="shdr__title">Программы психосоциального восстановления</h2>
           <p className="shdr__desc">
             Индивидуальная и групповая работа, адаптация к трезвой жизни
-            {city.rehabProgram && ` · ${city.rehabProgram}`}.
+            {city.hasRehab && city.rehabProgram ? ` · ${city.rehabProgram}` : ''}.
             Сутки — от {city.priceRehabDay.toLocaleString('ru')} ₽.
           </p>
         </div>

@@ -84,11 +84,7 @@ export default function StacionarBlock({ city }: { city: City }) {
               border: '1px solid rgba(255,255,255,.08)',
             }}
           >
-            Стационар для пациентов из {city.name} — в нашем центре в {nearest.namePrep}
-            {typeof city.nearestStacionarDistance === 'number' && (
-              <> ({city.nearestStacionarDistance} км)</>
-            )}
-            .
+            Стационар для пациентов из {city.name} — в нашем центре в {nearest.namePrep}. Направление и логистику согласуют на линии.
           </p>
         )}
 
