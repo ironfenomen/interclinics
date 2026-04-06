@@ -38,6 +38,25 @@ const nextConfig = {
     deviceSizes: [640, 768, 1024, 1280],
   },
 
+  /**
+   * Cache-Control для public/* (standalone + nginx могут дублировать — на проде сверить заголовки).
+   * PSI: длинный TTL для аудио/картинок; hashed /_next/static/* уже отдаётся Next с immutable.
+   * Дополнительно на nginx: `location /_next/static/ { add_header Cache-Control "public, max-age=31536000, immutable"; }`
+   */
+  async headers() {
+    const year = 'public, max-age=31536000, immutable'
+    const month = 'public, max-age=2592000, stale-while-revalidate=86400'
+    return [
+      { source: '/audio/:path*', headers: [{ key: 'Cache-Control', value: year }] },
+      { source: '/images/:path*', headers: [{ key: 'Cache-Control', value: month }] },
+      { source: '/og-default.jpg', headers: [{ key: 'Cache-Control', value: month }] },
+      { source: '/favicon.ico', headers: [{ key: 'Cache-Control', value: month }] },
+      { source: '/favicon.svg', headers: [{ key: 'Cache-Control', value: month }] },
+      { source: '/apple-touch-icon.png', headers: [{ key: 'Cache-Control', value: month }] },
+      { source: '/android-chrome-512x512.png', headers: [{ key: 'Cache-Control', value: month }] },
+    ]
+  },
+
   // Редиректы
   async redirects() {
     return [

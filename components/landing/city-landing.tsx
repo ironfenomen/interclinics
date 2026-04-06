@@ -1,11 +1,16 @@
+import dynamic from 'next/dynamic'
 import '@/styles/mockup-literal.css'
 import type { City } from '@/data/cities'
 import { getMockupHtml } from './mockup-literal/get-mockup-html'
-import { MockupLiteralInit } from './mockup-literal/mockup-literal-init'
+
+const MockupLiteralInit = dynamic(
+  () => import('./mockup-literal/mockup-literal-init').then(m => ({ default: m.MockupLiteralInit })),
+  { ssr: false },
+)
 
 /**
  * Лендинг: HTML рендерится на сервере (RSC), клиентский бандл не несёт 200KB html-строки.
- * MockupLiteralInit — тонкий 'use client' без пропов, цепляется через document.querySelector.
+ * MockupLiteralInit — отдельный чанк после первой отрисовки (PSI: меньше initial JS).
  */
 export function CityLanding({ city }: { city: City }) {
   const html = getMockupHtml(city)

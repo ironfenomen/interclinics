@@ -10,7 +10,8 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-plus-jakarta',
   display: 'swap',
-  preload: true,
+  // Не тянуть link rel=preload шрифта в critical path (PSI render-blocking); swap уже даёт текст без FOIT
+  preload: false,
 })
 
 export const metadata: Metadata = {
@@ -49,14 +50,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         {children}
 
-        <Script id="ym-init" strategy="afterInteractive">{`
+        <Script id="ym-init" strategy="lazyOnload">{`
           (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
             for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
           })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=108420892','ym');
-          ym(108420892,'init',{webvisor:true,clickmap:true,ecommerce:'dataLayer',accurateTrackBounce:true,trackLinks:true});
+          ym(108420892,'init',{webvisor:false,clickmap:true,ecommerce:'dataLayer',accurateTrackBounce:true,trackLinks:true,defer:true});
         `}</Script>
         <noscript>
           <div><img src="https://mc.yandex.ru/watch/108420892" style={{position:'absolute',left:'-9999px'}} alt="" /></div>
