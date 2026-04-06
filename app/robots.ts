@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/consent', '/cookies', '/agreement', '/privacy'],
+      disallow: ['/api/', '/consent', '/cookies', '/agreement'],
     },
     sitemap: 'https://interclinics.ru/sitemap.xml',
   }
