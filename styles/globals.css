@@ -773,8 +773,8 @@ section.ic-final-stacionar.final h2 {
   }
 }
 
-/* Inline-SVG в HTML-мокапе: без стилей дефолт 300×150 — ограничиваем, пока не применился mockup-literal.css */
-.ic-mockup-root svg {
+/* Inline-SVG без width/height: дефолт браузера 300×150 — ограничиваем; явные размеры не трогаем (логотип, иконки). */
+.ic-mockup-root svg:not([width]):not([height]) {
   max-width: min(100%, 3rem);
   max-height: 3rem;
   vertical-align: middle;

@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import '@/styles/mockup-literal.css'
 import type { City } from '@/data/cities'
 import { getMockupHtml } from './mockup-literal/get-mockup-html'
 
