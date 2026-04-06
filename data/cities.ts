@@ -544,8 +544,11 @@ export const cities: City[] = [
 ]
 
 // Хелпер: получить город по slug
-export function getCityBySlug(slug: string): City | undefined {
-  return cities.find(c => c.slug === slug && c.active)
+export function getCityBySlug(slug: string | undefined | null): City | undefined {
+  if (slug == null || typeof slug !== 'string') return undefined
+  const s = slug.trim()
+  if (!s) return undefined
+  return cities.find(c => c.slug === s && c.active)
 }
 
 /** Своя клиника со стационаром в Ставрополе — для копипаста про ориентир выезда/км допустимо только здесь. */

@@ -16,8 +16,19 @@ export default function Error({
   reset: () => void
 }) {
   if (typeof console !== 'undefined' && error) {
-    console.error(error)
+    const msg = error instanceof Error ? error.message : String(error)
+    const stack = error instanceof Error ? error.stack : undefined
+    console.error(
+      '[error.tsx]',
+      msg,
+      error.digest ? `digest=${error.digest}` : '',
+      stack ?? '',
+      error,
+    )
   }
+
+  const isDev = process.env.NODE_ENV === 'development'
+  const devMessage = error instanceof Error ? error.message : String(error ?? '')
 
   return (
     <main className="flex min-h-[100dvh] flex-col items-center justify-center gap-6 bg-[#F8FAFC] px-6 py-16 text-center">
@@ -31,6 +42,12 @@ export default function Error({
         <p className="text-[15px] leading-relaxed text-[#64748B]">
           Произошла техническая ошибка. Попробуйте обновить страницу или вернуться на главную.
         </p>
+        {isDev && (
+          <pre className="mt-4 max-h-40 overflow-auto rounded-lg border border-[#E2E8F0] bg-white p-3 text-left text-xs text-[#64748B]">
+            {devMessage}
+            {error.digest ? `\ndigest: ${error.digest}` : ''}
+          </pre>
+        )}
       </div>
       <div className="flex flex-wrap items-center justify-center gap-3">
         <button

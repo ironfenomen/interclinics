@@ -16,8 +16,19 @@ export default function GlobalError({
   reset: () => void
 }) {
   if (typeof console !== 'undefined' && error) {
-    console.error(error)
+    const msg = error instanceof Error ? error.message : String(error)
+    const stack = error instanceof Error ? error.stack : undefined
+    console.error(
+      '[global-error.tsx]',
+      msg,
+      error.digest ? `digest=${error.digest}` : '',
+      stack ?? '',
+      error,
+    )
   }
+
+  const isDev = process.env.NODE_ENV === 'development'
+  const devMessage = error instanceof Error ? error.message : String(error ?? '')
 
   return (
     <html lang="ru">
@@ -33,6 +44,12 @@ export default function GlobalError({
             <p className="text-[15px] leading-relaxed text-[#64748B]">
               Сайт временно недоступен. Обновите страницу или зайдите позже.
             </p>
+            {isDev && (
+              <pre className="mt-4 max-h-40 overflow-auto rounded-lg border border-[#E2E8F0] bg-white p-3 text-left text-xs text-[#64748B]">
+                {devMessage}
+                {error.digest ? `\ndigest: ${error.digest}` : ''}
+              </pre>
+            )}
           </div>
           <button
             type="button"

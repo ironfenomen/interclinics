@@ -4,10 +4,11 @@
 // ГЕО-ОПРЕДЕЛЕНИЕ + ВЫБОР ГОРОДА — PRODUCTION
 //
 // ЦЕПОЧКА ОПРЕДЕЛЕНИЯ (каждый шаг — fallback предыдущего):
-//   1. Cookie ic_city → мгновенный redirect, 0ms
-//   2. ip-api.com (бесплатно, РФ, русские названия) → 1-2s
-//   3. ipapi.co (backup, англ. названия) → 1-2s
-//   4. Ручной выбор из сетки городов
+//   1. Cookie ic_city → window.location.replace (полная навигация, без залипания router)
+//   2. GET /api/geo-hint (сервер, IP из X-Forwarded-For) — обходит блокировки клиентских geo-API
+//   3. ip-api.com с клиента (fallback)
+//   4. ipapi.co (backup)
+//   5. Ручной выбор из сетки городов
 //
 // СБОИ: таймаут 3s на каждый API, AbortController, try/catch
 // Любая ошибка → следующий шаг, никогда не зависает
@@ -17,7 +18,6 @@
 // ============================================================
 
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
 import { SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from '@/lib/site-phone'
 import { isStavropolCity } from '@/data/cities'
@@ -57,6 +57,18 @@ function setCookie(n: string, v: string, days: number) {
   document.cookie = `${n}=${v};expires=${d.toUTCString()};path=/;SameSite=Lax`
 }
 
+/** Безопасный JSON от geo-ответов — невалидное тело не рвёт клиент. */
+async function readGeoJsonCity(res: Response): Promise<string | undefined> {
+  try {
+    const data: unknown = await res.json()
+    if (data === null || typeof data !== 'object' || !('city' in data)) return undefined
+    const c = (data as { city?: unknown }).city
+    return typeof c === 'string' ? c : undefined
+  } catch {
+    return undefined
+  }
+}
+
 // ── Маппинг английских названий → slug ───────────────────────
 const EN_MAP: Record<string, string> = {
   stavropol: 'stavropol',
@@ -73,111 +85,145 @@ const EN_MAP: Record<string, string> = {
 
 // ── Компонент ─────────────────────────────────────────────────
 export default function CitySelector({ cities, services }: Props) {
-  const router = useRouter()
   const [phase, setPhase] = useState<Phase>('loading')
   const [detected, setDetected] = useState<CityData | null>(null)
   const [fadeKey, setFadeKey] = useState(0) // для ре-анимации при смене фазы
-  const mounted = useRef(true)
+  const citiesRef = useRef(cities)
+  citiesRef.current = cities
 
-  const goToCity = useCallback(
-    (city: CityData) => {
+  const goToCity = useCallback((city: CityData) => {
+    try {
       setCookie('ic_city', city.slug, 30)
-      router.replace(`/${city.slug}/`)
-    },
-    [router],
-  )
+    } catch {
+      /* квота / приватный режим — всё равно ведём на город */
+    }
+    window.location.replace(`/${city.slug}/`)
+  }, [])
 
-  // ── Поиск города по строке (RU или EN) ─────────────────────
-  const findCity = useCallback(
-    (raw: string | undefined | null): CityData | null => {
-      if (!raw) return null
-      const q = raw.trim().toLowerCase()
-      // Прямое совпадение по русскому имени
-      const byName = cities.find((c) => c.name.toLowerCase() === q)
-      if (byName) return byName
-      // По slug
-      const bySlug = cities.find((c) => c.slug === q)
-      if (bySlug) return bySlug
-      // По английскому маппингу
-      const mapped = EN_MAP[q]
-      if (mapped) {
-        const byMap = cities.find((c) => c.slug === mapped)
-        if (byMap) return byMap
-      }
-      // Частичное совпадение (Минеральные Воды → mineralnye-vody)
-      const partial = cities.find(
-        (c) => q.includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(q),
-      )
-      return partial ?? null
-    },
-    [cities],
-  )
+  // ── Поиск города по строке (RU или EN); ref — стабильная ссылка, без лишних перезапусков geo-эффекта ──
+  const findCity = useCallback((raw: string | undefined | null): CityData | null => {
+    const list = citiesRef.current
+    if (!raw || !list.length) return null
+    const q = raw.trim().toLowerCase()
+    const byName = list.find((c) => c.name.toLowerCase() === q)
+    if (byName) return byName
+    const bySlug = list.find((c) => c.slug === q)
+    if (bySlug) return bySlug
+    const mapped = EN_MAP[q]
+    if (mapped) {
+      const byMap = list.find((c) => c.slug === mapped)
+      if (byMap) return byMap
+    }
+    const partial = list.find(
+      (c) => q.includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(q),
+    )
+    return partial ?? null
+  }, [])
 
   // ── Цепочка определения ────────────────────────────────────
   useEffect(() => {
-    mounted.current = true
+    let cancelled = false
 
-    // ШАГ 0: Cookie
-    const saved = getCookie('ic_city')
-    if (saved) {
-      const match = cities.find((c) => c.slug === saved)
-      if (match) {
-        router.replace(`/${match.slug}/`)
-        return
+    const failSafe = window.setTimeout(() => {
+      if (cancelled) return
+      setPhase((p) => (p === 'loading' ? 'select' : p))
+      setFadeKey((k) => k + 1)
+    }, 9000)
+
+    const list = citiesRef.current
+    if (!list.length) {
+      setPhase('select')
+      setFadeKey((k) => k + 1)
+      return () => {
+        cancelled = true
+        window.clearTimeout(failSafe)
       }
     }
 
-    // ШАГ 1-2: IP-определение с fallback
+    // ШАГ 0: Cookie (невалидное значение — игнор и дальше по цепочке гео)
+    const saved = getCookie('ic_city')?.trim()
+    if (saved) {
+      const match = list.find((c) => c.slug === saved)
+      if (match) {
+        const path = `/${match.slug}/`
+        window.location.replace(path)
+        return () => {
+          cancelled = true
+          window.clearTimeout(failSafe)
+        }
+      }
+    }
+
+    // ШАГ 1–3: гео-подсказка (сервер → клиентские API)
     ;(async () => {
       let city: CityData | null = null
 
-      // Попытка 1: ip-api.com (русские названия, бесплатно)
-      try {
+      {
         const ctrl = new AbortController()
-        const timer = setTimeout(() => ctrl.abort(), 3000)
-        const res = await fetch('https://ip-api.com/json/?lang=ru&fields=city', {
-          signal: ctrl.signal,
-        })
-        clearTimeout(timer)
-        if (res.ok) {
-          const data = await res.json()
-          city = findCity(data.city)
-        }
-      } catch {
-        /* таймаут или сбой — идём дальше */
-      }
-
-      // Попытка 2: ipapi.co (английские названия, backup)
-      if (!city) {
+        const timer = window.setTimeout(() => ctrl.abort(), 4000)
         try {
-          const ctrl = new AbortController()
-          const timer = setTimeout(() => ctrl.abort(), 3000)
-          const res = await fetch('https://ipapi.co/json/', { signal: ctrl.signal })
-          clearTimeout(timer)
+          const res = await fetch('/api/geo-hint', { signal: ctrl.signal, cache: 'no-store' })
           if (res.ok) {
-            const data = await res.json()
-            city = findCity(data.city)
+            const name = await readGeoJsonCity(res)
+            city = findCity(name)
           }
         } catch {
-          /* backup тоже не сработал */
+          /* same-origin или сеть */
+        } finally {
+          window.clearTimeout(timer)
         }
       }
 
-      if (!mounted.current) return
+      if (!city) {
+        const ctrl = new AbortController()
+        const timer = window.setTimeout(() => ctrl.abort(), 3000)
+        try {
+          const res = await fetch('https://ip-api.com/json/?lang=ru&fields=city', {
+            signal: ctrl.signal,
+          })
+          if (res.ok) {
+            const name = await readGeoJsonCity(res)
+            city = findCity(name)
+          }
+        } catch {
+          /* таймаут или сбой */
+        } finally {
+          window.clearTimeout(timer)
+        }
+      }
+
+      if (!city) {
+        const ctrl = new AbortController()
+        const timer = window.setTimeout(() => ctrl.abort(), 3000)
+        try {
+          const res = await fetch('https://ipapi.co/json/', { signal: ctrl.signal })
+          if (res.ok) {
+            const name = await readGeoJsonCity(res)
+            city = findCity(name)
+          }
+        } catch {
+          /* backup */
+        } finally {
+          window.clearTimeout(timer)
+        }
+      }
+
+      if (cancelled) return
 
       if (city) {
         setDetected(city)
         setPhase('confirm')
       } else {
-      setPhase('select')
+        setPhase('select')
       }
       setFadeKey((k) => k + 1)
     })()
 
     return () => {
-      mounted.current = false
+      cancelled = true
+      window.clearTimeout(failSafe)
     }
-  }, [cities, router, findCity])
+  }, [findCity])
 
   // ── Переход к выбору ───────────────────────────────────────
   const switchToSelect = () => {
