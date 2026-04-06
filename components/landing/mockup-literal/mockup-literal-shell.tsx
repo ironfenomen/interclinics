@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { MobileStickyMessengerPick } from '@/components/MobileStickyMessengerPick'
 
@@ -16,7 +16,11 @@ function brigadePluralPhrase(n: number): string {
 
 /** Клиентская обвязка: те же обработчики, что в <script> мокапа (scroll/header, reveal, FAQ, формы, cookie, exit). */
 export function MockupLiteralShell({ html }: { html: string }) {
-  useEffect(() => {
+  const wrapRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const root = wrapRef.current
+    if (!root) return
     let messengerReactRoot: Root | null = null
     const messengerSlot = document.getElementById('ic-mobile-messenger-slot')
     if (messengerSlot) {
@@ -157,7 +161,8 @@ export function MockupLiteralShell({ html }: { html: string }) {
       const pagePath = window.location.pathname
       let ok = false
       try {
-        const res = await fetch('/api/lead', {
+        const apiUrl = new URL('/api/lead', window.location.origin).toString()
+        const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -227,10 +232,6 @@ export function MockupLiteralShell({ html }: { html: string }) {
       modalSuccess?.classList.remove('show')
     }
 
-    function scrollToSection(id: string) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-
     function acceptCookie() {
       localStorage.setItem('interclinics-cookie', '1')
       document.getElementById('cookie')?.classList.remove('show')
@@ -246,26 +247,59 @@ export function MockupLiteralShell({ html }: { html: string }) {
       document.body.style.overflow = ''
     }
 
-    const w = window as unknown as Window &
-      Record<
-        'openModal' | 'closeModal' | 'closeExit' | 'acceptCookie' | 'declineCookie',
-        () => void
-      > &
-      Record<'submitLead', typeof submitLead> &
-      Record<'scrollToSection', typeof scrollToSection>
-    w.openModal = openModal
-    w.closeModal = closeModal
-    w.closeExit = closeExit
-    w.submitLead = submitLead
-    w.scrollToSection = scrollToSection
-    w.acceptCookie = acceptCookie
-    w.declineCookie = declineCookie
+    const onDelegatedClickCapture = (e: MouseEvent) => {
+      const target = e.target
+      if (!(target instanceof Element) || !root.contains(target)) return
 
-    const leadModal = document.getElementById('leadModal')
-    const leadModalBackdrop = (e: MouseEvent) => {
-      if (e.target === leadModal) closeModal()
+      if (target.matches('[data-ic-modal-backdrop]')) {
+        if (e.target === target) closeModal()
+        return
+      }
+
+      const openEl = target.closest('[data-ic-open-modal]')
+      if (openEl && root.contains(openEl)) {
+        e.preventDefault()
+        openModal()
+        return
+      }
+
+      const closeEl = target.closest('[data-ic-close-modal]')
+      if (closeEl && root.contains(closeEl)) {
+        e.preventDefault()
+        closeModal()
+        return
+      }
+
+      const exitCloseEl = target.closest('[data-ic-close-exit]')
+      if (exitCloseEl && root.contains(exitCloseEl)) {
+        e.preventDefault()
+        closeExit()
+        return
+      }
+
+      const cookieEl = target.closest('[data-ic-cookie]')
+      if (cookieEl && root.contains(cookieEl)) {
+        e.preventDefault()
+        const v = cookieEl.getAttribute('data-ic-cookie')
+        if (v === 'accept') acceptCookie()
+        else if (v === 'decline') declineCookie()
+        return
+      }
+
+      const submitEl = target.closest('[data-ic-submit-lead]')
+      if (submitEl && root.contains(submitEl)) {
+        e.preventDefault()
+        const phoneId = submitEl.getAttribute('data-ic-phone-id') ?? 'heroPhone'
+        const nameAttr = submitEl.getAttribute('data-ic-name-id')
+        const nameId = nameAttr === '' || nameAttr === null ? null : nameAttr
+        const isModal = submitEl.hasAttribute('data-ic-modal')
+        const isExit = submitEl.hasAttribute('data-ic-exit')
+        const consentId = submitEl.getAttribute('data-ic-consent-id')
+        void submitLead(phoneId, nameId, isModal, isExit, consentId)
+      }
     }
-    leadModal?.addEventListener('click', leadModalBackdrop)
+
+    root.addEventListener('click', onDelegatedClickCapture, true)
 
     const scenarioButtons = document.querySelectorAll('.scenario-btn')
     const scenarioSub = document.getElementById('scenarioSub')
@@ -519,7 +553,7 @@ export function MockupLiteralShell({ html }: { html: string }) {
       scenarioFns.forEach(({ el, fn }) => el.removeEventListener('click', fn))
       clearInterval(teamsTimer)
       document.removeEventListener('mouseout', onMouseOut)
-      leadModal?.removeEventListener('click', leadModalBackdrop)
+      root.removeEventListener('click', onDelegatedClickCapture, true)
       if (cookieTimer) clearTimeout(cookieTimer)
       reviewPlayBtn?.removeEventListener('click', onReviewPlayClick)
       reviewScrub?.removeEventListener('pointerdown', onScrubPointerDown)
@@ -537,15 +571,12 @@ export function MockupLiteralShell({ html }: { html: string }) {
       citySwitcherBtn?.removeEventListener('click', onCitySwitcherBtnClick)
       document.removeEventListener('pointerdown', onCitySwitcherDocPointerDown)
       document.removeEventListener('keydown', onCitySwitcherKeyDown)
-      delete (window as unknown as { openModal?: () => void }).openModal
-      delete (window as unknown as { closeModal?: () => void }).closeModal
-      delete (window as unknown as { submitLead?: typeof submitLead }).submitLead
-      delete (window as unknown as { scrollToSection?: typeof scrollToSection }).scrollToSection
-      delete (window as unknown as { acceptCookie?: () => void }).acceptCookie
-      delete (window as unknown as { declineCookie?: () => void }).declineCookie
-      delete (window as unknown as { closeExit?: () => void }).closeExit
     }
   }, [html])
 
-  return <div className="ic-mockup-root min-h-[100dvh]" dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <div ref={wrapRef} className="ic-mockup-shell min-h-[100dvh]">
+      <div className="ic-mockup-root min-h-[100dvh]" dangerouslySetInnerHTML={{ __html: html }} />
+    </div>
+  )
 }

@@ -34,7 +34,7 @@
     <div class="header-actions header-actions--cluster">
       <div class="header-actions__row header-actions__row--main">
         <a class="header-phone header-phone--desktop-only" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
-        <button type="button" class="btn btn-primary header-callback-btn" onclick="openModal()">__CALLBACK_MODAL_TITLE__</button>
+        <button type="button" class="btn btn-primary header-callback-btn" data-ic-open-modal>__CALLBACK_MODAL_TITLE__</button>
       </div>
       <div class="header-actions__row header-actions__row--meta">
         __CITY_SWITCHER__
@@ -78,7 +78,7 @@
           <a class="btn btn-dark hero-cta-stacionar" href="/__CITY_SLUG__/stacionar/">Стационар 24/7</a>
           <span class="hero-cta-note"><span class="hero-cta-note-value">от __PRICE_STACIONAR_DAY__ ₽</span><span class="hero-cta-note-unit">/ сутки</span></span>
         </div>
-        <button type="button" class="btn btn-secondary hero-cta-tertiary" onclick="openModal()">__CALLBACK_MODAL_TITLE__</button>
+        <button type="button" class="btn btn-secondary hero-cta-tertiary" data-ic-open-modal>__CALLBACK_MODAL_TITLE__</button>
       </div>
 
       <p class="hero-trust-strip">
@@ -126,7 +126,7 @@
         </label>
 
         <div class="form-actions">
-          <button type="button" class="btn btn-primary" onclick="submitLead('heroPhone','heroName', false, false, 'heroConsentPd')"><span id="scenarioCta">Перезвоните мне</span></button>
+          <button type="button" class="btn btn-primary" data-ic-submit-lead data-ic-phone-id="heroPhone" data-ic-name-id="heroName" data-ic-consent-id="heroConsentPd"><span id="scenarioCta">Перезвоните мне</span></button>
           <a class="form-actions__pricing-link" href="#pricing">Посмотреть стоимость услуг</a>
         </div>
 
@@ -285,7 +285,7 @@ __HOW_WE_WORK_SECTION__
           <li>Наблюдение во время процедуры</li>
         </ul>
         <div class="cta">
-          <button type="button" class="btn btn-secondary" onclick="openModal()">Заказать выезд</button>
+          <button type="button" class="btn btn-secondary" data-ic-open-modal>Заказать выезд</button>
         </div>
       </div>
 
@@ -308,7 +308,7 @@ __HOW_WE_WORK_SECTION__
           <li>Рекомендации на ближайшие дни</li>
         </ul>
         <div class="cta">
-          <button type="button" class="btn btn-primary price-card__cta--featured" onclick="openModal()">Оформить выезд</button>
+          <button type="button" class="btn btn-primary price-card__cta--featured" data-ic-open-modal>Оформить выезд</button>
         </div>
       </div>
 
@@ -331,7 +331,7 @@ __HOW_WE_WORK_SECTION__
           <li>При показаниях — обсуждаем <strong>стационар 24/7</strong> без давления</li>
         </ul>
         <div class="cta">
-          <button type="button" class="btn btn-secondary" onclick="openModal()">Уточнить расширенный выезд</button>
+          <button type="button" class="btn btn-secondary" data-ic-open-modal>Уточнить расширенный выезд</button>
         </div>
       </div>
     </div>
@@ -351,7 +351,7 @@ __HOW_WE_WORK_SECTION__
       </div>
       <div class="right">
         <a class="phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
-        <button type="button" class="btn btn-primary" onclick="openModal()">Заказать звонок</button>
+        <button type="button" class="btn btn-primary" data-ic-open-modal>Заказать звонок</button>
       </div>
     </div>
   </div>
@@ -490,7 +490,7 @@ __HOW_WE_WORK_SECTION__
         <span>Оставьте заявку — перезвоним, уточним ситуацию и подскажем, какая программа ближе. Решение о поступлении принимает врач.</span>
       </div>
       <div class="stacionar-bar__actions">
-        <button type="button" class="btn btn-primary stacionar-bar__btn-primary" onclick="openModal()">Записаться на госпитализацию</button>
+        <button type="button" class="btn btn-primary stacionar-bar__btn-primary" data-ic-open-modal>Записаться на госпитализацию</button>
         <a class="btn btn-secondary stacionar-bar__btn-sec" href="/__CITY_SLUG__/stacionar/">Все условия стационара</a>
       </div>
     </div>
@@ -559,7 +559,7 @@ __HOW_WE_WORK_SECTION__
         <span class="rehab-bar__sub">Для вас и для близких: как устроен заезд, какие сроки реалистичны и с чего логично начать. Без давления и обязательств с первого звонка.</span>
       </div>
       <div class="rehab-bar__actions">
-        <button type="button" class="btn btn-primary rehab-bar__btn-primary" onclick="openModal()">Запросить консультацию</button>
+        <button type="button" class="btn btn-primary rehab-bar__btn-primary" data-ic-open-modal>Запросить консультацию</button>
         <a class="btn btn-secondary rehab-bar__btn-sec" href="/__CITY_SLUG__/reabilitaciya/">Полное описание программы</a>
       </div>
     </div>
@@ -575,7 +575,7 @@ __HOW_WE_WORK_SECTION__
       </div>
       <div class="mid-cta__actions">
         <a class="mid-cta__phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
-        <button type="button" class="btn btn-primary mid-cta__btn" onclick="openModal()">Перезвоним по номеру</button>
+        <button type="button" class="btn btn-primary mid-cta__btn" data-ic-open-modal>Перезвоним по номеру</button>
       </div>
       <p class="mid-cta__note">Круглосуточная линия · первичный разговор без оплаты · решение всегда за вами</p>
     </div>
@@ -900,7 +900,7 @@ __HOW_WE_WORK_SECTION__
       <p class="post-reviews-cta__lead">Своими словами расскажите, что происходит — подскажем следующий шаг без спешки. Можно за себя и за взрослого близкого.</p>
       <div class="post-reviews-cta__row">
         <a class="post-reviews-cta__phone" href="tel:__PHONE__">__PHONE_DISPLAY__</a>
-        <button type="button" class="btn btn-secondary post-reviews-cta__btn" onclick="openModal()">Перезвоните мне</button>
+        <button type="button" class="btn btn-secondary post-reviews-cta__btn" data-ic-open-modal>Перезвоните мне</button>
       </div>
       <div class="post-reviews-cta__trust" role="list">
         <span role="listitem">Конфиденциально</span>
@@ -1020,7 +1020,7 @@ __HOW_WE_WORK_SECTION__
         <input type="checkbox" id="finalConsentPd" name="finalConsentPd" autocomplete="off">
         <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
       </label>
-      <button type="button" class="btn btn-primary final-form__submit" onclick="submitLead('finalPhone','finalName', false, false, 'finalConsentPd')">Перезвоните мне</button>
+      <button type="button" class="btn btn-primary final-form__submit" data-ic-submit-lead data-ic-phone-id="finalPhone" data-ic-name-id="finalName" data-ic-consent-id="finalConsentPd">Перезвоните мне</button>
     </div>
 
     <div class="final-proof">
@@ -1080,7 +1080,7 @@ __HOW_WE_WORK_SECTION__
   <div class="mobile-bar-inner">
     <a class="mobile-action" href="tel:__PHONE__">Позвонить сейчас</a>
     <div id="ic-mobile-messenger-slot" class="ic-messenger-slot"></div>
-    <button type="button" class="fab" onclick="openModal()" aria-label="__CALLBACK_MODAL_TITLE__" title="__CALLBACK_MODAL_TITLE__">
+    <button type="button" class="fab" data-ic-open-modal aria-label="__CALLBACK_MODAL_TITLE__" title="__CALLBACK_MODAL_TITLE__">
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
     </button>
   </div>
@@ -1090,9 +1090,9 @@ __HOW_WE_WORK_SECTION__
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
 </a>
 
-<div class="overlay" id="leadModal" onclick="if(event.target===this)closeModal()">
+<div class="overlay" id="leadModal" data-ic-modal-backdrop>
   <div class="modal">
-    <button class="close" onclick="closeModal()">×</button>
+    <button type="button" class="close" data-ic-close-modal aria-label="Закрыть">×</button>
     <div id="modalForm">
       <h3 id="modalTitle">__CALLBACK_MODAL_TITLE__</h3>
       <p class="modal-lead">__CALLBACK_MODAL_LEAD__</p>
@@ -1103,7 +1103,7 @@ __HOW_WE_WORK_SECTION__
           <input type="checkbox" id="modalConsentPd" name="modalConsentPd" autocomplete="off">
           <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
         </label>
-        <button type="button" class="btn btn-primary modal-submit" onclick="submitLead('modalPhone','modalName', true, false, 'modalConsentPd')">__CALLBACK_MODAL_SUBMIT_LABEL__</button>
+        <button type="button" class="btn btn-primary modal-submit" data-ic-submit-lead data-ic-phone-id="modalPhone" data-ic-name-id="modalName" data-ic-modal="1" data-ic-consent-id="modalConsentPd">__CALLBACK_MODAL_SUBMIT_LABEL__</button>
       </div>
     </div>
     <div class="modal-success" id="modalSuccess">
@@ -1117,14 +1117,14 @@ __HOW_WE_WORK_SECTION__
 <div class="cookie" id="cookie">
   <p>Мы используем файлы cookie и при необходимости метрические сервисы, чтобы сайт работал стабильно и чтобы понимать, как посетители пользуются страницами (в обезличенном виде). Подробности — в <a href="/cookies">политике cookie и метрических сервисов</a> и в <a href="/privacy">политике в отношении персональных данных</a>. Продолжая пользоваться сайтом после показа этого уведомления или нажав «Принять», вы соглашаетесь с указанными документами в части cookie и аналитики.</p>
   <div class="cookie-actions">
-    <button class="btn btn-primary" onclick="acceptCookie()">Принять</button>
-    <button class="btn btn-dark" onclick="declineCookie()">Отклонить</button>
+    <button type="button" class="btn btn-primary" data-ic-cookie="accept">Принять</button>
+    <button type="button" class="btn btn-dark" data-ic-cookie="decline">Отклонить</button>
   </div>
 </div>
 
 <div class="exit-pop" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
   <div class="exit-card">
-    <button type="button" class="close" onclick="closeExit()" aria-label="Закрыть">×</button>
+    <button type="button" class="close" data-ic-close-exit aria-label="Закрыть">×</button>
     <h3 id="exitPopupTitle">Не уходите без бесплатной консультации</h3>
     <p class="exit-lead">Если решение пока неясно, оставьте номер. Коротко перезвоним, спокойно уточним ситуацию и подскажем следующий шаг — без давления и лишних разговоров.</p>
     <div class="exit-benefits">
@@ -1139,7 +1139,7 @@ __HOW_WE_WORK_SECTION__
         <input type="checkbox" id="exitConsentPd" name="exitConsentPd" autocomplete="off">
         <span>Я соглашаюсь на <a href="/consent">обработку персональных данных</a> и принимаю <a href="/privacy">политику конфиденциальности</a>.</span>
       </label>
-      <button type="button" class="btn btn-primary exit-submit exit-form__submit" onclick="submitLead('exitPhone', null, false, true, 'exitConsentPd')">Перезвоните мне</button>
+      <button type="button" class="btn btn-primary exit-submit exit-form__submit" data-ic-submit-lead data-ic-phone-id="exitPhone" data-ic-exit="1" data-ic-consent-id="exitConsentPd">Перезвоните мне</button>
     </div>
     <p class="exit-footnote">Обычно хватает короткого разговора, чтобы понять следующий шаг.</p>
   </div>

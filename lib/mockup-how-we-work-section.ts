@@ -46,7 +46,7 @@ export const MOCKUP_HOW_WE_WORK_SECTION_INNER = `
         <strong>Свяжитесь, когда будете готовы</strong>
         <p>Расскажем спокойно, с чего начать в вашей ситуации — без навязанных решений.</p>
       </div>
-      <button type="button" class="btn btn-primary" onclick="openModal()">Заказать звонок</button>
+      <button type="button" class="btn btn-primary" data-ic-open-modal>Заказать звонок</button>
     </div>
   </div>
 `.trim()

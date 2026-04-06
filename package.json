@@ -18,7 +18,8 @@
     "verify": "npm run check:types && npm run check:lint && npm run check:build",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "telegram:set-webhook": "node scripts/telegram-set-webhook.mjs"
   },
   "engines": {
     "node": ">=18.17.0"

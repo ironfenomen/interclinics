@@ -22,7 +22,8 @@ async function callTelegram<T>(method: string, body: Record<string, unknown>): P
   })
   const json = (await res.json()) as TelegramApiResponse<T>
   if (!json.ok) {
-    throw new Error(json.description || `telegram_${method}_failed`)
+    const code = json.error_code != null ? ` #${json.error_code}` : ''
+    throw new Error(`${json.description || `telegram_${method}_failed`}${code}`)
   }
   return json.result
 }
