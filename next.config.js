@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  experimental: {
+    // better-sqlite3 — нативный модуль (Next 14: ключ experimental)
+    serverComponentsExternalPackages: ['better-sqlite3'],
+  },
+
   // Статическая генерация всех страниц при билде
   output: 'standalone',
 
