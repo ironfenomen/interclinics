@@ -1,8 +1,11 @@
 import type { City } from '@/data/cities'
 import { MedicalContraindicationsNote } from '@/components/MedicalContraindicationsNote'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { DEFAULT_FOOTER_SITE_OWNER } from '@/lib/footer-legal-mockup'
 
 export function LandingFooter({ city }: { city: City }) {
+  const addrLine = city.partnerAddress?.trim() ?? ''
+
   return (
     <footer className="bg-gradient-to-b from-[#040A12] to-[#08111D] px-5 py-11 pb-[22px] text-[rgba(255,255,255,0.58)]">
       <div className="mockup-container w-full">
@@ -15,9 +18,9 @@ export function LandingFooter({ city }: { city: City }) {
               </small>
             </div>
             <div className="mt-3.5 text-[13px] leading-[1.85]">
-              <strong className="text-[rgba(255,255,255,0.85)]">ООО «ВЛАДЕЛЕЦ САЙТА»</strong>
+              <strong className="text-[rgba(255,255,255,0.85)]">{DEFAULT_FOOTER_SITE_OWNER.name}</strong>
               <br />
-              ИНН / ОГРН / адрес сайта
+              ИНН {DEFAULT_FOOTER_SITE_OWNER.inn}, ОГРН {DEFAULT_FOOTER_SITE_OWNER.ogrn}
               <br />
               <br />
               Медицинские услуги оказывает:
@@ -26,7 +29,7 @@ export function LandingFooter({ city }: { city: City }) {
               <br />
               Лицензия № {city.partnerLicense}
               <br />
-              Адрес: {city.partnerAddress}
+              {addrLine ? <>Адрес: {addrLine}</> : null}
             </div>
           </div>
 

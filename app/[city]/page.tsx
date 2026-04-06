@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
       url: `https://interclinics.ru/${city.slug}/`,
       locale: 'ru_RU',
       type: 'website',
+      images: [{ url: 'https://interclinics.ru/og-default.jpg', width: 1200, height: 630 }],
     },
   }
 }

@@ -3,15 +3,12 @@
 // ============================================================
 // ГЕО-ОПРЕДЕЛЕНИЕ + ВЫБОР ГОРОДА — PRODUCTION
 //
-// ЦЕПОЧКА ОПРЕДЕЛЕНИЯ (каждый шаг — fallback предыдущего):
-//   1. Cookie ic_city → window.location.replace (полная навигация, без залипания router)
-//   2. GET /api/geo-hint (сервер, IP из X-Forwarded-For) — обходит блокировки клиентских geo-API
-//   3. ip-api.com с клиента (fallback)
-//   4. ipapi.co (backup)
-//   5. Ручной выбор из сетки городов
+// ЦЕПОЧКА:
+//   1. Cookie ic_city → window.location.replace
+//   2. Гео: параллельно /api/geo-hint + ip-api.com + ipapi.co с общим бюджетом ~2.5s (не последовательно!)
+//   3. Ручной выбор; fail-safe 3s на фазе loading → всегда select
 //
-// СБОИ: таймаут 3s на каждый API, AbortController, try/catch
-// Любая ошибка → следующий шаг, никогда не зависает
+// СБОИ: AbortController, try/catch; fail-safe гарантирует список городов без бесконечной крутилки
 //
 // UI: три фазы — loading → confirm → select
 // Переходы: CSS-анимации fadeIn/slideUp
@@ -69,6 +66,29 @@ async function readGeoJsonCity(res: Response): Promise<string | undefined> {
   }
 }
 
+/** Параллельно: same-origin geo-hint + два внешних источника; приоритет — geo-hint, затем ip-api, затем ipapi.co */
+async function detectCityParallel(
+  signal: AbortSignal,
+  findCity: (raw: string | undefined | null) => CityData | null,
+): Promise<CityData | null> {
+  const run = async (url: string, init?: RequestInit): Promise<CityData | null> => {
+    try {
+      const res = await fetch(url, { ...init, signal })
+      if (!res.ok) return null
+      const name = await readGeoJsonCity(res)
+      return findCity(name)
+    } catch {
+      return null
+    }
+  }
+  const [a, b, c] = await Promise.all([
+    run('/api/geo-hint', { cache: 'no-store' }),
+    run('https://ip-api.com/json/?lang=ru&fields=city'),
+    run('https://ipapi.co/json/'),
+  ])
+  return a ?? b ?? c
+}
+
 // ── Маппинг английских названий → slug ───────────────────────
 const EN_MAP: Record<string, string> = {
   stavropol: 'stavropol',
@@ -124,11 +144,14 @@ export default function CitySelector({ cities, services }: Props) {
   useEffect(() => {
     let cancelled = false
 
+    const LOADING_FAILSAFE_MS = 3000
+    const GEO_BUDGET_MS = 2500
+
     const failSafe = window.setTimeout(() => {
       if (cancelled) return
       setPhase((p) => (p === 'loading' ? 'select' : p))
       setFadeKey((k) => k + 1)
-    }, 9000)
+    }, LOADING_FAILSAFE_MS)
 
     const list = citiesRef.current
     if (!list.length) {
@@ -154,58 +177,15 @@ export default function CitySelector({ cities, services }: Props) {
       }
     }
 
-    // ШАГ 1–3: гео-подсказка (сервер → клиентские API)
+    // ШАГ 1: гео за один бюджет (параллельно, без 4s+3s+3s подряд)
     ;(async () => {
+      const ctrl = new AbortController()
+      const budgetTimer = window.setTimeout(() => ctrl.abort(), GEO_BUDGET_MS)
       let city: CityData | null = null
-
-      {
-        const ctrl = new AbortController()
-        const timer = window.setTimeout(() => ctrl.abort(), 4000)
-        try {
-          const res = await fetch('/api/geo-hint', { signal: ctrl.signal, cache: 'no-store' })
-          if (res.ok) {
-            const name = await readGeoJsonCity(res)
-            city = findCity(name)
-          }
-        } catch {
-          /* same-origin или сеть */
-        } finally {
-          window.clearTimeout(timer)
-        }
-      }
-
-      if (!city) {
-        const ctrl = new AbortController()
-        const timer = window.setTimeout(() => ctrl.abort(), 3000)
-        try {
-          const res = await fetch('https://ip-api.com/json/?lang=ru&fields=city', {
-            signal: ctrl.signal,
-          })
-          if (res.ok) {
-            const name = await readGeoJsonCity(res)
-            city = findCity(name)
-          }
-        } catch {
-          /* таймаут или сбой */
-        } finally {
-          window.clearTimeout(timer)
-        }
-      }
-
-      if (!city) {
-        const ctrl = new AbortController()
-        const timer = window.setTimeout(() => ctrl.abort(), 3000)
-        try {
-          const res = await fetch('https://ipapi.co/json/', { signal: ctrl.signal })
-          if (res.ok) {
-            const name = await readGeoJsonCity(res)
-            city = findCity(name)
-          }
-        } catch {
-          /* backup */
-        } finally {
-          window.clearTimeout(timer)
-        }
+      try {
+        city = await detectCityParallel(ctrl.signal, findCity)
+      } finally {
+        window.clearTimeout(budgetTimer)
       }
 
       if (cancelled) return

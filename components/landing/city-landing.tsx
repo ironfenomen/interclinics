@@ -1,9 +1,22 @@
+import '@/styles/mockup-literal.css'
 import type { City } from '@/data/cities'
 import { getMockupHtml } from './mockup-literal/get-mockup-html'
-import { MockupLiteralShell } from './mockup-literal/mockup-literal-shell'
+import { MockupLiteralInit } from './mockup-literal/mockup-literal-init'
 
-/** Лендинг: буквальный HTML/CSS из interclinics-mockup-100-final.html + подстановки города. */
+/**
+ * Лендинг: HTML рендерится на сервере (RSC), клиентский бандл не несёт 200KB html-строки.
+ * MockupLiteralInit — тонкий 'use client' без пропов, цепляется через document.querySelector.
+ */
 export function CityLanding({ city }: { city: City }) {
   const html = getMockupHtml(city)
-  return <MockupLiteralShell html={html} />
+  return (
+    <div className="ic-mockup-shell min-h-[100dvh]">
+      <div
+        className="ic-mockup-root min-h-[100dvh]"
+        dangerouslySetInnerHTML={{ __html: html }}
+        suppressHydrationWarning
+      />
+      <MockupLiteralInit />
+    </div>
+  )
 }

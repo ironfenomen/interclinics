@@ -10,6 +10,9 @@ const nextConfig = {
   // Статическая генерация всех страниц при билде
   output: 'standalone',
 
+  // Canonical URLs со слэшем: /stavropol/ вместо /stavropol (убирает 308 редирект = -900ms LCP)
+  trailingSlash: true,
+
   /**
    * Dev: poll на macOS (EMFILE). Не трогаем optimization.moduleIds/chunkIds — в Next 14 App Router
    * кастомные named ids ломают компиляцию страниц (все маршруты падают в 404 / Internal error).

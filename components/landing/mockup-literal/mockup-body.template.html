@@ -48,7 +48,7 @@
 <section class="hero">
   <span id="ic-mockup-city" data-slug="__CITY_SLUG__" hidden></span>
   <div class="c hero-grid">
-    <div class="hero-content reveal">
+    <div class="hero-content">
       <div class="hero-badges">
         <div class="hero-badge hero-badge--stacionar"><span class="dot"></span>Стационар 24/7</div>
         <div class="hero-badge"><span class="dot"></span>Выезд врача — до __ARRIVAL__ минут</div>
@@ -86,7 +86,7 @@
       </p>
     </div>
 
-    <div class="hero-form-wrap reveal">
+    <div class="hero-form-wrap">
       <div class="hero-form-glow"></div>
       <div class="form-card">
         <div class="form-topline">
@@ -427,47 +427,31 @@ __HOW_WE_WORK_SECTION__
       </header>
       <div class="stacionar-gallery__top">
         <figure class="stacionar-gallery__figure stacionar-gallery__figure--hero">
-          <img
-            src="/images/stacionar/room-single.png"
-            alt="Одноместная палата стационара: кровать, стол, телевизор"
-            width="1200"
-            height="900"
-            loading="eager"
-            decoding="async"
-          />
+          <picture>
+            <source srcset="/images/stacionar/room-single.webp" type="image/webp"/>
+            <img src="/images/stacionar/room-single.png" alt="Одноместная палата стационара: кровать, стол, телевизор" width="1200" height="900" loading="lazy" decoding="async"/>
+          </picture>
         </figure>
         <div class="stacionar-gallery__stack">
           <figure class="stacionar-gallery__figure stacionar-gallery__figure--stack">
-            <img
-              src="/images/stacionar/room-double.png"
-              alt="Двухместное размещение в палате"
-              width="800"
-              height="600"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcset="/images/stacionar/room-double.webp" type="image/webp"/>
+              <img src="/images/stacionar/room-double.png" alt="Двухместное размещение в палате" width="800" height="600" loading="lazy" decoding="async"/>
+            </picture>
           </figure>
           <figure class="stacionar-gallery__figure stacionar-gallery__figure--stack">
-            <img
-              src="/images/stacionar/room-detail.png"
-              alt="Палата: рабочая зона и бытовые детали"
-              width="800"
-              height="600"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcset="/images/stacionar/room-detail.webp" type="image/webp"/>
+              <img src="/images/stacionar/room-detail.png" alt="Палата: рабочая зона и бытовые детали" width="800" height="600" loading="lazy" decoding="async"/>
+            </picture>
           </figure>
         </div>
       </div>
       <figure class="stacionar-gallery__figure stacionar-gallery__figure--facade">
-        <img
-          src="/images/stacionar/facade.png"
-          alt="Клиника «Амадея Детокс»: здание и вывеска"
-          width="1600"
-          height="700"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source srcset="/images/stacionar/facade.webp" type="image/webp"/>
+          <img src="/images/stacionar/facade.png" alt="Клиника «Амадея Детокс»: здание и вывеска" width="1600" height="700" loading="lazy" decoding="async"/>
+        </picture>
       </figure>
     </div>
 
