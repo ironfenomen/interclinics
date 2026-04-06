@@ -21,6 +21,9 @@ export function MockupLiteralShell({ html }: { html: string }) {
   useLayoutEffect(() => {
     const root = wrapRef.current
     if (!root) return
+    // Активируем .reveal-анимации только после гидрации JS.
+    // Без этого флага .reveal элементы видны даже без JS/CSS (progressive enhancement).
+    root.classList.add('js-ready')
     let messengerReactRoot: Root | null = null
     const messengerSlot = document.getElementById('ic-mobile-messenger-slot')
     if (messengerSlot) {

@@ -17,7 +17,9 @@
     "check": "npm run check:types && npm run check:lint",
     "verify": "npm run check:types && npm run check:lint && npm run check:build",
     "build": "next build",
+    "build:deploy": "sh scripts/build-deploy.sh",
     "start": "next start",
+    "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
     "telegram:set-webhook": "node scripts/telegram-set-webhook.mjs"
   },
