@@ -136,8 +136,12 @@ export function MockupLiteralShell({ html }: { html: string }) {
         flagError(phoneId)
         return
       }
-      const name = nameId ? (document.getElementById(nameId) as HTMLInputElement | null)?.value ?? '' : ''
-      const slug = document.getElementById('ic-mockup-city')?.getAttribute('data-slug') ?? ''
+      const name = nameId ? (document.getElementById(nameId) as HTMLInputElement | null)?.value?.trim() ?? '' : ''
+      let slug = document.getElementById('ic-mockup-city')?.getAttribute('data-slug')?.trim() ?? ''
+      if (!slug) {
+        const m = window.location.pathname.match(/^\/([^/]+)\/?(?:$|\?)/)
+        if (m?.[1] && m[1] !== 'api') slug = m[1]
+      }
       let leadType: string = 'general'
       let source = 'hero-mockup'
       if (isModal) {
@@ -150,14 +154,33 @@ export function MockupLiteralShell({ html }: { html: string }) {
         if (lt === 'vyzov' || lt === 'stacionar' || lt === 'rehab') leadType = lt
         source = `hero-mockup:${active?.dataset?.leadtype ?? 'general'}`
       }
+      const pagePath = window.location.pathname
+      let ok = false
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone: digits, city: slug, source, leadType }),
+          body: JSON.stringify({
+            phone: digits,
+            city: slug || 'unknown',
+            source,
+            leadType,
+            name: name || undefined,
+            consentPd: true,
+            formId: source,
+            pagePath,
+          }),
         })
-      } catch {
-        /* offline */
+        ok = res.ok
+        if (!res.ok) {
+          console.error('LEAD API error', res.status, await res.text().catch(() => ''))
+        }
+      } catch (e) {
+        console.error('LEAD fetch failed', e)
+      }
+      if (!ok) {
+        flagError(phoneId)
+        return
       }
       console.log('LEAD', { phone: digits, name, city: slug, source, leadType })
 

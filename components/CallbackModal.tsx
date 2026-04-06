@@ -46,7 +46,7 @@ export default function CallbackModal({ city }: { city: City }) {
       return
     }
     try {
-      await fetch('/api/lead', {
+      const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -54,10 +54,22 @@ export default function CallbackModal({ city }: { city: City }) {
           city: city.slug,
           source: 'modal:callback',
           leadType: 'general',
+          consentPd: true,
+          formId: 'header:callback',
+          pagePath: typeof window !== 'undefined' ? window.location.pathname : undefined,
         }),
       })
+      if (!res.ok) {
+        console.warn('LEAD API', res.status, await res.text().catch(() => ''))
+        setError(true)
+        inputRef.current?.focus()
+        return
+      }
     } catch {
       console.warn('LEAD (modal offline/fallback):', { phone: digits, city: city.slug })
+      setError(true)
+      inputRef.current?.focus()
+      return
     }
     setSent(true)
     setTimeout(() => {
