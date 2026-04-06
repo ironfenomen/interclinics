@@ -8,7 +8,7 @@ import {
 } from '@/lib/leads/repository'
 import type { SiteLeadPayload } from '@/lib/leads/types'
 
-import { sendLeadAlarmBurst } from '@/lib/telegram-leads/alarm-send'
+import { alarmBurstWarrantsThrottle, sendLeadAlarmBurst } from '@/lib/telegram-leads/alarm-send'
 import { ensureLeadAlarmScheduler } from '@/lib/telegram-leads/alarm-scheduler'
 import { buildLeadCardHtml } from '@/lib/telegram-leads/lead-card'
 import { buildLeadInlineKeyboard } from '@/lib/telegram-leads/inline-keyboard'
@@ -108,7 +108,7 @@ export async function ingestSiteLead(input: {
   if (chatId && token && !alarmDisabled) {
     console.log(`[lead-alarm] ingest_started lead=${id} public=${public_id}`)
     const burst = await sendLeadAlarmBurst(leadForAlarm, 'ingest', 0)
-    if (burst.groupOk) {
+    if (alarmBurstWarrantsThrottle(burst)) {
       recordAlarmLastSent(id)
     }
   } else if (alarmDisabled) {

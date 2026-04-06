@@ -1,3 +1,8 @@
+/**
+ * Единственная точка сборки inline-клавиатуры карточки лида.
+ * Суффиксы callback_data — константы INLINE_ACTION / PARTNER_INLINE_ACTION в model.ts;
+ * парсинг: callback-data.ts → apply-callback-action.ts (computeNextState).
+ */
 import type { LeadRecord } from '@/lib/leads/types'
 import {
   INLINE_ACTION,
@@ -39,6 +44,7 @@ export function buildLeadInlineKeyboard(lead: LeadRecord): InlineKeyboardMarkup 
     return { inline_keyboard: [] }
   }
 
+  /* Этап — партнёры (подстатусы + исходы) */
   if (lead.status === LEAD_STATUS.PARTNER_SENT && !partnerOutcomeTerminal(lead)) {
     return {
       inline_keyboard: [
@@ -54,6 +60,7 @@ export function buildLeadInlineKeyboard(lead: LeadRecord): InlineKeyboardMarkup 
     }
   }
 
+  /* Этап 1 — новый лид */
   if (lead.status === LEAD_STATUS.NEW) {
     return {
       inline_keyboard: [
@@ -66,7 +73,9 @@ export function buildLeadInlineKeyboard(lead: LeadRecord): InlineKeyboardMarkup 
     }
   }
 
+  /* Этап 2 — наша линия: переназначение → контакт → развитие → исходы */
   const mainRows: { text: string; callback_data: string }[][] = [
+    [btn(pid, INLINE_ACTION.TAKE, INLINE_BUTTON_LABEL[INLINE_ACTION.TAKE])],
     [
       btn(pid, INLINE_ACTION.CONTACTED, INLINE_BUTTON_LABEL[INLINE_ACTION.CONTACTED]),
       btn(pid, INLINE_ACTION.NO_ANSWER, INLINE_BUTTON_LABEL[INLINE_ACTION.NO_ANSWER]),

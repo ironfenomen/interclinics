@@ -8,10 +8,16 @@ import {
   updateAgreementInputSessionPrompt,
 } from '@/lib/leads/repository'
 
+import { agreementFlowCancelKeyboard } from '@/lib/telegram-leads/agreement-input-ui'
 import { parseAgreementDeadlineInput } from '@/lib/telegram-leads/agreement-deadline-parse'
 import { buildLeadCardHtml } from '@/lib/telegram-leads/lead-card'
 import { buildLeadInlineKeyboard } from '@/lib/telegram-leads/inline-keyboard'
-import { editLeadCardMessage, sendPlainMessage } from '@/lib/telegram-leads/telegram-client'
+import {
+  answerCallbackQuery,
+  clearMessageReplyMarkup,
+  editLeadCardMessage,
+  sendPlainMessage,
+} from '@/lib/telegram-leads/telegram-client'
 
 function actorDisplay(u: {
   id: number
@@ -82,7 +88,15 @@ export async function handleAgreementFlowMessage(
   if (cmd === '/agr_cancel') {
     const session = getAgreementInputSession(chatId, userId)
     if (!session) return false
+    const promptId = session.prompt_message_id
     deleteAgreementInputSession(chatId, userId)
+    if (promptId != null) {
+      try {
+        await clearMessageReplyMarkup({ chatId, messageId: promptId })
+      } catch {
+        /* */
+      }
+    }
     await sendPlainMessage({
       chatId,
       text: 'Ввод договорённости отменён.',
@@ -97,12 +111,7 @@ export async function handleAgreementFlowMessage(
   const replyToId = msg.reply_to_message?.message_id
   const expectedPrompt = session.prompt_message_id
   if (expectedPrompt == null || replyToId !== expectedPrompt) {
-    await sendPlainMessage({
-      chatId,
-      text:
-        'Чтобы продолжить ввод договорённости, ответьте (Reply) на последнее сообщение бота в этом диалоге.',
-      replyToMessageId: msg.message_id,
-    })
+    /* Не-reply и чужой reply: не спамим — ждём Reply на актуальное служебное сообщение, /agr_cancel или кнопку. */
     return true
   }
 
@@ -115,16 +124,23 @@ export async function handleAgreementFlowMessage(
       })
       return true
     }
+    const prevPromptId = session.prompt_message_id
     const prompt2 = await sendPlainMessage({
       chatId,
       text:
-        `Заявка ${session.lead_public_id}: следующий контакт с клиентом.\n` +
-        `• относительно: +1d, +24h\n` +
-        `• дата/время МСК: ДД.ММ.ГГГГ [ЧЧ:ММ] (время по умолчанию 10:00)\n` +
-        `• без дедлайна: нет\n\n` +
-        `Ответьте (Reply) на это сообщение. Отмена: /agr_cancel`,
+        `Заявка ${session.lead_public_id}: срок следующего контакта.\n` +
+        `Примеры: +1d, +24h, ДД.ММ.ГГГГ ЧЧ:ММ (МСК), или «нет».\n\n` +
+        `Ответьте (Reply) на это сообщение. /agr_cancel или кнопка ниже — отмена.`,
       replyToMessageId: msg.message_id,
+      replyMarkup: agreementFlowCancelKeyboard(),
     })
+    if (prevPromptId != null) {
+      try {
+        await clearMessageReplyMarkup({ chatId, messageId: prevPromptId })
+      } catch {
+        /* */
+      }
+    }
     updateAgreementInputSessionPrompt({
       chatId,
       tgUserId: userId,
@@ -183,20 +199,65 @@ export async function handleAgreementFlowMessage(
     })
   }
 
+  const promptToClear = session.prompt_message_id
+
   deleteAgreementInputSession(chatId, userId)
 
   await syncLeadCard(session.lead_id)
 
+  if (promptToClear != null) {
+    try {
+      await clearMessageReplyMarkup({ chatId, messageId: promptToClear })
+    } catch {
+      /* сообщение удалено или нет прав */
+    }
+  }
+
   const dueLine =
     nextContactAt == null
-      ? 'без заданного дедлайна'
+      ? 'без даты следующего контакта'
       : `след. контакт: ${new Date(nextContactAt).toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} МСК`
 
   await sendPlainMessage({
     chatId,
-    text: `Договорённость сохранена (${dueLine}).`,
+    text: `✅ Договорённость сохранена.\n${dueLine}`,
     replyToMessageId: msg.message_id,
   })
 
   return true
+}
+
+/**
+ * Inline «Отменить ввод» — закрывает сессию и убирает клавиатуру с служебного сообщения.
+ */
+export async function handleAgreementFlowCallbackCancel(input: {
+  callbackQueryId: string
+  chatId: string
+  tgUserId: number
+  serviceMessageId: number
+}): Promise<void> {
+  const session = getAgreementInputSession(input.chatId, input.tgUserId)
+  if (!session) {
+    await answerCallbackQuery({
+      callbackQueryId: input.callbackQueryId,
+      text: 'Активного ввода нет.',
+    })
+    return
+  }
+
+  deleteAgreementInputSession(input.chatId, input.tgUserId)
+
+  try {
+    await clearMessageReplyMarkup({
+      chatId: input.chatId,
+      messageId: input.serviceMessageId,
+    })
+  } catch {
+    /* */
+  }
+
+  await answerCallbackQuery({
+    callbackQueryId: input.callbackQueryId,
+    text: 'Ввод отменён.',
+  })
 }

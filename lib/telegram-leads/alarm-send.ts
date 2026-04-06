@@ -14,6 +14,12 @@ export type AlarmBurstResult = {
   dm: Record<number, 'ok' | string>
 }
 
+/** Обновлять alarm_last_sent_at, если хотя бы один канал доставил (иначе при падении группы, но успешных DM тик дублировал бы лички). */
+export function alarmBurstWarrantsThrottle(result: AlarmBurstResult): boolean {
+  if (result.groupOk) return true
+  return Object.values(result.dm).some(v => v === 'ok')
+}
+
 /**
  * Групповое тревожное сообщение + личные дубли.
  * Повтор вызывается планировщиком каждые 30 с, пока лид в статусе new.

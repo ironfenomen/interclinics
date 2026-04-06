@@ -99,11 +99,25 @@ export async function sendPlainMessage(input: {
   chatId: string
   text: string
   replyToMessageId?: number
+  replyMarkup?: InlineKeyboardMarkup
 }): Promise<SendMessageResult> {
   const body: Record<string, unknown> = {
     chat_id: input.chatId,
     text: input.text,
   }
   if (input.replyToMessageId != null) body.reply_to_message_id = input.replyToMessageId
+  if (input.replyMarkup != null) body.reply_markup = input.replyMarkup
   return callTelegram<SendMessageResult>('sendMessage', body)
+}
+
+/** Убрать inline-клавиатуру со служебного сообщения (после отмены или завершения ввода). */
+export async function clearMessageReplyMarkup(input: {
+  chatId: string
+  messageId: number
+}): Promise<void> {
+  await callTelegram<true>('editMessageReplyMarkup', {
+    chat_id: input.chatId,
+    message_id: input.messageId,
+    reply_markup: { inline_keyboard: [] },
+  })
 }

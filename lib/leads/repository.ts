@@ -465,3 +465,16 @@ export function deactivateLeadAlarm(leadId: number): void {
   const t = new Date().toISOString()
   db.prepare(`UPDATE leads SET alarm_active = 0, updated_at = ? WHERE id = ?`).run(t, leadId)
 }
+
+/**
+ * Снимает alarm_active у лидов не в `new` (ручные правки БД, сбой до deactivate, миграции).
+ * Вызывать из тика тревоги — дешёвый одноразовый UPDATE.
+ */
+export function repairStaleLeadAlarmFlags(): number {
+  const db = getLeadsDb()
+  const t = new Date().toISOString()
+  const info = db
+    .prepare(`UPDATE leads SET alarm_active = 0, updated_at = ? WHERE alarm_active = 1 AND status != ?`)
+    .run(t, LEAD_STATUS.NEW)
+  return Number(info.changes ?? 0)
+}

@@ -1,9 +1,17 @@
 /** Префикс callback_data (лимит Telegram 64 байта). Формат: `ic:{publicId}:{action}` */
 
 const PREFIX = 'ic'
+const MAX_CALLBACK_DATA_LEN = 64
 
 export function buildCallbackData(publicId: string, action: string): string {
-  return `${PREFIX}:${publicId}:${action}`
+  const s = `${PREFIX}:${publicId}:${action}`
+  if (s.length > MAX_CALLBACK_DATA_LEN) {
+    console.error(
+      '[telegram-leads] callback_data exceeds Telegram limit',
+      { length: s.length, max: MAX_CALLBACK_DATA_LEN, publicIdLen: publicId.length, action },
+    )
+  }
+  return s
 }
 
 export function parseCallbackData(data: string): { publicId: string; action: string } | null {

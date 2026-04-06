@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { parseCallbackData } from '@/lib/telegram-leads/callback-data'
 import { applyLeadCallback } from '@/lib/telegram-leads/apply-callback-action'
-import { handleAgreementFlowMessage } from '@/lib/telegram-leads/agreement-message-handler'
+import {
+  handleAgreementFlowCallbackCancel,
+  handleAgreementFlowMessage,
+} from '@/lib/telegram-leads/agreement-message-handler'
+import { AGREEMENT_FLOW_CANCEL_CALLBACK } from '@/lib/telegram-leads/agreement-input-ui'
 import { answerCallbackQuery } from '@/lib/telegram-leads/telegram-client'
 import { normalizeTelegramWebhookSecret, verifyTelegramWebhookSecret } from '@/lib/telegram-leads/webhook-secret'
 
@@ -97,6 +101,25 @@ export async function POST(request: NextRequest) {
         inline_message_id: cq.inline_message_id ?? null,
       }),
     )
+
+    if (
+      cq.data === AGREEMENT_FLOW_CANCEL_CALLBACK &&
+      cq.from &&
+      cq.message &&
+      process.env.TG_BOT_TOKEN?.trim()
+    ) {
+      try {
+        await handleAgreementFlowCallbackCancel({
+          callbackQueryId: cq.id,
+          chatId: String(cq.message.chat.id),
+          tgUserId: cq.from.id,
+          serviceMessageId: cq.message.message_id,
+        })
+      } catch (e) {
+        console.error('[tg-webhook] agreement_flow_cancel', e)
+      }
+      return NextResponse.json({ ok: true, route: 'telegram-webhook' })
+    }
 
     if (!cq.data?.length) {
       console.warn('[tg-webhook] callback_query_missing_data', { callback_query_id: cq.id })

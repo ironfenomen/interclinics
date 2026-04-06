@@ -27,6 +27,12 @@ import {
   editLeadCardMessage,
   sendPlainMessage,
 } from '@/lib/telegram-leads/telegram-client'
+import {
+  agreementAutoPromptHint,
+  AUTO_AGREEMENT_PROMPT_AFTER_ACTION,
+} from '@/lib/telegram-leads/agreement-auto-prompt'
+import { agreementFlowCancelKeyboard } from '@/lib/telegram-leads/agreement-input-ui'
+import { resolveLeadOpsChatId } from '@/lib/telegram-leads/resolve-ops-chat-id'
 
 const INLINE_SET = new Set<string>(Object.values(INLINE_ACTION))
 const PARTNER_SET = new Set<string>(Object.values(PARTNER_INLINE_ACTION))
@@ -226,18 +232,20 @@ async function startAgreementInputFlowIfPossible(
   fresh: LeadRecord,
   actor: { id: number; username?: string; first_name?: string; last_name?: string },
   callbackMessage?: { chatId: string; messageId: number },
+  contextHint?: string,
 ): Promise<boolean> {
   if (!process.env.TG_BOT_TOKEN?.trim()) return false
-  const chatId =
-    callbackMessage?.chatId ?? fresh.telegram_chat_id ?? process.env.TG_CHAT_ID?.trim() ?? ''
+  const chatId = resolveLeadOpsChatId(fresh, callbackMessage?.chatId)
   if (!chatId) return false
   try {
+    const hintBlock = contextHint ? `\n\n${contextHint}` : ''
     const sent = await sendPlainMessage({
       chatId,
       text:
-        `Заявка ${fresh.public_id}: опишите договорённость одним сообщением.\n\n` +
-        `Ответьте (Reply) на это сообщение. Отмена: /agr_cancel`,
+        `Заявка ${fresh.public_id}: опишите договорённость одним сообщением.${hintBlock}\n\n` +
+        `Ответьте (Reply) на это сообщение. /agr_cancel или кнопка ниже — отмена.`,
       replyToMessageId: callbackMessage?.messageId,
+      replyMarkup: agreementFlowCancelKeyboard(),
     })
     upsertAgreementInputSession({
       chatId,
@@ -311,18 +319,30 @@ export async function applyLeadCallback(input: {
   patchLead(lead.id, next.patch)
 
   const fresh = getLeadByPublicId(input.publicId)
-  if (!fresh) return
+  if (!fresh) {
+    console.error('[applyLeadCallback] lead missing after patch', { publicId: input.publicId })
+    await answerCallbackQuery({
+      callbackQueryId: input.callbackQueryId,
+      text: 'Ошибка: заявка не найдена после сохранения. Проверьте БД.',
+      showAlert: true,
+    })
+    return
+  }
 
-  insertActivity({
-    leadId: fresh.id,
-    actorTgUserId: input.actor.id,
-    action: `inline:${input.action}`,
-    fromStatus,
-    toStatus: fresh.status,
-    fromPartnerStatus: fromPartner,
-    toPartnerStatus: fresh.partner_status,
-    meta: next.activityMeta ?? null,
-  })
+  try {
+    insertActivity({
+      leadId: fresh.id,
+      actorTgUserId: input.actor.id,
+      action: `inline:${input.action}`,
+      fromStatus,
+      toStatus: fresh.status,
+      fromPartnerStatus: fromPartner,
+      toPartnerStatus: fresh.partner_status,
+      meta: next.activityMeta ?? null,
+    })
+  } catch (e) {
+    console.error('[applyLeadCallback] insertActivity failed (статус уже изменён)', e)
+  }
 
   if (fromStatus === LEAD_STATUS.NEW && fresh.status !== LEAD_STATUS.NEW) {
     deactivateLeadAlarm(fresh.id)
@@ -330,7 +350,7 @@ export async function applyLeadCallback(input: {
   }
 
   if (input.action === INLINE_ACTION.TAKE) {
-    const gid = process.env.TG_CHAT_ID?.trim() || fresh.telegram_chat_id || ''
+    const gid = resolveLeadOpsChatId(fresh, input.callbackMessage?.chatId)
     if (gid) {
       await sendLeadTakenAck({
         groupChatId: gid,
@@ -341,6 +361,12 @@ export async function applyLeadCallback(input: {
     }
   }
 
+  const explicitAgreementButton =
+    input.action === INLINE_ACTION.AGREEMENTS || input.action === PARTNER_INLINE_ACTION.AGREEMENTS
+
+  const wantsAgreementInputFlow =
+    explicitAgreementButton || AUTO_AGREEMENT_PROMPT_AFTER_ACTION.has(input.action)
+
   let agreementFlowStarted = false
   if (input.action === INLINE_ACTION.AGREEMENTS) {
     agreementFlowStarted = await startAgreementInputFlowIfPossible(
@@ -348,26 +374,47 @@ export async function applyLeadCallback(input: {
       input.actor,
       input.callbackMessage,
     )
-  }
-  if (input.action === PARTNER_INLINE_ACTION.AGREEMENTS) {
-    agreementFlowStarted =
-      (await startAgreementInputFlowIfPossible(fresh, input.actor, input.callbackMessage)) ||
-      agreementFlowStarted
+  } else if (input.action === PARTNER_INLINE_ACTION.AGREEMENTS) {
+    agreementFlowStarted = await startAgreementInputFlowIfPossible(
+      fresh,
+      input.actor,
+      input.callbackMessage,
+    )
+  } else if (AUTO_AGREEMENT_PROMPT_AFTER_ACTION.has(input.action)) {
+    agreementFlowStarted = await startAgreementInputFlowIfPossible(
+      fresh,
+      input.actor,
+      input.callbackMessage,
+      agreementAutoPromptHint(input.action),
+    )
   }
 
-  let alertText: string | undefined
+  const agreementFlowFailed = wantsAgreementInputFlow && !agreementFlowStarted
+
+  const hints: string[] = []
   try {
     await syncTelegramCard(fresh)
   } catch (e) {
     console.error('syncTelegramCard', e)
-    alertText = 'Статус сохранён. Сообщение в Telegram не обновилось — см. лог сервера.'
+    hints.push('Статус сохранён. Карточка в Telegram не обновилась — см. лог сервера.')
   }
+  if (agreementFlowFailed) {
+    hints.push(
+      'Сценарий договорённости не открылся: проверьте TG_BOT_TOKEN, chat id и что бот может писать в этот чат.',
+    )
+  }
+
+  const alertText = hints.length > 0 ? hints.join(' ') : undefined
+
+  const agreementToast = agreementFlowStarted
+    ? explicitAgreementButton
+      ? 'Ответьте на сообщение бота текстом договорённости.'
+      : 'Статус обновлён. Зафиксируйте договорённость ответом боту (отмена: /agr_cancel).'
+    : undefined
 
   await answerCallbackQuery({
     callbackQueryId: input.callbackQueryId,
-    text:
-      alertText ??
-      (agreementFlowStarted ? 'Ответьте на сообщение бота текстом договорённости.' : undefined),
-    showAlert: !!alertText,
+    text: alertText ?? agreementToast,
+    showAlert: Boolean(alertText),
   })
 }

@@ -23,12 +23,15 @@ export const SITE_WHATSAPP_HREF = `https://wa.me/${SITE_WHATSAPP_WA_ME_DIGITS}`
  */
 export const SITE_TELEGRAM_HREF = `https://t.me/${SITE_PHONE_E164}`
 
+/** Дефолтная ссылка «Открыть чат в MAX» (единый источник, если env не задан). */
+export const SITE_MAX_CONTACT_DEFAULT_HREF =
+  'https://max.ru/u/f9LHodD0cOK_ZFl4VSYpnuUpVL8KdCIEw0idK6a_pHZDXl9QMjygVXIdKKI'
+
 /**
- * Точка входа в MAX (профиль, бот или общая страница).
- * Для боевого чата задайте `NEXT_PUBLIC_MAX_CONTACT_HREF` в `.env` (например диплинк бота с dev.max.ru).
+ * Точка входа в MAX. Переопределение: `NEXT_PUBLIC_MAX_CONTACT_HREF` в `.env`.
  */
 export const SITE_MAX_HREF =
   typeof process.env.NEXT_PUBLIC_MAX_CONTACT_HREF === 'string' &&
   process.env.NEXT_PUBLIC_MAX_CONTACT_HREF.trim() !== ''
     ? process.env.NEXT_PUBLIC_MAX_CONTACT_HREF.trim()
-    : 'https://max.ru/'
+    : SITE_MAX_CONTACT_DEFAULT_HREF

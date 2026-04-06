@@ -1,7 +1,12 @@
-import { getLeadById, listLeadsNeedingAlarmTick, recordAlarmLastSent } from '@/lib/leads/repository'
+import {
+  getLeadById,
+  listLeadsNeedingAlarmTick,
+  recordAlarmLastSent,
+  repairStaleLeadAlarmFlags,
+} from '@/lib/leads/repository'
 import { LEAD_STATUS } from '@/lib/telegram-leads/model'
 
-import { sendLeadAlarmBurst } from '@/lib/telegram-leads/alarm-send'
+import { alarmBurstWarrantsThrottle, sendLeadAlarmBurst } from '@/lib/telegram-leads/alarm-send'
 
 const INTERVAL_MS = 30_000
 
@@ -14,6 +19,11 @@ export async function runLeadAlarmTick(): Promise<void> {
   }
   if (process.env.LEAD_ALARM_DISABLED === '1') {
     return
+  }
+
+  const repaired = repairStaleLeadAlarmFlags()
+  if (repaired > 0) {
+    console.log(`[lead-alarm] repaired stale alarm_active rows=${repaired}`)
   }
 
   const due = listLeadsNeedingAlarmTick(INTERVAL_MS)
@@ -31,7 +41,7 @@ export async function runLeadAlarmTick(): Promise<void> {
 
     const result = await sendLeadAlarmBurst(lead, 'tick', ordinal)
 
-    if (result.groupOk) {
+    if (alarmBurstWarrantsThrottle(result)) {
       recordAlarmLastSent(lead.id)
     }
   }

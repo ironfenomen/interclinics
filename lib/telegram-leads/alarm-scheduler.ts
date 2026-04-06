@@ -1,6 +1,10 @@
 /**
  * Один глобальный setInterval на процесс Next.js (long-running `next start` / Docker).
  * Импорт alarm-tick только динамически — иначе instrumentation.ts тянет better-sqlite3 в общий бандл.
+ *
+ * Поток: ingest → sendLeadAlarmBurst(ingest) + при успехе любого канала recordAlarmLastSent;
+ * каждые 30 с runLeadAlarmTick → лиды new + alarm_active → burst → throttle;
+ * выход из new → deactivateLeadAlarm (apply-callback). Резерв без interval: GET /api/cron/lead-alarm.
  */
 
 const INTERVAL_MS = 30_000

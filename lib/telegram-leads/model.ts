@@ -153,24 +153,24 @@ export const MONTHLY_REPORT_KEYS = [
 
 export type MonthlyReportKey = (typeof MONTHLY_REPORT_KEYS)[number]
 
-/** Человекочитаемые подписи кнопок (UI Telegram). */
+/** Человекочитаемые подписи кнопок (UI Telegram). Короткие строки — лучше на мобильных. */
 export const INLINE_BUTTON_LABEL: Record<InlineAction, string> = {
-  [INLINE_ACTION.TAKE]: 'Взять в работу',
-  [INLINE_ACTION.CONTACTED]: 'Связались',
-  [INLINE_ACTION.NO_ANSWER]: 'Не дозвонились',
-  [INLINE_ACTION.AGREEMENTS]: 'Договорённости',
-  [INLINE_ACTION.CALLBACK_LATER]: 'Перезвонить позже',
-  [INLINE_ACTION.AWAITING_DECISION]: 'Ждём решения',
-  [INLINE_ACTION.CONSULTATION]: 'Консультация',
-  [INLINE_ACTION.BOOKED]: 'Записан',
-  [INLINE_ACTION.PARTNER_SENT]: 'Передано партнёрам',
-  [INLINE_ACTION.REFUSED]: 'Отказ',
-  [INLINE_ACTION.SPAM]: 'Спам',
+  [INLINE_ACTION.TAKE]: '✋ В работу',
+  [INLINE_ACTION.CONTACTED]: '📞 Связались',
+  [INLINE_ACTION.NO_ANSWER]: '📵 Не дозвон',
+  [INLINE_ACTION.AGREEMENTS]: '📝 Договорённость',
+  [INLINE_ACTION.CALLBACK_LATER]: '🔁 Перезвон',
+  [INLINE_ACTION.AWAITING_DECISION]: '⏳ Ждём решен.',
+  [INLINE_ACTION.CONSULTATION]: '💬 Консультация',
+  [INLINE_ACTION.BOOKED]: '✅ Записан',
+  [INLINE_ACTION.PARTNER_SENT]: '➡️ К партнёрам',
+  [INLINE_ACTION.REFUSED]: '🚫 Отказ',
+  [INLINE_ACTION.SPAM]: '⛔ Спам',
 }
 
 export const PARTNER_INLINE_BUTTON_LABEL: Record<PartnerInlineAction, string> = {
-  [PARTNER_INLINE_ACTION.IN_PROGRESS]: 'Партнёры: в работе',
-  [PARTNER_INLINE_ACTION.AGREEMENTS]: 'Партнёры: договорённости',
-  [PARTNER_INLINE_ACTION.PASSED]: 'Партнёры: прошла',
-  [PARTNER_INLINE_ACTION.NOT_PASSED]: 'Партнёры: не прошла',
+  [PARTNER_INLINE_ACTION.IN_PROGRESS]: '🤝 У партнёров',
+  [PARTNER_INLINE_ACTION.AGREEMENTS]: '📝 Договорённость',
+  [PARTNER_INLINE_ACTION.PASSED]: '✅ Прошла',
+  [PARTNER_INLINE_ACTION.NOT_PASSED]: '🚫 Не прошла',
 }
