@@ -19,6 +19,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from '@/lib/site-phone'
 import { isStavropolCity } from '@/data/cities'
 
 // ── Типы ──────────────────────────────────────────────────────
@@ -429,9 +430,9 @@ export default function CitySelector({ cities, services }: Props) {
           <div className={`cs-phone fade-in${phase === 'select' ? ' cs-phone--with-nav' : ''}`}>
             <div className="cs-phone-inner">
               <p className="cs-phone-kicker">Единая линия сети</p>
-              <a href="tel:+78001005849" className="cs-phone-num">
-            8 (800) 100-58-49
-          </a>
+              <a href={`tel:${SITE_PHONE_E164}`} className="cs-phone-num">
+                {SITE_PHONE_DISPLAY}
+              </a>
               <p className="cs-phone-sub">Бесплатно по РФ · Круглосуточно</p>
             </div>
           </div>

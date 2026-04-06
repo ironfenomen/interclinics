@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
+import { createRoot, type Root } from 'react-dom/client'
+import { MobileStickyMessengerPick } from '@/components/MobileStickyMessengerPick'
 
 /** Локальная копия склонения «N бригад» — без импорта `@/lib/topbar`, чтобы клиентский бандл не тянул лишний модуль (избегаем сбоя webpack interop `__webpack_require__.n`). */
 function brigadePluralPhrase(n: number): string {
@@ -15,6 +17,13 @@ function brigadePluralPhrase(n: number): string {
 /** Клиентская обвязка: те же обработчики, что в <script> мокапа (scroll/header, reveal, FAQ, формы, cookie, exit). */
 export function MockupLiteralShell({ html }: { html: string }) {
   useEffect(() => {
+    let messengerReactRoot: Root | null = null
+    const messengerSlot = document.getElementById('ic-mobile-messenger-slot')
+    if (messengerSlot) {
+      messengerReactRoot = createRoot(messengerSlot)
+      messengerReactRoot.render(<MobileStickyMessengerPick variant="literal" />)
+    }
+
     const header = document.getElementById('header')
 
     const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 12)
@@ -475,6 +484,8 @@ export function MockupLiteralShell({ html }: { html: string }) {
     document.addEventListener('keydown', onCitySwitcherKeyDown)
 
     return () => {
+      messengerReactRoot?.unmount()
+      messengerReactRoot = null
       window.removeEventListener('scroll', onScroll)
       observer.disconnect()
       faqHandlers.forEach(({ btn, fn }) => btn.removeEventListener('click', fn))

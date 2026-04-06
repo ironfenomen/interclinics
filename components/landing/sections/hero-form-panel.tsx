@@ -1,7 +1,8 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { City } from '@/data/cities'
+import { SiteMessengerRowHero } from '@/components/site-messenger-chips'
 import { digitsOnly, formatRuPhoneInput, isPhoneComplete } from '../lib/phone-format'
 import { LiveTeamsCount } from '../live/live-teams-count'
 
@@ -45,11 +46,7 @@ const SCENARIOS = [
   },
 ] as const
 
-function waHref(whatsapp: string) {
-  return `https://wa.me/${whatsapp.replace(/\D/g, '')}`
-}
-
-export function HeroFormPanel({ city }: { city: City }) {
+export function HeroFormPanel({ city: _city }: { city: City }) {
   const [active, setActive] = useState(0)
   const [copyPrimed, setCopyPrimed] = useState(true)
   const [name, setName] = useState('')
@@ -58,12 +55,6 @@ export function HeroFormPanel({ city }: { city: City }) {
   const scenario = SCENARIOS[active]
   const title = copyPrimed && active === 0 ? HERO_INITIAL_COPY.title : scenario.title
   const sub = copyPrimed && active === 0 ? HERO_INITIAL_COPY.sub : scenario.sub
-
-  const tg = useMemo(() => {
-    const h = city.telegram?.trim()
-    if (!h) return 'https://t.me/'
-    return h.startsWith('http') ? h : `https://t.me/${h.replace(/^@/, '')}`
-  }, [city.telegram])
 
   const submitHero = () => {
     if (!isPhoneComplete(phone)) {
@@ -165,30 +156,7 @@ export function HeroFormPanel({ city }: { city: City }) {
           ))}
         </div>
 
-        <div className="mt-[16px] flex gap-[10px] border-t border-line pt-[16px]">
-          <a
-            className="messenger flex flex-1 items-center justify-center gap-2 rounded-2xl border border-line bg-white p-[12px] text-[13px] font-extrabold text-deep-2"
-            href={waHref(city.whatsapp)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="#25D366" aria-hidden>
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.298-.018-.458.13-.606.135-.134.298-.347.447-.52.149-.174.198-.298.297-.497.099-.199.05-.372-.025-.521-.074-.148-.668-1.611-.916-2.206-.241-.579-.486-.5-.668-.51l-.571-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.214 3.074.148.198 2.095 3.2 5.076 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            </svg>
-            WhatsApp
-          </a>
-          <a
-            className="messenger flex flex-1 items-center justify-center gap-2 rounded-2xl border border-line bg-white p-[12px] text-[13px] font-extrabold text-deep-2"
-            href={tg}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="#2AABEE" aria-hidden>
-              <path d="M12 0C5.374 0 0 5.374 0 12s5.374 12 12 12 12-5.374 12-12S18.626 0 12 0zm5.568 8.16c-.18 1.896-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.064-1.225-.46-1.9-.903-1.056-.692-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.14a.506.506 0 0 1 .169.337c.016.11.036.317.02.49z" />
-            </svg>
-            Telegram
-          </a>
-        </div>
+        <SiteMessengerRowHero />
 
         <div className="mt-[14px] rounded-[18px] border border-line bg-gradient-to-b from-white to-[#F7FBFF] px-4 py-[14px] text-[13px] leading-[1.6] text-ink-muted">
           На уровне прототипа здесь уже заложены: микродоверие возле формы, явный срочный интент, возможность звонка без

@@ -3,6 +3,16 @@
 // components/CallbackModal.tsx
 import { useState, useRef } from 'react'
 import { City } from '@/data/cities'
+import {
+  CALLBACK_MODAL_CONSENT_PREFIX,
+  CALLBACK_MODAL_LEAD,
+  CALLBACK_MODAL_PLACEHOLDER_PHONE,
+  CALLBACK_MODAL_PRIVACY_LINK_TEXT,
+  CALLBACK_MODAL_SUBMIT_LABEL,
+  CALLBACK_MODAL_SUCCESS_TEXT,
+  CALLBACK_MODAL_SUCCESS_TITLE,
+  CALLBACK_MODAL_TITLE,
+} from '@/lib/callback-modal-copy'
 import styles from './CallbackModal.module.css'
 
 export default function CallbackModal({ city }: { city: City }) {
@@ -92,9 +102,9 @@ export default function CallbackModal({ city }: { city: City }) {
           <>
             <div className={styles.head}>
               <h2 id="callback-modal-title" className={styles.title}>
-                Обратный звонок
+                {CALLBACK_MODAL_TITLE}
               </h2>
-              <p className={styles.lead}>Перезвоним через 30 секунд. Бесплатно.</p>
+              <p className={styles.lead}>{CALLBACK_MODAL_LEAD}</p>
             </div>
 
             <div className={styles.form}>
@@ -104,17 +114,17 @@ export default function CallbackModal({ city }: { city: City }) {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="Ваш телефон *"
+                placeholder={CALLBACK_MODAL_PLACEHOLDER_PHONE}
                 value={phone}
                 onChange={e => handlePhone(e.target.value)}
                 aria-invalid={error}
               />
               <button type="button" className={styles.cta} onClick={submit}>
-                Перезвоните мне
+                {CALLBACK_MODAL_SUBMIT_LABEL}
               </button>
               <p className={styles.microcopy}>
-                Нажимая кнопку, вы соглашаетесь с{' '}
-                <a href="/privacy/">политикой конфиденциальности</a>
+                {CALLBACK_MODAL_CONSENT_PREFIX}{' '}
+                <a href="/privacy/">{CALLBACK_MODAL_PRIVACY_LINK_TEXT}</a>
               </p>
             </div>
           </>
@@ -124,9 +134,9 @@ export default function CallbackModal({ city }: { city: City }) {
               ✓
             </div>
             <h3 id="callback-success-title" className={styles.successTitle}>
-              Заявка отправлена!
+              {CALLBACK_MODAL_SUCCESS_TITLE}
             </h3>
-            <p className={styles.successText}>Нарколог перезвонит через 30 секунд</p>
+            <p className={styles.successText}>{CALLBACK_MODAL_SUCCESS_TEXT}</p>
           </div>
         )}
       </div>

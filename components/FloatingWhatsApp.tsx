@@ -2,11 +2,12 @@
 
 // components/FloatingWhatsApp.tsx — класс .float-wa из mockup-literal; на ≤768px скрыт (WA в mobile-bar)
 import { City } from '@/data/cities'
+import { SITE_WHATSAPP_HREF } from '@/lib/site-phone'
 
-export default function FloatingWhatsApp({ city }: { city: City }) {
+export default function FloatingWhatsApp({ city: _city }: { city: City }) {
   return (
     <a
-      href={`https://wa.me/${city.whatsapp}`}
+      href={SITE_WHATSAPP_HREF}
       target="_blank"
       rel="noopener noreferrer"
       className="float-wa ic-float-wa-desktop"

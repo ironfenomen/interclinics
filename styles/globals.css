@@ -595,7 +595,7 @@ section.ic-final-stacionar.final h2 {
   }
 
   body:has(.mobile-bar) {
-    padding-bottom: calc(68px + max(14px, env(safe-area-inset-bottom, 0px)));
+    padding-bottom: calc(65px + max(12px, env(safe-area-inset-bottom, 0px)));
   }
 
   /* Стационар и нарколог на дом: чуть спокойнее тень и начертание CTA — без «кричащего» баннера */
@@ -604,8 +604,9 @@ section.ic-final-stacionar.final h2 {
   .mobile-bar.mobile-bar--kodirovanie,
   .mobile-bar.mobile-bar--reabilitaciya {
     box-shadow:
-      0 -6px 28px rgba(6, 17, 32, 0.26),
-      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      0 -10px 36px rgba(6, 17, 32, 0.2),
+      0 -4px 18px rgba(0, 0, 0, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.075);
   }
 
   .mobile-bar.mobile-bar--stacionar .mobile-action,
@@ -613,8 +614,10 @@ section.ic-final-stacionar.final h2 {
   .mobile-bar.mobile-bar--kodirovanie .mobile-action,
   .mobile-bar.mobile-bar--reabilitaciya .mobile-action {
     font-weight: 700;
-    letter-spacing: -0.02em;
-    box-shadow: 0 10px 26px rgba(16, 185, 129, 0.3);
+    letter-spacing: -0.021em;
+    box-shadow:
+      0 9px 24px rgba(16, 185, 129, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.13);
   }
 }
 

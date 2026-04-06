@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { City } from '@/data/cities'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { CALLBACK_MODAL_TITLE } from '@/lib/callback-modal-copy'
 import { CallbackButton } from '../ui/callback-button'
 
 export function LandingSiteHeader({ city }: { city: City }) {
@@ -64,7 +65,7 @@ export function LandingSiteHeader({ city }: { city: City }) {
             <a className="header-phone header-phone--desktop-only" href={`tel:${city.phone}`}>
               {city.phoneDisplay}
             </a>
-            <CallbackButton className="btn-primary-mock header-callback-btn">Обратный звонок</CallbackButton>
+            <CallbackButton className="btn-primary-mock header-callback-btn">{CALLBACK_MODAL_TITLE}</CallbackButton>
           </div>
           <div className="header-actions__row header-actions__row--meta">
             <a className="city-chip" href={homeHref}>

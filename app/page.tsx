@@ -9,6 +9,7 @@
 import { Metadata } from 'next'
 import { getActiveCities } from '@/data/cities'
 import CitySelector from '@/components/CitySelector'
+import { SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from '@/lib/site-phone'
 
 const ALL_SERVICES = [
   { slug: 'vyvod-iz-zapoya', name: 'Вывод из запоя' },
@@ -21,7 +22,7 @@ const ALL_SERVICES = [
 export const metadata: Metadata = {
   title: 'InterClinics — сеть наркологических клиник | Ставропольский край',
   description:
-    'Наркологическая помощь в Ставрополе, Пятигорске, Кисловодске, Ессентуках, Невинномысске, Минеральных Водах, Михайловске, Георгиевске. Вывод из запоя, стационар 24/7, кодирование, реабилитация. Анонимно, круглосуточно. 8 (800) 100-58-49',
+    `Наркологическая помощь в Ставрополе, Пятигорске, Кисловодске, Ессентуках, Невинномысске, Минеральных Водах, Михайловске, Георгиевске. Вывод из запоя, стационар 24/7, кодирование, реабилитация. Анонимно, круглосуточно. ${SITE_PHONE_DISPLAY}`,
   alternates: { canonical: 'https://interclinics.ru/' },
   openGraph: {
     title: 'InterClinics — наркологическая помощь в Ставропольском крае',
@@ -56,7 +57,7 @@ export default function HomePage() {
             '@type': 'MedicalOrganization',
             name: 'InterClinics',
             url: 'https://interclinics.ru/',
-            telephone: '+78001005849',
+            telephone: SITE_PHONE_E164,
             areaServed: active.map((c: any) => ({ '@type': 'City', name: c.name })),
             medicalSpecialty: 'Наркология',
           }),

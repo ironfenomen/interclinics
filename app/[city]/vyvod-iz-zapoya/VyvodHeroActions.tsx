@@ -1,6 +1,7 @@
 'use client'
 
 import type { City } from '@/data/cities'
+import { CALLBACK_MODAL_TITLE } from '@/lib/callback-modal-copy'
 import styles from './page.module.css'
 
 function openCallbackModal() {
@@ -16,7 +17,7 @@ export default function VyvodHeroActions({ city }: { city: City }) {
         Позвонить: {city.phoneDisplay}
       </a>
       <button type="button" className="btn btn-dark" onClick={openCallbackModal}>
-        Обратный звонок
+        {CALLBACK_MODAL_TITLE}
       </button>
     </div>
   )

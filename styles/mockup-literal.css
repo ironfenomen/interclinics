@@ -4662,7 +4662,7 @@ section.final + .footer{
   font-weight:500
 }
 
-/* floating — mobile: full-bleed toolbar, primary доминирует */
+/* floating — mobile: full-bleed premium action dock (единая система с chooser-menu) */
 .mobile-bar{
   display:none;
   position:fixed;
@@ -4670,21 +4670,25 @@ section.final + .footer{
   right:0;
   bottom:0;
   z-index:80;
-  padding:12px max(14px,env(safe-area-inset-left,0px)) max(14px,env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-right,0px));
-  border-radius:22px 22px 0 0;
-  background:linear-gradient(180deg,rgba(10,24,42,.98),rgba(7,20,35,.99));
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.1);
+  padding:11px max(16px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px));
+  border-radius:20px 20px 0 0;
+  background:linear-gradient(180deg,rgba(10,24,42,.97),rgba(6,17,32,.992));
+  backdrop-filter:blur(22px) saturate(1.12);
+  -webkit-backdrop-filter:blur(22px) saturate(1.12);
+  border:1px solid rgba(255,255,255,.09);
   border-bottom:none;
-  box-shadow:0 -8px 40px rgba(6,17,32,.35), inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow:
+    0 -14px 44px rgba(0,0,0,.22),
+    0 -6px 24px rgba(6,17,32,.38),
+    inset 0 1px 0 rgba(255,255,255,.09),
+    0 0 0 1px rgba(0,0,0,.12) inset;
   box-sizing:border-box;
   max-width:100%
 }
 .mobile-bar-inner{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 50px 50px;
-  gap:9px;
+  grid-template-columns:minmax(0,1fr) 52px 52px;
+  gap:10px;
   align-items:stretch;
   min-width:0;
   width:100%
@@ -4693,41 +4697,90 @@ section.final + .footer{
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:16px;
+  border-radius:17px;
   font-weight:800;
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent
 }
 .mobile-bar-inner .mobile-action{
-  min-height:56px;
-  padding:0 18px 0 20px;
-  font-size:16px;
-  letter-spacing:-.024em;
-  line-height:1.12;
+  min-height:54px;
+  padding:0 17px 0 18px;
+  font-size:15px;
+  letter-spacing:-.022em;
+  line-height:1.15;
   text-align:center;
-  border-radius:16px
+  border-radius:17px;
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease
+}
+.mobile-bar-inner .mobile-action:active{
+  transform:scale(.987);
+  filter:brightness(.97)
 }
 .mobile-bar-inner .fab{
-  min-width:50px;
-  min-height:56px;
-  border-radius:15px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.09)
+  min-width:52px;
+  min-height:54px;
+  border-radius:16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.1),
+    0 1px 0 rgba(0,0,0,.1);
+  transition:transform .18s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease
 }
+.mobile-bar-inner .fab:active{
+  transform:scale(.96)
+}
+
+/* React: выбор мессенджера в sticky mobile-bar */
+.ic-messenger-slot{
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  min-height:54px;
+  width:100%;
+  min-width:0
+}
+.ic-msger-root{
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  min-height:54px
+}
+.ic-msger-root .fab{
+  width:100%;
+  min-height:54px
+}
+.ic-msger-trigger{
+  color:#3EE08F
+}
+.ic-msger-trigger svg{
+  flex-shrink:0
+}
+
 .mobile-action{
-  background:linear-gradient(180deg,#12D991,var(--emerald-2));
+  background:linear-gradient(180deg,#14DCA0,var(--emerald-2));
   color:#fff;
-  box-shadow:0 12px 32px rgba(16,185,129,.38),inset 0 1px 0 rgba(255,255,255,.14)
+  box-shadow:
+    0 10px 28px rgba(16,185,129,.33),
+    inset 0 1px 0 rgba(255,255,255,.15)
 }
 .fab{
-  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
-  border:1px solid rgba(255,255,255,.12)
+  background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.055));
+  border:1px solid rgba(255,255,255,.11)
 }
 .fab--wa{
-  background:linear-gradient(180deg,rgba(45,220,120,.16),rgba(37,211,102,.08));
-  border-color:rgba(45,212,130,.22)
+  background:linear-gradient(180deg,rgba(48,224,128,.18),rgba(37,211,102,.085));
+  border-color:rgba(52,224,130,.24)
 }
-.fab--wa svg{fill:#34E079}
+.fab--wa svg{fill:none}
 .fab svg{width:22px;height:22px}
+/* Обратный звонок: чуть мягче штрих, без спора с CTA */
+.mobile-bar-inner .fab:not(.fab--wa) path{
+  stroke:rgba(255,255,255,.9);
+  stroke-width:1.85;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
 .float-wa{
   position:fixed;
   right:max(18px,env(safe-area-inset-right,0px));
@@ -5386,7 +5439,7 @@ section.final + .footer{
   .ic-mockup-scroll-pad{
     display:block;
     width:100%;
-    height:calc(68px + max(14px, env(safe-area-inset-bottom, 0px)));
+    height:calc(65px + max(12px, env(safe-area-inset-bottom, 0px)));
     flex-shrink:0;
     margin:0;
     padding:0;

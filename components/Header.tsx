@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import { City } from '@/data/cities'
 import { BRAND_DISPLAY_NAME } from '@/lib/brand-display'
+import { CALLBACK_MODAL_TITLE } from '@/lib/callback-modal-copy'
 
 function openCallbackModal() {
   const modal = document.getElementById('callbackModal')
@@ -83,7 +84,7 @@ export default function Header({ city }: { city: City }) {
                 {city.phoneDisplay}
               </a>
               <button type="button" className="btn-primary-mock header-callback-btn" onClick={openCallbackModal}>
-                Обратный звонок
+                {CALLBACK_MODAL_TITLE}
               </button>
             </div>
             <div className="header-actions__row header-actions__row--meta">

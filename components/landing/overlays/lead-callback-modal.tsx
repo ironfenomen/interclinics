@@ -1,6 +1,17 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  CALLBACK_MODAL_CONSENT_PREFIX,
+  CALLBACK_MODAL_LEAD,
+  CALLBACK_MODAL_PLACEHOLDER_NAME,
+  CALLBACK_MODAL_PLACEHOLDER_PHONE,
+  CALLBACK_MODAL_PRIVACY_LINK_TEXT,
+  CALLBACK_MODAL_SUBMIT_LABEL,
+  CALLBACK_MODAL_SUCCESS_TEXT,
+  CALLBACK_MODAL_SUCCESS_TITLE,
+  CALLBACK_MODAL_TITLE,
+} from '@/lib/callback-modal-copy'
 import { useLandingModal } from '../providers/landing-ui-context'
 import { digitsOnly, formatRuPhoneInput, isPhoneComplete } from '../lib/phone-format'
 
@@ -89,16 +100,13 @@ export function LeadCallbackModal() {
         {!showSuccess ? (
           <div>
             <h3 id="modal-title" className="text-[28px] font-extrabold leading-tight tracking-tight text-deep-2">
-              Обратный звонок за 30 секунд
+              {CALLBACK_MODAL_TITLE}
             </h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">
-              Этот модальный сценарий нужен для тех, кто не дозрел до действия в основном потоке страницы, но готов
-              оставить контакт в отдельном спокойном окне.
-            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{CALLBACK_MODAL_LEAD}</p>
             <div className="mt-[18px] grid gap-2.5">
               <input
                 className="input-mock"
-                placeholder="Как к вам обращаться"
+                placeholder={CALLBACK_MODAL_PLACEHOLDER_NAME}
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
@@ -106,18 +114,18 @@ export function LeadCallbackModal() {
                 className={`input-mock ${phoneErr ? 'input-mock-error' : ''}`}
                 type="tel"
                 inputMode="tel"
-                placeholder="Ваш телефон *"
+                placeholder={CALLBACK_MODAL_PLACEHOLDER_PHONE}
                 value={phone}
                 onChange={e => onPhoneInput(e.target.value)}
               />
               <button type="button" className="btn-primary-mock w-full" onClick={onSubmit}>
-                Жду звонка
+                {CALLBACK_MODAL_SUBMIT_LABEL}
               </button>
             </div>
             <p className="mt-2.5 text-xs leading-relaxed text-ink-muted-2">
-              Нажимая кнопку, вы соглашаетесь с обработкой персональных данных и{' '}
+              {CALLBACK_MODAL_CONSENT_PREFIX}{' '}
               <a className="text-emerald-2 underline underline-offset-[3px]" href="/privacy">
-                политикой конфиденциальности
+                {CALLBACK_MODAL_PRIVACY_LINK_TEXT}
               </a>
               .
             </p>
@@ -127,11 +135,10 @@ export function LeadCallbackModal() {
             <div className="mx-auto mb-3.5 flex h-16 w-16 items-center justify-center rounded-full bg-[rgba(16,185,129,.12)] text-[30px] font-extrabold text-emerald">
               ✓
             </div>
-            <h3 className="text-[28px] font-extrabold leading-tight tracking-tight text-deep-2">Заявка отправлена</h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">
-              В боевой версии здесь должен быть реальный webhook, CRM или Telegram-бот. На уровне прототипа
-              отрабатывается UX состояния успеха.
-            </p>
+            <h3 className="text-[28px] font-extrabold leading-tight tracking-tight text-deep-2">
+              {CALLBACK_MODAL_SUCCESS_TITLE}
+            </h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{CALLBACK_MODAL_SUCCESS_TEXT}</p>
           </div>
         )}
       </div>

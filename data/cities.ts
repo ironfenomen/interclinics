@@ -4,6 +4,8 @@
 // Все страницы генерируются автоматически из этого массива.
 // ============================================================
 
+import { SITE_PHONE_DISPLAY, SITE_PHONE_E164, SITE_WHATSAPP_WA_ME_DIGITS } from '@/lib/site-phone'
+
 /** Переопределение владельца сайта в юрблоке футера мокапа (редко). */
 export interface CityFooterSiteOwner {
   name: string
@@ -30,10 +32,12 @@ export interface City {
   nameDat: string         // Ставрополю
   nameAdj: string         // ставропольский
   region: string          // Ставропольский край
-  phone: string           // +78001005849
-  phoneDisplay: string    // 8 (800) 100-58-49
-  whatsapp: string        // 79281234567
-  telegram?: string       // @interclinics_stv
+  phone: string           // SITE_PHONE_E164 — см. lib/site-phone.ts
+  phoneDisplay: string    // SITE_PHONE_DISPLAY
+  /** Дублирует SITE_WHATSAPP_WA_ME_DIGITS; href для мессенджеров — SITE_WHATSAPP_HREF в lib/site-phone.ts */
+  whatsapp: string
+  /** Зарезервировано под редкий per-city override; ссылки в UI — SITE_TELEGRAM_HREF в lib/site-phone.ts */
+  telegram?: string
 
   // Партнёр / своя клиника
   partnerName: string     // ООО «ИнтерКлиник»
@@ -102,10 +106,9 @@ export const cities: City[] = [
     nameDat: 'Ставрополю',
     nameAdj: 'ставропольский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
-    telegram: '',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -165,9 +168,9 @@ export const cities: City[] = [
     nameDat: 'Пятигорску',
     nameAdj: 'пятигорский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -220,9 +223,9 @@ export const cities: City[] = [
     nameDat: 'Кисловодску',
     nameAdj: 'кисловодский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -275,9 +278,9 @@ export const cities: City[] = [
     nameDat: 'Ессентукам',
     nameAdj: 'ессентукский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -330,9 +333,9 @@ export const cities: City[] = [
     nameDat: 'Невинномысску',
     nameAdj: 'невинномысский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -385,9 +388,9 @@ export const cities: City[] = [
     nameDat: 'Минеральным Водам',
     nameAdj: 'минераловодский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -440,9 +443,9 @@ export const cities: City[] = [
     nameDat: 'Михайловску',
     nameAdj: 'михайловский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',
@@ -495,9 +498,9 @@ export const cities: City[] = [
     nameDat: 'Георгиевску',
     nameAdj: 'георгиевский',
     region: 'Ставропольский край',
-    phone: '+78001005849',
-    phoneDisplay: '8 (800) 100-58-49',
-    whatsapp: '79286367642',
+    phone: SITE_PHONE_E164,
+    phoneDisplay: SITE_PHONE_DISPLAY,
+    whatsapp: SITE_WHATSAPP_WA_ME_DIGITS,
 
     partnerName: 'ООО «ИнтерКлиник»',
     partnerInn: 'ХХХХХХХХХХ',

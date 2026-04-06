@@ -8,7 +8,17 @@ import {
   isStavropolCity,
   type City,
 } from '@/data/cities'
+import {
+  CALLBACK_MODAL_LEAD,
+  CALLBACK_MODAL_PLACEHOLDER_NAME,
+  CALLBACK_MODAL_PLACEHOLDER_PHONE,
+  CALLBACK_MODAL_SUBMIT_LABEL,
+  CALLBACK_MODAL_SUCCESS_TEXT,
+  CALLBACK_MODAL_SUCCESS_TITLE,
+  CALLBACK_MODAL_TITLE,
+} from '@/lib/callback-modal-copy'
 import { buildMockupFooterLegalHtml } from '@/lib/footer-legal-mockup'
+import { SITE_MAX_HREF, SITE_TELEGRAM_HREF, SITE_WHATSAPP_HREF } from '@/lib/site-phone'
 import {
   brigadePluralPhrase,
   TOPBAR_DISCLAIMER_SHORT,
@@ -129,17 +139,6 @@ function coverageLocalHtml(city: City): string {
   const t = city.localText?.trim()
   if (!t) return ''
   return `<p class="coverage-local">${t}</p>`
-}
-
-function waHref(city: City): string {
-  const digits = city.whatsapp.replace(/\D/g, '')
-  return digits ? `https://wa.me/${digits}` : '#'
-}
-
-function tgHref(city: City): string {
-  const t = city.telegram?.trim()
-  if (!t) return '#'
-  return t.startsWith('http') ? t : `https://t.me/${t.replace(/^@/, '')}`
 }
 
 /** Адрес / ближайший центр для блока стационара на лендинге. */
@@ -292,6 +291,14 @@ export function getMockupHtml(city: City): string {
     .replaceAll('__P_REHAB_90__', fmt(city.priceRehab90))
     .replaceAll('__P_REHAB_6MO__', fmt(city.priceRehab6Mo))
     .replaceAll('__REHAB_PROGRAM_NOTE_HTML__', rehabProgramNoteHtml(city))
-    .replaceAll('__WA_HREF__', waHref(city))
-    .replaceAll('__TG_HREF__', tgHref(city))
+    .replaceAll('__WA_HREF__', SITE_WHATSAPP_HREF)
+    .replaceAll('__TG_HREF__', SITE_TELEGRAM_HREF)
+    .replaceAll('__MAX_HREF__', SITE_MAX_HREF)
+    .replaceAll('__CALLBACK_MODAL_TITLE__', CALLBACK_MODAL_TITLE)
+    .replaceAll('__CALLBACK_MODAL_LEAD__', CALLBACK_MODAL_LEAD)
+    .replaceAll('__CALLBACK_MODAL_PLACEHOLDER_NAME__', CALLBACK_MODAL_PLACEHOLDER_NAME)
+    .replaceAll('__CALLBACK_MODAL_PLACEHOLDER_PHONE__', CALLBACK_MODAL_PLACEHOLDER_PHONE)
+    .replaceAll('__CALLBACK_MODAL_SUBMIT_LABEL__', CALLBACK_MODAL_SUBMIT_LABEL)
+    .replaceAll('__CALLBACK_MODAL_SUCCESS_TITLE__', CALLBACK_MODAL_SUCCESS_TITLE)
+    .replaceAll('__CALLBACK_MODAL_SUCCESS_TEXT__', CALLBACK_MODAL_SUCCESS_TEXT)
 }

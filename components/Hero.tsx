@@ -2,6 +2,7 @@
 
 // components/Hero.tsx
 import { City, isStavropolCity } from '@/data/cities'
+import { CALLBACK_MODAL_TITLE } from '@/lib/callback-modal-copy'
 import LeadForm from './LeadForm'
 
 export default function Hero({ city }: { city: City }) {
@@ -145,7 +146,7 @@ export default function Hero({ city }: { city: City }) {
                 textAlign:'center',
               }}
             >
-              Обратный звонок
+              {CALLBACK_MODAL_TITLE}
             </button>
           </div>
 

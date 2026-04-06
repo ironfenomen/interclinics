@@ -1,6 +1,7 @@
 'use client'
 
 import { City } from '@/data/cities'
+import { CALLBACK_MODAL_TITLE } from '@/lib/callback-modal-copy'
 
 function openCallbackModal() {
   const m = document.getElementById('callbackModal')
@@ -51,7 +52,7 @@ export default function MidCTA({ city }: { city: City }) {
               flexShrink: 0,
             }}
           >
-            Обратный звонок
+            {CALLBACK_MODAL_TITLE}
           </button>
         </div>
       </div>

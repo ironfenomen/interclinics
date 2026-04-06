@@ -3,6 +3,7 @@
 // components/LeadForm.tsx
 import { useState, useRef } from 'react'
 import type { City } from '@/data/cities'
+import { SiteMessengerRowLeadForm } from '@/components/site-messenger-chips'
 
 interface Props {
   city: City
@@ -221,24 +222,7 @@ export default function LeadForm({ city, variant, ctaVariant = 'default' }: Prop
               <a href="/privacy/" style={{ color: 'var(--em-d)', textDecoration: 'underline' }}>политикой конфиденциальности</a>
             </p>
 
-            <div style={{
-              display: 'flex', gap: 8, marginTop: 12, paddingTop: 12,
-              borderTop: '1px solid var(--b2)'
-            }}>
-              <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500, alignSelf: 'center', flexShrink: 0 }}>
-                Или напишите:
-              </span>
-              <a href={`https://wa.me/${city.whatsapp}`} target="_blank" rel="noopener"
-                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '10px 10px', minHeight: 40, borderRadius: 12, fontSize: 12, fontWeight: 700, border: '1px solid var(--b1)', color: '#25D366', background: '#fff' }}>
-                WhatsApp
-              </a>
-              {city.telegram && (
-                <a href={`https://t.me/${city.telegram}`} target="_blank" rel="noopener"
-                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '10px 10px', minHeight: 40, borderRadius: 12, fontSize: 12, fontWeight: 700, border: '1px solid var(--b1)', color: '#2AABEE', background: '#fff' }}>
-                  Telegram
-                </a>
-              )}
-            </div>
+            <SiteMessengerRowLeadForm />
           </>
         )}
       </div>
