@@ -5,8 +5,8 @@
 //
 // ЦЕПОЧКА:
 //   1. Cookie ic_city → window.location.replace
-//   2. Гео: параллельно /api/geo-hint + ip-api.com + ipapi.co с общим бюджетом ~2.5s (не последовательно!)
-//   3. Ручной выбор; fail-safe 3s на фазе loading → всегда select
+//   2. Гео: параллельно /api/geo-hint + ip-api.com + ipapi.co с общим бюджетом ≤2s (не последовательно!)
+//   3. Ручной выбор; fail-safe 2s на фазе loading → всегда select; таймер снимается после ответа гео
 //
 // СБОИ: AbortController, try/catch; fail-safe гарантирует список городов без бесконечной крутилки
 //
@@ -144,8 +144,8 @@ export default function CitySelector({ cities, services }: Props) {
   useEffect(() => {
     let cancelled = false
 
-    const LOADING_FAILSAFE_MS = 3000
-    const GEO_BUDGET_MS = 2500
+    const LOADING_FAILSAFE_MS = 2000
+    const GEO_BUDGET_MS = 2000
 
     const failSafe = window.setTimeout(() => {
       if (cancelled) return
@@ -189,6 +189,8 @@ export default function CitySelector({ cities, services }: Props) {
       }
 
       if (cancelled) return
+
+      window.clearTimeout(failSafe)
 
       if (city) {
         setDetected(city)
@@ -278,7 +280,7 @@ export default function CitySelector({ cities, services }: Props) {
                 </svg>
               </div>
               <p className="cs-loading-text">Определяем ваш город…</p>
-              <p className="cs-loading-hint">Это займёт несколько секунд</p>
+              <p className="cs-loading-hint">Обычно не дольше 2 секунд</p>
             </div>
           )}
 
@@ -472,6 +474,14 @@ export default function CitySelector({ cities, services }: Props) {
 // CSS
 // ==================================================================
 const CSS = `
+/* ── CSS-переменные (самодостаточны: не зависят от mockup-literal.css) ── */
+:root{
+  --deep-2:#0B1D35;--deep-3:#143252;
+  --emerald:#10B981;--emerald-2:#0FA06F;
+  --radius-m:18px;
+  --font:var(--font-plus-jakarta),'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
 /* ── Анимации ──────────────────────────────────────────────── */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
