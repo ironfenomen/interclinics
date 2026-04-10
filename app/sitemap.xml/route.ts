@@ -1,4 +1,4 @@
-import { getSitemapEntries } from '@/lib/sitemap-entries'
+import { getSitemapEntries, normalizeSitemapLoc } from '@/lib/sitemap-entries'
 
 const URLSET_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 
@@ -16,21 +16,18 @@ export const dynamic = 'force-static'
 
 export function GET() {
   const entries = getSitemapEntries()
-  const parts: string[] = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    `<urlset xmlns="${URLSET_NS}">`,
-  ]
-
-  for (const e of entries) {
-    const loc = escapeXml(e.loc.replace(/\s+/g, ''))
+  const urlRows = entries.map((e) => {
+    const loc = escapeXml(normalizeSitemapLoc(e.loc))
     const pr = e.priority.toFixed(1)
-    parts.push(
-      `<url><loc>${loc}</loc><changefreq>${e.changefreq}</changefreq><priority>${pr}</priority></url>`
-    )
-  }
+    return `<url><loc>${loc}</loc><changefreq>${e.changefreq}</changefreq><priority>${pr}</priority></url>`
+  })
 
-  parts.push('</urlset>')
-  const body = parts.join('\n')
+  // Без переносов в теле: иначе часть просмотрщиков/валидаторов визуально «раздувает» <loc>.
+  const body =
+    '<?xml version="1.0" encoding="UTF-8"?>' +
+    `<urlset xmlns="${URLSET_NS}">` +
+    urlRows.join('') +
+    '</urlset>'
 
   return new Response(body, {
     status: 200,
